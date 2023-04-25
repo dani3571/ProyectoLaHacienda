@@ -391,28 +391,15 @@ body{
     </div>
 </section>
 -->
-
 <div  class="row bg-img-principal align-items-center" style="background-image: url({{url('images/main_movil.png')}}) ; background-size: cover; background-position:center;	height: 700px;">
       	
-	<div class="offset-5 col-6 bg-light p-3 d-none d-lg-block">
-		<h3 class="font-color-general">Clínica veterinaria que en verdad se preocupa por tu 🐕</h3>
-		<p>
-			Tenemos más de 10 años ofreciendo nuestros servicios a personas como tú, que necesitan la mejor atención para su mascota.	
-		</p>
-		<p>
-			Tenemos disponibles a los mejores veterinarios de la ciudad. Están en capacitación constante y siempre disponibles para darte el mejor servicio.
-		</p>
+	<div class="offset-3 col-7 bg-light p-3 d-none d-lg-block">
+		<h3 class="font-color-general" style="font-size:100px">Complejo La Hacienda</h3>
 	</div>
 
 
 	<div class="col-10 mx-auto bg-light p-3 d-block d-lg-none">
-		<h3 class="font-color-general">Clínica veterinaria que en verdad se preocupa por tu 🐕</h3>
-		<p>
-			Tenemos más de 10 años ofreciendo nuestros servicios a personas como tú, que necesitan la mejor atención para su mascota.	
-		</p>
-		<p>
-			Tenemos disponibles a los mejores veterinarios de la ciudad. Están en capacitación constante y siempre disponibles para darte el mejor servicio.
-		</p>
+		<h3 class="font-color-general">Complejo La Hacienda</h3>
 	</div>
 	  </div>
 	<!-- INICIO SECCIÓN NOSOTROS class="container-fluid bg-color-azul p-3"-->
@@ -426,7 +413,7 @@ body{
 
 		<div class="row  align-items-center">
 			<div class="col-12 col-lg-6">
-				<img src="img/vets.jpg" class="img-fluid p-3" alt="nosotros">
+				<img src="{{asset('images/hacienda.png')}}" width="600px" height="600px" class="img-fluid p-3" alt="nosotros">
 			</div>
 			
 			<div class="col-12 col-lg-6 text-white p-3">

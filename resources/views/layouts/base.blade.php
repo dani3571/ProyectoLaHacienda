@@ -16,6 +16,7 @@
     <link href="{{ asset('css/base/css/general.css') }}" rel="stylesheet">
     <link href="{{ asset('css/base/css/menu.css') }}" rel="stylesheet">
     <link href="{{ asset('css/base/css/footer.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/login/login.css') }}" rel="stylesheet">
   
    <!--Integrando boostrap en linea-->
     <!--
