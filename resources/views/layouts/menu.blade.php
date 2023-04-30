@@ -62,6 +62,12 @@ body {
 		background-position: center center;	
 	}	
 }
+.img-profile {
+    width: 60px;
+    border-radius: 3px;
+    height: 60px;
+  
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -85,6 +91,7 @@ body {
 
 <!-- INICIO NAVBAR -->
 <!-- INICIO SECCIÓN INFORMES -->
+@guest
 <div class="container-fluid bg-color-info font-color-general" id="inicio">
 	<div class="row">
 		<div class="col-12 col-lg-6 text-center text-lg-left my-3 pl-5">
@@ -124,8 +131,58 @@ body {
                 <a class="nav-link font-color-general mr-3 ml-3" href="{{route('login')}}">Acceder</a>
             </li>
 			
-
 		</ul>
     </div>
 </nav>
 
+
+	@else
+	<div class="container-fluid bg-color-info font-color-general" id="inicio">
+		<div class="row">
+			<div class="col-12 col-lg-6 text-center text-lg-left my-3 pl-5">
+				Col. del Valle, Ciudad de México
+			</div>
+	
+			<div class="col-12 col-lg-6 text-center text-lg-right my-3 pr-5">
+				Lunes a Viernes de 9 am a 7 pm. <span class="font-weigth-bolder"><i class="fi-xnsuxl-smartphone-solid"></i> 5541554263</span> 
+			</div>
+		</div>
+	</div>
+	<nav class="navbar navbar-expand-lg sticky-top bg-light">
+		<img src="{{asset('images/logo.png')}}" width="90" height="90">
+		<span class="brand-name">La Hacienda</span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="font-color-general"><i class="fi-xwsrxl-ellipsis"></i></span>
+		</button>
+	
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<div class="dropdown">
+					<img src="{{asset('images/user.png')}}" alt="Profile" class="img-profile">
+					
+					<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" 
+					   data-bs-toggle="dropdown" aria-expanded="false">
+					   <span class="nav-link font-color-general mr-lg-3 ml-3 name-user">{{Auth::user()->name}}</span>
+					</a>
+		
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<li><a class="dropdown-item">
+					
+							<li><a class="dropdown-item" href="">Ir al admin</a></li>
+						
+						<li>
+							<form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+							  @csrf  
+							</form>
+							<a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); 
+								   document.getElementById('logout-form').submit();">Salir</a>
+						</li>
+					</ul>
+				</div>
+
+				</ul>
+		</div>
+	</nav>
+	
+	
+@endguest
