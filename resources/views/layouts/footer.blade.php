@@ -19,9 +19,9 @@
       <div class="col-md-4">
         <h4>Síguenos en las redes sociales</h4>
         <ul class="list-unstyled">
-          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="#"><i class="fab fa-facebook-f"></i></a>Facebook</li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a>Twitter</li>
+          <li><a href="#"><i class="fab fa-instagram"></i></a>Instagram</li>
         </ul>
       </div>
     </div>

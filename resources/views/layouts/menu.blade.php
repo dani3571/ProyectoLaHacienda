@@ -1,24 +1,131 @@
+<style>
+/* estilos generales para toda la página */
+body {
+	font-family: 'Underdog', cursive;
+	margin: 0;
+}
 
-<header class="header">
-    <div class="menu">
+.bg-color-info {
+	background-color: rgb(244, 246, 251);
+}
 
-        <div class="logo">
-            <!--Logo-->
-            <a ><img width="115" height="115" src="{{asset('images/logo.png')}} " alt="Logo"></a>
-        </div>
-         <!--Utilizamos guest para usuarios que no esten registrados y asi mostrar la parte de acceder y crear cuenta ; con route('') ponermos la ruta del href-->
+.font-color-general {
+	color: rgb(67, 105, 176);
+}
 
-   
-        <ul class="d-flex">
-            <a href="{{route('login')}}" class="login">Acceder</a>
-            <a href="{{route('register')}}" class="create">Crear cuenta</a>
-        </ul>
-       
-        <!--Si esta autoenticado mostrara todo lo de abajo-->
-        
-        </nav>
+.brand-name {
+	font-size: 1.8rem;
+	color: rgb(67, 105, 176);
+	margin-left: 2rem;
+}
+
+.bg-img-principal {
+	background-image: url("img/main.jpg");
+	background-size: cover;
+	height: 650px;
+	background-position: center center;
+}
+
+.bloque-texto-principal {
+	margin-top:;
+}
+
+.bg-color-azul {
+	background-color: rgb(67, 105, 176);
+}
+
+.hrblanco {
+	width: 10%;
+	background-color: white;
+}
+
+.hrazul {
+	width: 10%;
+	background-color: rgb(244, 246, 251);
+}
+
+
+/* estilos específicos para pantallas menores a 992px (menor que lg de bootstrap) */
+@media only screen and (max-width : 992px) {
+
+	.brand-name {
+		font-size: 1.8rem;
+		color: rgb(67, 105, 176);
+		margin-left: 1rem;
+	}
+
+	/* tenemos 1 imagen específica para móvil */
+	.bg-img-principal {
+		background-image: url("img/main_movil.png");
+		background-size: cover;
+		height: 500px;
+		background-position: center center;	
+	}	
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Underdog&display=swap" rel="stylesheet">
+
+	<!-- nuestros estilos-->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!-- iconos de friconix-->
+	<script defer src="https://friconix.com/cdn/friconix.js"></script>
+
+
+<!-- INICIO NAVBAR -->
+<!-- INICIO SECCIÓN INFORMES -->
+<div class="container-fluid bg-color-info font-color-general" id="inicio">
+	<div class="row">
+		<div class="col-12 col-lg-6 text-center text-lg-left my-3 pl-5">
+			Col. del Valle, Ciudad de México
+		</div>
+
+		<div class="col-12 col-lg-6 text-center text-lg-right my-3 pr-5">
+			Lunes a Viernes de 9 am a 7 pm. <span class="font-weigth-bolder"><i class="fi-xnsuxl-smartphone-solid"></i> 5541554263</span> 
+		</div>
+	</div>
+</div>
+<nav class="navbar navbar-expand-lg sticky-top bg-light">
+    <img src="{{asset('images/logo.png')}}" width="90" height="90">
+	<span class="brand-name">La Hacienda</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="font-color-general"><i class="fi-xwsrxl-ellipsis"></i></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link font-color-general mr-lg-3 ml-3" href="#inicio">Inicio</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link font-color-general mr-3 ml-3" href="#nosotros">Nosotros</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link font-color-general mr-3 ml-3" href="#servicios">Servicios</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link font-color-general mr-3 ml-3" href="#contacto">Contacto</a>
+            </li>
+			<li class="nav-item active">
+                <a class="nav-link font-color-general mr-3 ml-3" href="#contacto">Productos</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link font-color-general mr-3 ml-3" href="{{route('login')}}">Acceder</a>
+            </li>
+			
+
+		</ul>
     </div>
-
-
-</header>
+</nav>
 

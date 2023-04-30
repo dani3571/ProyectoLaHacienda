@@ -320,78 +320,24 @@ body{
 }
 
 </style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<!-- google fonts -->
+<link href="https://fonts.googleapis.com/css?family=Underdog&display=swap" rel="stylesheet">
+
+<!-- nuestros estilos-->
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<!-- iconos de friconix-->
+<script defer src="https://friconix.com/cdn/friconix.js"></script>
+
 @endsection
 
 @section('title', 'La Hacienda')
 
 @section('content')
-<!--
-<section class="container-fluid" style="padding: 0; margin:0">
-
-        <div class="offset-5 col-6 bg-light p-3 d-none d-lg-block">
-            <h3 class="font-color-general">Clínica veterinaria que en verdad se preocupa por tu 🐕</h3>
-            <p>
-                Tenemos más de 10 años ofreciendo nuestros servicios a personas como tú, que necesitan la mejor atención para su mascota.	
-            </p>
-            <p>
-                Tenemos disponibles a los mejores veterinarios de la ciudad. Están en capacitación constante y siempre disponibles para darte el mejor servicio.
-            </p>
-        </div>
-
-
-        <div class="col-10 mx-auto bg-light p-3 d-block d-lg-none">
-            <h3 class="font-color-general">Clínica veterinaria que en verdad se preocupa por tu 🐕</h3>
-            <p>
-                Tenemos más de 10 años ofreciendo nuestros servicios a personas como tú, que necesitan la mejor atención para su mascota.	
-            </p>
-            <p>
-                Tenemos disponibles a los mejores veterinarios de la ciudad. Están en capacitación constante y siempre disponibles para darte el mejor servicio.
-            </p>
-        </div>
-
-    </div>
-    
-</section>
-
-<section class="container-fluid bg-color-azul p-3" id="nosotros" style="z-index: 10">
-    <h4 class="text-white text-center p-3">
-        ¿Quiénes somos?
-    </h4>
-
-    <hr class="hrblanco">
-
-    <div class="row  align-items-center">
-        <div class="col-12 col-lg-6">
-            <img src="img/vets.jpg" class="img-fluid p-3" alt="nosotros">
-        </div>
-        <div class="col-12 col-lg-6 text-white p-3">
-            <h4 class="my-3">
-                Nosotros:
-            </h4>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-            </p>
-
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
-            </p>
-
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </p>
-
-            <p class="text-center">
-                <a href="#" class="font-weigth-bolder-bold text-white">Pide una cita</a>
-            </p>
-        </div>
-    </div>
-</section>
--->
-<div  class="row bg-img-principal align-items-center" style="background-image: url({{url('images/main_movil.png')}}) ; background-size: cover; background-position:center;	height: 700px;">
+<div  class="row bg-img-principal align-items-center" style="background-image: url({{url('images/main_movil.png')}}) ; background-size: cover; background-position:center;	height: 700px; ">
       	
 	<div class="offset-3 col-7 bg-light p-3 d-none d-lg-block">
 		<h3 class="font-color-general" style="font-size:100px">Complejo La Hacienda</h3>
@@ -404,7 +350,8 @@ body{
 	  </div>
 	<!-- INICIO SECCIÓN NOSOTROS class="container-fluid bg-color-azul p-3"-->
 
-	<section  id="nosotros" class="dd" style="margin-top: 2px">
+   
+	<section  id="nosotros"  class="container-fluid bg-color-azul p-3" style="margin-top: 2px">
 		<h4 class="text-white text-center p-3">
 			¿Quiénes somos?
 		</h4>
