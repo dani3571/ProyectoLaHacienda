@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,11 @@ Route::get('/', function () {
 Route::get('/inicio', function () {
     return view('home/inicio');
 });
+
 Auth::routes();
 
+Route::get('/products', [ProductosController::class, 'index', 'productos'])
+    ->name('products.productos');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

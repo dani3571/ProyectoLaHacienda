@@ -125,7 +125,7 @@ body {
                 <a class="nav-link font-color-general mr-3 ml-3" href="#contacto">Contacto</a>
             </li>
 			<li class="nav-item active">
-                <a class="nav-link font-color-general mr-3 ml-3" href="#contacto">Productos</a>
+                <a class="nav-link font-color-general mr-3 ml-3" href="{{route('products.productos')}}">Productos</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link font-color-general mr-3 ml-3" href="{{route('login')}}">Acceder</a>
