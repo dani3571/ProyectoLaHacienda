@@ -393,8 +393,10 @@ body{
 
 		<div class="row">
 			<div class="col-12 col-lg-4">
+                
 				<h5 class="font-color-general text-center p-3"  style="font-size:xx-large">Veterinaria</h5>
-				<p class="p-3" style="text-align: justify; font-size:max-large" >
+                <img src="{{asset('images/veterinaria.jpg')}}"  class="img-fluid " alt="imagen nutricion">	
+                <p class="p-3" style="text-align: justify; font-size:max-large" >
 					Nos dedicamos a brindar atención médica de alta calidad y compasiva para su mascota, esforzandonos por conocer a cada uno de nuestros pacientes y sus necesidades individuales. 
 				</p>
 
@@ -402,14 +404,18 @@ body{
 
 			<div class="col-12 col-lg-4">
 				<h5 class="font-color-general text-center p-3" style="font-size:xx-large">Hoteleria</h5>
-				<p class="p-3" style="text-align: justify; font-size:max-large" >
+                <img src="{{asset('images/hoteleria.jpg')}}" class="img-fluid" alt="imagen nutricion">	
+           
+                <p class="p-3" style="text-align: justify; font-size:max-large" >
 					Nuestro servicio de hotelería canina ofrece un hogar lejos del hogar para su perro mientras está fuera. Contamos con instalaciones seguras y cómodas para mantener a su perro feliz y saludable durante su estadía.
 				</p>
 			</div>
 
 			<div class="col-12 col-lg-4">
 				<h5 class="font-color-general text-center p-3"  style="font-size:xx-large">Peluquería</h5>
-				<p class="p-3" style="text-align: justify; font-size:max-large" >
+                <img src="{{asset('images/pel3.jpg')}}" class="img-fluid" alt="imagen nutricion">	
+            
+                <p class="p-3" style="text-align: justify; font-size:max-large" >
 					Ofrecemos un servicio de peluquería canina personalizado con productos de alta calidad. Desde baños y cortes de pelo hasta tratamientos de piel y uñas, nos aseguramos de adaptar nuestros servicios a las necesidades de cada mascota.
 					</p>
 			</div>
