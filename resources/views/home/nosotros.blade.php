@@ -357,7 +357,7 @@ body{
 <div  class="row bg-img-principal align-items-center" style="background-image: url({{url('images/main_movil.png')}}) ; background-size: cover; background-position:center;	height: 700px; ">
       	
 	<div class="offset-3 col-7 bg-light p-3 d-none d-lg-block">
-		<h3 class="font-color-general" style="font-size:100px">Complejo La Hacienda</h3>
+		<h3 class="font-color-general" style="font-size:100px">NOSOTROS</h3>
 	</div>
 
 
