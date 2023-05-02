@@ -11,7 +11,16 @@
     text-decoration: none !important;
     list-style: none;
 }
+#map {
+  height: 100%;
+}
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body{
     background-color: rgba(177, 177, 177, 0.6) !important;
@@ -321,6 +330,7 @@ body{
 
 </style>
 <!-- Bootstrap CSS -->
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <!-- google fonts -->
@@ -422,13 +432,16 @@ body{
 
 		</div>
 	</section>
-
+    
+    <div id="map"></div>
 	<!-- FIN SECCIÓN SERVICIOS-->
 @endsection
 
 @section('scripts')
+<script src="{{asset('js/map.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMQFfw2HqvUqtEOpdtOdumiOT6M3DOW3Y&callback=initMap&v=weekly" defer></script>
 @endsection
 
 
