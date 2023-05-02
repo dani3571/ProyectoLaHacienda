@@ -1,60 +1,59 @@
 /* Footer */
 
 .pie {
-  margin-top: 13px;
-  text-align: center;
+    margin-top: 13px;
+    text-align: center;
 }
 
 .pie a {
-  color: #FFF;
-  font-size: 11px;
-  text-transform: uppercase;
-  padding: 0 10px;
-  letter-spacing: 2px;
+    color: #fff;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 0 10px;
+    letter-spacing: 2px;
 }
 /* Estilo para el footer */
 .footer {
-  background-color: #f8f9fa;
-  padding: 30px 0;
-  margin-top: 30px;
+    background-color: #f8f9fa;
+    padding: 30px 0;
 }
 
 .footer h4 {
-  color: #343a40;
+    color: #343a40;
 }
 
 .footer p {
-  color: #6c757d;
+    color: #6c757d;
 }
 
 .footer ul li {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .footer a {
-  color: #343a40;
-  text-decoration: none;
+    color: #343a40;
+    text-decoration: none;
 }
 
 .footer a:hover {
-  color: #007bff;
+    color: #007bff;
 }
 
 .footer i {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 /* Estilo para dispositivos móviles */
 @media (max-width: 768px) {
-  .footer h4 {
-    margin-top: 30px;
-  }
+    .footer h4 {
+        margin-top: 30px;
+    }
 
-  .footer ul {
-    margin-top: 30px;
-  }
+    .footer ul {
+        margin-top: 30px;
+    }
 
-  .footer ul li {
-    margin-bottom: 0;
-  }
+    .footer ul li {
+        margin-bottom: 0;
+    }
 }

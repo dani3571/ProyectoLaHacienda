@@ -12,7 +12,14 @@
     list-style: none;
 }
 #map {
-  height: 100%;
+  height: 800px;
+  margin: 50px;
+  
+  background-color: rgb(67, 105, 176);
+  border-radius: 40px;
+   -webkit-box-shadow: 2.5px 1.5px 7.5px -0.5px #414141;
+   -moz-box-shadow: 2.5px 1.5px 7.5px -0.5px #414141;
+   box-shadow: 2.5px 1.5px 7.5px -0.5px #414141;
 }
 
 html,
@@ -433,15 +440,29 @@ body{
 		</div>
 	</section>
     
-    <div id="map"></div>
+	<section  id="nosotros"  class="container-fluid bg-color-azul p-3" style="margin-top: 2px">
+        <div id="map"></div>
+    </section>
 	<!-- FIN SECCIÓN SERVICIOS-->
-@endsection
+    @endsection
 
 @section('scripts')
 <script src="{{asset('js/map.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMQFfw2HqvUqtEOpdtOdumiOT6M3DOW3Y&callback=initMap&v=weekly" defer></script>
+<script>
+let map;
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -16.637996289362487, lng: -68.04656417274363 },
+        zoom: 18,
+    });
+}
+
+window.initMap = initMap;
+
+</script>
 @endsection
 
 
