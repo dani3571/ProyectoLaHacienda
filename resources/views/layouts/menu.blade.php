@@ -95,7 +95,7 @@ body {
 <div class="container-fluid bg-color-info font-color-general" id="inicio">
 	<div class="row">
 		<div class="col-12 col-lg-6 text-center text-lg-left my-3 pl-5">
-			Col. del Valle, Ciudad de México
+			Complejo la Hacienda, Ciudad de La Paz
 		</div>
 
 		<div class="col-12 col-lg-6 text-center text-lg-right my-3 pr-5">
