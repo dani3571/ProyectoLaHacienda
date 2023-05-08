@@ -41,4 +41,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function ventas()
+    {
+        return $this->hasMany(Ventas::class);
+    }
+    //relacion de 1 a muchos
+    public function mascotas()
+    {
+        return $this->hasMany(Mascotas::class);
+    }
+
+    //relacion de 1 a muchos
+    public function usuario_reservacion_hotels()
+    {
+        return $this->hasMany(UsuarioReseracionHotel::class);
+    }
+    
+    //relacion de 1 a muchos
+    public function usuario_reservacion_peluquerias()
+    {
+        return $this->hasMany(UsuarioReseracionPeluqueria::class);
+    }
+    
+    //relacion de 1 a muchos
+    public function usuario_reservacion_veterinarias()
+    {
+        return $this->hasMany(UsuarioReseracionVeterinaria::class);
+    }
+
 }

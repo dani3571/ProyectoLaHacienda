@@ -21,8 +21,7 @@
 </div>
 
 <div class="article-container">
-    <!-- Listar artículos la variable articles la sacamos del controlador-->
-  
+
 </div>
 
 @endsection

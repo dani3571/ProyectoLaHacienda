@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('pesos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 255);
-            $table->string('descripcion', 255);
-            $table->string('precio', 255);
-            $table->integer('cantidad');
-            $table->string('image', 255);
-            //si es 0 no disponible / si es 1 disponible
-            $table->char('estado', 1);
-        
+            $table->string('peso', 60);
+            $table->date('fecha');
+           
+            $table->unsignedBigInteger('mascota_id'); 
+            $table->foreign('mascota_id')
+            ->references('id')
+            ->on('mascotas')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productos');
+        Schema::dropIfExists('pesos');
     }
 };
