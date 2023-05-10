@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//PRINCIPAL 
 Route::get('/', function () {
     return view('home/index');
 });
@@ -41,3 +42,5 @@ Route::get('/products', [ProductosController::class, 'index', 'productos'])
     ->name('products.productos');
 
 
+//ADMINISTRADOR
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
