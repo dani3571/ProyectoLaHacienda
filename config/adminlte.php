@@ -319,9 +319,9 @@ return [
         ['header' => 'PANEL'],
         [
             'text' => 'Usuarios',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-            'active' =>  ['user*'],
+            'route'  => 'users.index',
+            'icon' => 'fas fa-users',
+            'active' =>  ['admin/users*'],
         ],
         [
             'text' => 'change_password',

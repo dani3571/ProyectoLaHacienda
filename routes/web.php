@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,17 @@ Route::get('/products', [ProductosController::class, 'index', 'productos'])
 
 //ADMINISTRADOR
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
+//Usuarios
+Route::resource('users', 'UserController')
+->except('create', 'store', 'show')
+->names('users');
+
+//Rutas admin
+
+Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
+ 
+    Route::resource('users', 'UserController')
+    ->except('create', 'store', 'show')
+    ->names('users');
+});
