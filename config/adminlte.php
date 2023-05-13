@@ -324,6 +324,13 @@ return [
             'active' =>  ['admin/users*'],
         ],
         [
+            'text' => 'Roles',
+            'route'  => 'roles.index',
+            'icon' => 'fa fa-lock',
+            'active' =>  ['admin/roles*'],
+            'can'=>'roles.index',
+        ],
+        [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',

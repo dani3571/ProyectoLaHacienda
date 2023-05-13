@@ -31,5 +31,27 @@ class RoleSeeder extends Seeder
                             'description' => 'Ver el dashboard'])->syncRoles([$admin, $veterinario, $adiestrador, $recepcionista, $ayudanteCirugias]);
 
         //distintos permisos
+        //permisos de rol
+     //Roles
+     Permission::create([
+        'name' => 'roles.index',
+        'description' => 'Ver roles'
+    ])->assignRole($admin);
+
+    Permission::create([
+        'name' => 'roles.create',
+        'description' => 'Crear roles'
+    ])->assignRole($admin);
+
+    Permission::create([
+        'name' => 'roles.edit',
+        'description' => 'Editar roles'
+    ])->assignRole($admin);
+
+    Permission::create([
+        'name' => 'roles.destroy',
+        'description' => 'Eliminar roles'
+    ])->assignRole($admin);
+
     }
 }
