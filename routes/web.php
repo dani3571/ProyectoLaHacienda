@@ -46,6 +46,9 @@ Route::get('/products', [ProductosController::class, 'index', 'productos'])
 //ADMINISTRADOR
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
+//VENTAS
+Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
+
 //Usuarios
 Route::resource('users', 'UserController')
 ->except('create', 'store', 'show')
@@ -63,4 +66,9 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('roles','RoleController')
     ->except('show')
     ->names('roles');
+
+    //Ventas
+    Route::resource('ventas','VentasController')
+    ->except('show')
+    ->names('ventas');
 });
