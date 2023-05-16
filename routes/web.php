@@ -61,9 +61,25 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('users', 'UserController')
     ->except('create', 'store', 'show')
     ->names('users');
-
     //Roles
     Route::resource('roles','RoleController')
     ->except('show')
     ->names('roles');
+    //Perfiles
+    Route::resource('profiles', ProfileController::class)
+    ->only('edit', 'update')
+    ->names('profiles');
+    //mascotas
+    Route::resource('mascotas', 'MascotasController')
+    ->except('show')
+    ->names('mascotas');
+
+     Route::get('/mascotas/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
+
+    //Ventas
+     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
+
+    Route::resource('ventas','VentasController')
+    ->except('show')
+    ->names('ventas');
 });

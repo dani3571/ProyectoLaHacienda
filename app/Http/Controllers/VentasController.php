@@ -14,6 +14,7 @@ class VentasController extends Controller
      */
     public function index()
     {
+        
         $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
             //->join('producto','detalle_ventas.id','=','ventas.id')
             ->select('detalle_ventas.*','ventas.*')
