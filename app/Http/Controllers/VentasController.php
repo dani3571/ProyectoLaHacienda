@@ -21,4 +21,10 @@ class VentasController extends Controller
             ->get();
         return view('admin.ventas.index', compact('ventas'));
     }
+
+    public function create()
+    {
+        return view('admin.ventas.create');
+    }
+
 }

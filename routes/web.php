@@ -77,7 +77,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
      Route::get('/mascotas/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
 
     //Ventas
-     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
+    Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
 
     Route::resource('ventas','VentasController')
     ->except('show')

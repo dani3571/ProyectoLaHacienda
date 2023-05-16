@@ -5,7 +5,7 @@
 @section('content_header')
 <h1>Ventas realizadas</h1>
 <br>
-<a href="" class="btn btn-primary">Crear nueva venta</a>
+<a href="{{route('ventas.create')}}" class="btn btn-primary">Crear nueva venta</a>
 @endsection
 
 @section('content')
