@@ -15,24 +15,11 @@ return new class extends Migration
     {
         Schema::create('detalle_ventas', function (Blueprint $table) {
             $table->id();
-            $table->date('fechaCompra')->nullable();
-            $table->date('fechaVencimiento')->nullable();
-            
             $table->unsignedBigInteger('id_venta'); 
             $table->foreign('id_venta')
             ->references('id')
             ->on('ventas')
             ->onDelete('cascade');
-        
-      
-           /*
-            $table->unsignedBigInteger('id_producto'); 
-            $table->foreign('id_producto')
-            ->references('id')
-            ->on('producto')
-            ->onDelete('set null');
-             */      
-            
              $table->unsignedBigInteger('id_producto');  
              $table->foreign('id_producto')
              ->references('id')

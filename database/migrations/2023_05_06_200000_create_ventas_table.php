@@ -14,22 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ventas', function (Blueprint $table) {
-            $table->id();  
-            $table->integer('cantidad');
+            $table->id(); 
+            $table->string('usuario', 50);
+            $table->string('cliente', 50); 
+            $table->decimal('cantidad', $totalDigits = 8, $decimalPlaces = 2);
+            $table->decimal('total', $totalDigits = 8, $decimalPlaces = 2);
             $table->date('fechaVenta');
-           
-            
-            $table->unsignedBigInteger('usuario_id'); 
-            $table->foreign('usuario_id')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade');
-            
             $table->timestamps();
-        
         });
     }
-
     /**
      * Reverse the migrations.
      *
