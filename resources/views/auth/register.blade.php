@@ -19,6 +19,41 @@
                         </span>
                     @enderror
                 </div>
+                <div class="input-content">
+                    <input type="text" name="ci" placeholder="Carnet de identidad" value="{{ old('ci') }}"
+                        autofocus>
+
+                    @error('ci')
+                        <span class="alert-red">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+                </div>
+
+
+                <div class="input-content">
+                    <input type="text" name="telefono" placeholder="Numero de telefono" value="{{ old('telefono') }}"
+                        autofocus>
+
+                    @error('telefono')
+                        <span class="alert-red">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+                </div>
+
+
+                <div class="input-content">
+                    <input type="text" name="direccion" placeholder="Direccion" value="{{ old('direccion') }}"
+                        autofocus>
+
+                    @error('direccion')
+                        <span class="alert-red">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+
+                </div>
 
                 <div class="input-content">
                     <input type="text" name="email" placeholder="Correo eléctronico" value="{{ old('email') }}"
@@ -31,6 +66,30 @@
                     @enderror
 
                 </div>
+
+                <div class="input-content">
+                    <input type="text" name="personaResponsable" placeholder="Nombre de referencia" value="{{ old('personaResponsable') }}"
+                        autofocus>
+
+                    @error('personaResponsable')
+                        <span class="alert-red">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="input-content">
+                    <input type="text" name="telefonoResponsable" placeholder="Telefono de referencia" value="{{ old('telefonoResponsable') }}"
+                        autofocus>
+
+                    @error('telefonoResponsable')
+                        <span class="alert-red">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+                </div>
+
+                
                 <div class="input-content">
                     <input type="password" name="password" placeholder="Contraseña">
         

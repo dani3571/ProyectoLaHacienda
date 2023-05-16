@@ -20,8 +20,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'ci',
+        'telefono',
+        'direccion',
         'email',
+        'personaResponsable',
+        'telefonoResponsable',
         'password',
+       
     ];
 
     /**
@@ -69,6 +75,12 @@ class User extends Authenticatable
     public function usuario_reservacion_veterinarias()
     {
         return $this->hasMany(UsuarioReseracionVeterinaria::class);
+    }
+
+    //Relacion 1 a 1 user - profile 
+
+    public function profile(){
+        return $this->hasOne(Profile::class);
     }
 
 }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
 
@@ -46,12 +48,24 @@ Route::get('/products', [ProductosController::class, 'index', 'productos'])
 //ADMINISTRADOR
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
+//Profile 
+/*
+Route::resource('profiles', ProfileController::class)
+    ->only('edit', 'update')
+    ->names('profiles');
+*/
+Route::resource('profiles', ProfileController::class)
+    ->only('edit', 'update')
+    ->names('profiles');
+
+
 //Usuarios
 Route::resource('users', 'UserController')
 ->except('create', 'store', 'show')
 ->names('users');
 
-//Rutas admin
+//Ruta perfil
+
 
 Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
    //Usuarios
@@ -63,4 +77,12 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('roles','RoleController')
     ->except('show')
     ->names('roles');
+
+    //mascotas
+    Route::resource('mascotas', 'MascotasController')
+    ->except('show')
+    ->names('mascotas');
+
+    Route::get('/mascotas/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
+   
 });

@@ -17,11 +17,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
+                  <!--  <th scope="col">ID</th>-->
                     <th scope="col">Nombre completo</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">CI</th>
+                    <th scope="col">Telefono</th>             
                     <th scope="col">Direccion</th>
-                    <th scope="col">Telefono</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">persona de referencia</th>
+                    <th scope="col">telefono de referencia</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -29,12 +32,18 @@
             <tbody>
                 @foreach ($user as $users )
                 <tr>
-                    <th>{{$users->id}}</th>
+              <!--      <th>{{$users->id}}</th>-->  
                     <td>{{$users->name}}</td>
-                    <td>{{$users->email}}</td>
+                    <td>{{$users->ci}}</td>
+                    <td>{{$users->telefono}}</td>          
                     <td>{{$users->direccion}}</td>
-                    <td>{{$users->telefono}}</td>
+                    <td>{{$users->email}}</td>          
+                    <td>{{$users->personaResponsable}}</td>
+                    <td>{{$users->telefonoResponsable}}</td>
+          
 
+
+                
                     <td width="10px"><a href="{{route('users.edit', $users)}}"
                             class="btn btn-primary btn-sm mb-2">Editar</a>
                     </td>

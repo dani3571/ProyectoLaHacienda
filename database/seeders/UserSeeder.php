@@ -18,19 +18,25 @@ class UserSeeder extends Seeder
     {
        User::create([
            'name' => 'Daniel Chavez',
-           'email' => 'dani@gmail.com',
-           'direccion' => 'Miraflores',
+           'ci'=> '13761371',
            'telefono' => '77731872',
+           'direccion' => 'Miraflores',
+           'email' => 'dani@gmail.com',
+           'personaResponsable' => 'Maria Gutierrez',
+           'telefonoResponsable' => '13721353',
            'password' => Hash::make('12345678'),
        ])->assignRole('Administrador');
 
        User::create([
         'name' => 'Juan Perez',
-        'email' => 'juanPer@gmail.com',
-        'direccion' => 'Calle diaz romero',
+        'ci'=> '13243252',
         'telefono' => '3123124',
+        'direccion' => 'Calle diaz romero',
+        'email' => 'juanPer@gmail.com',
+        'personaResponsable' => 'Maria Gutierrez',
+        'telefonoResponsable' => '12432354',
         'password' => Hash::make('12345678'),
     ])->assignRole('Cliente');
-
     }
+
 }

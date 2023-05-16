@@ -330,10 +330,15 @@ return [
             'active' =>  ['admin/roles*'],
             'can'=>'roles.index',
         ],
+     
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+          
+                'text' => 'Mascotas',
+                'route'  => 'mascotas.index',
+                'icon' => 'fas fa-poll',
+                'active' => ['admin/mascotas*'],
+             
+       
         ],
         [
             'text'    => 'multilevel',

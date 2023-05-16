@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('mascotas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 60);
             $table->string('tipo', 30);
             $table->string('raza', 30);
             $table->string('color', 30);
@@ -29,7 +30,6 @@ return new class extends Migration
             ->on('users')
             ->onDelete('cascade');
         
-            
         });
     }
 
