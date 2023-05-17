@@ -341,6 +341,11 @@ return [
        
         ],
         [
+            'text' => 'Peluqueria',
+            'url'  => 'admin/reservas_peluqueria',
+            'icon' => 'fas fa-fw fa-splotch',
+        ],
+        [
             'text' => 'Ventas',
             'url'  => 'admin/ventas',
             'icon' => 'fas fa-fw fa-money-check',

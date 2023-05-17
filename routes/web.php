@@ -79,6 +79,22 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
      Route::get('/pdf', 'MascotasController@getPDF')->name('getPDF');
 
      Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');
+     
+     
+    //reservas_peluqueria
+    Route::resource('reservas_peluqueria', 'Reservacion_peluqueriaController')
+    ->except('show')
+    ->names('reservas_peluqueria');
+
+     /*Route::get('/reservas_peluqueria/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
+     Route::put('/reservas_peluqueria/{mascota}/cambiar-estado', [MascotasController::class, 'cambiarEstado'])->name('mascotas.cambiar-estado');
+     Route::put('/reservas_peluqueria/{mascota}/restablecer-estado', [MascotasController::class, 'restablecerEstado'])->name('mascotas.restablecer-estado');
+
+     Route::delete('/mascotas/{mascota}/destroy', [MascotasController::class, 'destroy'])->name('mascotas.destroy');
+     
+
+     Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');*/
+
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
     Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
