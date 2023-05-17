@@ -76,7 +76,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
      Route::put('/mascotas/{mascota}/restablecer-estado', [MascotasController::class, 'restablecerEstado'])->name('mascotas.restablecer-estado');
 
      Route::delete('/mascotas/{mascota}/destroy', [MascotasController::class, 'destroy'])->name('mascotas.destroy');
-     
+     Route::get('/pdf', 'MascotasController@getPDF')->name('getPDF');
 
      Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');
     //Ventas

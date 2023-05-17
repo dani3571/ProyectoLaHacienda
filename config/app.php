@@ -14,7 +14,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'PDF' => Barryvdh\DomPDF\Facade::class,
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/La_Paz',
 
     /*
     |--------------------------------------------------------------------------
@@ -181,6 +181,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        //agregando domPDF
+        Barryvdh\DomPDF\ServiceProvider::class,
+        
         
         /*
          * Package Service Providers...

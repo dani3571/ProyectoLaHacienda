@@ -37,7 +37,6 @@
                     <th>fechaNacimiento</th>
                     <th>Caracter</th>
                     <th>Sexo</th>
-
                 </tr>
             </thead>
 
@@ -55,8 +54,6 @@
                     <td>{{$mascota->sexo}}</td>
                     
   
-  
-
                     <td width="10px">
                         <form action="{{ route('mascotas.restablecer-estado', $mascota->id) }}" method="POST">
                             @csrf
