@@ -39,7 +39,7 @@
                     <td>{{$venta->total}}</td>
                     <td>{{$venta->fechaVenta}}</td>
                     <td>
-                        <a href="" class="btn btn-primary btn-sm mb-2">Detalle</a>
+                        <a href="{{ route('ventas.detail', ['id' => $venta->id]) }}" class="btn btn-primary btn-sm mb-2">Detalle</a>
                     </td>
                 </tr>
                 @endforeach

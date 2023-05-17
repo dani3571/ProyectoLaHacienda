@@ -13,8 +13,8 @@ class DetalleVentas extends Model
     public function productos(){
         return $this->belongsTo(Productos::class);
     }
-   //relacion inversa detalle_ventas - ventas
-   public function ventas(){
+    //relacion inversa detalle_ventas - ventas
+    public function ventas(){
     return $this->belongsTo(Ventas::class);
 }
     

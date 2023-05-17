@@ -81,7 +81,8 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
      Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
-    Route::post('/insertarVentas', [VentasController::class, 'insertarVentas'])->name('ventas.insertarVentas');
+    Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
+    Route::get('/ventas/show/{id}', [VentasController::class, 'show'])->name('ventas.detail');
     Route::resource('ventas','VentasController')
     ->except('show')
     ->names('ventas');

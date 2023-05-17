@@ -20,11 +20,12 @@ return new class extends Migration
             ->references('id')
             ->on('ventas')
             ->onDelete('cascade');
-             $table->unsignedBigInteger('id_producto');  
-             $table->foreign('id_producto')
-             ->references('id')
-             ->on('productos')
-             ->onDelete('cascade');
+            $table->unsignedBigInteger('id_producto');  
+            $table->foreign('id_producto')
+            ->references('id')
+            ->on('productos')
+            ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

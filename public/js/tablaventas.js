@@ -1,5 +1,6 @@
 const btnAgregarProducto = document.getElementById("btnAgregarProducto");
 const productosAgregados = {};
+let contador = 0;
 btnAgregarProducto.addEventListener("click", function (e) {
     // Obtener los valores del formulario
     e.preventDefault();
@@ -18,15 +19,39 @@ btnAgregarProducto.addEventListener("click", function (e) {
     const celdaCantidad = document.createElement("td");
     const celdaPrecio = document.createElement("td");
     const celdaSubtotal = document.createElement("td");
-    const celdaAcciones = document.createElement("td"); // Nueva celda para el campo adicional
-    const enlace = document.createElement("a"); // Nuevo elemento <a>
+    const celdaAcciones = document.createElement("td"); 
+    // Nueva celda para el campo adicional
+    // Nuevo elemento <a>
+    const enlace = document.createElement("a"); 
+    const inputIdProducto = document.createElement("input");
+    const inputProducto = document.createElement("input");
+    const inputCantidad = document.createElement("input");
+    const inputPrecioIndividual = document.createElement("input");
+    const inputSubtotal = document.createElement("input");
     // Asignar los valores a las celdas (mismo código que en el ejemplo anterior)
     celdaIdProducto.textContent = idProducto;
     celdaProducto.textContent = producto;
     celdaCantidad.textContent = cantidad;
+    celdaCantidad.setAttribute("class", "cantidad");
     celdaPrecio.textContent = precio;
     celdaSubtotal.textContent = subtotal;
     celdaSubtotal.setAttribute("class", "subtotal");
+    //Asignar valores a los inputs
+    inputIdProducto.setAttribute("type", "hidden");
+    inputIdProducto.setAttribute("value", idProducto);
+    inputIdProducto.setAttribute("name", "venta[venta"+contador+"][IdProducto]");
+    inputProducto.setAttribute("type", "hidden");
+    inputProducto.setAttribute("value", producto);
+    inputProducto.setAttribute("name", "venta[venta"+contador+"][Producto]");
+    inputCantidad.setAttribute("type", "hidden");
+    inputCantidad.setAttribute("value", cantidad);
+    inputCantidad.setAttribute("name", "venta[venta"+contador+"][Cantidad]");
+    inputPrecioIndividual.setAttribute("type", "hidden");
+    inputPrecioIndividual.setAttribute("value", precio);
+    inputPrecioIndividual.setAttribute("name", "venta[venta"+contador+"][Precio]");
+    inputSubtotal.setAttribute("type", "hidden");
+    inputSubtotal.setAttribute("value", subtotal);
+    inputSubtotal.setAttribute("name", "venta[venta"+contador+"][Subtotal]");
     // Agregar el texto al enlace
     enlace.textContent = "Eliminar";
     // Agregar el atributo href al enlace
@@ -45,6 +70,11 @@ btnAgregarProducto.addEventListener("click", function (e) {
         actualizarTotal();
     });
     // Agregar el enlace a la celda de acciones
+    celdaIdProducto.appendChild(inputIdProducto);
+    celdaProducto.appendChild(inputProducto);
+    celdaCantidad.appendChild(inputCantidad);
+    celdaPrecio.appendChild(inputPrecioIndividual);
+    celdaSubtotal.appendChild(inputSubtotal);
     celdaAcciones.appendChild(enlace);
     // Agregar las celdas a la fila (mismo código que en el ejemplo anterior)
     fila.appendChild(celdaIdProducto);
@@ -62,6 +92,7 @@ btnAgregarProducto.addEventListener("click", function (e) {
     document.getElementById("tbody").appendChild(fila);
     // Limpiar los valores del formulario
     document.getElementById("Cantidad").value = "";
+    contador++;
     actualizarTotal();
 });
 
@@ -101,12 +132,17 @@ function validarCampos() {
 }
 function actualizarTotal() {
     let total = 0;
+    let cantidadTotal = 0;
     // Recorrer todas las filas de la tabla
     const filas = document.querySelectorAll("#tbody tr");
     filas.forEach(function (fila) {
         // Obtener el valor del subtotal de cada fila y sumarlo al total
-        const subtotal = parseInt(fila.querySelector(".subtotal").textContent);
+        const subtotal = parseFloat(fila.querySelector(".subtotal").textContent);
+        const cantidad = parseInt(fila.querySelector(".cantidad").textContent);
+        cantidadTotal += cantidad;
         total += subtotal;
     });
-    document.getElementById("Total").value = total;
+    const textTotal = document.getElementById("Total");
+    textTotal.setAttribute("value", total);
+    document.getElementById("CantidadTotal").value = cantidadTotal;
 }
