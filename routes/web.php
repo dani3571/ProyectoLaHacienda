@@ -65,17 +65,15 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('roles','RoleController')
     ->except('show')
     ->names('roles');
-    //Perfiles
-    Route::resource('profiles', ProfileController::class)
-    ->only('edit', 'update')
-    ->names('profiles');
+
     //mascotas
     Route::resource('mascotas', 'MascotasController')
     ->except('show')
     ->names('mascotas');
 
      Route::get('/mascotas/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
-
+     Route::put('/mascotas/{mascota}/cambiar-estado', [MascotasController::class, 'cambiarEstado'])->name('mascotas.cambiar-estado');
+     Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
     Route::post('/insertarVentas', [VentasController::class, 'insertarVentas'])->name('ventas.insertarVentas');
@@ -83,3 +81,8 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->except('show')
     ->names('ventas');
 });
+    //Perfiles
+    Route::resource('profiles', ProfileController::class)
+    ->only('edit', 'update')
+    ->names('profiles');
+ 

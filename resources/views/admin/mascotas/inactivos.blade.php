@@ -24,7 +24,6 @@
 <div class="card">
     <div class="card-header">
         <a class="btn btn-primary" href="{{route('mascotas.create')}}">Registrar mascota</a>
-        <a class="btn btn-primary" href="{{route('mascotas.inactivos')}}">Mascotas inactivas</a>
     </div>
     <div class="card-body">
         <table class="table table-striped">
@@ -43,7 +42,7 @@
             </thead>
 
             <tbody>
-                @foreach ($mascotas as $mascota )
+                @foreach ($mascotas as $mascota)
                 <tr>
                 
                     <td>{{$mascota->id}}</td>
