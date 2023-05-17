@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetalleVentas;
 use Illuminate\Http\Request;
+use App\Models\DetalleVentas;
+use App\Models\Ventas;
 
 class VentasController extends Controller
 {
@@ -27,4 +28,8 @@ class VentasController extends Controller
         return view('admin.ventas.create');
     }
 
+    public function insertarVentas(Request $request)
+    {
+        
+    }
 }

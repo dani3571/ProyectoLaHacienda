@@ -43,9 +43,9 @@
        @include('layouts.menu')
       
    <!--La seccion tambien cambiara en las distintas vistas . usamos yield-->
-   <section class="section">
+    <section class="section">
     @yield('content')
- </section>
+    </section>
         <!-- Incluir footer -->
         @include('layouts.footer')
     </div>

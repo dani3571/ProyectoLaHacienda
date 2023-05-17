@@ -78,7 +78,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
 
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
-
+    Route::post('/insertarVentas', [VentasController::class, 'insertarVentas'])->name('ventas.insertarVentas');
     Route::resource('ventas','VentasController')
     ->except('show')
     ->names('ventas');
