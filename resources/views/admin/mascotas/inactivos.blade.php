@@ -23,7 +23,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a class="btn btn-primary" href="{{route('mascotas.create')}}">Registrar mascota</a>
+        <a class="btn btn-primary" href="{{route('mascotas.index')}}">Mascotas registradas</a>
     </div>
     <div class="card-body">
         <table class="table table-striped">
@@ -56,21 +56,24 @@
                     
   
   
-                    <td width="10px"><a href="{{route('mascotas.edit', $mascota)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
 
                     <td width="10px">
-                       
-                        <form action="{{ route('mascotas.cambiar-estado', $mascota->id) }}" method="POST">
+                        <form action="{{ route('mascotas.restablecer-estado', $mascota->id) }}" method="POST">
                             @csrf
                             @method('PUT')      
-                            <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
+                            <input type="submit" value="Restablecer" class="btn btn-primary btn-sm mb-2">
                         </form>
-
-                      
-
                     </td>
+
+                    <td width="5px">
+                        <form action="{{route('mascotas.destroy', $mascota->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="Eliminar" class="btn btn-danger btn-sm">
+                        </form>
+                    </td>
+  
                 </tr>
-                
                 
                 @endforeach
             </tbody>

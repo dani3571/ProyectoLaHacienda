@@ -73,6 +73,11 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
 
      Route::get('/mascotas/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
      Route::put('/mascotas/{mascota}/cambiar-estado', [MascotasController::class, 'cambiarEstado'])->name('mascotas.cambiar-estado');
+     Route::put('/mascotas/{mascota}/restablecer-estado', [MascotasController::class, 'restablecerEstado'])->name('mascotas.restablecer-estado');
+
+     Route::delete('/mascotas/{mascota}/destroy', [MascotasController::class, 'destroy'])->name('mascotas.destroy');
+     
+
      Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');

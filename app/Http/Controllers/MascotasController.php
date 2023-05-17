@@ -47,7 +47,6 @@ class MascotasController extends Controller
         return view('admin.mascotas.create', compact('mascotas'));
     }
 
-  
 
     public function store(Request $request)
     {
@@ -143,26 +142,28 @@ class MascotasController extends Controller
      * @param  \App\Models\Mascotas  $mascotas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mascotas $mascotas, $id)
+    public function destroy($id)
     {
-        //
-        
+        $mascota = Mascotas::findOrFail($id);
+        $mascota->delete();
+        return redirect()->route('mascotas.inactivos')->with('success-update', 'Registro de mascota eliminada con exito');
     }
+
     public function cambiarEstado($id)
     {
         $mascota = Mascotas::findOrFail($id);
         $mascota->estado = 0;
         $mascota->save();
 
-        return redirect()->route('mascotas.index')->with('success-update', 'Mascota actualizada con éxito');
+        return redirect()->route('mascotas.index')->with('success-update', 'Eliminacion logica realizada con exito');
     }
 
     public function restablecerEstado($id)
     {
         $mascota = Mascotas::findOrFail($id);
-        $mascota->estado = 0;
+        $mascota->estado = 1;
         $mascota->save();
 
-        return redirect()->route('mascotas.index')->with('success-update', 'Mascota actualizada con éxito');
+        return redirect()->route('mascotas.inactivos')->with('success-update', 'Mascota restablecida con éxito');
     }
 }
