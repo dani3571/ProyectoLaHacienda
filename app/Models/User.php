@@ -60,28 +60,41 @@ class User extends Authenticatable
     }
 
     //relacion de 1 a muchos
+    /*
     public function usuario_reservacion_hotels()
     {
         return $this->hasMany(UsuarioReseracionHotel::class);
     }
-    
-    //relacion de 1 a muchos
+     //relacion de 1 a muchos
     public function usuario_reservacion_peluquerias()
     {
         return $this->hasMany(UsuarioReseracionPeluqueria::class);
     }
-    
-    //relacion de 1 a muchos
+     //relacion de 1 a muchos
     public function usuario_reservacion_veterinarias()
     {
         return $this->hasMany(UsuarioReseracionVeterinaria::class);
     }
+    */
+    public function reservacion_hotels(){
+        return $this->hasMany(ReservacionHotel::class);
+    }
+    public function reservacion_peluquerias(){
+         return $this->hasMany(ReservacionPeluqueria::class);
+    }
+    public function reservacion_veterinarias(){
+      return $this->hasMany(ReservacionVeterinaria::class);
+   }
+   
 
     //Relacion 1 a 1 user - profile 
 
     public function profile(){
         return $this->hasOne(Profile::class);
     }
+
+
+    
     protected static function boot(){
         parent::boot();
         //Asignar perfil al registrar el usuario

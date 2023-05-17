@@ -12,8 +12,13 @@ class ReservacionVeterinaria extends Model
     protected $guarded = ['id','created_at','updated_at'];
   
      //relacion de 1 a muchos
+     /*
      public function usuario_reservacion_veterinarias()
      {
         return $this->hasMany(UsuarioReseracionVeterinaria::class);
      }
+     */
+    public function user(){
+      return $this->belongsTo(User::class);
+    }
 }

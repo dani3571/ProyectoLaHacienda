@@ -101,7 +101,6 @@ class MascotasController extends Controller
           return view('admin.mascotas.edit', compact('mascota'));
     
     }
-
     /**
      * Update the specified resource in storage.
      *
