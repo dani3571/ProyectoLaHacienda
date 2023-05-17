@@ -25,6 +25,12 @@ return new class extends Migration
             $table->decimal('extras', 8);
             $table->decimal('total', 8);
         
+        //Foreign keys
+        $table->unsignedBigInteger('usuario_id'); 
+        $table->foreign('usuario_id')
+        ->references('id')
+        ->on('users')
+        ->onDelete('cascade');
         });
     }
 

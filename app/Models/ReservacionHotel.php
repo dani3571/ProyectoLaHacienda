@@ -14,9 +14,13 @@ class ReservacionHotel extends Model
    
     //relacion inversa de uno a muchos (ReservacionHotel - UsuarioReservacionHotel)
     //relacion de 1 a muchos
+    /*
     public function user_reservacion_hotels()
     {
         return $this->hasMany(UsuarioReseracionHotel::class);
+    }*/
+    public function user(){
+        return $this->belongsTo(User::class);
     }
     
     //Relacion 1:1 (ReservacionHotel-Habitacion)

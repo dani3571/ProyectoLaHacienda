@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Mascotas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\MascotaRequest;
+use PDF;
+
 class MascotasController extends Controller
 {
     /**
@@ -48,7 +51,7 @@ class MascotasController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(MascotaRequest $request)
     {
        //merge combina los datos que tenemos con los que queremos obtener
        $request->merge([
@@ -98,7 +101,6 @@ class MascotasController extends Controller
           return view('admin.mascotas.edit', compact('mascota'));
     
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -106,7 +108,8 @@ class MascotasController extends Controller
      * @param  \App\Models\Mascotas  $mascotas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    public function update(MascotaRequest $request, $id)
     {
         /*
              $mascotas->update([
@@ -166,4 +169,12 @@ class MascotasController extends Controller
 
         return redirect()->route('mascotas.inactivos')->with('success-update', 'Mascota restablecida con éxito');
     }
+    public function getPDF(){
+        $user = Auth::user();
+		$name = $user->name;
+        $mascotas = Mascotas::all();
+		$pdf = PDF::loadView('admin.mascotas.reporte', compact('name', 'mascotas'));
+		return $pdf->stream('prueba.pdf');
+	}
+
 }

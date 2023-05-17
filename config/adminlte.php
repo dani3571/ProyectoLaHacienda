@@ -335,7 +335,7 @@ return [
           
                 'text' => 'Mascotas',
                 'route'  => 'mascotas.index',
-                'icon' => 'fas fa-poll',
+                'icon' => 'fa fa-paw',
                 'active' => ['admin/mascotas*'],
              
        

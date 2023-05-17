@@ -17,11 +17,12 @@
                 <input type="text" class="form-control" id="nombre" name='nombre' placeholder="Nombre de la mascota"
                     value="{{ old('nombre') }}">
 
-                @error('nombre')
-                <span class="alert-red">
-                    <span>*{{ $message }}</span>
-                </span>
-                @enderror
+                    @error('nombre')
+                        <span class="text-danger">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+            </div>
 
 
                 <label>Tipo</label>
@@ -40,49 +41,58 @@
                     @enderror
                 </div>
 
+           <div class="form-group">
+         
                 <label>Raza</label>
                 <input type="text" class="form-control" id="raza" name='raza' placeholder="Raza"
                     value="{{ old('raza') }}">
 
-                @error('raza')
-                <span class="alert-red">
-                    <span>*{{ $message }}</span>
-                </span>
-                @enderror
-
+                    @error('raza')
+                        <span class="text-danger">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+            </div>
+            <div class="form-group">
                 <label>Color</label>
                 <input type="text" class="form-control" id="color" name='color' placeholder="Color"
                     value="{{ old('color') }}">
 
                 @error('color')
-                <span class="alert-red">
+                <span class="text-danger">
                     <span>*{{ $message }}</span>
                 </span>
                 @enderror
-                
+            </div>
+
+            <div class="form-group">
                 <label>Fecha Nacimiento</label>
                 <input type="date" class="form-control" id="fechaNacimiento" name='fechaNacimiento' placeholder="Fecha de Nacimiento"
                     value="{{ old('fechaNacimiento') }}">
 
                 @error('fechaNacimiento')
-                <span class="alert-red">
+                <span class="text-danger">
                     <span>*{{ $message }}</span>
                 </span>
                 @enderror
-
+            </div>
+            
+            <div class="form-group">
+         
                 <label>Caracter</label>
                 <input type="text" class="form-control" id="caracter" name='caracter' placeholder="Caracter"
                     value="{{ old('caracter') }}">
 
                 @error('caracter')
-                <span class="alert-red">
+                <span class="text-danger">
                     <span>*{{ $message }}</span>
                 </span>
                 @enderror
-
+            </div>
+            <div class="form-group">
+         
                 <label>Sexo</label>
-                <div class="form-group">
-                    <div class="form-check form-check-inline">
+                   <div class="form-check form-check-inline">
                         <label class="form-check-label" for="">Macho</label>
                         <input class="form-check-input ml-2" type="radio" name='sexo' value="macho"
                             checked>
@@ -92,9 +102,8 @@
                         <label class="form-check-label" for="">Hembra</label>
                         <input class="form-check-input ml-2" type="radio" name='sexo' value="hembra">
                     </div>
-
                     @error('sexo')
-                        <span class="text-danger">
+                    <span class="text-danger">
                             <span>{{ $message }}</span>
                         </span>
                     @enderror
@@ -102,27 +111,7 @@
                 </div>
 
 
-                <label for="">Estado</label>
-                <div class="form-group">
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="">Privado</label>
-                        <input class="form-check-input ml-2" type="radio" name='status' id="status" value="0"
-                            checked>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="">Público</label>
-                        <input class="form-check-input ml-2" type="radio" name='status' id="status" value="1">
-                    </div>
-
-
-                    @error('estado')
-                        <span class="text-danger">
-                            <span>{{ $message }}</span>
-                        </span>
-                    @enderror
-
-                </div>
+              
 
                 <input type="submit" value="Registrar mascota" class="btn btn-primary">
 

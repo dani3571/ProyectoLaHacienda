@@ -25,6 +25,7 @@
     <div class="card-header">
         <a class="btn btn-primary" href="{{route('mascotas.create')}}">Registrar mascota</a>
         <a class="btn btn-primary" href="{{route('mascotas.inactivos')}}">Mascotas inactivas</a>
+        <a class="btn btn-primary" href="{{route('getPDF')}}">Reporte</a>
     </div>
     <div class="card-body">
         <table class="table table-striped">
@@ -45,7 +46,6 @@
             <tbody>
                 @foreach ($mascotas as $mascota )
                 <tr>
-                
                     <td>{{$mascota->id}}</td>
                     <td>{{$mascota->nombre}}</td>
                     <td>{{$mascota->tipo}}</td>
@@ -55,8 +55,6 @@
                     <td>{{$mascota->caracter}}</td>
                     <td>{{$mascota->sexo}}</td>
                     
-  
-  
                     <td width="10px"><a href="{{route('mascotas.edit', $mascota)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
 
                     <td width="10px">
@@ -66,9 +64,6 @@
                             @method('PUT')      
                             <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
                         </form>
-
-                      
-
                     </td>
                 </tr>
                 

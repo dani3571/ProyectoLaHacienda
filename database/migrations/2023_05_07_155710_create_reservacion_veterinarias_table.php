@@ -18,6 +18,14 @@ return new class extends Migration
             $table->date('fecha');
             $table->string('horaRecepcion', 60);
             $table->string('motivoReservacion', 200);
+
+
+            //Foreign keys
+            $table->unsignedBigInteger('usuario_id'); 
+            $table->foreign('usuario_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
         });
     }
 

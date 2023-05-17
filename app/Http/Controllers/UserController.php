@@ -27,12 +27,7 @@ class UserController extends Controller
      */
   
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit(User $user)
     {
         //recuperar el listado de roles 
@@ -41,13 +36,7 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
-    /**s
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, User $user)
     {
         //llenar tabla intermedia
