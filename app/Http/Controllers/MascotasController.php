@@ -18,11 +18,22 @@ class MascotasController extends Controller
          $user = Auth::user();
          //utilizamos user_id de la relacion con articulos
          $mascotas = Mascotas::where('usuario_id', $user->id)
-             ->orderBy('id', 'desc')
-             ->simplePaginate(10);
+         ->where('estado', 1)
+         ->orderBy('id', 'asc')
+         ->simplePaginate(10);
          return View('admin.mascotas.index', compact('mascotas'));
     }
-
+    public function inactivos()
+    {
+           //Mostrar los mascotas registradas en el admin
+           $user = Auth::user();
+           //utilizamos user_id de la relacion con articulos
+           $mascotas = Mascotas::where('usuario_id', $user->id)
+           ->where('estado', 0)
+           ->orderBy('id', 'asc')
+           ->simplePaginate(10);
+           return View('admin.mascotas.inactivos', compact('mascotas'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -132,8 +143,26 @@ class MascotasController extends Controller
      * @param  \App\Models\Mascotas  $mascotas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mascotas $mascotas)
+    public function destroy(Mascotas $mascotas, $id)
     {
         //
+        
+    }
+    public function cambiarEstado($id)
+    {
+        $mascota = Mascotas::findOrFail($id);
+        $mascota->estado = 0;
+        $mascota->save();
+
+        return redirect()->route('mascotas.index')->with('success-update', 'Mascota actualizada con éxito');
+    }
+
+    public function restablecerEstado($id)
+    {
+        $mascota = Mascotas::findOrFail($id);
+        $mascota->estado = 0;
+        $mascota->save();
+
+        return redirect()->route('mascotas.index')->with('success-update', 'Mascota actualizada con éxito');
     }
 }

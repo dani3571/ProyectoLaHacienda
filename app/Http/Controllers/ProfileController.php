@@ -16,17 +16,17 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }*/
  
-  
-    public function edit(Profile $profile)
+  //Profile $profile
+    public function edit($id)
     {
-        $this->authorize('view', $profile);
-        return view('profiles.edit', compact('profile'));
+        $profile = Profile::findOrFail($id);
+        return view('subscriber.profiles.edit', compact('profile'));
     }
 
  
     public function update(ProfileRequest $request, Profile $profile)
     {
-       $this->authorize('update', $profile);
+    //   $this->authorize('update', $profile);
         $user = Auth::user();
         //Si encuentra una foto que elimine la anterior y asigne la nueva
         if ($request->hasFile('photo')) {
