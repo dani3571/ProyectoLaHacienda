@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Reservacion_peluqueriaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentasController;
@@ -93,7 +94,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('reservas_peluqueria', 'Reservacion_peluqueriaController')
     ->except('show')
     ->names('reservas_peluqueria');
-
+    Route::post('/reservas_peluqueria', [Reservacion_peluqueriaController::class, 'store'])->name('reservas_peluqueria.store');
      /*Route::get('/reservas_peluqueria/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
      Route::put('/reservas_peluqueria/{mascota}/cambiar-estado', [MascotasController::class, 'cambiarEstado'])->name('mascotas.cambiar-estado');
      Route::put('/reservas_peluqueria/{mascota}/restablecer-estado', [MascotasController::class, 'restablecerEstado'])->name('mascotas.restablecer-estado');
