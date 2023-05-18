@@ -15,6 +15,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //Proteger las rutas
+    public function __construct()
+    {
+      $this->middleware('can:users.index')->only('index');
+    }
     public function index()
     {
       $user = User::simplePaginate(10);
@@ -41,10 +46,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //llenar tabla intermedia
-
         $user->roles()->sync($request->role);
         return redirect()->route('users.edit', $user)
-                        ->with('success-update', 'Rol establecido con éxito');
+                        ->with('success', 'Rol establecido con éxito');
     }
 
     /**
@@ -66,6 +70,6 @@ class UserController extends Controller
       $user = User::all();
       $pdf = PDF::loadView('admin.users.reporte', compact('name', 'user'));
       return $pdf->stream('Reporte_Usuarios.pdf');
-}
+    }
 
 }

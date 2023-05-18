@@ -5,11 +5,27 @@
 <h1>Establecer roles</h1>
 @endsection
 @section('content')
-@if (session('success-update'))
-<div class="alert alert-info">
-    {{ session('success-update') }}
-</div>
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
 @endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
+@endif
+
 <div class="card">
     <div class="card-body">
         <p>Nombre completo:</p>

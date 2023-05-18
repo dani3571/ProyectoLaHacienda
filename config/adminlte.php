@@ -322,6 +322,7 @@ return [
             'route'  => 'users.index',
             'icon' => 'fas fa-users',
             'active' =>  ['admin/users*'],
+            'can'=>'users.index',
         ],
         [
             'text' => 'Roles',
@@ -331,8 +332,7 @@ return [
             'can'=>'roles.index',
         ],
      
-        [
-          
+        [   
                 'text' => 'Mascotas',
                 'route'  => 'mascotas.index',
                 'icon' => 'fa fa-paw',
@@ -349,6 +349,7 @@ return [
             'text' => 'Ventas',
             'url'  => 'admin/ventas',
             'icon' => 'fas fa-fw fa-money-check',
+            'can'=>'ventas.index',
         ],
         [
             'text'    => 'multilevel',

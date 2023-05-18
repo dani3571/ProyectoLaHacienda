@@ -28,7 +28,7 @@ class RoleSeeder extends Seeder
 
         //Permisos
         Permission::create(['name'=>'admin.index',
-                            'description' => 'Ver el dashboard'])->syncRoles([$admin, $veterinario, $adiestrador, $recepcionista, $ayudanteCirugias]);
+                            'description' => 'Ver el dashboard'])->syncRoles([$admin, $veterinario, $adiestrador, $recepcionista, $ayudanteCirugias, $cliente]);
 
         //distintos permisos
         //permisos de rol
@@ -52,6 +52,33 @@ class RoleSeeder extends Seeder
         'name' => 'roles.destroy',
         'description' => 'Eliminar roles'
     ])->assignRole($admin);
+
+    Permission::create([
+        'name' => 'ventas.index',
+        'description' => 'Ver ventas'
+    ])->assignRole($admin);
+    Permission::create([
+        'name' => 'ventas.create',
+        'description' => 'Crear ventas'
+    ])->assignRole($admin, $recepcionista);
+
+    Permission::create([
+        'name' => 'ventas.edit',
+        'description' => 'Editar ventas'
+    ])->assignRole($admin, $recepcionista);
+
+   //usuarios
+   Permission::create([
+    'name' => 'users.index',
+    'description' => 'Ver usuarios'
+])->assignRole($admin);
+
+Permission::create([
+    'name' => 'users.edit',
+    'description' => 'Editar usuarios'
+])->assignRole($admin, $recepcionista);
+
+
 
     }
 }

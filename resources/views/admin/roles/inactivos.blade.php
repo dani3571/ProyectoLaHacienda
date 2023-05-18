@@ -7,18 +7,25 @@
 @endsection
 
 @section('content')
-@if(session('success-create'))
-<div class="alert alert-info">
-     {{ session('success-create') }}
-</div>
-@elseif (session('success-update'))
-<div class="alert alert-info">
-    {{ session('success-update') }}
-</div>
-@elseif (session('success-delete'))
-<div class="alert alert-info">
-    {{ session('success-delete') }}
-</div>
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
 @endif
 
 <div class="card">

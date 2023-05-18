@@ -60,7 +60,7 @@ class RoleController extends Controller
         $role->permissions()->sync($request->permissions);
 
         return redirect()->action([RoleController::class, 'index'])
-            ->with('success-create', 'Rol creado con exito');
+            ->with('success', 'Rol creado con exito');
     }
 
     /**
@@ -99,7 +99,7 @@ class RoleController extends Controller
         $role->permissions()->sync($request->permissions);
 
         return redirect()->action([RoleController::class, 'index'])
-            ->with('success-update', 'Rol modificado con exito');
+            ->with('success', 'Rol modificado con exito');
     }
  
     /**
@@ -112,7 +112,7 @@ class RoleController extends Controller
     {
        $role->delete();
        return redirect()->action([RoleController::class, 'index'])
-       ->with('success-delete', 'Rol eliminado con exito');
+       ->with('success', 'Rol eliminado con exito');
     }
 
 
@@ -121,17 +121,14 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->estado = 0;
         $role->save();
-        return redirect()->route('roles.index')->with('success-update', 'Eliminacion logica realizada con exito');
+        return redirect()->route('roles.index')->with('success', 'Eliminacion logica realizada con exito');
     }
-   
-
-
     public function restablecerEstado($id)
     {
         $role = Role::findOrFail($id);
         $role->estado = 1;
         $role->save();
-        return redirect()->route('roles.inactivos')->with('success-update', 'Rol restablecido con éxito');
+        return redirect()->route('roles.inactivos')->with('success', 'Rol restablecido con éxito');
            
     }
     public function getPDFRole(){
