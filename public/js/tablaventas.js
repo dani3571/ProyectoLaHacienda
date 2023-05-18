@@ -11,7 +11,7 @@ btnAgregarProducto.addEventListener("click", function (e) {
     const producto = document.getElementById("Producto").value;
     const cantidad = document.getElementById("Cantidad").value;
     const precio = document.getElementById("PrecioIndividual").value;
-    const subtotal = cantidad * precio;
+    const subtotal = (cantidad * precio).toFixed(2);
     // Crear una nueva fila y sus celdas
     const fila = document.createElement("tr");
     const celdaIdProducto = document.createElement("th");
