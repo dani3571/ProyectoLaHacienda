@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role ;
-
+use PDF;
 class UserController extends Controller
 {
     /**
@@ -58,4 +59,13 @@ class UserController extends Controller
       return redirect()->action([UserController::class,'index'])
                        ->with('success-delete', 'Usuario eliminado con exito');
     }
+
+    public function getPDFusuarios(){
+      $user = Auth::user();
+      $name = $user->name;
+      $user = User::all();
+      $pdf = PDF::loadView('admin.users.reporte', compact('name', 'user'));
+      return $pdf->stream('Reporte_Usuarios.pdf');
+}
+
 }

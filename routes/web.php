@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
 
@@ -61,6 +62,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('users', 'UserController')
     ->except('create', 'store', 'show')
     ->names('users');
+    Route::get('/pdfs', 'UserController@getPDFusuarios')->name('getPD');
     //Roles
     Route::resource('roles','RoleController')
     ->except('show')
