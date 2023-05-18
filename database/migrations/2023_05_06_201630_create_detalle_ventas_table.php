@@ -25,6 +25,8 @@ return new class extends Migration
             ->references('id')
             ->on('productos')
             ->onDelete('cascade');
+            $table->decimal('subtotal', $totalDigits = 8, $decimalPlaces = 2);
+            $table->integer('cantidad_individual');
             $table->timestamps();
         });
     }

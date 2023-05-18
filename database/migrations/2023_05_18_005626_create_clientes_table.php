@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ventas', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('usuario', 50);
-            $table->string('cliente', 50); 
-            $table->integer('cantidad');
-            $table->decimal('total', $totalDigits = 8, $decimalPlaces = 2);
-            $table->date('fechaVenta');
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->id();
+            $table->string('nit')->unique();
+            $table->string('apellido');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('clientes');
     }
 };

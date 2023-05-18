@@ -19,10 +19,10 @@ btnAgregarProducto.addEventListener("click", function (e) {
     const celdaCantidad = document.createElement("td");
     const celdaPrecio = document.createElement("td");
     const celdaSubtotal = document.createElement("td");
-    const celdaAcciones = document.createElement("td"); 
+    const celdaAcciones = document.createElement("td");
     // Nueva celda para el campo adicional
     // Nuevo elemento <a>
-    const enlace = document.createElement("a"); 
+    const enlace = document.createElement("a");
     const inputIdProducto = document.createElement("input");
     const inputProducto = document.createElement("input");
     const inputCantidad = document.createElement("input");
@@ -39,19 +39,34 @@ btnAgregarProducto.addEventListener("click", function (e) {
     //Asignar valores a los inputs
     inputIdProducto.setAttribute("type", "hidden");
     inputIdProducto.setAttribute("value", idProducto);
-    inputIdProducto.setAttribute("name", "venta[venta"+contador+"][IdProducto]");
+    inputIdProducto.setAttribute(
+        "name",
+        "venta[venta" + contador + "][IdProducto]"
+    );
     inputProducto.setAttribute("type", "hidden");
     inputProducto.setAttribute("value", producto);
-    inputProducto.setAttribute("name", "venta[venta"+contador+"][Producto]");
+    inputProducto.setAttribute(
+        "name",
+        "venta[venta" + contador + "][Producto]"
+    );
     inputCantidad.setAttribute("type", "hidden");
     inputCantidad.setAttribute("value", cantidad);
-    inputCantidad.setAttribute("name", "venta[venta"+contador+"][Cantidad]");
+    inputCantidad.setAttribute(
+        "name",
+        "venta[venta" + contador + "][Cantidad]"
+    );
     inputPrecioIndividual.setAttribute("type", "hidden");
     inputPrecioIndividual.setAttribute("value", precio);
-    inputPrecioIndividual.setAttribute("name", "venta[venta"+contador+"][Precio]");
+    inputPrecioIndividual.setAttribute(
+        "name",
+        "venta[venta" + contador + "][Precio]"
+    );
     inputSubtotal.setAttribute("type", "hidden");
     inputSubtotal.setAttribute("value", subtotal);
-    inputSubtotal.setAttribute("name", "venta[venta"+contador+"][Subtotal]");
+    inputSubtotal.setAttribute(
+        "name",
+        "venta[venta" + contador + "][Subtotal]"
+    );
     // Agregar el texto al enlace
     enlace.textContent = "Eliminar";
     // Agregar el atributo href al enlace
@@ -137,7 +152,9 @@ function actualizarTotal() {
     const filas = document.querySelectorAll("#tbody tr");
     filas.forEach(function (fila) {
         // Obtener el valor del subtotal de cada fila y sumarlo al total
-        const subtotal = parseFloat(fila.querySelector(".subtotal").textContent);
+        const subtotal = parseFloat(
+            fila.querySelector(".subtotal").textContent
+        );
         const cantidad = parseInt(fila.querySelector(".cantidad").textContent);
         cantidadTotal += cantidad;
         total += subtotal;

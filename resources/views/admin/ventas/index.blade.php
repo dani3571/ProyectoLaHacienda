@@ -3,20 +3,35 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Ventas realizadas</h1>
+<h1 class="text-center">Ventas realizadas</h1>
 <br>
 <a href="{{route('ventas.create')}}" class="btn btn-primary">Crear nueva venta</a>
 @endsection
 
 @section('content')
-@if (session('success-delete'))
-<div class="alert alert-info">
-    {{ session('success-delete') }}
-</div>
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
 @endif
 <div class="card">
     <div class="card-body">
-        <table class="table table-striped">
+        <table class="table table-striped text-center">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -39,20 +54,12 @@
                     <td>{{$venta->total}}</td>
                     <td>{{$venta->fechaVenta}}</td>
                     <td>
-                        <a href="{{ route('ventas.detail', ['id' => $venta->id]) }}" class="btn btn-primary btn-sm mb-2">Detalle</a>
+                        <a href="{{ route('ventas.show', ['id' => $venta->id]) }}" class="btn btn-primary btn-sm mb-2">Detalle</a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-
-        <div class="text-center mt-3">
-        
-        </div>
-
     </div>
 </div>
 @endsection
-
-
-

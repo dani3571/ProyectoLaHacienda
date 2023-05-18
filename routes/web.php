@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VentasController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
 
@@ -98,7 +99,8 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');
     Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
-    Route::get('/ventas/show/{id}', [VentasController::class, 'show'])->name('ventas.detail');
+    Route::get('/ventas/buscarCliente/{nit}', [VentasController::class, 'buscarCliente'])->name('ventas.buscarCliente');
+    Route::get('/ventas/show/{id}', [VentasController::class, 'show'])->name('ventas.show');
     Route::resource('ventas','VentasController')
     ->except('show')
     ->names('ventas');

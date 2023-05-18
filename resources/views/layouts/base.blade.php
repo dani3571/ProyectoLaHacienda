@@ -52,6 +52,7 @@
      @yield('scripts')
     <!-- Scripts de bootstrap -->
     <script src="{{mix('js/app.js')}}"></script>
+    
 </body>
 
 </html>

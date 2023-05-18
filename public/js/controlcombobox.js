@@ -7,3 +7,11 @@ productoSelect.addEventListener("change", function () {
     cantidadSelect.selectedIndex = productoSelect.selectedIndex;
     idproductoSelect.selectedIndex = productoSelect.selectedIndex;
 });
+const cantidadInput = document.getElementById("Cantidad");
+
+cantidadInput.addEventListener("input", function () {
+    if (this.value <= 0 && this.value != "") {
+        alert("El valor debe ser mayor a cero.");
+        this.value = "";
+    }
+});

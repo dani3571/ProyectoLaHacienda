@@ -23,7 +23,7 @@
 @endif
 <div class="container-fluid mh-100">
     <div class="row">
-        <form class="container-fluid d-flex" action="{{ route('ventas.store') }}" method="POST">
+        <form id="FormularioVentas" class="container-fluid d-flex" action="{{ route('ventas.store') }}" method="POST">
             @csrf
             <div class="container-sm col-4 border-right border-secondary">
                 <div class="card-body">
@@ -42,9 +42,9 @@
                         <div class="mb-3">
                             <label for="IdProducto" class="form-label text-secondary">Id Producto</label>
                             <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" readonly id="IdProducto">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
+                              @foreach ($productos as $item)
+                              <option value="{{$item->id}}">{{$item->id}}</option>
+                              @endforeach
                             </select>
                         </div>
                     </div>
@@ -67,16 +67,16 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="Cantidad" class="form-label text-secondary">Cantidad</label>
-                            <input type="Number" class="form-control" id="Cantidad">
+                            <input type="Number" class="form-control" id="Cantidad" min="1">
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label for="CantidadDisponible" class="form-label text-secondary">Cantidad disponible</label>
                             <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" disabled id="CantidadDisponible">
-                              <option value="12">12</option>
-                              <option value="13">13</option>
-                              <option value="14">14</option>
+                              @foreach ($productos as $item)
+                              <option value="{{$item->cantidad}}">{{$item->cantidad}}</option>
+                              @endforeach
                             </select>
                         </div>
                     </div>
@@ -86,9 +86,9 @@
                         <div class="mb-3">
                             <label for="Producto" class="form-select text-secondary">Seleccione producto</label>
                             <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="Producto">
-                              <option value="Correa">Correa</option>
-                              <option value="Croquetas">Croquetas</option>
-                              <option value="Juguete">Juguete</option>
+                              @foreach ($productos as $item)
+                              <option value="{{$item->nombre}}">{{$item->nombre}}</option>
+                              @endforeach
                             </select>
                         </div>
                     </div>
@@ -96,9 +96,9 @@
                         <div class="mb-3">
                             <label for="PrecioIndividual" class="form-label text-secondary">Precio individual</label>
                             <select class="form-select form-select-sm w-100 form-control" disabled style="padding:6px;" id="PrecioIndividual">
-                              <option value="10.5">10.50bs</option>
-                              <option value="20.1">20.10bs</option>
-                              <option value="30.2">30.20bs</option>
+                              @foreach ($productos as $item)
+                              <option value="{{$item->precio}}">{{$item->precio}}</option>
+                              @endforeach
                             </select>
                         </div>
                     </div>
@@ -154,6 +154,9 @@
     <link rel="stylesheet" href="{{ asset('css/ventas.css') }}">
 @endsection
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/sweetalert.js') }}"></script>
+    <script src="{{ asset('js/buscarcliente.js') }}"></script>
     <script src="{{ asset('js/tablaventas.js') }}"></script>
     <script src="{{ asset('js/controlcombobox.js') }}"></script>
 @endsection
