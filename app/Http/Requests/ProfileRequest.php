@@ -24,17 +24,15 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'ci'=> 'required',
-            'telefono' => 'required',
-            'direccion' => 'required',
-            'email' => 'required',
+            'name' => 'required|min:5',
+            'ci'=> 'required|min:7',
+            'telefono' => 'required|min:8',
+            'direccion' => 'required|min:7',
+            'email' => 'required|min:10',
             'photo' => 'nullable|mimes:jpeg,jpg,png',
             'personaResponsable' => 'nullable',
             'telefonoResponsable' => 'nullable',
             
         ];
-
-     
     }
 }

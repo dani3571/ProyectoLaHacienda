@@ -24,12 +24,12 @@ class MascotaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required',
+            'nombre' => 'required|min:3',
             'tipo'=> 'required',
-            'raza' => 'required',
-            'color' => 'required',
+            'raza' => 'required|min:2',
+            'color' => 'required|min:3',
             'fechaNacimiento' => 'required',
-            'caracter' => 'required',
+            'caracter' => 'required|min:5',
             'sexo' => 'required',
         ];
 
