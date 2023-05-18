@@ -8,6 +8,8 @@ use App\Http\Controllers\Reservacion_peluqueriaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentasController;
+use App\Http\Controllers\ReservacionHotelController;
+use App\Http\Controllers\HabitacionController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
 
@@ -112,6 +114,17 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('ventas','VentasController')
     ->except('show')
     ->names('ventas');
+
+        //HOTELERÍA
+        Route::resource('reservacionHotel','ReservacionHotelController')
+        ->except('show')
+        ->names('reservacionHotel');
+        Route::get('/reservacionHotel/show/{id}', [ReservacionHotelController::class, 'show'])->name('reservacionHotel.show');
+        //HABITACIONES
+        Route::resource('habitacion','HabitacionController')
+        ->except('show')
+        ->names('habitacion');
+        Route::get('/habitacion/show/{id}', [HabitacionController::class, 'show'])->name('habitacion.show');
 });
     //Perfiles
     Route::resource('profiles', ProfileController::class)

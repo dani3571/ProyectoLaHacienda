@@ -352,6 +352,16 @@ return [
             'can'=>'ventas.index',
         ],
         [
+            'text' => 'Hotel',
+            'url'  => 'admin/reservacionHotel',
+            'icon' => 'fas fa-fw fa-hotel',
+        ],
+        [
+            'text' => 'Habitaciones',
+            'url'  => 'admin/habitacion',
+            'icon' => 'fas fa-fw fa-hotel',
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

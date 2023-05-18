@@ -28,7 +28,7 @@ class ReservacionHotel extends Model
         return $this->hasOne(Habitacion::class);
     }
   
-    
+    public $timestamps = false;
 
 
 }

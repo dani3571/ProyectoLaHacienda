@@ -16,4 +16,5 @@ class Habitacion extends Model
         return $this->belongsTo(ReservacionHotel::class);
     }
     
+    public $timestamps = false;
 }
