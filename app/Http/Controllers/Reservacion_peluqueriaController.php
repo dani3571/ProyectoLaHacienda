@@ -48,4 +48,14 @@ class Reservacion_peluqueriaController extends Controller
         ReservacionPeluqueria::create($reservacion_peluqueria);
         return redirect()->action([Reservacion_peluqueriaController::class, 'index']);
     }
+
+    public function edit($id)
+    {
+        //devolvemos a la vista admin.reservas_peluqueria.edit
+        $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($id);
+        $mascotas = Mascotas::select(['id', 'nombre'])
+            ->where('usuario_id', Auth::user()->id)
+            ->get();
+        return view('admin.reservas_peluqueria.edit', compact('reservacion_peluqueria', 'mascotas'));
+    }
 }

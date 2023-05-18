@@ -42,33 +42,28 @@
             </div>
 
             <div class="form-group">
-                <label>Hora de recepción</label>
-                <select class="form-control" id="horaRecepcion" name='horaRecepcion' value="{{ old('horaRecepcion') }}">
-                    <option value="">Seleccione la hora de recepción</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    
-                </select>
-                    @error('horaRecepcion')
-                        <span class="text-danger">
-                            <span>{{ $message }}</span>
-                        </span>
-                    @enderror
+                <label>Hora de recepción</label><br>
+                <input type="time" id="horaRecepcion" name="horaRecepcion" min="09:00" max="18:00" value="09:00">
+                @error('horaRecepcion')
+                    <span class="text-danger">
+                        <span>{{ $message }}</span>
+                    </span>
+                @enderror
             </div>
+
             <div class="form-group">
-                <label>Hora de entrega estimada (Procure estar puntual)</label>
-                <select class="form-control" id="horaEntrega" name='horaEntrega' readonly value="{{ old('horaEntrega') }}">
-                    <option value="">Seleccione la hora de recepción</option>
-                    <option value="11:00">11:00</option>
-                    <option value="12:00">12:00</option>
-                    
-                </select>
-                    @error('horaEntrega')
-                        <span class="text-danger">
-                            <span>{{ $message }}</span>
-                        </span>
-                    @enderror
+                <label>Hora de entrega estimada (Procure estar puntual)</label><br>
+                <input type="time" id="horaEntrega" name="horaEntrega" min="11:00" max="20:00" value="11:00" readonly>
+                @error('horaEntrega')
+                    <span class="text-danger">
+                        <span>{{ $message }}</span>
+                    </span>
+                @enderror
             </div>
+
+
+            
+            
 
             
             

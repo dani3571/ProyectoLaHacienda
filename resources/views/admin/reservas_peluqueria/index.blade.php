@@ -42,33 +42,31 @@
             </thead>
 
             <tbody>
-                @foreach ($reservas_peluqueria as $mascota )
+                @foreach ($reservas_peluqueria as $reserva )
                 <tr>
                 
-                    <td>{{$mascota->id}}</td>
-                    <td>{{$mascota->fecha}}</td>
-                    <td>{{$mascota->horaRecepcion}}</td>
-                    <td>{{$mascota->horaEntrega}}</td>
-                    <td>{{$mascota->BanoSimple}}</td>
-                    <td>{{$mascota->corte}}</td>
-                    <td>{{$mascota->tranquilizante}}</td>
-                    <td>{{$mascota->Observaciones}}</td>
+                    <td>{{$reserva->id}}</td>
+                    <td>{{$reserva->fecha}}</td>
+                    <td>{{$reserva->horaRecepcion}}</td>
+                    <td>{{$reserva->horaEntrega}}</td>
+                    <td>{{$reserva->BanoSimple}}</td>
+                    <td>{{$reserva->corte}}</td>
+                    <td>{{$reserva->tranquilizante}}</td>
+                    <td>{{$reserva->Observaciones}}</td>
                     
   
   
-                    <td width="10px"><a href="{{route('reservas_peluqueria.edit', $mascota)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
+                    <td width="10px"><a href="{{route('reservas_peluqueria.edit', $reserva)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
 
-                    <td width="10px">
+                    <!--<td width="10px">
                        
-                        <form action="{{ route('mascotas.cambiar-estado', $mascota->id) }}" method="POST">
+                        <form action="{{ route('reservas_peluqueria.index', $reserva->id) }}" method="POST">
                             @csrf
                             @method('PUT')      
                             <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
                         </form>
 
-                      
-
-                    </td>
+                    </td>-->
                 </tr>
                 
                 
