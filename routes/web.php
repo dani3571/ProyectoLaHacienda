@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
@@ -67,6 +68,10 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('roles','RoleController')
     ->except('show')
     ->names('roles');
+    Route::get('/roles/inactivos', [RoleController::class, 'inactivos'])->name('roles.inactivos');
+    Route::put('/roles/{role}/cambiar-estado', [RoleController::class, 'cambiarEstado'])->name('roles.cambiar-estado');
+    Route::put('/roles/{role}/restablecer-estado', [RoleController::class, 'restablecerEstado'])->name('roles.restablecer-estado');
+    Route::get('/pdfss', 'RoleController@getPDFRole')->name('getPDFR');
 
     //mascotas
     Route::resource('mascotas', 'MascotasController')

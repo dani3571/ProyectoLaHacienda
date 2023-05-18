@@ -23,9 +23,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a class="btn btn-primary" href="{{route('roles.create')}}">Crear rol</a>
-        <a class="btn btn-primary" href="{{route('roles.inactivos')}}">Roles inactivos</a>
-        <a class="btn btn-primary" href="{{route('getPDFR')}}">Reporte</a>
+        <a class="btn btn-primary" href="{{route('roles.index')}}">Roles registrados</a>
     </div>
     <div class="card-body">
         <table class="table table-striped">
@@ -43,24 +41,26 @@
                     <td>{{$role->id}}</td>
                     <td>{{$role->name}}</td>
 
-                    <td width="10px"><a href="{{route('roles.edit', $role)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
-
-
+                 
                     <td width="10px">
-                        <form action="{{ route('roles.cambiar-estado', $role->id) }}" method="POST">
+                        <form action="{{ route('roles.restablecer-estado', $role->id) }}" method="POST">
                             @csrf
                             @method('PUT')      
-                            <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
+                            <input type="submit" value="Restablecer" class="btn btn-primary btn-sm mb-2">
                         </form>
-
-                    
                     </td>
+                    <td width="10px">
+                        <form action="{{route('roles.destroy', $role)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="Eliminar" class="btn btn-danger btn-sm">
+                        </form>
+                    </td>
+
+                  
+
                 </tr>
                 @endforeach
-
-              
-
-              
             </tbody>
         </table>
     </div>
