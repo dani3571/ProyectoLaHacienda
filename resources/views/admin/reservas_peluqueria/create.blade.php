@@ -10,7 +10,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{route('reservas_peluqueria.store')}}" method="POST" >
+        <form method="POST" action="{{route('reservas_peluqueria.store')}}" >
             @csrf 
             
 

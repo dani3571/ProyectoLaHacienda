@@ -10,7 +10,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{route('reservas_peluqueria.store')}}" method="POST" >
+        <form method="POST" action="{{route('reservas_peluqueria.update', $reservacion_peluqueria->id)}}">
             @csrf 
             
 
@@ -71,12 +71,12 @@
             <label>Baño simple</label><br>
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="">Si</label>
-                    <input class="form-check-input ml-2" type="radio" name='BanoSimple' value="1">
+                    <input class="form-check-input ml-2" type="radio" name='BanoSimple' value="1" @if($reservacion_peluqueria->BanoSimple == '1') checked @else  @endif>
                 </div>
-
+                
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="">No</label>
-                    <input class="form-check-input ml-2" type="radio" name='BanoSimple' value="0" checked>
+                    <input class="form-check-input ml-2" type="radio" name='BanoSimple' value="0" @if($reservacion_peluqueria->BanoSimple == '0') checked @else  @endif>
                 </div>
                 @error('BanoSimple')
                 <span class="text-danger">
@@ -90,12 +90,12 @@
             <label>Corte</label><br>
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="">Si</label>
-                    <input class="form-check-input ml-2" type="radio" name='corte' value="1">
+                    <input class="form-check-input ml-2" type="radio" name='corte' value="1" @if($reservacion_peluqueria->corte == '1') checked @else  @endif>
                 </div>
 
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="">No</label>
-                    <input class="form-check-input ml-2" type="radio" name='corte' value="0" checked>
+                    <input class="form-check-input ml-2" type="radio" name='corte' value="0" @if($reservacion_peluqueria->corte == '0') checked @else  @endif>
                 </div>
                 @error('corte')
                 <span class="text-danger">
@@ -108,12 +108,12 @@
             <label>¿Necesita tranquilizante?</label><br> 
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="">Si</label>
-                    <input class="form-check-input ml-2" type="radio" name='tranquilizante' value="1">
+                    <input class="form-check-input ml-2" type="radio" name='tranquilizante' value="1" @if($reservacion_peluqueria->tranquilizante == '1') checked @else  @endif>
                 </div>
 
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="">No</label>
-                    <input class="form-check-input ml-2" type="radio" name='tranquilizante' value="0" checked>
+                    <input class="form-check-input ml-2" type="radio" name='tranquilizante' value="0" @if($reservacion_peluqueria->tranquilizante == '0') checked @else  @endif>
                 </div>
                 @error('tranquilizante')
                 <span class="text-danger">
@@ -125,7 +125,7 @@
             <div class="form-group">
                 <label>Observaciones</label>
                 <input type="text" class="form-control" id="Observaciones" name='Observaciones' placeholder="indique sus observaciones"
-                value="{{ old('Observaciones') }}">
+                value="{{ $reservacion_peluqueria->Observaciones }}">
 
                 @error('Observaciones')
                 <span class="text-danger">
@@ -134,7 +134,7 @@
                 @enderror
             </div>
 
-            <input type="submit" value="Registrar Reservación" class="btn btn-primary">
+            <input type="submit" value="Modificar Reservación" class="btn btn-primary">
 
      </form>
     </div>

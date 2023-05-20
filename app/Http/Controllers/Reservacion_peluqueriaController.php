@@ -58,4 +58,14 @@ class Reservacion_peluqueriaController extends Controller
             ->get();
         return view('admin.reservas_peluqueria.edit', compact('reservacion_peluqueria', 'mascotas'));
     }
+
+    public function update(Reservacion_peluqueriaRequest $request, $id)
+    {
+        $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($id);
+        $reservacion_peluqueria->fill($request->all());
+        //guardamos la informacion actualizada
+        $reservacion_peluqueria->save();
+        //mostramos un mensaje de exito 
+        return redirect()->route('reservas_peluqueria.index');
+    }
 }

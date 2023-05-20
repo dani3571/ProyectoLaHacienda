@@ -97,8 +97,8 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->except('show')
     ->names('reservas_peluqueria');
     Route::post('/reservas_peluqueria', [Reservacion_peluqueriaController::class, 'store'])->name('reservas_peluqueria.store');
-     /*Route::get('/reservas_peluqueria/{id}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit');
-     Route::put('/reservas_peluqueria/{mascota}/cambiar-estado', [MascotasController::class, 'cambiarEstado'])->name('mascotas.cambiar-estado');
+    Route::get('/reservas_peluqueria/{id}/edit', [Reservacion_peluqueriaController::class, 'edit'])->name('reservas_peluqueria.edit');
+     /*Route::put('/reservas_peluqueria/{mascota}/cambiar-estado', [MascotasController::class, 'cambiarEstado'])->name('mascotas.cambiar-estado');
      Route::put('/reservas_peluqueria/{mascota}/restablecer-estado', [MascotasController::class, 'restablecerEstado'])->name('mascotas.restablecer-estado');
 
      Route::delete('/mascotas/{mascota}/destroy', [MascotasController::class, 'destroy'])->name('mascotas.destroy');

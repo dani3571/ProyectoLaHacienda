@@ -49,9 +49,9 @@
                     <td>{{$reserva->fecha}}</td>
                     <td>{{$reserva->horaRecepcion}}</td>
                     <td>{{$reserva->horaEntrega}}</td>
-                    <td>{{$reserva->BanoSimple}}</td>
-                    <td>{{$reserva->corte}}</td>
-                    <td>{{$reserva->tranquilizante}}</td>
+                    <td>@if($reserva->BanoSimple == '1') Si @else No @endif</td>
+                    <td>@if($reserva->corte == '1') Si @else No @endif</td>
+                    <td>@if($reserva->tranquilizante == '1') Si @else No @endif</td>
                     <td>{{$reserva->Observaciones}}</td>
                     
   
