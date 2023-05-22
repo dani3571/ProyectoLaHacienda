@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('tratamiento', 8);
             $table->decimal('extras', 8);
             $table->decimal('total', 8);
+            $table->char('estado', 1)->default(1);
         
         //Foreign keys
         $table->unsignedBigInteger('usuario_id'); 

@@ -98,13 +98,9 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->names('reservas_peluqueria');
     Route::post('/reservas_peluqueria', [Reservacion_peluqueriaController::class, 'store'])->name('reservas_peluqueria.store');
     Route::get('/reservas_peluqueria/{id}/edit', [Reservacion_peluqueriaController::class, 'edit'])->name('reservas_peluqueria.edit');
-     /*Route::put('/reservas_peluqueria/{mascota}/cambiar-estado', [MascotasController::class, 'cambiarEstado'])->name('mascotas.cambiar-estado');
-     Route::put('/reservas_peluqueria/{mascota}/restablecer-estado', [MascotasController::class, 'restablecerEstado'])->name('mascotas.restablecer-estado');
-
-     Route::delete('/mascotas/{mascota}/destroy', [MascotasController::class, 'destroy'])->name('mascotas.destroy');
-     
-
-     Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');*/
+    Route::put('/reservas_peluqueria/{id}/cancelar', [Reservacion_peluqueriaController::class, 'cancelar'])->name('reservas_peluqueria.cancelar');
+    Route::get('/reservas_peluqueria/canceladas', [Reservacion_peluqueriaController::class, 'canceladas'])->name('reservas_peluqueria.canceladas');
+    Route::get('/reservas_peluqueria/index', [Reservacion_peluqueriaController::class, 'index'])->name('reservas_peluqueria.index');
 
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');

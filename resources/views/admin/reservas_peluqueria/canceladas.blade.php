@@ -7,31 +7,24 @@
 @endsection
 
 @section('content')
-@if(session('success'))
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    Swal.fire({
-        title: 'Éxito',
-        text: '{{ session('success') }}',
-        icon: 'success'
-    });
-</script>
-@endif
-@if(session('fail'))
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    Swal.fire({
-        title: 'Error!',
-        text: '{{ session('fail') }}',
-        icon: 'error'
-    });
-</script>
+@if(session('success-create'))
+<div class="alert alert-info">
+     {{ session('success-create') }}
+</div>
+@elseif (session('success-update'))
+<div class="alert alert-info">
+    {{ session('success-update') }}
+</div>
+@elseif (session('success-delete'))
+<div class="alert alert-info">
+    {{ session('success-delete') }}
+</div>
 @endif
 
 <div class="card">
     <div class="card-header">
-        <a class="btn btn-primary" href="{{route('reservas_peluqueria.create')}}">Registrar Reservación</a>
-        <a class="btn btn-secondary" href="{{route('reservas_peluqueria.canceladas')}}">Reservaciones Canceladas</a>
+        <a class="btn btn-primary" href="{{route('reservas_peluqueria.index')}}">Volver</a>
+        
     </div>
     <div class="card-body">
         <table class="table table-striped">
@@ -45,7 +38,6 @@
                     <th>Baño simple</th>
                     <th>tranquilizante</th>
                     <th>observaciones</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
 
@@ -61,23 +53,7 @@
                     <td>@if($reserva->BanoSimple == '1') Si @else No @endif</td>
                     <td>@if($reserva->tranquilizante == '1') Si @else No @endif</td>
                     <td>{{$reserva->Observaciones}}</td>
-                    
-  
-  
-                    <td width="10px"><a href="{{route('reservas_peluqueria.edit', $reserva)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
-
-                    <td width="10px">
-                       
-                        <form action="{{ route('reservas_peluqueria.cancelar', $reserva->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')      
-                            <input type="submit" value="Cancelar" class="btn btn-danger btn-sm">
-                        </form>
-
-                    </td>
                 </tr>
-                
-                
                 @endforeach
             </tbody>
         </table>

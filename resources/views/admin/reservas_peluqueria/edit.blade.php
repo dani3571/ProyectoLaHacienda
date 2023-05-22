@@ -66,42 +66,31 @@
                 @enderror
             </div>
             
-            
             <div class="form-group">
-            <label>Baño simple</label><br>
+            <label>Elija servicio</label><br>
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="">Si</label>
-                    <input class="form-check-input ml-2" type="radio" name='BanoSimple' value="1" @if($reservacion_peluqueria->BanoSimple == '1') checked @else  @endif>
+                    <label class="form-check-label" for="">Corte</label>
+                    <input class="form-check-input ml-2" type="radio" name='servicio' value="0" 
+                    @if($reservacion_peluqueria->corte == '1' && $reservacion_peluqueria->BanoSimple == '0') checked @endif>
                 </div>
-                
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="">No</label>
-                    <input class="form-check-input ml-2" type="radio" name='BanoSimple' value="0" @if($reservacion_peluqueria->BanoSimple == '0') checked @else  @endif>
+                    <label class="form-check-label" for="">Baño Simple</label>
+                    <input class="form-check-input ml-2" type="radio" name='servicio' value="1" 
+                    @if($reservacion_peluqueria->BanoSimple == '1' && $reservacion_peluqueria->corte == '0') checked @endif>
                 </div>
-                @error('BanoSimple')
-                <span class="text-danger">
-                        <span>{{ $message }}</span>
-                    </span>
-                @enderror
-
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="">Ambos</label>
+                    <input class="form-check-input ml-2" type="radio" name='servicio' value="2" 
+                    @if($reservacion_peluqueria->corte == '1' && $reservacion_peluqueria->BanoSimple == '1') checked @endif>
+                </div>
             </div>
 
             <div class="form-group">
-            <label>Corte</label><br>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="">Si</label>
-                    <input class="form-check-input ml-2" type="radio" name='corte' value="1" @if($reservacion_peluqueria->corte == '1') checked @else  @endif>
-                </div>
+                <input type="hidden" class="form-control" id="corte" name='corte' value="{{ $reservacion_peluqueria->corte }}">
+            </div>
 
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="">No</label>
-                    <input class="form-check-input ml-2" type="radio" name='corte' value="0" @if($reservacion_peluqueria->corte == '0') checked @else  @endif>
-                </div>
-                @error('corte')
-                <span class="text-danger">
-                        <span>{{ $message }}</span>
-                    </span>
-                @enderror
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="BanoSimple" name='BanoSimple' value="{{ $reservacion_peluqueria->BanoSimple }}">
             </div>
 
             <div class="form-group">
@@ -141,6 +130,6 @@
 </div>
 @endsection
 @section('js')
-    
     <script src="{{ asset('js/control_horario.js') }}"></script>
+    <script src="{{ asset('js/control_eleccion_servicio_peluqueria.js') }}"></script>
 @endsection

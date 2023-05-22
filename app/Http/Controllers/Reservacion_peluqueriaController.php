@@ -20,7 +20,11 @@ class Reservacion_peluqueriaController extends Controller
      */
     public function index()
     {
-      $reservas_peluqueria = ReservacionPeluqueria::simplePaginate(10);
+      
+      $reservas_peluqueria = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
+            ->where('estado', 1)
+            ->orderBy('id', 'asc')
+            ->simplePaginate(10);
       return view('admin.reservas_peluqueria.index', compact('reservas_peluqueria'));
     }
 
@@ -41,6 +45,7 @@ class Reservacion_peluqueriaController extends Controller
        $request->merge([
         //obtenemos los datos de user como su id con Auth
         'usuario_id' => Auth::user()->id
+        
     ]);
     //Guardando la solicitud en una variable
     $reservacion_peluqueria = $request->all();
@@ -66,6 +71,27 @@ class Reservacion_peluqueriaController extends Controller
         //guardamos la informacion actualizada
         $reservacion_peluqueria->save();
         //mostramos un mensaje de exito 
+        return redirect()->route('reservas_peluqueria.index')->with('success', 'Reserva actualizada con éxito');
+    }
+
+    public function cancelar($id)
+    {
+        $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($id);
+        //modificamos el estado a 0
+        $reservacion_peluqueria->estado = 0;
+        //Guardamos el registro a la BD
+        $reservacion_peluqueria->save();
+
         return redirect()->route('reservas_peluqueria.index');
+    }
+
+    public function canceladas()
+    {
+        //utilizamos user_id de la relacion con mascotas
+        $reservas_peluqueria = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
+            ->where('estado', 0)
+            ->orderBy('id', 'asc')
+            ->simplePaginate(10);
+        return View('admin.reservas_peluqueria.canceladas', compact('reservas_peluqueria'));
     }
 }
