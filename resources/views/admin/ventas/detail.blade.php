@@ -9,7 +9,6 @@
 </a>
 <br>
 <br>
-<a href="{{route('ventas.create')}}" class="btn btn-primary">Crear nueva venta</a>
 @endsection
 
 @section('content')

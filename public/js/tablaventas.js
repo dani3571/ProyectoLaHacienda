@@ -126,7 +126,7 @@ function validarCampos() {
         Cantidad.trim() === "" ||
         PrecioIndividual.trim() === ""
     ) {
-        alert("Por favor, rellene todos los campos del formulario.");
+        alert("Ingrese una cantidad");
         return false; // Detener la ejecución si hay campos vacíos
     }
     if (parseInt(Cantidad) > parseInt(CantidadDisponible)) {

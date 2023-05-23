@@ -3,9 +3,8 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1 class="text-center">Ventas realizadas</h1>
+<h1 class ="text-muted">Ventas realizadas</h1>
 <br>
-<a href="{{route('ventas.create')}}" class="btn btn-primary">Crear nueva venta</a>
 @endsection
 
 @section('content')

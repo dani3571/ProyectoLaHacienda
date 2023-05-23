@@ -5,9 +5,7 @@
 @section('content_header')
 
 <h1 class ="text-muted">Nueva venta</h1>
-<a href="{{route('ventas.index')}}">
-    Volver
-</a>
+
 <br>
 @endsection
 <style>

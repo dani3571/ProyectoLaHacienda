@@ -347,9 +347,19 @@ return [
         ],
         [
             'text' => 'Ventas',
-            'url'  => 'admin/ventas',
             'icon' => 'fas fa-fw fa-money-check',
-            'can'=>'ventas.index',
+            'submenu' => [
+                [
+                    'text' => 'Listado de ventas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/ventas',
+                ],
+                [
+                    'text' => 'Crear nueva venta',
+                    'icon' => 'fas fa-fw fa-cart-plus',
+                    'url'  => 'admin/ventas/create',
+                ],
+            ]
         ],
         [
             'text' => 'Hotel',
