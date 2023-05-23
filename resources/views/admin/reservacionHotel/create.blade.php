@@ -134,7 +134,7 @@
             <div class="form-group">
                 <label>total</label>
                 <input type="number" class="form-control" id="total" name='total' placeholder="total de la mascota"
-                    value="{{ old('total') }}">
+                    value="{{ old('total') }}" readonly>
 
                     @error('total')
                         <span class="text-danger">
@@ -161,4 +161,7 @@
      </form>
     </div>
 </div>
+@endsection
+@section('js')
+<script src="{{ asset('js/sumartotalesreservacion.js') }}"></script>
 @endsection

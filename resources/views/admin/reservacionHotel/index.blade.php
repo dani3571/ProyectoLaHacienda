@@ -78,7 +78,7 @@
                                     @foreach ($reservacionHotel as $reservacionHotel)
 
                                         <tr class="reserva" id="{{ $reservacionHotel->fechaIngreso }}">
-                                        <tr class="reserva1" id="{{ $reservacionHotel->fechaSalida }}">
+                                        <span class="reserva1" id="{{ $reservacionHotel->fechaSalida }}">
                                             <td>{{ $reservacionHotel->id }}</td>
                                             
 											<td>{{ $reservacionHotel->fechaIngreso }}</td>
@@ -109,7 +109,7 @@
                                                 <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
                                             </form>-->
                                         </td>
-                                        </tr>
+                                        </span>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -117,51 +117,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-    <script>
-    document.addEventListener("keyup", e => {
-
-    if (e.target.matches("#buscador")) {
-
-        if (e.key === "Escape") e.target.value = ""
-
-        document.querySelectorAll(".reserva").forEach(fruta => {
-
-            fruta.id.toLowerCase().includes(e.target.value.toLowerCase())
-                ? fruta.classList.remove("filtro")
-                : fruta.classList.add("filtro")
-        })
-
-    }
-    });
-
-    document.addEventListener("change", e => {
-    if (e.target.matches("#buscadorDate")) {
-        if (e.key === "Escape") e.target.value = "";
-
-        document.querySelectorAll(".reserva").forEach(fruta => {
-            fruta.id.toLowerCase().includes(e.target.value.toLowerCase())
-                ? fruta.classList.remove("filtro")
-                : fruta.classList.add("filtro");
-        });
-    }
-    });
-
-    document.addEventListener("change", e => {
-    if (e.target.matches("#buscadorDateSalida")) {
-        if (e.key === "Escape") e.target.value = "";
-
-        document.querySelectorAll(".reserva1").forEach(fruta => {
-            fruta.id.toLowerCase().includes(e.target.value.toLowerCase())
-                ? fruta.classList.remove("filtro")
-                : fruta.classList.add("filtro");
-        });
-    }
-    });
-
-    </script>
 @endsection
+@endsection
+@section('js')
+<script src="{{ asset('js/buscadorReservas.js') }}"></script>
 @endsection
