@@ -179,8 +179,12 @@ class MascotasController extends Controller
     {
         $user = Auth::user();
         $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
         $mascotas = Mascotas::all();
-        $pdf = PDF::loadView('admin.mascotas.reporte', compact('name', 'mascotas'));
+        $pdf = PDF::loadView('admin.mascotas.reporte', compact('name', 'mascotas', 'nombreSistema', 'fecha', 'hora'));
         return $pdf->stream('prueba.pdf');
     }
 }
