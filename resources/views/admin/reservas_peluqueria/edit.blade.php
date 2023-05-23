@@ -7,6 +7,26 @@
 @endsection
 
 @section('content')
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
+@endif
 
 <div class="card">
     <div class="card-body">
@@ -124,7 +144,7 @@
             </div>
 
             <input type="submit" value="Modificar Reservación" class="btn btn-primary">
-
+            <a class="btn btn-danger" href="{{route('reservas_peluqueria.index')}}">Volver</a>
      </form>
     </div>
 </div>

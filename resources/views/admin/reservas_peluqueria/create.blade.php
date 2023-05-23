@@ -7,6 +7,26 @@
 @endsection
 
 @section('content')
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
+@endif
 
 <div class="card">
     <div class="card-body">
@@ -31,7 +51,7 @@
 
             <div class="form-group">
                 <label>Fecha</label>
-                <input type="date" class="form-control" id="fecha" name='fecha' min="{{ now()-> format('Y-m-d') }}" 
+                <input type="date" class="form-control" id="fecha" name='fecha' min="{{ (new DateTime('tomorrow'))-> format('Y-m-d') }}" 
                 value="{{ old('fecha') }}">
 
                 @error('fecha')
@@ -40,7 +60,7 @@
                 </span>
                 @enderror
             </div>
-
+            
             <div class="form-group">
                 <label>Hora de recepción</label><br>
                 <input type="time" id="horaRecepcion" name="horaRecepcion" min="09:00" max="18:00" value="09:00">
@@ -116,7 +136,7 @@
             </div>
 
             <input type="submit" value="Registrar Reservación" class="btn btn-primary">
-
+            <a class="btn btn-danger" href="{{route('reservas_peluqueria.index')}}">Volver</a>
      </form>
     </div>
 </div>
