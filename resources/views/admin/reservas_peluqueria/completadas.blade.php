@@ -3,7 +3,7 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Reservaciones Peluqueria</h1>
+<h1>Reservaciones completadas - Peluqueria</h1>
 @endsection
 
 @section('content')

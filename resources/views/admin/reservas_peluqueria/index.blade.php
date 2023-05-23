@@ -3,7 +3,7 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Reservaciones Peluqueria</h1>
+<h1>Reservaciones Activas - Peluqueria</h1>
 @endsection
 
 @section('content')
@@ -29,11 +29,11 @@
 @endif
 
 <div class="card">
-    <div class="card-header">
+    <!--<div class="card-header">
         <a class="btn btn-primary" href="{{route('reservas_peluqueria.create')}}">Registrar Reservación</a>
         <a class="btn btn-success" href="{{route('reservas_peluqueria.completadas')}}">Reservaciones Completadas</a>
         <a class="btn btn-secondary" href="{{route('reservas_peluqueria.canceladas')}}">Reservaciones Canceladas</a>
-    </div>
+    </div>-->
     <div class="card-body">
         <table class="table table-striped">
             <thead>

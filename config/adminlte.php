@@ -340,10 +340,32 @@ return [
              
        
         ],
+        
         [
-            'text' => 'Peluqueria',
-            'url'  => 'admin/reservas_peluqueria',
-            'icon' => 'fas fa-fw fa-splotch',
+            'text'    => 'Peluqueria',
+            'icon'    => 'fas fa-fw fa-splotch',
+            'submenu' => [
+                [
+                    'text' => 'Registrar Nueva reserva',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_peluqueria/create',
+                ],
+                [
+                    'text' => 'Reservas Activas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_peluqueria',
+                ],
+                [
+                    'text' => 'Reservas completadas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_peluqueria/completadas',
+                ],
+                [
+                    'text' => 'Reservas Canceladas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_peluqueria/canceladas',
+                ],
+            ],
         ],
         [
             'text' => 'Ventas',
