@@ -319,26 +319,56 @@ return [
         ['header' => 'PANEL'],
         [
             'text' => 'Usuarios',
-            'route'  => 'users.index',
             'icon' => 'fas fa-users',
-            'active' =>  ['admin/users*'],
             'can'=>'users.index',
+            'submenu' => [
+                [
+                    'text' => 'Listado de usuarios',
+                    'icon' => 'fas fa-fw fa-list',
+                    'route'  => 'users.index',
+                ],
+                [
+                    'text' => 'Reporte de usuarios',
+                    'icon' => 'fas fa-fw fa-list',
+                    'route'  => 'getPD',
+                ],
+            ]
         ],
         [
             'text' => 'Roles',
             'route'  => 'roles.index',
             'icon' => 'fa fa-lock',
-            'active' =>  ['admin/roles*'],
             'can'=>'roles.index',
+            'submenu' => [
+                [
+                    'text' => 'Listado de roles',
+                    'icon' => 'fas fa-fw fa-list',
+                    'route'  => 'roles.index',
+                ],
+                [
+                    'text' => 'Listado de roles inactivos',
+                    'icon' => 'fas fa-fw fa-list',
+                    'route'  => 'roles.inactivos',
+                ],
+           
+                [
+                    'text' => 'Crear roles',
+                    'icon' => 'fas fa-solid fa-plus',
+                    'route'  => 'roles.create',
+                ],
+                [
+                    'text' => 'Reporte de roles',
+                    'icon' => 'fas fa-sharp fa-solid fa-flag',
+                    'route'  => 'getPDFR',
+                ],
+            ]
         ],
-      
         [   
                 'text' => 'Mascotas',
                 'route'  => 'mascotas.index',
                 'icon' => 'fa fa-paw',
                 'active' => ['admin/mascotas*'],
-             
-       
+    
         ],
         
         [
