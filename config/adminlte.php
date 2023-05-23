@@ -331,7 +331,7 @@ return [
             'active' =>  ['admin/roles*'],
             'can'=>'roles.index',
         ],
-     
+      
         [   
                 'text' => 'Mascotas',
                 'route'  => 'mascotas.index',
@@ -361,6 +361,7 @@ return [
                 ],
             ]
         ],
+        
         [
             'text' => 'Hotel',
             'url'  => 'admin/reservacionHotel',

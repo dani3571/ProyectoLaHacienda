@@ -56,16 +56,8 @@
                             <input type="submit" value="Restablecer" class="btn btn-primary btn-sm mb-2">
                         </form>
                     </td>
-                    <td width="10px">
-                        <form action="{{route('roles.destroy', $role)}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" value="Eliminar" class="btn btn-danger btn-sm">
-                        </form>
-                    </td>
 
-                  
-
+                
                 </tr>
                 @endforeach
             </tbody>
