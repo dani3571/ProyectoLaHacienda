@@ -30,11 +30,15 @@
 
 
 <div class="card">
+ <!--
+           
     <div class="card-header">
         <a class="btn btn-primary" href="{{route('roles.create')}}">Crear rol</a>
         <a class="btn btn-primary" href="{{route('roles.inactivos')}}">Roles inactivos</a>
         <a class="btn btn-primary" href="{{route('getPDFR')}}">Reporte</a>
+       
     </div>
+    -->
     <div class="card-body">
         <table class="table table-striped">
             <thead>

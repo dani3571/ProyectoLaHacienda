@@ -67,6 +67,10 @@ class UserController extends Controller
     public function getPDFusuarios(){
       $user = Auth::user();
       $name = $user->name;
+      $nombreSistema = "SISTEMA GENESIS";
+      $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+      // Obtener la hora actual
+      $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
       $user = User::all();
       $pdf = PDF::loadView('admin.users.reporte', compact('name', 'user'));
       return $pdf->stream('Reporte_Usuarios.pdf');
