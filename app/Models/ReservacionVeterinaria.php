@@ -21,4 +21,8 @@ class ReservacionVeterinaria extends Model
     public function user(){
       return $this->belongsTo(User::class);
     }
+
+    public function mascotas(){
+      return $this->belongsTo(Mascotas::class);
+  }
 }

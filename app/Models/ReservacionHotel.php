@@ -27,8 +27,10 @@ class ReservacionHotel extends Model
     public function habitacion(){
         return $this->hasOne(Habitacion::class);
     }
-  
-    public $timestamps = false;
+    public function mascotas(){
+        return $this->belongsTo(Mascotas::class);
+    }
+   // public $timestamps = false;
 
 
 }

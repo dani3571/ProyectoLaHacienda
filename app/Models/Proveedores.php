@@ -16,4 +16,11 @@ class Proveedores extends Model
         return $this->hasMany(ProveedorProductos::class);
     }
 
+   //relacion inversa detalle_ventas - productos
+    public function compras(){
+           return $this->hasMany(Compras::class);
+    }
+
+    
+
 }

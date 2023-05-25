@@ -19,6 +19,15 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->date('fechaCompra');
             $table->timestamps();
+
+
+            $table->unsignedBigInteger('id_proveedor'); 
+            $table->foreign('id_proveedor')
+            ->references('id')
+            ->on('proveedores')
+            ->onDelete('cascade');
+
+
         });
     }
 

@@ -30,6 +30,15 @@ return new class extends Migration
              ->references('id')
              ->on('users')
              ->onDelete('cascade');
+
+               //Foreign keys
+            $table->unsignedBigInteger('mascota_id'); 
+            $table->foreign('mascota_id')
+            ->references('id')
+            ->on('mascotas')
+            ->onDelete('cascade');
+          
+             
         });
     }
 

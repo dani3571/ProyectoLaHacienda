@@ -27,12 +27,21 @@ return new class extends Migration
             $table->char('estado', 1)->default(1);
         
         //Foreign keys
-        $table->unsignedBigInteger('usuario_id'); 
-        $table->foreign('usuario_id')
-        ->references('id')
-        ->on('users')
-        ->onDelete('cascade');
+            $table->unsignedBigInteger('usuario_id'); 
+            $table->foreign('usuario_id')
+            ->references('id')
+             ->on('users')
+            ->onDelete('cascade');
+            //Foreign keys
+            $table->unsignedBigInteger('mascota_id'); 
+            $table->foreign('mascota_id')
+            ->references('id')
+            ->on('mascotas')
+            ->onDelete('cascade');
+        
         });
+
+        
     }
 
     /**

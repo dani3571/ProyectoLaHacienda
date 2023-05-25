@@ -29,4 +29,15 @@ class Mascotas extends Model
     public function pesos(){
       return $this->hasMany(Peso::class);
     }
+
+    public function reservacion_hotels(){
+        return $this->hasMany(ReservacionHotel::class);
+    }
+    public function reservacion_peluquerias(){
+         return $this->hasMany(ReservacionPeluqueria::class);
+    }
+    public function reservacion_veterinarias(){
+      return $this->hasMany(ReservacionVeterinaria::class);
+   }
+   
 }
