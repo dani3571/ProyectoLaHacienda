@@ -30,6 +30,8 @@ return new class extends Migration
            ->references('id')
            ->on('proveedores')
            ->onDelete('cascade');
+
+           $table->timestamps();
         });
     }
 

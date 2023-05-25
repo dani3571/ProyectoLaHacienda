@@ -23,6 +23,14 @@ return new class extends Migration
             //si es 0 no disponible / si es 1 disponible
             $table->char('estado', 1);
         
+                //Foreign keys
+                $table->unsignedBigInteger('categoria_id'); 
+                $table->foreign('categoria_id')
+                ->references('id')
+                ->on('categorias')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

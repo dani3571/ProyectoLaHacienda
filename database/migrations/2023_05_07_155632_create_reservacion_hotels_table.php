@@ -39,6 +39,7 @@ return new class extends Migration
             ->on('mascotas')
             ->onDelete('cascade');
         
+            $table->timestamps();
         });
 
         
