@@ -123,9 +123,11 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         ->except('show')
         ->names('habitacion');
         Route::get('/habitacion/show/{id}', [HabitacionController::class, 'show'])->name('habitacion.show');
-});
+    });
     //Perfiles
     Route::resource('profiles', ProfileController::class)
     ->only('edit', 'update')
     ->names('profiles');
+
+    
  

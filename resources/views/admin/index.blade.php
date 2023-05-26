@@ -6,13 +6,58 @@
 @stop
 
 @section('content')
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
- 
-  
-  </div>
-</div>
+_____________________________________
 
+_____________________________________
+
+_____________________________________
+
+_____________________________________
+
+_____________________________________
+
+_____________________________________
+
+_____________________________________
+_____________________________________
+_____________________________________
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<br>
+
+<canvas id="myChart" width="1000px" height="200px"></canvas>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const ctx = document.getElementById('myChart');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ventas', 'Compras', 'Usuarios Registrados', 'Reservacion hotel', 'Reservacion veterinaria', 'Reservacion peluqueria'],
+                    datasets: [{
+                        label: '# Reporte del dia',
+                        data: [12, 19, 3, 5, 2, 10],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                }
+            });
+        }, true);
+    </script>
 
 @stop
 
@@ -20,6 +65,7 @@
 @stop
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @stop
 
 <style>
@@ -38,7 +84,18 @@
    margin: auto;
    text-align: left;
 }
-
+.box {
+  width: 200px;
+}
+.minibox {
+  width: 50px;
+}
+.width {
+  width: 100%;
+}
+.max {
+  max-width: 100%;
+}
 
 
 </style>
