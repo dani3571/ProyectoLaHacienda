@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/inicio',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -324,12 +324,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Listado de usuarios',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-list-alt',
                     'route'  => 'users.index',
                 ],
                 [
                     'text' => 'Reporte de usuarios',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPD',
                 ],
             ]
@@ -342,12 +342,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Listado de roles',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-list-alt',
                     'route'  => 'roles.index',
                 ],
                 [
                     'text' => 'Listado de roles inactivos',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-stream',
                     'route'  => 'roles.inactivos',
                 ],
            
@@ -358,7 +358,7 @@ return [
                 ],
                 [
                     'text' => 'Reporte de roles',
-                    'icon' => 'fas fa-sharp fa-solid fa-flag',
+                    'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPDFR',
                 ],
             ]
@@ -403,7 +403,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Listado de ventas',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-list-alt',
                     'url'  => 'admin/ventas',
                 ],
                 [

@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="btn-atrass">
-        <a href="{{route('index.index')}}" class="btn-atras">⬅</a>
+        <a href="{{route('inicio.inicio')}}" class="btn-atras">⬅</a>
     </div>
 
     <div class="main-content">

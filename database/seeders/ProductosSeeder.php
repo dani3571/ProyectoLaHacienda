@@ -22,6 +22,8 @@ class ProductosSeeder extends Seeder
             'cantidad' => '50',
             'image' => '',
             'estado' => '1',
+            'categoria_id' => '1',
+            
         ]);
         Productos::create([
             'nombre' => 'Croquetas',
@@ -30,6 +32,7 @@ class ProductosSeeder extends Seeder
             'cantidad' => '50',
             'image' => '',
             'estado' => '1',
+            'categoria_id' => '1',
         ]);
         Productos::create([
             'nombre' => 'Juguete para perro',
@@ -38,6 +41,7 @@ class ProductosSeeder extends Seeder
             'cantidad' => '50',
             'image' => '',
             'estado' => '1',
+            'categoria_id' => '1',
         ]);
     }
 }

@@ -30,7 +30,7 @@ Route::get('/', function () {
 
 Route::get('/inicio', function () {
     return view('home/inicio');
-});
+})->name('inicio.inicio');
 Route::get('/index', function () {
     return view('home/index');
 })->name('index.index');

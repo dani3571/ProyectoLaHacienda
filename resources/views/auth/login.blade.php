@@ -11,7 +11,11 @@
 <form method="POST" class="form" action="{{route('login')}}">
     <!--Definimos el toker de verificacion-->
     @csrf
+    <h2>Bienvenido al Sistema <b>"GENESIS"</b></h2>
+    
+    <br>
     <h2>Iniciar sesión</h2>
+   
     <div class="content-login">
         <div class="input-content">
             <input type="text" name="email" placeholder="Correo eléctronico" value="{{old('email')}}" autofocus>
