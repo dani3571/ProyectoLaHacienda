@@ -146,18 +146,18 @@
         </div>
     </nav>
 @else
-    <div class="container-fluid bg-color-info font-color-general" id="inicio">
-        <div class="row">
-            <div class="col-12 col-lg-6 text-center text-lg-left my-3 pl-5">
-                Col. del Valle, Ciudad de México
-            </div>
+<div class="container-fluid bg-color-info font-color-general" id="inicio">
+    <div class="row">
+        <div class="col-12 col-lg-6 text-center text-lg-left my-3 pl-5">
+            Complejo la Hacienda, Ciudad de La Paz
+        </div>
 
-            <div class="col-12 col-lg-6 text-center text-lg-right my-3 pr-5">
-                Lunes a Viernes de 9 am a 7 pm. <span class="font-weigth-bolder"><i class="fi-xnsuxl-smartphone-solid"></i>
-                    5541554263</span>
-            </div>
+        <div class="col-12 col-lg-6 text-center text-lg-right my-3 pr-5">
+            Lunes a Viernes de 9 am a 7 pm. <span class="font-weigth-bolder"><i class="fi-xnsuxl-smartphone-solid"></i>
+                5541554263</span>
         </div>
     </div>
+</div>
     <nav class="navbar navbar-expand-lg sticky-top bg-light">
         <img src="{{ asset('images/logo.png') }}" width="90" height="90">
         <span class="brand-name">La Hacienda</span>
@@ -184,7 +184,6 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item"
                         href="{{route('profiles.edit', ['profile' =>Auth::user()->id])}}">Perfil</a></li>
-               <!--can nos ayudara a poner los permisos con el nombre entre parentesis ya creado en el RoleSeeder-->
                 @can('admin.index')
                 <li><a class="dropdown-item" href="{{route('admin.index')}}">Ir al admin</a></li>
                 @endcan

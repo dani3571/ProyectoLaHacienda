@@ -8,8 +8,7 @@ window._ = _;
  */
 
 import axios from 'axios';
-import Chart from 'chart.js';
-window.Chart = Chart;
+
 window.axios = axios;
 window.$ = require('jquery');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

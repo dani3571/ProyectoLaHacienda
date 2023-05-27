@@ -3,8 +3,7 @@ import './bootstrap';
 import * as bootstrap from 'bootstrap'
 
 import "@fortawesome/fontawesome-free/css/all.css";
-import Chart from 'chart.js';
-window.Chart = Chart;
+
 window.$ = require('jquery');
 
 let Chart = require("chart.js/dist/chart");
