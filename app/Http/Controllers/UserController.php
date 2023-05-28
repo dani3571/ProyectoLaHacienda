@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role ;
@@ -64,7 +63,7 @@ class UserController extends Controller
                        ->with('success-delete', 'Usuario eliminado con exito');
     }
 
-    public function getPDFusuarios(){
+    public function getPDFusuarios(Request $request){
       $user = Auth::user();
       $name = $user->name;
       $nombreSistema = "SISTEMA GENESIS";
@@ -72,7 +71,17 @@ class UserController extends Controller
       // Obtener la hora actual
       $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
       $user = User::all();
-      $pdf = PDF::loadView('admin.users.reporte', compact('name', 'user'));
+      $fechaInicio = $request->input('fechaInicio');
+      $fechaFin = $request->input('fechaFin');
+     
+      $view = view('admin.users.reporte', compact('name', 'user', 'nombreSistema', 'fecha', 'hora'));
+       // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+      if ($fechaInicio && $fechaFin) {
+      $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+      }
+      // Generar el PDF con la vista del reporte
+      $pdf = PDF::loadHTML($view);
+
       return $pdf->stream('Reporte_Usuarios.pdf');
     }
 

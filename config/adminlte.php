@@ -425,6 +425,19 @@ return [
             'icon' => 'fas fa-fw fa-hotel',
         ],
         [
+            'text' => 'Reportes',
+            'icon' => 'fas fa-solid fa-file-pdf',
+            'can'=>'users.index',
+            'submenu' => [
+                [
+                    'text' => 'Generar reporte',
+                    'icon' => 'fas fa-folder-plus',
+                    
+                    'route'  => 'reportes.index',
+                ],
+            ]
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -545,7 +558,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

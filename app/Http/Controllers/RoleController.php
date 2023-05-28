@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use PDF;
+
 class RoleController extends Controller
 {
     /**
@@ -131,14 +132,25 @@ class RoleController extends Controller
         return redirect()->route('roles.inactivos')->with('success', 'Rol restablecido con éxito');
            
     }
-    public function getPDFRole(){
+    public function getPDFRole(Request $request){
         $user = Auth::user();
 		$name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
         $role = Role::all();
-		$pdf = PDF::loadView('admin.roles.reportes', compact('name', 'role'));
-		return $pdf->stream('prueba.pdf');
-	}
-  
-  
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+       
+        $view = view('admin.roles.reportes', compact('name', 'role', 'nombreSistema', 'fecha', 'hora'));
+         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        if ($fechaInicio && $fechaFin) {
+        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        // Generar el PDF con la vista del reporte
 
+        $pdf = PDF::loadHTML($view);
+     
+        return $pdf->stream('Reporte_Roles.pdf');
+	}
 }

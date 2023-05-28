@@ -40,6 +40,10 @@
             border: 1px solid #ddd;
             padding: 8px;
         }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -49,8 +53,12 @@
         </div>
         <h1 class="nombre-sistema">SISTEMA GENESIS</h1> <!-- Utiliza la variable $nombreSistema para mostrar el nombre del sistema -->
     </header>
-   <center><h2 class="titulo">REPORTE DE USUARIOS</h2></center>
-   
+   <center><h2 class="titulo">REPORTE DE ROLES</h2>
+    @if (isset($fechaInicio) && isset($fechaFin))
+    <p>Fechas de filtrado: {{ $fechaInicio }} - {{ $fechaFin }}</p>
+    @endif
+    </center>
+
     <div class="fecha-usuario">
         <p>Usuario: {{ $name }}</p> 
         <p class="fecha">Fecha y Hora: {{$fecha = date('Y-m-d');}} - {{ $hora = date('H:i'); }}                </p> 
@@ -74,5 +82,10 @@
            
         </tbody>
     </table>
+
+    <div class="footer">
+        <hr style="width: 34%; margin-top: 150px;">
+        Firma
+    </div>
 </body>
 </html>

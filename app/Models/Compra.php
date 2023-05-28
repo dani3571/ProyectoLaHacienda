@@ -10,7 +10,7 @@ class Compra extends Model
     use HasFactory;
 
     protected $guarded = ['id','created_at','updated_at'];
-  
+    public $timestamps = true;
     //relacion compra - detalle_compra
     public function detalle_compras(){
      return $this->hasMany(DetalleCompras::class);

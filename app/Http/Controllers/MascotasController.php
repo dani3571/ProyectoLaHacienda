@@ -175,7 +175,7 @@ class MascotasController extends Controller
     }
 
 
-    public function getPDF()
+    public function getPDF(Request $request)
     {
         $user = Auth::user();
         $name = $user->name;
@@ -184,7 +184,18 @@ class MascotasController extends Controller
         // Obtener la hora actual
         $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
         $mascotas = Mascotas::all();
-        $pdf = PDF::loadView('admin.mascotas.reporte', compact('name', 'mascotas', 'nombreSistema', 'fecha', 'hora'));
-        return $pdf->stream('prueba.pdf');
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+       
+        $view = view('admin.mascotas.reporte', compact('name', 'mascotas', 'nombreSistema', 'fecha', 'hora'));
+        
+         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        if ($fechaInicio && $fechaFin) {
+        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        // Generar el PDF con la vista del reporte
+        $pdf = PDF::loadHTML($view);
+     
+        return $pdf->stream('mascotas.pdf');
     }
 }

@@ -99,6 +99,39 @@
     //Dashboard
     //Obteniendo los datos
     
+    /* ----------Día---------- */
+    $diaActual = date('d');
+    
+    // Usuarios
+    $usuariosRegistrados = DB::table('users')
+        ->whereDay('created_at', $diaActual)
+        ->count();
+    
+    // Ventas
+    $ventasRealizadas = DB::table('ventas')
+        ->whereDay('created_at', $diaActual)
+        ->count();
+    
+    // Compras
+    $comprasRealizadas = DB::table('compras')
+        ->whereDay('created_at', $diaActual)
+        ->count();
+    
+    // Veterinarias
+    $veterinariasReservadas = DB::table('reservacion_veterinarias')
+        ->whereDay('created_at', $diaActual)
+        ->count();
+    
+    // Hotel
+    $hotelReservado = DB::table('reservacion_hotels')
+        ->whereDay('created_at', $diaActual)
+        ->count();
+    
+    // Peluquería
+    $peluqueriasReservadas = DB::table('reservacion_peluquerias')
+        ->whereDay('created_at', $diaActual)
+        ->count();
+    
     /* ----------MES----------*/
     $mesActual = date('m');
     
@@ -182,7 +215,7 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <br>
-   
+
 
     <div class="chart-container" style="width: 100%; height: 600px; display: flex;">
         <div style="width: 50%;">
@@ -273,7 +306,7 @@
 
                         {
                             label: '# Reporte del semestre',
-                         
+
                             data: [registrosVentasSemestre, registrosComprasSemestre,
                                 registrosUsuariosSemestre,
                                 registrosHotelSemestre, registrosVetSemestre,
@@ -304,129 +337,59 @@
 
                 }
             });
+        }, true);
+    </script>
+    <!--Grafico torta-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('myChart2');
+            //dia actual
+            const usuariosRegistrados = {!! json_encode($usuariosRegistrados) !!};
+            const ventasRealizadas = {!! json_encode($ventasRealizadas) !!};
+            const comprasRealizadas = {!! json_encode($comprasRealizadas) !!};
+            const veterinariasReservadas = {!! json_encode($veterinariasReservadas) !!};
+            const hotelReservado  = {!! json_encode($hotelReservado ) !!};
+            const peluqueriasReservadas = {!! json_encode($peluqueriasReservadas) !!};
+
+            const myChart2 = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Ventas', 'Compras', 'Usuarios Registrados', 'Reservacion hotel',
+                        'Reservacion veterinaria', 'Reservacion peluqueria'
+                    ],
+                    datasets: [{
+                        label: '# Reporte del dia',
+                        data: [ventasRealizadas, comprasRealizadas, usuariosRegistrados,
+                        hotelReservado, veterinariasReservadas, peluqueriasReservadas
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+
+                    }, ]
+
+
+                }
+            });
 
 
 
         }, true);
     </script>
-<!--Grafico torta-->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('myChart2');
-        //semestre
-        const registrosUsuarios = {!! json_encode($registrosUsuarios) !!};
-        const registrosVentas = {!! json_encode($registrosVentas) !!};
-        const $registrosCompras = {!! json_encode($registrosCompras) !!};
-        const $registrosVet = {!! json_encode($registrosVet) !!};
-        const $registrosHotel = {!! json_encode($registrosHotel) !!};
-        const $registrosPeluqueria = {!! json_encode($registrosPeluqueria) !!};
-        //trimestre
-        const registrosUsuarios2 = {!! json_encode($registrosUsuarios2) !!};
-        const registrosVentas2 = {!! json_encode($registrosVentas2) !!};
-        const registrosCompras2 = {!! json_encode($registrosCompras2) !!};
-        const registrosVet2 = {!! json_encode($registrosVet2) !!};
-        const registrosHotel2 = {!! json_encode($registrosHotel2) !!};
-        const registrosPeluqueria2 = {!! json_encode($registrosPeluqueria2) !!};
-        //semestre
-        const registrosUsuariosSemestre = {!! json_encode($registrosUsuariosSemestre) !!};
-        const registrosVentasSemestre = {!! json_encode($registrosVentasSemestre) !!};
-        const registrosComprasSemestre = {!! json_encode($registrosComprasSemestre) !!};
-        const registrosVetSemestre = {!! json_encode($registrosVetSemestre) !!};
-        const registrosHotelSemestre = {!! json_encode($registrosHotelSemestre) !!};
-        const registrosPeluqueriaSemestre = {!! json_encode($registrosPeluqueriaSemestre) !!};
-        const myChart2 = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Ventas', 'Compras', 'Usuarios Registrados', 'Reservacion hotel',
-                    'Reservacion veterinaria', 'Reservacion peluqueria'
-                ],
-                datasets: [{
-                        label: '# Reporte del mes',
-                        data: [registrosVentas, $registrosCompras, registrosUsuarios,
-                            $registrosHotel, $registrosVet, $registrosPeluqueria
-                        ],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 2
-
-                    },
-                    {
-                        label: '# Reporte del trimestre',
-                        data: [registrosVentas2, registrosCompras2, registrosUsuarios2,
-                            registrosHotel2, registrosVet2, registrosPeluqueria2
-                        ],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 2
-
-                    },
-
-                    {
-                        label: '# Reporte del semestre',
-                     
-                        data: [registrosVentasSemestre, registrosComprasSemestre,
-                            registrosUsuariosSemestre,
-                            registrosHotelSemestre, registrosVetSemestre,
-                            registrosPeluqueriaSemestre
-                        ],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 2
-                    },
-
-
-                ]
-
-
-            }
-        });
-
-
-
-    }, true);
-</script>
 
 @stop
 

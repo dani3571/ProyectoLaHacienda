@@ -124,7 +124,16 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         ->except('show')
         ->names('habitacion');
         Route::get('/habitacion/show/{id}', [HabitacionController::class, 'show'])->name('habitacion.show');
+
+    //Reportes
+    Route::resource('reportes', 'ReportesController')
+    ->except('create', 'store', 'show')
+    ->names('reportes');
+    Route::post('reportes', 'ReportesController@generarReporte')->name('generar.reporte');
+
     });
+
+    
     //Perfiles
     Route::resource('profiles', ProfileController::class)
     ->only('edit', 'update')

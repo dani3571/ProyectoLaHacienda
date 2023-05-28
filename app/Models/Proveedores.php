@@ -9,6 +9,7 @@ class Proveedores extends Model
 {
     use HasFactory;
     protected $guarded = ['id','created_at','updated_at'];
+    public $timestamps = true;
     //relacion de 1 a muchos con productos_proveedores
     //(proveedores-productos_proveedores)
 

@@ -10,7 +10,7 @@ class DetalleCompras extends Model
     use HasFactory;
     
     protected $guarded = ['id','created_at','updated_at'];
-  
+    public $timestamps = true;
        //relacion inversa detalle_ventas - productos
        public function productos(){
         return $this->belongsTo(Productos::class);
