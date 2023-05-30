@@ -20,8 +20,8 @@ class Reservacion_peluqueriaController extends Controller
      */
     public function index()
     {
-        $reservaciones_pasadas = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
-            ->where('estado', 1)
+        $reservaciones_pasadas = ReservacionPeluqueria::where('estado', 1) 
+            //->where('usuario_id', Auth::user()->id)
             ->where('fecha', '<=', now()->format('Y-m-d'))
             ->where('horaEntrega', '<=', now()->format('H:i'))
             ->get();
@@ -33,8 +33,8 @@ class Reservacion_peluqueriaController extends Controller
             $reservacion_peluqueria->save();
         }
         
-        $reservas_peluqueria = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
-            ->where('estado', 1)
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 1)
+            //->where('usuario_id', Auth::user()->id)
             ->orderBy('fecha', 'asc')
             ->orderBy('horaRecepcion', 'asc')
             ->simplePaginate(10);
@@ -49,7 +49,9 @@ class Reservacion_peluqueriaController extends Controller
         $mascotas = Mascotas::select(['id', 'nombre'])
             ->where('usuario_id', Auth::user()->id)
             ->get();
-        return view('admin.reservas_peluqueria.create', compact('reservas_peluqueria', 'mascotas'));
+        
+        $users = User::all();
+        return view('admin.reservas_peluqueria.create', compact('reservas_peluqueria', 'mascotas', 'users'));
     }
 
     public function store(Reservacion_peluqueriaRequest $request)

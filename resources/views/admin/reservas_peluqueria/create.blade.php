@@ -81,6 +81,34 @@
                 @enderror
             </div>
 
+            <!--<div class="form-group">
+                <label>Cliente</label>
+                <select class="form-control" id="usuario_id" name='usuario_id'>
+                    <option value="">Seleccione al cliente</option>
+                    @foreach ($users as $user )
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                    @endforeach
+                </select>
+                    @error('usuario_id')
+                        <span class="text-danger">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+            </div>-->
+
+            <div class="form-group">
+                <label>Cliente</label>
+                
+                <input type="text" class="form-control" id="usuario_id" name='usuario_id' placeholder="Nombre del cliente"
+                value="{{ old('usuario_id') }}">
+
+                @error('usuario_id')
+                <span class="text-danger">
+                    <span>*{{ $message }}</span>
+                </span>
+                @enderror
+            </div>
+
             <div class="form-group">
             <label>Elija servicio</label><br>
                 <div class="form-check form-check-inline">
@@ -144,4 +172,10 @@
 @section('js')
     <script src="{{ asset('js/control_horario.js') }}"></script>
     <script src="{{ asset('js/control_eleccion_servicio_peluqueria.js') }}"></script>
+    <script src="{{ asset('vendor/jquey-ui.min.js') }}"></script>
+    <script>
+        $(usuario_id).autocomplete({
+            source: {{$users->name}}
+        });
+    </script>
 @endsection

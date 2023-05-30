@@ -31,7 +31,8 @@ class Reservacion_peluqueriaRequest extends FormRequest
             'corte' => 'required',
             'tranquilizante' => 'required',
             'Observaciones' => 'required',
-            //'usuario_id ' => 'required'
+            'mascota_id' => 'required',
+            'usuario_id ' => 'required'
         ];
 
 
