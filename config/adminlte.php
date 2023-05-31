@@ -510,6 +510,11 @@ return [
                     'icon' => 'fas fa-fw fa-cart-plus',
                     'url'  => 'admin/ventas/create',
                 ],
+                [
+                    'text' => 'Reporte de ventas',
+                    'icon' => 'fas fa-file-pdf',
+                    'route'  => 'getPDFVentas',
+                ],
             ]
         ],
         

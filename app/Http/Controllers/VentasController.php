@@ -8,6 +8,7 @@ use App\Models\Productos;
 use App\Models\Ventas;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class VentasController extends Controller
 {
@@ -99,4 +100,25 @@ class VentasController extends Controller
       $cliente = Cliente::where('nit', $nit)->first();
       return response()->json($cliente);
     }
+
+    public function getPDFventas(Request $request){
+        $user = Auth::user();
+        $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+        $ventas = Ventas::all();
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+        $view = view('admin.ventas.reporte', compact('name', 'ventas', 'nombreSistema', 'fecha', 'hora'));
+         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        if ($fechaInicio && $fechaFin) {
+        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        // Generar el PDF con la vista del reporte
+        $pdf = PDF::loadHTML($view);
+  
+        return $pdf->stream('Reporte_Ventas.pdf');
+      }
 }
