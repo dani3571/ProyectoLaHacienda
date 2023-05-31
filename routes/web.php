@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\ReservacionHotelController;
 use App\Http\Controllers\HabitacionController;
+use App\Http\Controllers\Reservacion_veterinariaController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
 
@@ -154,6 +155,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
     Route::get('/ventas/buscarCliente/{nit}', [VentasController::class, 'buscarCliente'])->name('ventas.buscarCliente');
     Route::get('/ventas/show/{id}', [VentasController::class, 'show'])->name('ventas.show');
+    Route::get('/ventas/getPDFventas', 'VentasController@getPDFventas')->name('getPDFVentas');
     Route::resource('ventas','VentasController')
     ->except('show')
     ->names('ventas');
@@ -177,6 +179,15 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         ->except('show')
         ->names('habitacion');
         Route::get('/habitacion/show/{id}', [HabitacionController::class, 'show'])->name('habitacion.show');
+        //Ruta ajax habitaciones
+        Route::put('/habitacion/{id}/asigna-reserva-hotel', 'HabitacionController@asignaReservaHotel')->name('habitacion.asignaReservaHotel');
+
+        //VETERINARIA
+        Route::resource('reservas_veterinaria', 'Reservacion_veterinariaController')->except('show')->names('reservas_veterinaria');
+        Route::post('/reservas_veterinaria/cancelar', [Reservacion_veterinariaController::class, 'cancelar'])->name('reservas_veterinaria.cancelar');
+        Route::get('/reservas_veterinaria/canceladas', [Reservacion_veterinariaController::class, 'canceladas'])->name('reservas_veterinaria.canceladas');
+        Route::get('/reservas_veterinaria/completadas', [Reservacion_veterinariaController::class, 'completadas'])->name('reservas_veterinaria.completadas');
+        Route::get('/reservas_veterinaria/index', [Reservacion_veterinariaController::class, 'index'])->name('reservas_veterinaria.index');
 
     //Reportes
     Route::resource('reportes', 'ReportesController')
