@@ -27,6 +27,7 @@ return new class extends Migration
             ->references('id')
             ->on('productos')
             ->onDelete('cascade'); //si se elimina una compra eliminamos su detalle
+            $table->integer('cantidad');
             $table->timestamps();
        });
     }

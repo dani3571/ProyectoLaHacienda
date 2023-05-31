@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DetalleVentas;
+use App\Models\DetalleCompra;
+use App\Models\Proveedores;
 use App\Models\Productos;
 use App\Models\Ventas;
 use App\Models\Cliente;
@@ -21,7 +23,7 @@ class ComprasController extends Controller
         $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
             ->select('detalle_ventas.*','ventas.*')
             ->get();
-        return view('admin.ventas.index', compact('ventas'));
+        return view('admin.compras.index', compact('ventas'));
     }
     public function show($id)
     {
@@ -39,7 +41,8 @@ class ComprasController extends Controller
     public function create()
     {
         $productos = Productos::all();
-        return view('admin.ventas.create',compact('productos'));
+        $proveedores = Proveedores::all();
+        return view('admin.ventas.create',compact('productos', 'proveedores'));
     }
 
     public function store(Request $request)
@@ -47,18 +50,9 @@ class ComprasController extends Controller
         $user = Auth::user();
         //dd($user->all());
         $detalleVentas = $request->input('venta');
-        $Apellido = $request->input('Apellido');
-        $Nit = $request->input('Nit');
         $Fecha = $request->input('Fecha');
         $Total = $request->input('Total');
         $CantidadTotal = $request->input('CantidadTotal');
-        $cliente = Cliente::where('nit',$Nit)->first(); 
-        if(!$cliente) {
-            $nuevoCliente = new Cliente();
-            $nuevoCliente->apellido = $Apellido;
-            $nuevoCliente->nit = $Nit;
-            $nuevoCliente->save();
-        }
         $nuevaVenta = Ventas::create(
             [
                 'usuario' => $user->name,

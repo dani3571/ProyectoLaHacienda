@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('compras', function (Blueprint $table) {
             $table->id();
             $table->float('precioTotal', 10, 0);
-            $table->integer('cantidad');
+            $table->integer('cantidadTotal');
             $table->date('fechaCompra');
             $table->timestamps();
 

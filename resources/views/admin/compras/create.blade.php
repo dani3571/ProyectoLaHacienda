@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-<h1 class ="text-muted">Nueva venta</h1>
+<h1 class ="text-muted">Nueva compra</h1>
 
 <br>
 @endsection
@@ -26,23 +26,24 @@
             <div class="container-sm col-4 border-right border-secondary">
                 <div class="card-body">
                     <h4 class="text-center"> 
-                        Ingrese los datos de la venta
+                        Ingrese los datos de la compra
                     </h4>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <label for="Fecha" class="form-label text-secondary">Fecha</label>
-                            <input readonly type="Text" class="form-control" id="Fecha" value="{{ now()-> format('Y-m-d') }}" name="Fecha">
+                            <label for="fechaCompra" class="form-label text-secondary">Fecha</label>
+                            <input readonly type="Text" class="form-control" id="fechaCompra" value="{{ now()-> format('Y-m-d') }}" name="fechaCompra">
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <label for="IdProducto" class="form-label text-secondary">Id Producto</label>
-                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" readonly id="IdProducto">
-                              @foreach ($productos as $item)
-                              <option value="{{$item->id}}">{{$item->id}}</option>
-                              @endforeach
+                            <label for="IdProveedor" class="form-label text-secondary">Proveedor</label>
+                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="IdProveedor">
+                            <option value="">Seleccione al proveedor</option>
+                                @foreach ($proveedores as $proveedor)
+                                    <option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -50,61 +51,35 @@
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <label for="Apellido" class="form-label text-secondary">Apellido</label>
-                            <input type="Text" class="form-control" id="Apellido" required name="Apellido">
+                            <label for="Producto" class="form-select text-secondary">Producto</label>
+                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="Producto">
+                                <option value="">Seleccione el producto</option>
+                                @foreach ($productos as $item)
+                                <option value="{{$item->nombre}}">{{$item->nombre}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
+                    
+                </div>
+                <div class="row">         
                     <div class="col">
                         <div class="mb-3">
-                            <label for="Nit" class="form-label text-secondary">NIT</label>
-                            <input type="Number" class="form-control" id="Nit" required name="Nit">
+                            <label for="Preciocompra" class="form-label text-secondary">Precio de compra (unidad)</label>
+                            <input type="number" class="form-control" min="1" id="Preciocompra" placeholder = "ingrese el precio de compra">
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col">
                         <div class="mb-3">
                             <label for="Cantidad" class="form-label text-secondary">Cantidad</label>
-                            <input type="Number" class="form-control" id="Cantidad" min="1">
+                            <input type="Number" class="form-control" id="Cantidad" min="1" placeholder = "ingrese la cantidad comprada">
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="CantidadDisponible" class="form-label text-secondary">Cantidad disponible</label>
-                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" disabled id="CantidadDisponible">
-                              @foreach ($productos as $item)
-                              <option value="{{$item->cantidad}}">{{$item->cantidad}}</option>
-                              @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="Producto" class="form-select text-secondary">Seleccione producto</label>
-                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="Producto">
-                              @foreach ($productos as $item)
-                              <option value="{{$item->nombre}}">{{$item->nombre}}</option>
-                              @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="PrecioIndividual" class="form-label text-secondary">Precio individual</label>
-                            <select class="form-select form-select-sm w-100 form-control" disabled style="padding:6px;" id="PrecioIndividual">
-                              @foreach ($productos as $item)
-                              <option value="{{$item->precio}}">{{$item->precio}}</option>
-                              @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    </div>          
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="mb-3 d-flex justify-content-center">
-                            <a href="{{route('ventas.create')}}" class="btn btn-outline-primary mb-3">Cancelar</a>
+                            <a href="{{route('compras.create')}}" class="btn btn-outline-primary mb-3">Cancelar</a>
                         </div>
                     </div>
                     <div class="col">
@@ -154,7 +129,7 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/sweetalert.js') }}"></script>
-    <script src="{{ asset('js/buscarcliente.js') }}"></script>
-    <script src="{{ asset('js/tablaventas.js') }}"></script>
-    <script src="{{ asset('js/controlcombobox.js') }}"></script>
+    
+    <script src="{{ asset('js/tablacompras.js') }}"></script>
+    <script src="{{ asset('js/control_compra.js') }}"></script>
 @endsection
