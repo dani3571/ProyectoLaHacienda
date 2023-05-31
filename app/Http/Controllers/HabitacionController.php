@@ -141,6 +141,33 @@ class HabitacionController extends Controller
         return redirect()->route('habitacion.index')->with('success-update', 'Reservación eliminada con exito');
         //return redirect()->route('habitacion.inactivos')->with('success-update', 'Reservación eliminada con exito');
     }
+    
+    public function asignaReservaHotel(Request $request, $id)
+    {
+        // Valida los datos del formulario
+        $request->validate([
+            'reservacionHotel_id' => 'required'
+        ]);
+    
+        // Encuentra el registro que deseas actualizar
+        $habitacion = Habitacion::find($id);
+    
+        if (!$habitacion) {
+            // Maneja el caso en el que no se encuentre el registro
+            return response()->json(['error' => 'Registro no encontrado.'], 404);
+        }
+    
+        // Actualiza los campos del modelo con los valores del formulario
+        $habitacion->reservacionHotel_id = $request->input('reservacionHotel_id');
+    
+        // Guarda los cambios en la base de datos
+        $habitacion->save();
+    
+        // Retorna una respuesta en formato JSON
+        return response()->json(['success' => 'Registro actualizado correctamente.']);
+    }
+    
+
     /*
     public function cambiarEstado($id)
     {

@@ -529,6 +529,32 @@ return [
             'icon' => 'fas fa-fw fa-hotel',
         ],
         [
+            'text' => 'Veterinaria',
+            'icon' => 'fas fa-file-medical',
+            'submenu' => [
+                [
+                    'text' => 'Registrar Nueva reserva',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'url'  => 'admin/reservas_veterinaria/create',
+                ],
+                [
+                    'text' => 'Reservas Activas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_veterinaria',
+                ],
+                [
+                    'text' => 'Reservas completadas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_veterinaria/completadas',
+                ],
+                [
+                    'text' => 'Reservas Canceladas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_veterinaria/canceladas',
+                ],
+            ]
+        ],
+        [
             'text' => 'Reportes',
             'icon' => 'fas fa-solid fa-file-pdf',
             'can'=>'users.index',

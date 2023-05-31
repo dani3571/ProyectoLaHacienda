@@ -18,8 +18,8 @@ return new class extends Migration
             $table->date('fecha');
             $table->string('horaRecepcion', 60);
             $table->string('motivoReservacion', 200);
-
-
+            //Atributo eliminar logicamente
+            $table->char('estado', 1)->default(1);
             //Foreign keys
             $table->unsignedBigInteger('usuario_id'); 
             $table->foreign('usuario_id')

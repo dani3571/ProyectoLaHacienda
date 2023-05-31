@@ -73,13 +73,27 @@
 
                                             <td>
                                                 <form action="{{ route('habitacion.destroy',$habitacion->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('habitacion.show',$habitacion->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Detalles') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('habitacion.edit',$habitacion->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('habitacion.show',$habitacion->id) }}"> {{ __('Detalles') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('habitacion.edit',$habitacion->id) }}"> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"> {{ __('Desactivar') }}</button>
                                                 </form>
                                             </td>
+
+                                            <TD>
+                                            <form action="{{ route('habitacion.asignaReservaHotel', ['id' => $habitacion->id]) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <!-- Campo del formulario -->
+                                                <input type="text" name="reservacionHotel_id" value="{{ $habitacion->reservacionHotel_id }}">
+
+                                                <!-- Botón de envío -->
+                                                <button type="submit">Actualizar</button>
+                                            </form>
+                                        </TD>
+
                                         </tr>
                                     @endforeach
                                 </tbody>

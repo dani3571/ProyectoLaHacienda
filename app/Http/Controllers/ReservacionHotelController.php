@@ -8,7 +8,9 @@ use App\Models\ReservacionHotel;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservacionHotelRequest;
 //use Spatie\Permission\Models\ReservacionHotel;
-
+use App\Models\User;
+use App\Models\Mascotas;
+use App\Models\Habitacion;
 
 
 class ReservacionHotelController extends Controller
@@ -33,8 +35,15 @@ class ReservacionHotelController extends Controller
     public function create()
     {
         $reservacionHotel = Permission::all();
-
-        return   view('admin.reservacionHotel.create', compact('reservacionHotel'));
+        $users = User::all();
+        /*$users = TuModelo::select('id', 'name')
+        ->get();*/
+        $mascotas = Mascotas::all();
+        $habitacions = Habitacion::all();
+        return   view('admin.reservacionHotel.create', compact('reservacionHotel'))
+        -> with ('users', $users)
+        -> with ('mascotas', $mascotas)
+        -> with ('habitaciones', $habitacions);
     }
 
     public function store(ReservacionHotelRequest $request)
