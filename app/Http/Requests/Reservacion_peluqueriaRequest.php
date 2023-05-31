@@ -30,9 +30,10 @@ class Reservacion_peluqueriaRequest extends FormRequest
             'BanoSimple' => 'required',
             'corte' => 'required',
             'tranquilizante' => 'required',
-            'Observaciones' => 'required',
+            'Observaciones',
+            'usuario_id' => 'required',
             'mascota_id' => 'required',
-            'usuario_id ' => 'required'
+            
         ];
 
 

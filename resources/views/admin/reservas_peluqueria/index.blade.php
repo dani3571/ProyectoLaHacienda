@@ -55,37 +55,32 @@
             <tbody>
                 @foreach ($reservas_peluqueria as $reserva )
                 <tr>
-                
-                    
+
                     <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
                     <td>{{$reserva->horaRecepcion}}</td>
                     <td>{{$reserva->horaEntrega}}</td>
-                    <td>{{$reserva->horaRecepcion}}</td>
-                    <td>{{$reserva->horaEntrega}}</td>
+                    <td>
+                        @foreach ($users as $user )
+                            @if($user->id == $reserva->usuario_id) 
+                                {{$user->name}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($mascotas as $mascota )
+                            @if($mascota->id == $reserva->mascota_id) 
+                                {{$mascota->nombre}}
+                            @endif
+                        @endforeach
+                    </td>
                     <td>@if($reserva->corte == '1') Si @else No @endif</td>
                     <td>@if($reserva->BanoSimple == '1') Si @else No @endif</td>
                     <td>@if($reserva->tranquilizante == '1') Si @else No @endif</td>
                     <td>{{$reserva->Observaciones}}</td>
-                    
-  
-  
-                    <td width="10px"><a href="{{route('reservas_peluqueria.edit', $reserva)}}" class="btn btn-primary">Editar</a></td>
 
-                    <!--<td width="10px">
-                       
-                        <form action="{{ route('reservas_peluqueria.cancelar', $reserva->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')      
-                            <input type="submit" value="Cancelar" class="btn btn-danger btn-sm">
-                        </form>
-
-                    </td>-->
-                    <td >
-                        <button type="button" class="btn btn-danger cancelarReserva" value="{{$reserva->id}}" > Cancelar </button>
-                    </td>
+                    <td width="10px"><a href="{{route('reservas_peluqueria.edit', $reserva)}}" class="btn btn-primary">Modificar</a></td>
+                    <td><button type="button" class="btn btn-danger cancelarReserva" value="{{$reserva->id}}" > Cancelar </button></td>
                 </tr>
-                
-                
                 @endforeach
             </tbody>
         </table>
@@ -118,5 +113,4 @@
 
 @section('js')
     <script src="{{ asset('js/cancelar_reserva_peluqueria.js') }}"></script>
-    
 @endsection

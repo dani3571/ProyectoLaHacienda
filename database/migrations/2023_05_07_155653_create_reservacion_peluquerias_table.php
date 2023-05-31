@@ -22,7 +22,7 @@ return new class extends Migration
             //completar atributos
             $table->char('corte', 1);
             $table->char('tranquilizante', 1)->default(0);
-            $table->string('Observaciones', 200);
+            $table->string('Observaciones', 200)->default("ninguna");
             $table->char('estado', 1)->default(1);
              //Foreign keys
              $table->unsignedBigInteger('usuario_id'); 

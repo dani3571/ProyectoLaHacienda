@@ -38,7 +38,14 @@ class Reservacion_peluqueriaController extends Controller
             ->orderBy('fecha', 'asc')
             ->orderBy('horaRecepcion', 'asc')
             ->simplePaginate(10);
-        return view('admin.reservas_peluqueria.index', compact('reservas_peluqueria'));
+
+        $mascotas = Mascotas::select(['id', 'nombre'])
+            ->get();
+        
+        $users = User::select(['id', 'name'])
+            ->get();
+
+        return view('admin.reservas_peluqueria.index', compact('reservas_peluqueria', 'mascotas', 'users'));
     }
 
     public function create()
@@ -46,11 +53,13 @@ class Reservacion_peluqueriaController extends Controller
         $reservas_peluqueria = ReservacionPeluqueria::select(['id', 'fecha'])
             ->get();
         
-        $mascotas = Mascotas::select(['id', 'nombre'])
-            ->where('usuario_id', Auth::user()->id)
+        $mascotas = Mascotas::select(['id', 'nombre', 'usuario_id'])
             ->get();
         
-        $users = User::all();
+        $users = User::select(['id', 'name'])
+            ->orderBy('name', 'asc')
+            ->get();
+            
         return view('admin.reservas_peluqueria.create', compact('reservas_peluqueria', 'mascotas', 'users'));
     }
 
@@ -62,17 +71,23 @@ class Reservacion_peluqueriaController extends Controller
         ->where('horaRecepcion', '=', $request->horaRecepcion)
         ->where('estado', 1)
         ->first();
+        
         if ($reservas_peluqueria === null) {
-            //merge combina los datos que tenemos con los que queremos obtener
-            $request->merge([
-                //obtenemos los datos de user como su id con Auth
-                'usuario_id' => Auth::user()->id
-            ]);
+            //Verificamos si el campo Observaciones esta vacio
+            if($request->Observaciones === null){
+                //merge combina los datos que tenemos con los que queremos obtener
+                $request->merge([
+                    //Si el campo Observaciones esta vacio entonces
+                    //Colocamos ninguna como predeterminado
+                    'Observaciones' => "ninguna"
+                ]);
+            }
+
             //Guardando la solicitud en una variable
             $reservacion_peluqueria = $request->all();
-
+            
             ReservacionPeluqueria::create($reservacion_peluqueria);
-            //return redirect()->action([Reservacion_peluqueriaController::class, 'index']);
+            
             return redirect()->route('reservas_peluqueria.index')->with('success', 'Reserva registrada con éxito');
         }
         else return redirect()->route('reservas_peluqueria.create')->with('fail', 'Horario no disponible, por favor elija otro');
@@ -83,7 +98,7 @@ class Reservacion_peluqueriaController extends Controller
         //devolvemos a la vista admin.reservas_peluqueria.edit
         $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($id);
         $mascotas = Mascotas::select(['id', 'nombre'])
-            ->where('usuario_id', Auth::user()->id)
+            ->where('usuario_id', $reservacion_peluqueria->usuario_id )
             ->get();
         return view('admin.reservas_peluqueria.edit', compact('reservacion_peluqueria', 'mascotas'));
     }
@@ -96,6 +111,7 @@ class Reservacion_peluqueriaController extends Controller
         ->where('estado', 1)
         ->first();
         if ($reservas_peluqueria === null) {
+            
             $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($id);
             $reservacion_peluqueria->fill($request->all());
             //guardamos la informacion actualizada

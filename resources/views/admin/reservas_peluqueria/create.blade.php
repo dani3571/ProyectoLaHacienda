@@ -32,22 +32,33 @@
     <div class="card-body">
         <form method="POST" action="{{route('reservas_peluqueria.store')}}" >
             @csrf 
-            
 
-            <!--<div class="form-group">
-                <label>Mascota</label>
-                <select class="form-control" id="mascota_id" name='mascota_id'>
-                    <option value="">Seleccione la mascota</option>
-                    @foreach ($mascotas as $mascota )
-                        <option value="{{$mascota->id}}">{{$mascota->nombre}}</option>
+            <div class="form-group">
+                <label>Cliente</label>
+                <select class="form-control" id="usuario_id" name='usuario_id' onchange="val()">
+                    <option value="">Seleccione al cliente</option>
+                    @foreach ($users as $user )
+                        <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach
                 </select>
-                    @error('tipo')
+                    @error('usuario_id')
                         <span class="text-danger">
                             <span>{{ $message }}</span>
                         </span>
                     @enderror
-            </div>-->
+            </div>
+
+            <div class="form-group">
+                <label>Mascota</label>
+                <select class="form-control" id="mascota_id" name='mascota_id'>
+                <option value="">Seleccione la mascota</option>
+                </select>
+                    @error('mascota_id')
+                        <span class="text-danger">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+            </div>
 
             <div class="form-group">
                 <label>Fecha</label>
@@ -78,34 +89,6 @@
                     <span class="text-danger">
                         <span>{{ $message }}</span>
                     </span>
-                @enderror
-            </div>
-
-            <!--<div class="form-group">
-                <label>Cliente</label>
-                <select class="form-control" id="usuario_id" name='usuario_id'>
-                    <option value="">Seleccione al cliente</option>
-                    @foreach ($users as $user )
-                        <option value="{{$user->id}}">{{$user->name}}</option>
-                    @endforeach
-                </select>
-                    @error('usuario_id')
-                        <span class="text-danger">
-                            <span>{{ $message }}</span>
-                        </span>
-                    @enderror
-            </div>-->
-
-            <div class="form-group">
-                <label>Cliente</label>
-                
-                <input type="text" class="form-control" id="usuario_id" name='usuario_id' placeholder="Nombre del cliente"
-                value="{{ old('usuario_id') }}">
-
-                @error('usuario_id')
-                <span class="text-danger">
-                    <span>*{{ $message }}</span>
-                </span>
                 @enderror
             </div>
 
@@ -156,11 +139,7 @@
                 <input type="text" class="form-control" id="Observaciones" name='Observaciones' placeholder="indique sus observaciones"
                 value="{{ old('Observaciones') }}">
 
-                @error('Observaciones')
-                <span class="text-danger">
-                    <span>*{{ $message }}</span>
-                </span>
-                @enderror
+           
             </div>
 
             <input type="submit" value="Registrar Reservación" class="btn btn-primary">
@@ -172,10 +151,25 @@
 @section('js')
     <script src="{{ asset('js/control_horario.js') }}"></script>
     <script src="{{ asset('js/control_eleccion_servicio_peluqueria.js') }}"></script>
-    <script src="{{ asset('vendor/jquey-ui.min.js') }}"></script>
+    
     <script>
-        $(usuario_id).autocomplete({
-            source: {{$users->name}}
-        });
-    </script>
+    function val() {
+        var user_id = document.getElementById("usuario_id").value;
+        var s = '<option value="">Seleccione la mascota</option>';
+        var count = 0;
+        @foreach ($mascotas as $mascota)
+            if({{ $mascota->usuario_id }} == user_id) {
+                s += '<option value="{{ $mascota->id }}">{{ $mascota->nombre }}</option>';
+                count++;
+            }
+        @endforeach
+        if(count < 1){
+            s += '<option value="">El cliente no tiene mascotas registradas</option>';
+        }
+
+        console.log(user_id);
+        const mascota = document.getElementById("mascota_id");
+        mascota.innerHTML = s;
+    }
+</script>
 @endsection

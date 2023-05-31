@@ -32,14 +32,18 @@
     <div class="card-body">
         <form method="POST" action="{{route('reservas_peluqueria.update', $reservacion_peluqueria->id)}}">
             @csrf 
-            
 
-            <!--<div class="form-group">
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="usuario_id" name='usuario_id'
+                value="{{ $reservacion_peluqueria->usuario_id }}">
+            </div>
+            
+            <div class="form-group">
                 <label>Mascota</label>
                 <select class="form-control" id="mascota_id" name='mascota_id'>
                     <option value="">Seleccione la mascota</option>
                     @foreach ($mascotas as $mascota)
-                        <option value="{{$mascota->id}}">{{$mascota->nombre}}</option>
+                        <option value="{{$mascota->id}}" @if($reservacion_peluqueria->mascota_id == $mascota->id) selected @endif>{{$mascota->nombre}}</option>
                     @endforeach
                 </select>
                     @error('mascota')
@@ -47,7 +51,7 @@
                             <span>{{ $message }}</span>
                         </span>
                     @enderror
-            </div>-->
+            </div>
 
             @method('PUT')
                 <div class="form-group">
@@ -56,7 +60,7 @@
 
             <div class="form-group">
                 <label>Fecha</label>
-                <input type="date" class="form-control" id="fecha" name='fecha' min="{{ now()-> format('Y-m-d') }}" 
+                <input type="date" class="form-control" id="fecha" name='fecha' min="{{ (new DateTime('tomorrow'))-> format('Y-m-d') }}" 
                 value="{{ $reservacion_peluqueria->fecha }}">
 
                 @error('fecha')
@@ -136,11 +140,6 @@
                 <input type="text" class="form-control" id="Observaciones" name='Observaciones' placeholder="indique sus observaciones"
                 value="{{ $reservacion_peluqueria->Observaciones }}">
 
-                @error('Observaciones')
-                <span class="text-danger">
-                    <span>*{{ $message }}</span>
-                </span>
-                @enderror
             </div>
 
             <input type="submit" value="Modificar Reservación" class="btn btn-primary">

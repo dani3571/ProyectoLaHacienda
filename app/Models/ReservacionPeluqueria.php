@@ -9,7 +9,7 @@ class ReservacionPeluqueria extends Model
 {
     use HasFactory;
     protected $guarded = ['id','created_at','updated_at'];
-    public $timestamps = false;
+    public $timestamps = true;
      //relacion de 1 a muchos
      /*
      public function usuario_reservacion_peluquerias()

@@ -377,7 +377,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Registrar Nueva reserva',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-fw fa-plus',
                     'url'  => 'admin/reservas_peluqueria/create',
                 ],
                 [
