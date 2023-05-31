@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Reservacion_peluqueriaController;
 use App\Http\Controllers\RoleController;
@@ -104,6 +106,50 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::get('/reservas_peluqueria/canceladas', [Reservacion_peluqueriaController::class, 'canceladas'])->name('reservas_peluqueria.canceladas');
     Route::get('/reservas_peluqueria/completadas', [Reservacion_peluqueriaController::class, 'completadas'])->name('reservas_peluqueria.completadas');
     Route::get('/reservas_peluqueria/index', [Reservacion_peluqueriaController::class, 'index'])->name('reservas_peluqueria.index');
+
+    //proveedores
+    Route::resource('proveedores', 'ProveedoresController')
+    ->except('show','edit')
+    ->names('proveedores');
+
+    Route::get('/proveedores/{id}/edit', [ProveedoresController::class, 'edit'])->name('proveedores.edit');
+    Route::get('/admin/proveedores/{id}/edit', [ProveedoresController::class, 'edit'])->name('admin.proveedores.edit');
+
+
+    Route::put('/proveedores/{proveedor}/cambiarestado', [ProveedoresController::class, 'cambiarEstado'])->name('proveedores.cambiarestado');
+    Route::put('/proveedores/{proveedor}/restablecer-estado', [ProveedoresController::class, 'restablecerEstado'])->name('proveedores.restablecer-estado');
+    Route::get('/proveedores/inactivos', [ProveedoresController::class, 'inactivos'])->name('proveedores.inactivos');
+    Route::get('/proveedores/index', [ProveedoresController::class, 'index'])->name('proveedores.index');
+    Route::delete('/proveedores/{proveedor}/destroy', [ProveedoresController::class, 'destroy'])->name('proveedores.destroy');
+    Route::get('/proveedores/pdf', [ProveedoresController::class, 'generatePDF'])->name('proveedores.pdf');
+    
+    //Productos
+    Route::resource('productos', 'ProductosController')
+    ->except('show','edit')
+    ->names('productos');
+    
+    Route::get('/productos/{id}/edit', [ProductosController::class, 'edit'])->name('productos.edit');
+    Route::put('/productos/{producto}/cambiarestado', [ProductosController::class, 'cambiarEstado'])->name('productos.cambiarestado');
+    Route::put('/productos/{producto}/restablecer-estado', [ProductosController::class, 'restablecerEstado'])->name('productos.restablecer-estado');
+
+    //Route::delete('/productos/{producto}/destroy', [ProductosController::class, 'destroy'])->name('productos.destroy');
+    //Route::get('/reporte-productos-pdf', [ProductosController::class, 'generarReporte'])->name('reporte.productos.pdf');
+
+    Route::get('/productos/inactivos', [ProductosController::class, 'inactivos'])->name('productos.inactivos');
+
+
+    //Categorias
+    Route::resource('categorias', 'CategoriasController')
+    ->except('show','edit')
+    ->names('categorias');
+
+    Route::get('categorias/{id}/edit', [CategoriasController::class, 'edit'])->name('admin.categorias.edit');
+    Route::put('categorias/{id}', [CategoriasController::class, 'update'])->name('admin.categorias.update');
+    Route::post('/admin/categorias', [CategoriasController::class, 'store'])->name('admin.categorias.store');
+    Route::put('/categorias/{categoria}/cambiarestado', [CategoriasController::class, 'cambiarEstado'])->name('categorias.cambiarestado');
+    Route::put('/categorias/{categoria}/restablecer-estado', [CategoriasController::class, 'restablecerEstado'])->name('categorias.restablecer-estado');
+    Route::get('/categorias/inactivos', [CategoriasController::class, 'inactivos'])->name('categorias.inactivos');
+    
 
     //Ventas
     Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.ventas');

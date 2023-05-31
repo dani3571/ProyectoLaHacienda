@@ -8,7 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Productos extends Model
 {
     use HasFactory;
-    protected $guarded = ['id','created_at','updated_at'];
+    protected $guarded = [
+        'id',
+        'nombre',
+        'descripcion',
+        'precio',
+        'cantidad',
+        'image',
+        'fecha_compra',
+        'fecha_vencimiento',
+        'categoria_id',
+        'estado'
+    ];
 
     //relacion productos - proveedor_productos 
      public function proveedor_productos(){

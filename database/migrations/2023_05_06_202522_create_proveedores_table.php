@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 30);
-            $table->string('telefono', 20);
+            $table->string('nombre', 30)->nullable();
+            $table->string('telefono', 20)->nullable();
             $table->string('direccion', 60)->nullable();
-            $table->char('Estado', 1);
-
+            $table->string('ciudad', 60)->nullable();
+            $table->string('url', 60)->nullable();
+            $table->date('fecha_registro')->default(now());
+            $table->char('Estado')->default(1);
             $table->timestamps();
+            
+            $table->unsignedBigInteger('usuario_id')->nullable();
+            $table->foreign('usuario_id')->references('id')->on('users');
         });
     }
 

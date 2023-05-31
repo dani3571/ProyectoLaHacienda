@@ -102,4 +102,8 @@ class User extends Authenticatable
                $user->profile()->create();
         });
     }
+    public function proveedores()
+    {
+        return $this->hasMany(Proveedores::class, 'usuario_id');
+    }
 }

@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Complejo</b>La Hacienda',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Complejo</b> La Hacienda',
+    'logo_img' => 'vendor/adminlte/dist/img/logo2.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -370,7 +370,7 @@ return [
                 'active' => ['admin/mascotas*'],
     
         ],
-        
+
         [
             'text'    => 'Peluqueria',
             'icon'    => 'fas fa-fw fa-splotch',
@@ -394,6 +394,105 @@ return [
                     'text' => 'Reservas Canceladas',
                     'icon' => 'fas fa-fw fa-list',
                     'url'  => 'admin/reservas_peluqueria/canceladas',
+                ],
+            ],
+        ],
+        
+        [
+            'text'    => 'Productos',
+            'icon'    => 'fas fa-fw fa-shopping-cart',
+            'submenu' => [
+                [
+                    'text'    => 'Categoria',
+                    'icon'    => 'fas fa-fw fa-cart-plus',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Crear',
+                            'icon'    => 'fas fa-fw fa-plus-square',
+                            'url'     => 'admin/categorias/create',
+                        ],
+                        [
+                            'text' => 'Inactivos',
+                            'icon'    => 'fas fa-fw fa-toggle-off',
+                            'url'     => 'admin/categorias/inactivos',
+                        ],
+                        [
+                            'text'    => 'Listar',
+                            'icon'    => 'fas fa-list-alt',
+                            'url'     => 'admin/categorias',
+                        ],
+                    ],
+                ],
+                [
+                    'text'    => 'Producto',
+                    'icon'    => 'fas fa-fw fa-cart-plus',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Crear',
+                            'icon'    => 'fas fa-fw fa-plus-square',
+                            'url'     => 'admin/productos/create',
+                        ],
+                        [
+                            'text' => 'Inactivos',
+                            'route'  => 'categorias.inactivos',
+                            'icon'    => 'fas fa-fw fa-toggle-off',
+                            'url'     => 'admin/productos/inactivos',
+                        ],
+                        [
+                            'text'    => 'Listar',
+                            'icon'    => 'fas fa-list-alt',
+                            'url'     => 'admin/productos',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Compras',
+            'icon'    => 'fas fa-fw fa-shopping-cart',
+            'submenu' => [
+                [
+                    'text'    => 'Proveedor',
+                    'icon'    => 'fas fa-fw fa-cart-plus',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Crear',
+                            'icon'    => 'fas fa-fw fa-plus-square',
+                            'url'     => 'admin/proveedores/create',
+                        ],
+                        [
+                            'text' => 'Inactivos',
+                            'icon'    => 'fas fa-fw fa-toggle-off',
+                            'url'     => 'admin/proveedores/inactivos',
+                        ],
+                        [
+                            'text'    => 'Listar',
+                            'route'  => 'proveedores.index',
+                            'icon'    => 'fas fa-list-alt',
+                            'url'     => 'admin/proveedores',
+                            'active' => ['admin/proveedores*'],
+                        ],
+                    ],
+                ],
+                [
+                    'text'    => 'Compra',
+                    'icon'    => 'fas fa-fw fa-cart-plus',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Crear',
+                            'icon'    => 'fas fa-fw fa-plus-square',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text'    => 'Listar',
+                            'icon'    => 'fas fa-list-alt',
+                            'url'     => '#',
+                        ],
+                    ],
                 ],
             ],
         ],
