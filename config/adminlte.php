@@ -485,12 +485,12 @@ return [
                         [
                             'text' => 'Crear',
                             'icon'    => 'fas fa-fw fa-plus-square',
-                            'url'  => '#',
+                            'url'  => 'admin/compras/create',
                         ],
                         [
                             'text'    => 'Listar',
                             'icon'    => 'fas fa-list-alt',
-                            'url'     => '#',
+                            'url'     => 'admin/compras',
                         ],
                     ],
                 ],

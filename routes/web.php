@@ -160,6 +160,15 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->except('show')
     ->names('ventas');
 
+    //Compras
+    Route::get('/compras/index', [ComprasController::class, 'index'])->name('compras.ventas');
+    Route::post('/compras', [ComprasController::class, 'store'])->name('compras.store');
+    Route::get('/compras/buscarCliente/{nit}', [ComprasController::class, 'buscarCliente'])->name('compras.buscarCliente');
+    Route::get('/compras/show/{id}', [ComprasController::class, 'show'])->name('compras.show');
+    Route::resource('compras','comprasController')
+    ->except('show')
+    ->names('compras');
+
         //HOTELERÍA
         Route::resource('reservacionHotel','ReservacionHotelController')
         ->except('show')
