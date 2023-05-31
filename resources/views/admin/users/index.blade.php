@@ -6,6 +6,24 @@
 <h1>Lista de usuarios</h1>
 @endsection
 
+@section('scripts')
+<script>
+document.addEventListener("keyup", e => {
+
+if (e.target.matches("#buscadorUsuario")) {
+
+    if (e.key === "Escape") e.target.value = ""
+
+    document.querySelectorAll(".reserva").forEach(fruta => {
+
+        fruta.id.toLowerCase().includes(e.target.value.toLowerCase())
+            ? fruta.classList.remove("filtro")
+            : fruta.classList.add("filtro")
+    })
+}
+});
+</script>
+@endsection
 @section('content')
 @if (session('success-delete'))
 <div class="alert alert-info">
@@ -13,11 +31,12 @@
 </div>
 @endif
 <div class="card">
-    <!--
-    <div class="card-header">
-        <a class="btn btn-primary" href="{{route('getPD')}}">Reporte</a>
-    </div>
-    -->
+<div class="card-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <!--BUSCADOR CON JS-->
+                        <input type="text" name="buscadorUsuario" id="buscadorUsuario" placeholder="Buscar por nombre...">
+                        </div>
+                    </div>
     <div class="card-body">
         <table class="table table-striped">
             <thead>

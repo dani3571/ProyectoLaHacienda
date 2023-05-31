@@ -373,6 +373,7 @@ return [
 
         [
             'text'    => 'Peluqueria',
+            'can'=>'reservas_peluqueria.index',
             'icon'    => 'fas fa-fw fa-splotch',
             'submenu' => [
                 [
@@ -400,10 +401,12 @@ return [
         
         [
             'text'    => 'Productos',
+
             'icon'    => 'fas fa-fw fa-shopping-cart',
             'submenu' => [
                 [
                     'text'    => 'Categoria',
+                    'can'=>'categorias',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'url'     => '#',
                     'submenu' => [
@@ -427,6 +430,7 @@ return [
                 [
                     'text'    => 'Producto',
                     'icon'    => 'fas fa-fw fa-cart-plus',
+                    'can'=>'productos',
                     'url'     => '#',
                     'submenu' => [
                         [
@@ -455,6 +459,7 @@ return [
             'submenu' => [
                 [
                     'text'    => 'Proveedor',
+                    'can' => 'proveedores',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'url'     => '#',
                     'submenu' => [
@@ -480,6 +485,7 @@ return [
                 [
                     'text'    => 'Compra',
                     'icon'    => 'fas fa-fw fa-cart-plus',
+                    'can' => 'compras',
                     'url'     => '#',
                     'submenu' => [
                         [
@@ -499,6 +505,7 @@ return [
         [
             'text' => 'Ventas',
             'icon' => 'fas fa-fw fa-money-check',
+            'can'=>'ventas.index',
             'submenu' => [
                 [
                     'text' => 'Listado de ventas',
@@ -516,11 +523,13 @@ return [
         [
             'text' => 'Hotel',
             'url'  => 'admin/reservacionHotel',
+            'can'=>'admin/reservacionHotel',
             'icon' => 'fas fa-fw fa-hotel',
         ],
         [
             'text' => 'Habitaciones',
             'url'  => 'admin/habitacion',
+            'can'=>'habitacion',
             'icon' => 'fas fa-fw fa-hotel',
         ],
         [
@@ -536,44 +545,7 @@ return [
                 ],
             ]
         ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
+        
     ],
 
     /*

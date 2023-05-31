@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Auth;
 
 class VentasController extends Controller
 {
+
+    
+    public function __construct()
+    {
+      $this->middleware('can:ventas.index')->only('index');
+      $this->middleware('can:ventas.create')->only('create');
+    }
+
+    
     public function index()
     {
         $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')

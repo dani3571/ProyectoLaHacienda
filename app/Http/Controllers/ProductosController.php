@@ -13,6 +13,16 @@ class ProductosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+       $this->middleware('can:productos.index')->only('index');
+       $this->middleware('can:productos.create')->only('create');
+       $this->middleware('can:productos.edit')->only('edit');
+       $this->middleware('can:productos.inactivos')->only('inactivos');
+     }
+
+     
     public function index()
     {
         $productos = Productos::where('estado', 1)

@@ -146,6 +146,7 @@
         </div>
     </nav>
 @else
+
 <div class="container-fluid bg-color-info font-color-general" id="inicio">
     <div class="row">
         <div class="col-12 col-lg-6 text-center text-lg-left my-3 pl-5">

@@ -17,6 +17,14 @@ class ProveedoresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+       $this->middleware('can:proveedores.index')->only('index');
+       $this->middleware('can:proveedores.edit')->only('edit');
+       $this->middleware('can:proveedores.create')->only('create');
+       $this->middleware('can:proveedores.inactivos')->only('inactivos');
+     }
     public function index()
     {
         $proveedores = Proveedores::where('estado', 1)

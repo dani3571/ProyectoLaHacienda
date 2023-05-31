@@ -61,7 +61,7 @@
 
     <div class="fecha-usuario">
         <p>Usuario: {{ $name }}</p> 
-        <p class="fecha">Fecha y Hora: {{$fecha = date('Y-m-d');}} - {{ $hora = date('H:i'); }}                </p> 
+        <p class="fecha">Fecha y Hora: {{$fecha = date('Y-m-d')}} - {{ $hora = date('H:i')}}                </p> 
        
     </div>
     <table class="tabla">

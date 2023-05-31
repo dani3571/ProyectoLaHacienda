@@ -62,8 +62,6 @@ Route::resource('users', 'UserController')
 ->names('users');
 
 //Ruta perfil
-
-
 Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
    //Usuarios
 

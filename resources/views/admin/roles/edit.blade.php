@@ -17,11 +17,11 @@
                 <input type="text" class="form-control" id="name" name='name'
                         placeholder="Nombre del rol" value="{{$role->name}}">
 
-                @error('name')
-                <span class="alert-red">
-                    <span>*{{ $message }}</span>
-                </span>
-                @enderror
+                        @error('name')
+                        <span class="text-danger">
+                            <span>*{{ $message }}</span>
+                        </span>
+                        @enderror
 
             </div>
             <h3>Lista de permisos</h3>

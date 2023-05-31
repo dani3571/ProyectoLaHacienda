@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label>Fecha Inicio</label>
                         <input type="date" class="form-control" id="fechaInicio" name='fechaInicio' placeholder="Fecha de Inicio"
-                            value="{{ old('fechaInicio') }}">
+                        max="{{ (new DateTime())-> format('Y-m-d') }}" value="{{ old('fechaInicio') }}">
                         @error('fechaInicio')
                         <span class="text-danger">
                             <span>*{{ $message }}</span>
@@ -69,7 +69,7 @@
                     <div class="form-group">
                         <label>Fecha Fin</label>
                         <input type="date" class="form-control" id="fechaFin" name='fechaFin' placeholder="Fecha Fin"
-                            value="{{ old('fechaFin') }}">
+                        max="{{ (new DateTime())-> format('Y-m-d') }}"  value="{{ old('fechaFin') }}">
                         @error('fechaFin')
                         <span class="text-danger">
                             <span>*{{ $message }}</span>

@@ -8,17 +8,16 @@ use Illuminate\Support\Facades\Auth;
 use PDF;
 use App\Models\Mascotas;
 use App\Models\User;
+use App\Http\Requests\ReportesRequest;
 
 class ReportesController extends Controller
 {
     public function index()
     {
-
-
         return view('admin.Reportes.index');
     }
 
-    public function generarReporte(Request $request)
+    public function generarReporte(ReportesRequest $request)
     {
         $user = Auth::user();
         $name = $user->name;

@@ -16,6 +16,16 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+       $this->middleware('can:roles.index')->only('index');
+       $this->middleware('can:roles.create')->only('create');
+       $this->middleware('can:roles.edit')->only('edit');
+       $this->middleware('can:roles.inactivos')->only('inactivos');
+       $this->middleware('can:roles.getPDFRole')->only('getPDFRole');
+
+     }
     public function index()
     {
         $roles = Role::simplePaginate(10)

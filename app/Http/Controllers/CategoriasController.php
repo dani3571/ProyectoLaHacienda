@@ -12,6 +12,17 @@ class CategoriasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+      $this->middleware('can:categorias.index')->only('index');
+      $this->middleware('can:categorias.edit')->only('edit');
+      $this->middleware('can:categorias.create')->only('create');
+      $this->middleware('can:categorias.inactivos')->only('inactivos');
+    }
+
+
+
+
     public function index()
     {
         $categoria = Categorias::where('estado', 1)->get();
