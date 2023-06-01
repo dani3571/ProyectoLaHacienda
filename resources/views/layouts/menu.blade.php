@@ -169,7 +169,22 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-               
+                <li class="nav-item active">
+                    <a class="nav-link font-color-general mr-lg-3 ml-3" href="{{ route('index.index') }}">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link font-color-general mr-3 ml-3" href="{{ route('nosotros.nosotros') }}">Nosotros</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link font-color-general mr-3 ml-3" href="{{ route('servicios.servicios') }}">Servicios</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link font-color-general mr-3 ml-3"
+                        href="{{ route('contactanos.contactanos') }}">Contacto</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link font-color-general mr-3 ml-3" href="{{ route('products.productos') }}">Productos</a>
+                </li>
             </ul>
         </div>
 

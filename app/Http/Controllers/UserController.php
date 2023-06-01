@@ -87,4 +87,12 @@ class UserController extends Controller
       return $pdf->stream('Reporte_Usuarios.pdf');
     }
 
+    public function buscarUsuarios(Request $request)
+    {
+        $query = $request->query('query');
+        // Realiza la búsqueda de usuarios según el criterio de búsqueda
+        $usuarios = User::where('name', 'LIKE', '%' . $query . '%')->get();
+        return response()->json($usuarios);
+    }
+
 }

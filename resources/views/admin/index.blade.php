@@ -249,8 +249,9 @@
             const registrosVetSemestre = {!! json_encode($registrosVetSemestre) !!};
             const registrosHotelSemestre = {!! json_encode($registrosHotelSemestre) !!};
             const registrosPeluqueriaSemestre = {!! json_encode($registrosPeluqueriaSemestre) !!};
+            
             const myChart = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: ['Ventas', 'Compras', 'Usuarios Registrados', 'Reservacion hotel',
                         'Reservacion veterinaria', 'Reservacion peluqueria'
@@ -261,7 +262,7 @@
                                 $registrosHotel, $registrosVet, $registrosPeluqueria
                             ],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(0, 0, 255, 0.2)', // Cambiar el color y la opacidad aquí
                                 'rgba(54, 162, 235, 0.2)',
                                 'rgba(255, 206, 86, 0.2)',
                                 'rgba(75, 192, 192, 0.2)',
@@ -269,7 +270,7 @@
                                 'rgba(255, 159, 64, 0.2)'
                             ],
                             borderColor: [
-                                'rgba(255, 99, 132, 1)',
+                                'rgba(0, 0, 255, 1)', // Cambiar el color del borde aquí
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
                                 'rgba(75, 192, 192, 1)',

@@ -63,6 +63,7 @@ Route::resource('users', 'UserController')
 ->except('create', 'store', 'show')
 ->names('users');
 
+
 //Ruta perfil
 Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
    //Usuarios
