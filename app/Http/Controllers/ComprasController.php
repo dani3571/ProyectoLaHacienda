@@ -7,6 +7,7 @@ use App\Models\DetalleCompras;
 use App\Models\Proveedores;
 use App\Models\Productos;
 use App\Models\Compra;
+use PDF;
 use Illuminate\Support\Facades\Auth;
 
 class ComprasController extends Controller
@@ -70,5 +71,27 @@ class ComprasController extends Controller
             $detalleC->save();
         }
         return redirect()->route('compras.index')->with('success', 'La compra se ha registrado con éxito');
+    }
+
+    public function getPDFcompras(Request $request){
+        $user = Auth::user();
+        $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+        $compras = Compra::all();
+        $proveedores = Proveedores::all();
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+        $view = view('admin.compras.reporte', compact('name', 'compras', 'proveedores', 'nombreSistema', 'fecha', 'hora'));
+         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        if ($fechaInicio && $fechaFin) {
+        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        // Generar el PDF con la vista del reporte
+        $pdf = PDF::loadHTML($view);
+  
+        return $pdf->stream('Reporte_Compras.pdf');
     }
 }
