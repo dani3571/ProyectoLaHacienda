@@ -18,6 +18,13 @@ class HabitacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+       $this->middleware('can:habitacion.index')->only('index');
+       $this->middleware('can:habitacion.create')->only('create');
+       $this->middleware('can:habitacion.edit')->only('edit');
+    }
     public function index()
     {
         $habitacion = Habitacion::simplePaginate(10);

@@ -21,7 +21,7 @@
 @endif
 <div class="container-fluid mh-100">
     <div class="row">
-        <form id="FormularioVentas" class="container-fluid d-flex" action="{{ route('ventas.store') }}" method="POST">
+        <form id="FormularioVentas" class="container-fluid d-flex" action="{{ route('compras.store') }}" method="POST">
             @csrf
             <div class="container-sm col-4 border-right border-secondary">
                 <div class="card-body">
@@ -39,7 +39,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="IdProveedor" class="form-label text-secondary">Proveedor</label>
-                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="IdProveedor">
+                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="IdProveedor" name = "IdProveedor"  required>
                             <option value="">Seleccione al proveedor</option>
                                 @foreach ($proveedores as $proveedor)
                                     <option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
@@ -51,13 +51,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <label for="Producto" class="form-select text-secondary">Producto</label>
-                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="Producto">
+                            <label for="IdProducto" class="form-select text-secondary">Producto</label>
+                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="IdProducto" onchange="val()">
                                 <option value="">Seleccione el producto</option>
                                 @foreach ($productos as $item)
-                                <option value="{{$item->nombre}}">{{$item->nombre}}</option>
+                                <option value="{{$item->id}}">{{$item->nombre}}</option>
                                 @endforeach
                             </select>
+                            <input type="hidden" class="form-control" id="NombreProducto">
                         </div>
                     </div>
                     
@@ -65,8 +66,8 @@
                 <div class="row">         
                     <div class="col">
                         <div class="mb-3">
-                            <label for="Preciocompra" class="form-label text-secondary">Precio de compra (unidad)</label>
-                            <input type="number" class="form-control" min="1" id="Preciocompra" placeholder = "ingrese el precio de compra">
+                            <label for="Preciocompra" class="form-label text-secondary">Precio compra (unidad)</label>
+                            <input type="number" class="form-control" min="1" id="Preciocompra" placeholder = "ingrese el precio">
                         </div>
                     </div>
                     <div class="col">
@@ -97,7 +98,7 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Producto</th>
                                 <th scope="col">Cantidad</th>
-                                <th scope="col">Precio Individual</th>
+                                <th scope="col">Precio Compra (unidad)</th>
                                 <th scope="col">Subtotal</th>
                                 <th scope="col-auto">Eliminar</th>
                             </tr>
@@ -128,8 +129,20 @@
 @endsection
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/sweetalert.js') }}"></script>
-    
+    <script src="{{ asset('js/sweetalertCompra.js') }}"></script>
     <script src="{{ asset('js/tablacompras.js') }}"></script>
     <script src="{{ asset('js/control_compra.js') }}"></script>
+    <script>
+        function val() {
+            var producto_id = document.getElementById("IdProducto").value;
+            var producto_nombre = document.getElementById("NombreProducto");
+            console.log(producto_id);
+            @foreach ($productos as $item)
+                if({{ $item->id }} == producto_id) {
+                    producto_nombre.value = "{{ $item->nombre }}";
+                }
+            @endforeach;
+            
+        }
+    </script>
 @endsection

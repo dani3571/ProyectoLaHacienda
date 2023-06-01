@@ -74,7 +74,7 @@
                         @endforeach
                     </td>
     
-                    <td width="10px"><a href="{{route('reservas_veterinaria.edit', $reserva)}}" class="btn btn-primary">Editar</a></td>
+                    <td width="10px"><a href="{{route('reservas_veterinaria.edit', $reserva)}}" class="btn btn-primary">Modificar</a></td>
 
                     <!--<td width="10px">
                        

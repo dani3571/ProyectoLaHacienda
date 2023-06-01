@@ -18,6 +18,13 @@ class Reservacion_peluqueriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+        $this->middleware('can:reservas_peluqueria.index')->only('index');
+        $this->middleware('can:reservas_peluqueria.create')->only('create');
+        $this->middleware('can:reservas_peluqueria.edit')->only('edit');
+     }
     public function index()
     {
         $reservaciones_pasadas = ReservacionPeluqueria::where('estado', 1) 

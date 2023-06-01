@@ -11,6 +11,7 @@ use App\Http\Requests\ReservacionHotelRequest;
 use App\Models\User;
 use App\Models\Mascotas;
 use App\Models\Habitacion;
+use Illuminate\Support\Facades\DB;
 
 
 class ReservacionHotelController extends Controller
@@ -20,6 +21,13 @@ class ReservacionHotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+    {
+       $this->middleware('can:reservacionHotel.index')->only('index');
+       $this->middleware('can:reservacionHotel.create')->only('create');
+       $this->middleware('can:reservacionHotel.edit')->only('edit');
+    }
     public function index()
     {
         $reservacionHotel = ReservacionHotel::simplePaginate(10);
@@ -88,10 +96,12 @@ class ReservacionHotelController extends Controller
               ->get();
           return view('admin.mascotas.edit', compact('mascotas'));
     */
-
+    
           $reservacionHotel = reservacionHotel::findOrFail($id);
-
-          return view('admin.reservacionHotel.edit', compact('reservacionHotel'));
+          $users = User::all();
+          $mascotas = Mascotas::all();
+          $habitacions = Habitacion::all();
+          return view('admin.reservacionHotel.edit', compact('reservacionHotel','mascotas','users','habitacions'));
     
     }
 
@@ -167,4 +177,130 @@ class ReservacionHotelController extends Controller
         return redirect()->route('mascotas.inactivos')->with('success-update', 'Mascota restablecida con éxito');
     }
     */
+
+    public function cancelar(Request $request)
+    {
+        /*$reservacionHotel = reservacionHotel::findOrFail($request->Reserva_id);
+        //modificamos el estado a 0
+        $reservacionHotel->estado = 0;
+        //Guardamos el registro a la BD
+        $reservacionHotel->save();
+
+        return redirect()->route('reservacionHotel.index')->with('success', 'Su reserva fue cancelada');*/
+    }
+
+    public function canceladas()
+    {
+        //utilizamos user_id de la relacion con mascotas
+        /*$reservacionHotel = reservacionHotel::where('usuario_id', Auth::user()->id)
+            ->where('estado', 0)
+            ->orderBy('id', 'asc')
+            ->simplePaginate(10);
+        return View('admin.reservacionHotel.canceladas', compact('reservacionHotel'));*/
+        $reservacionHotel = ReservacionHotel::simplePaginate(10);
+
+        return view('admin.reservacionHotel.index', compact('reservacionHotel'));
+    }
+
+    public function completadas()
+    {
+        //utilizamos user_id de la relacion con mascotas
+        /*$reservacionHotel = reservacionHotel::where('usuario_id', Auth::user()->id)
+            ->where('estado', 2)
+            ->orderBy('id', 'asc')
+            ->simplePaginate(10);
+        return View('admin.reservacionHotel.completadas', compact('reservacionHotel'));*/
+        $reservacionHotel = ReservacionHotel::simplePaginate(10);
+
+        return view('admin.reservacionHotel.index', compact('reservacionHotel'));
+    }
+
+
+
+    public function ejecutarProcedimiento(Request $request)
+    {
+        // Obtener los datos del formulario
+        $fechaIngreso = $request->input('fechaIngreso');
+        $fechaSalida = $request->input('fechaSalida');
+        // Obtener los demás datos del formulario
+        $tratamientos = $request->input('tratamientos');
+        $tranporte = $request->input('tranporte');
+        $comida = $request->input('comida');
+        $banioYCorte = $request->input('banioYCorte');
+        $tratamiento = $request->input('tratamiento');
+        $extras = $request->input('extras');
+        $total = $request->input('total');
+        $estado = $request->input('estado');
+        $usuario_id = $request->input('usuario_id');
+        $mascota_id = $request->input('mascota_id');
+        $habitacion_id = $request->input('habitacion_id');
+        
+        // Ejecutar el procedimiento almacenado
+        // Ejecutar el procedimiento almacenado
+DB::statement('CALL InsertarReservacionHotelYActualizarHabitacion(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+    $fechaIngreso,
+    $fechaSalida,
+    // Pasar los demás datos del formulario como argumentos
+    $tratamientos,
+    $tranporte,
+    $comida,
+    $banioYCorte,
+    $tratamiento,
+    $extras,
+    $total,
+    $estado,
+    $usuario_id,
+    $mascota_id,
+    $habitacion_id
+]);
+
+
+        // Redireccionar o mostrar un mensaje de éxito
+        return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+    }
+
+
+    public function editProcedimiento(Request $request)
+    {
+        // Obtener los datos del formulario
+        $reservacionHotel_id = $request -> input('reservacionHotel_id');
+        $fechaIngreso = $request->input('fechaIngreso');
+        $fechaSalida = $request->input('fechaSalida');
+        // Obtener los demás datos del formulario
+        $tratamientos = $request->input('tratamientos');
+        $tranporte = $request->input('tranporte');
+        $comida = $request->input('comida');
+        $banioYCorte = $request->input('banioYCorte');
+        $tratamiento = $request->input('tratamiento');
+        $extras = $request->input('extras');
+        $total = $request->input('total');
+        $estado = $request->input('estado');
+        $usuario_id = $request->input('usuario_id');
+        $mascota_id = $request->input('mascota_id');
+        $habitacion_id = $request->input('habitacion_id');
+        
+        // Ejecutar el procedimiento almacenado
+        // Ejecutar el procedimiento almacenado
+DB::statement('CALL ActualizarReservacionHotel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+    $reservacionHotel_id,
+    $fechaIngreso,
+    $fechaSalida,
+    // Pasar los demás datos del formulario como argumentos
+    $tratamientos,
+    $tranporte,
+    $comida,
+    $banioYCorte,
+    $tratamiento,
+    $extras,
+    $total,
+    $estado,
+    $usuario_id,
+    $mascota_id,
+    $habitacion_id
+]);
+
+
+        // Redireccionar o mostrar un mensaje de éxito
+        return redirect()->route('reservacionHotel.index')->with('success', 'Reserva modificada con éxito');
+    }
 }

@@ -526,16 +526,53 @@ return [
         ],
         
         [
-            'text' => 'Hotel',
+            'text' => ' Reservaciones de Hotel',
             'url'  => 'admin/reservacionHotel',
             'can'=>'admin/reservacionHotel',
             'icon' => 'fas fa-fw fa-hotel',
+            'submenu' => [
+                ['text' => 'Reservaciones',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => 'admin/reservacionHotel',
+            ],
+            [
+                'text' => 'Registrar Nueva reserva',
+                'icon' => 'fas fa-fw fa-plus',
+                'url'  => 'admin/reservacionHotel/create',
+            ],
+            [
+                'text' => 'Reservas Activas',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => '',
+            ],
+            [
+                'text' => 'Reservas completadas',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => '',
+            ],
+            [
+                'text' => 'Reservas Canceladas',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => '',
+            ],
+            ]
         ],
         [
-            'text' => 'Habitaciones',
-            'url'  => 'admin/habitacion',
+            'text' => 'Habitaciones de hotel',
             'can'=>'habitacion',
             'icon' => 'fas fa-fw fa-hotel',
+            'submenu' => [
+                [
+                    'text' => 'Habitaciones',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/habitacion',
+                ],
+                [
+                    'text' => 'Registrar Nueva habitación',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'url'  => 'admin/habitacion/create',
+                ],
+            ]
         ],
         [
             'text' => 'Veterinaria',
