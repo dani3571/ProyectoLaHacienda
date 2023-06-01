@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Reservacion_peluqueriaRequest;
 use Spatie\Permission\Models\Role ;
+use PDF;
 
 
 class Reservacion_peluqueriaController extends Controller
@@ -158,5 +159,33 @@ class Reservacion_peluqueriaController extends Controller
             ->orderBy('id', 'asc')
             ->simplePaginate(10);
         return View('admin.reservas_peluqueria.completadas', compact('reservas_peluqueria'));
+    }
+
+    public function getPDFpeluqueria(Request $request){
+        $user = Auth::user();
+        $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+        $reservas_peluqueria = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
+            ->where('estado', 2)
+            ->orderBy('id', 'asc')
+            ->get();
+        $mascotas = Mascotas::select(['id', 'nombre'])
+        ->get();
+        $users = User::select(['id', 'name'])
+            ->get();
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+        $view = view('admin.reservas_peluqueria.reporte', compact('name', 'reservas_peluqueria', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora'));
+         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        if ($fechaInicio && $fechaFin) {
+        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        // Generar el PDF con la vista del reporte
+        $pdf = PDF::loadHTML($view);
+  
+        return $pdf->stream('Reporte_Reservas_completadas.pdf');
     }
 }

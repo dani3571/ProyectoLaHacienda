@@ -396,6 +396,11 @@ return [
                     'icon' => 'fas fa-fw fa-list',
                     'url'  => 'admin/reservas_peluqueria/canceladas',
                 ],
+                [
+                    'text' => 'Reporte de Reservas Completadas',
+                    'icon' => 'fas fa-file-pdf',
+                    'route'  => 'getPDFpeluqueria',
+                ],
             ],
         ],
         
@@ -497,6 +502,11 @@ return [
                             'text'    => 'Listar',
                             'icon'    => 'fas fa-list-alt',
                             'url'     => 'admin/compras',
+                        ],
+                        [
+                            'text' => 'Reporte de compras',
+                            'icon' => 'fas fa-file-pdf',
+                            'route'  => 'getPDFcompras',
                         ],
                     ],
                 ],

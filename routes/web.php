@@ -107,6 +107,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::get('/reservas_peluqueria/canceladas', [Reservacion_peluqueriaController::class, 'canceladas'])->name('reservas_peluqueria.canceladas');
     Route::get('/reservas_peluqueria/completadas', [Reservacion_peluqueriaController::class, 'completadas'])->name('reservas_peluqueria.completadas');
     Route::get('/reservas_peluqueria/index', [Reservacion_peluqueriaController::class, 'index'])->name('reservas_peluqueria.index');
+    Route::get('/reservas_peluqueria/getPDFpeluqueria', 'Reservacion_peluqueriaController@getPDFpeluqueria')->name('getPDFpeluqueria');
 
     //proveedores
     Route::resource('proveedores', 'ProveedoresController')
@@ -166,6 +167,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::get('/compras/index', [ComprasController::class, 'index'])->name('compras.ventas');
     Route::post('/compras', [ComprasController::class, 'store'])->name('compras.store');
     Route::get('/compras/show/{id}', [ComprasController::class, 'show'])->name('compras.show');
+    Route::get('/compras/getPDFcompras', 'ComprasController@getPDFcompras')->name('getPDFcompras');
     Route::resource('compras','ComprasController')
     ->except('show')
     ->names('compras');

@@ -11,27 +11,17 @@ class ReservasHoteleriaController extends Controller
     public function index($id)
     {
         $reservaciones = ReservacionHotel::where('usuario_id',$id)
+            ->get();
+        return response()->json($reservaciones);
+    }
+    public function history($id)
+    {
+        $reservaciones = ReservacionHotel::where('usuario_id',$id)
+        ->where('fechaSalida', '<=', now()->format('Y-m-d'))
         ->get();
         return response()->json($reservaciones);
     }
-
-    public function store(Request $request)
+    public function store(ReservacionHotel $reservation)
     {
-
-    }
-
-    public function show($id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    public function destroy($id)
-    {
-
     }
 }

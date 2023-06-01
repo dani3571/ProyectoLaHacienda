@@ -38,12 +38,11 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    
                     <th>Fecha</th>
-                    <th>Hora Recepcion</th>
-                    <th>Hora Entrega</th>
                     <th>Cliente</th>
                     <th>Mascota</th>
+                    <th>Hora Recepcion</th>
+                    <th>Hora Entrega</th>
                     <th>corte</th>
                     <th>Baño simple</th>
                     <th>tranquilizante</th>
@@ -55,9 +54,6 @@
             <tbody>
                 @foreach ($reservas_peluqueria as $reserva )
                 <tr>
-
-                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
-                    <td>{{$reserva->horaRecepcion}}</td>
                     <td>{{$reserva->horaEntrega}}</td>
                     <td>
                         @foreach ($users as $user )
@@ -73,6 +69,8 @@
                             @endif
                         @endforeach
                     </td>
+                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
+                    <td>{{$reserva->horaRecepcion}}</td>
                     <td>@if($reserva->corte == '1') Si @else No @endif</td>
                     <td>@if($reserva->BanoSimple == '1') Si @else No @endif</td>
                     <td>@if($reserva->tranquilizante == '1') Si @else No @endif</td>
