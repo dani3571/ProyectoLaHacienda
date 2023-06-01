@@ -1,24 +1,31 @@
 @extends('adminlte::page')
 
-@section('title', 'Reservación de Hotel')
+@section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Reservación de hotel</h1>
+<h1>Reservaciones Activas - Hotel de mascotas</h1>
 @endsection
 
 @section('content')
-@if(session('success-create'))
-<div class="alert alert-info">
-     {{ session('success-create') }}
-</div>
-@elseif (session('success-update'))
-<div class="alert alert-info">
-    {{ session('success-update') }}
-</div>
-@elseif (session('success-delete'))
-<div class="alert alert-info">
-    {{ session('success-delete') }}
-</div>
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
 @endif
 
 @section('content')
@@ -91,7 +98,7 @@
 											<td>{{ $reservacionHotel->extras }}</td>
 											<td>{{ $reservacionHotel->total }}</td>
 
-                                            <td width="10px"><a href="{{route('reservacionHotel.edit', $reservacionHotel)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
+                                            <td width="10px"><a href="{{route('reservacionHotel.edit', $reservacionHotel)}}" class="btn btn-primary btn-sm mb-2">Modificar</a></td>
                                             <td width="10px"><a href="{{route('reservacionHotel.show', $reservacionHotel)}}" class="btn btn-secondary btn-sm mb-2">Detalles</a></td>
                                             <td width="10px">
 
@@ -99,7 +106,7 @@
                                                 <form action="{{route('reservacionHotel.destroy', $reservacionHotel->id)}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="submit" value="Eliminar" class="btn btn-danger btn-sm">
+                                                    <input type="submit" value="Cancelar" class="btn btn-danger btn-sm">
                                                 </form>
                                             </td>
 

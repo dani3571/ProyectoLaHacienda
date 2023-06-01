@@ -28,6 +28,7 @@ return new class extends Migration
             ->on('productos')
             ->onDelete('cascade'); //si se elimina una compra eliminamos su detalle
             $table->integer('cantidad');
+            $table->decimal('precio', 8);
             $table->timestamps();
        });
     }

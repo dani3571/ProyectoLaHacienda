@@ -10,6 +10,7 @@ use App\Http\Controllers\Reservacion_peluqueriaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentasController;
+use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\ReservacionHotelController;
 use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\Reservacion_veterinariaController;
@@ -163,9 +164,8 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     //Compras
     Route::get('/compras/index', [ComprasController::class, 'index'])->name('compras.ventas');
     Route::post('/compras', [ComprasController::class, 'store'])->name('compras.store');
-    Route::get('/compras/buscarCliente/{nit}', [ComprasController::class, 'buscarCliente'])->name('compras.buscarCliente');
     Route::get('/compras/show/{id}', [ComprasController::class, 'show'])->name('compras.show');
-    Route::resource('compras','comprasController')
+    Route::resource('compras','ComprasController')
     ->except('show')
     ->names('compras');
 
@@ -174,6 +174,12 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         ->except('show')
         ->names('reservacionHotel');
         Route::get('/reservacionHotel/show/{id}', [ReservacionHotelController::class, 'show'])->name('reservacionHotel.show');
+        Route::post('/reservacionHotel/ejecutar-procedimiento', 'ReservacionHotelController@ejecutarProcedimiento')->name('reservacionHotel.ejecutarProcedimiento');
+        Route::post('/reservacionHotel/edit-procedimiento', 'ReservacionHotelController@editProcedimiento')->name('reservacionHotel.editProcedimiento');
+        Route::get('/reservacionHotel/index', [reservacionHotelController::class, 'index'])->name('reservacionHotel.index');
+        Route::get('/reservacionHotel/canceladas', [reservacionHotelController::class, 'canceladas'])->name('reservacionHotel.canceladas');
+        Route::get('/reservacionHotel/completadas', [reservacionHotelController::class, 'completadas'])->name('reservacionHotel.completadas');
+        Route::get('/reservacionHotel/index', [reservacionHotelController::class, 'index'])->name('reservacionHotel.index');
         //HABITACIONES
         Route::resource('habitacion','HabitacionController')
         ->except('show')

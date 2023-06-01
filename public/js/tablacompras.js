@@ -7,10 +7,10 @@ btnAgregarProducto.addEventListener("click", function (e) {
     if (!validarCampos()) {
         return;
     }
-    const idProducto = document.getElementById("IdProducto").value;
-    const producto = document.getElementById("Producto").value;
+    const IdProducto = document.getElementById("IdProducto").value;
+    const NombreProducto = document.getElementById("NombreProducto").value;
     const cantidad = document.getElementById("Cantidad").value;
-    const precio = document.getElementById("PrecioIndividual").value;
+    const precio = document.getElementById("Preciocompra").value;
     const subtotal = (cantidad * precio).toFixed(2);
     // Crear una nueva fila y sus celdas
     const fila = document.createElement("tr");
@@ -26,11 +26,11 @@ btnAgregarProducto.addEventListener("click", function (e) {
     const inputIdProducto = document.createElement("input");
     const inputProducto = document.createElement("input");
     const inputCantidad = document.createElement("input");
-    const inputPrecioIndividual = document.createElement("input");
+    const inputPreciocompra = document.createElement("input");
     const inputSubtotal = document.createElement("input");
     // Asignar los valores a las celdas (mismo código que en el ejemplo anterior)
-    celdaIdProducto.textContent = idProducto;
-    celdaProducto.textContent = producto;
+    celdaIdProducto.textContent = IdProducto;
+    celdaProducto.textContent = NombreProducto;
     celdaCantidad.textContent = cantidad;
     celdaCantidad.setAttribute("class", "cantidad");
     celdaPrecio.textContent = precio;
@@ -38,34 +38,34 @@ btnAgregarProducto.addEventListener("click", function (e) {
     celdaSubtotal.setAttribute("class", "subtotal");
     //Asignar valores a los inputs
     inputIdProducto.setAttribute("type", "hidden");
-    inputIdProducto.setAttribute("value", idProducto);
+    inputIdProducto.setAttribute("value", IdProducto);
     inputIdProducto.setAttribute(
         "name",
-        "venta[venta" + contador + "][IdProducto]"
+        "compra[compra" + contador + "][IdProducto]"
     );
     inputProducto.setAttribute("type", "hidden");
-    inputProducto.setAttribute("value", producto);
+    inputProducto.setAttribute("value", NombreProducto);
     inputProducto.setAttribute(
         "name",
-        "venta[venta" + contador + "][Producto]"
+        "compra[compra" + contador + "][Producto]"
     );
     inputCantidad.setAttribute("type", "hidden");
     inputCantidad.setAttribute("value", cantidad);
     inputCantidad.setAttribute(
         "name",
-        "venta[venta" + contador + "][Cantidad]"
+        "compra[compra" + contador + "][Cantidad]"
     );
-    inputPrecioIndividual.setAttribute("type", "hidden");
-    inputPrecioIndividual.setAttribute("value", precio);
-    inputPrecioIndividual.setAttribute(
+    inputPreciocompra.setAttribute("type", "hidden");
+    inputPreciocompra.setAttribute("value", precio);
+    inputPreciocompra.setAttribute(
         "name",
-        "venta[venta" + contador + "][Precio]"
+        "compra[compra" + contador + "][Precio]"
     );
     inputSubtotal.setAttribute("type", "hidden");
     inputSubtotal.setAttribute("value", subtotal);
     inputSubtotal.setAttribute(
         "name",
-        "venta[venta" + contador + "][Subtotal]"
+        "compra[compra" + contador + "][Subtotal]"
     );
     // Agregar el texto al enlace
     enlace.textContent = "Eliminar";
@@ -76,10 +76,10 @@ btnAgregarProducto.addEventListener("click", function (e) {
     enlace.addEventListener("click", function () {
         // Eliminar la fila al hacer clic en el enlace
         fila.remove();
-        if (productosAgregados[producto]) {
-            productosAgregados[producto] -= cantidad;
-            if (productosAgregados[producto] === 0) {
-                delete productosAgregados[producto];
+        if (productosAgregados[NombreProducto]) {
+            productosAgregados[NombreProducto] -= cantidad;
+            if (productosAgregados[NombreProducto] === 0) {
+                delete productosAgregados[NombreProducto];
             }
         }
         actualizarTotal();
@@ -88,7 +88,7 @@ btnAgregarProducto.addEventListener("click", function (e) {
     celdaIdProducto.appendChild(inputIdProducto);
     celdaProducto.appendChild(inputProducto);
     celdaCantidad.appendChild(inputCantidad);
-    celdaPrecio.appendChild(inputPrecioIndividual);
+    celdaPrecio.appendChild(inputPreciocompra);
     celdaSubtotal.appendChild(inputSubtotal);
     celdaAcciones.appendChild(enlace);
     // Agregar las celdas a la fila (mismo código que en el ejemplo anterior)
@@ -98,10 +98,10 @@ btnAgregarProducto.addEventListener("click", function (e) {
     fila.appendChild(celdaPrecio);
     fila.appendChild(celdaSubtotal);
     fila.appendChild(celdaAcciones);
-    if (productosAgregados[producto]) {
-        productosAgregados[producto] += parseInt(cantidad);
+    if (productosAgregados[NombreProducto]) {
+        productosAgregados[NombreProducto] += parseInt(cantidad);
     } else {
-        productosAgregados[producto] = parseInt(cantidad);
+        productosAgregados[NombreProducto] = parseInt(cantidad);
     }
     // Agregar la fila a la tabla
     document.getElementById("tbody").appendChild(fila);
@@ -113,38 +113,21 @@ btnAgregarProducto.addEventListener("click", function (e) {
 
 function validarCampos() {
     // Obtener los valores de los campos del formulario
-    const IdProducto = document.getElementById("IdProducto").value;
-    const Producto = document.getElementById("Producto").value;
+    const Producto = document.getElementById("NombreProducto").value;
     const Cantidad = document.getElementById("Cantidad").value;
-    const PrecioIndividual = document.getElementById("PrecioIndividual").value;
-    const CantidadDisponible =
-        document.getElementById("CantidadDisponible").value;
+    const Preciocompra = document.getElementById("Preciocompra").value;
     // Verificar que los campos no estén vacíos
     if (
-        IdProducto.trim() === "" ||
         Producto.trim() === "" ||
         Cantidad.trim() === "" ||
-        PrecioIndividual.trim() === ""
+        Preciocompra.trim() === ""
     ) {
-        alert("Ingrese una cantidad");
+        alert("Ingrese los datos faltantes");
         return false; // Detener la ejecución si hay campos vacíos
-    }
-    if (parseInt(Cantidad) > parseInt(CantidadDisponible)) {
-        alert("La cantidad ingresada es mayor que la cantidad disponible.");
-        return false; // Detener la ejecución si la cantidad es mayor
-    }
-    if (
-        productosAgregados[Producto] &&
-        productosAgregados[Producto] + parseInt(Cantidad) >
-            parseInt(CantidadDisponible)
-    ) {
-        alert(
-            "La suma de las cantidades para el producto actual supera la cantidad disponible."
-        );
-        return false; // Detener la ejecución si la suma de las cantidades es mayor
     }
     return true; // Retornar true si los campos están completos
 }
+
 function actualizarTotal() {
     let total = 0;
     let cantidadTotal = 0;
@@ -162,4 +145,5 @@ function actualizarTotal() {
     const textTotal = document.getElementById("Total");
     textTotal.setAttribute("value", total);
     document.getElementById("CantidadTotal").value = cantidadTotal;
+    console.log(cantidadTotal)
 }
