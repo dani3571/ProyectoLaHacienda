@@ -8,29 +8,21 @@ use App\Models\ReservacionVeterinaria;
 
 class ReservasVeterinariaController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $reservaciones = ReservacionVeterinaria::where('usuario_id',$id)
         ->get();
+        return response()->json($reservaciones, 200);
+    }
+    public function history($id)
+    {
+        $reservaciones = ReservacionVeterinaria::where('usuario_id',$id)
+            ->where('fecha', '<=', now()->format('Y-m-d'))
+            ->where('horaRecepcion', '<=', now()->format('H:i'))
+            ->get();
         return response()->json($reservaciones);
     }
-
-    public function store(Request $request)
-    {
-
-    }
-
-    public function show($id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    public function destroy($id)
+    public function store(ReservacionPeluqueria $reservation)
     {
 
     }

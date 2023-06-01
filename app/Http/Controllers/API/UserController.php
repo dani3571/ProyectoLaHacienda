@@ -6,17 +6,40 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::with('roles')->get();
+        $usersWithRoleName = $users->map(function ($user) {
+            $user->role_name = $user->roles->pluck('name')->first();
+            return $user;
+        });
         return response()->json($users);
     }
-    /*public function store(Request $request)
+    public function roles()
     {
+        return $this->hasMany(Role::class);
     }
-    */
+    public function create(Request $request)
+    {
+        $usuario = User::create([
+            'name' => $request->input('name'),
+            'ci' => $request->input('ci'),
+            'telefono' => $request->input('telefono'),
+            'direccion' => $request->input('direccion'),
+            'email' => $request->input('email'),
+            'personaResponsable' => $request->input('personaResponsable'),
+            'telefonoResponsable' => $request->input('telefonoResponsable'),
+            'password' => Hash::make($request->input('password'),),
+        ]);
+        if ($usuario) {
+            return response()->json($usuario, 201);
+        } else {
+            return response()->json(['error' => 'No se pudo crear el usuario'], 500);
+        }
+    }
     public function login(Request $request)
     {
         $email = $request->input('email');
@@ -25,7 +48,13 @@ class UserController extends Controller
         if ($usuario) {
             if(Hash::check($password, $usuario->password))
             {
-                return response()->json($usuario, 200);
+                $users = User::with('roles')->where('.id',$usuario->id)->get();
+                $usersWithFirstRole = $users->map(function ($user) {
+                    $user['role_name'] = $user->roles->first()->name;
+                    unset($user['roles']);
+                    return $user;
+                });
+                return response()->json($usersWithFirstRole[0], 200);
             }
             else
             {
@@ -36,11 +65,4 @@ class UserController extends Controller
             return response()->json('Credenciales inválidas', 401);
         }
     }
-    /*
-    public function update(Request $request, $id)
-    {
-    }
-    public function destroy($id)
-    {
-    }*/
 }

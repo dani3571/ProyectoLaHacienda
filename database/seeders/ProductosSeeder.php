@@ -20,7 +20,7 @@ class ProductosSeeder extends Seeder
             'descripcion'=> 'Correa pequeña para perro',
             'precio' => '45.5',
             'cantidad' => '50',
-            'image' => '',
+            'image' => '2LA39nUMIZzvhkglGKWd4uLYjXdKGQVRZ8MwzrrP.png',
             'estado' => '1',
             'categoria_id' => '1',
             
@@ -30,7 +30,7 @@ class ProductosSeeder extends Seeder
             'descripcion'=> 'Croquetas para perro de 1kg',
             'precio' => '35.6',
             'cantidad' => '50',
-            'image' => '',
+            'image' => '2LA39nUMIZzvhkglGKWd4uLYjXdKGQVRZ8MwzrrP.png',
             'estado' => '1',
             'categoria_id' => '1',
         ]);
@@ -39,7 +39,7 @@ class ProductosSeeder extends Seeder
             'descripcion'=> 'Juguete pequeño para perro',
             'precio' => '70',
             'cantidad' => '50',
-            'image' => '',
+            'image' => '2LA39nUMIZzvhkglGKWd4uLYjXdKGQVRZ8MwzrrP.png',
             'estado' => '1',
             'categoria_id' => '1',
         ]);

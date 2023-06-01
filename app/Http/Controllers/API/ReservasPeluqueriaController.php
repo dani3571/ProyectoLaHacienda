@@ -3,34 +3,25 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\ReservacionPeluqueria;
 use Illuminate\Http\Request;
+use App\Models\ReservacionPeluqueria;
 
 class ReservasPeluqueriaController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $reservaciones = ReservacionPeluqueria::where('usuario_id',$id)
-        ->get();
+        $reservaciones = ReservacionPeluqueria::where('usuario_id', $id)->get();
         return response()->json($reservaciones);
     }
-
-    public function store(Request $request)
+    public function history($id)
     {
-
+        $reservaciones = ReservacionPeluqueria::where('usuario_id', $id)
+            ->where('fecha', '<=', now()->format('Y-m-d'))
+            ->where('horaEntrega', '<=', now()->format('H:i'))
+            ->get();
+        return response()->json($reservaciones);
     }
-
-    public function show($id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    public function destroy($id)
+    public function store(ReservacionPeluqueria $reservation)
     {
 
     }
