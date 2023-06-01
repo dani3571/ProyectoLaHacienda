@@ -3,42 +3,75 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Registrar nueva reservación</h1>
+<h1>Modificar Reservación</h1>
 @endsection
 
 @section('content')
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
+@endif
 
 <div class="card">
     <div class="card-body">
-        <form method="POST" action="{{ route('reservacionHotel.update', $reservacionHotel->id) }}">
+        <form method="POST" action="{{route('reservacionHotel.editProcedimiento')}}">
         @csrf 
-            @method('PUT')
                 <div class="form-group">
-                    <input type="hidden" name="id" value="{{ $reservacionHotel->id }}">
+                    <input type="hidden" name="reservacionHotel_id" value="{{ $reservacionHotel->id }}">
                 </div> 
                 <div class="form-group">
                 <label>No id:</label>
                 <p>{{ $reservacionHotel->id }}<p>
                 <div class="form-group">
-          <label for="client-select">Seleccionar cliente:</label>
-          <select class="form-control" id="client-select">
-            <option value="cliente1">Cliente 1</option>
-            <option value="cliente2">Cliente 2</option>
-            <option value="cliente3">Cliente 3</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="pet-select">Seleccionar mascota:</label>
-          <select class="form-control" id="pet-select">
-            <option value="mascota1">Mascota 1</option>
-            <option value="mascota2">Mascota 2</option>
-            <option value="mascota3">Mascota 3</option>
-          </select>
-        </div>
-        <div class="btn-group">
-          <a href="" class="btn btn-primary">Registrar Cliente</a>
-          <a href="" class="btn btn-primary">Registrar Mascota</a>
-        </div>
+                <label>Seleccionar cliente:</label>
+            <div class="form-group">
+                <select class="form-control" name="usuario_id" id="usuario_id">
+                    <option value="">Cliente</option> 
+                    @foreach ($users as $user )
+                            @if($user->id == $reservacionHotel->usuario_id) 
+                            <option value="{{$user->id}}" selected>{{$user->name}}</option>
+                            @endif
+                    @endforeach
+                </select>
+                @error('usuario_id')
+                <span class="text-danger">
+                    <span>{{ $message }}</span>
+                </span>
+                @enderror
+            </div>
+            <label>Seleccionar mascota:</label>
+            <div class="form-group">
+                <select class="form-control" name="mascota_id" id="mascota_id">
+                    <option value="">Mascota</option>
+                    @foreach ($mascotas as $mascota )
+                            @if($mascota->id == $reservacionHotel->usuario_id) 
+                            <option value="{{$mascota->id}}" selected>{{$mascota->nombre}}</option>
+                            @endif
+                    @endforeach
+                </select>
+                @error('mascota_id')
+                <span class="text-danger">
+                    <span>{{ $message }}</span>
+                </span>
+                @enderror
+            </div>
+
             <!--<div class="form-group">
                 <label>No</label>
                 <input type="text" class="form-control" id="id" name='id' placeholder="id"
@@ -149,21 +182,36 @@
                         </span>
                     @enderror
             </div>
-                <label>usuario_id </label>
-                <div class="form-group">
-                    <select class="form-control" name="usuario_id" id="usuario_id">
-                        <option value="{{ $reservacionHotel->usuario_id }}">Seleccione el tipo</option>
-                   
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-            
-                    </select>
-                    @error('usuario_id')
+
+            <div class="form-group">
+                <label>estado</label>
+                <input type="hidden" class="form-control" id="estado" name='estado' placeholder="estado"
+                    value="{{ old('estado') ?? 1}}">
+
+                    @error('estado')
                         <span class="text-danger">
                             <span>{{ $message }}</span>
                         </span>
                     @enderror
-                </div>
+            </div>
+
+            <label>Seleccionar habitación:</label>
+            <div class="form-group">
+                <select class="form-control" name="habitacion_id" id="habitacion_id">
+                    <option value="{{ old('habitacion_id') ?? 1}}">Habitación</option>
+                    @foreach ($habitacions as $habitacion )
+                            @if($habitacion->id == $reservacionHotel->usuario_id) 
+                            <option value="{{$habitacion->id}}" selected>{{$habitacion->nro_habitacion}}</option>
+                            @endif
+                    @endforeach
+                </select>
+                @error('reservacionHotel_id')
+                    <span class="text-danger">
+                        <span>{{ $message }}</span>
+                    </span>
+                @enderror
+            </div>
+
                 <input type="submit" value="Registrar reservación" class="btn btn-primary">
      </form>
     </div>

@@ -174,6 +174,12 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         ->except('show')
         ->names('reservacionHotel');
         Route::get('/reservacionHotel/show/{id}', [ReservacionHotelController::class, 'show'])->name('reservacionHotel.show');
+        Route::post('/reservacionHotel/ejecutar-procedimiento', 'ReservacionHotelController@ejecutarProcedimiento')->name('reservacionHotel.ejecutarProcedimiento');
+        Route::post('/reservacionHotel/edit-procedimiento', 'ReservacionHotelController@editProcedimiento')->name('reservacionHotel.editProcedimiento');
+        Route::get('/reservacionHotel/index', [reservacionHotelController::class, 'index'])->name('reservacionHotel.index');
+        Route::get('/reservacionHotel/canceladas', [reservacionHotelController::class, 'canceladas'])->name('reservacionHotel.canceladas');
+        Route::get('/reservacionHotel/completadas', [reservacionHotelController::class, 'completadas'])->name('reservacionHotel.completadas');
+        Route::get('/reservacionHotel/index', [reservacionHotelController::class, 'index'])->name('reservacionHotel.index');
         //HABITACIONES
         Route::resource('habitacion','HabitacionController')
         ->except('show')

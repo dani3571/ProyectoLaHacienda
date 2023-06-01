@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Reservación de Hotel')
+@section('title', 'Habitaciones activas')
 
 @section('content_header')
 <h1>Reservación de hotel</h1>
@@ -74,7 +74,7 @@
                                             <td>
                                                 <form action="{{ route('habitacion.destroy',$habitacion->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('habitacion.show',$habitacion->id) }}"> {{ __('Detalles') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('habitacion.edit',$habitacion->id) }}"> {{ __('Editar') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('habitacion.edit',$habitacion->id) }}"> {{ __('Modificar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"> {{ __('Desactivar') }}</button>
@@ -87,10 +87,10 @@
                                                 @method('PUT')
 
                                                 <!-- Campo del formulario -->
-                                                <input type="text" name="reservacionHotel_id" value="{{ $habitacion->reservacionHotel_id }}">
+                                                <input type="hidden" name="reservacionHotel_id" value="{{ $habitacion->reservacionHotel_id }}">
 
                                                 <!-- Botón de envío -->
-                                                <button type="submit">Actualizar</button>
+                                                <!--<button type="submit">Actualizar</button>-->
                                             </form>
                                         </TD>
 
