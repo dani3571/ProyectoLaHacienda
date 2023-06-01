@@ -9,6 +9,8 @@ use PDF;
 use App\Models\Mascotas;
 use App\Models\User;
 use App\Http\Requests\ReportesRequest;
+use App\Models\Proveedores;
+use App\Models\Ventas;
 
 class ReportesController extends Controller
 {
@@ -68,6 +70,28 @@ class ReportesController extends Controller
             $pdf = PDF::loadHTML($view);
             // Descargar o mostrar el PDF en el navegador
             return $pdf->stream('Reporte_Roles.pdf');
+        }
+
+        if ($tipo == "ventas") {
+            $ventas = Ventas::all()
+            ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+            // Cargar la vista del reporte
+            $view = view('admin.ventas.reporte', compact('name', 'nombreSistema', 'fecha', 'hora', 'ventas', 'fechaInicio', 'fechaFin'));
+            // Generar el PDF con la vista del reporte
+            $pdf = PDF::loadHTML($view);
+            // Descargar o mostrar el PDF en el navegador
+            return $pdf->stream('Reporte_Ventas.pdf');
+        }
+        
+        if ($tipo == "proveedores") {
+            $proveedores = Proveedores::all()
+            ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+            // Cargar la vista del reporte
+            $view = view('admin.proveedores.reporte', compact('name', 'nombreSistema', 'fecha', 'hora', 'proveedores', 'fechaInicio', 'fechaFin'));
+            // Generar el PDF con la vista del reporte
+            $pdf = PDF::loadHTML($view);
+            // Descargar o mostrar el PDF en el navegador
+            return $pdf->stream('Reporte_Proveedores.pdf');
         }
 
     }

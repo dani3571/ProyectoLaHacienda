@@ -1,48 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reporte de Productos</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Estilos CSS para el reporte */
+        .logo {
+            float: right;
+            width: 100px; /* Ajusta el tamaño del logo según tus necesidades */
+            height: auto;
         }
-        h1 {
+        .nombre-sistema {
+            font-size: 18px;
+        }
+        .titulo {
             text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+         
         }
-        table {
+        .fecha-usuario {
+            clear: both;
+            margin-bottom: 20px;
+        }
+        .fecha-usuario {
+            clear: both;
+            margin-bottom: 20px;
+        }
+     
+      
+        .tabla {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
-            padding: 8px;
+        .tabla th {
+            background-color: #f2f2f2;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            padding: 8px;
+        }
+        .tabla td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>Reporte de Productos</h1>
-    <table>
+    <header>
+        <div class="logo">
+            <img width="60px" height="60px" src="{{asset('images/logo.png')}}" alt="Logo de la empresa"> <!-- Ajusta la ruta de la imagen del logo -->
+        </div>
+        <h1 class="nombre-sistema">SISTEMA GENESIS</h1> <!-- Utiliza la variable $nombreSistema para mostrar el nombre del sistema -->
+    </header>
+   <center><h2 class="titulo">REPORTE DE PRODUCTOS</h2>
+   @if (isset($fechaInicio) && isset($fechaFin))
+   <p>Fechas de filtrado: {{ $fechaInicio }} - {{ $fechaFin }}</p>
+   @endif
+   </center>
+   
+    <div class="fecha-usuario">
+        <p>Usuario: {{ $name }}</p> 
+        <p class="fecha">Fecha y Hora: {{$fecha = date('Y-m-d')}} - {{ $hora = date('H:i')}}                </p> 
+       
+    </div>
+    <table class="tabla">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($productos as $producto)
-            <tr>
-                <td>{{ $producto->id }}</td>
-                <td>{{ $producto->nombre }}</td>
-                <td>{{ $producto->descripcion }}</td>
-                <td>{{ $producto->precio }}</td>
-                <td>{{ $producto->cantidad }}</td>
-            </tr>
-            @endforeach
+        </thead>
+        @foreach ($productos as $producto)
+        <tr>
+            <td>{{ $producto->id }}</td>
+            <td>{{ $producto->nombre }}</td>
+            <td>{{ $producto->descripcion }}</td>
+            <td>{{ $producto->precio }}</td>
+            <td>{{ $producto->cantidad }}</td>
+        </tr>
+        @endforeach
         </tbody>
     </table>
+    <div class="footer">
+        <hr style="width: 34%; margin-top: 150px;">
+        Firma
+    </div>
 </body>
 </html>

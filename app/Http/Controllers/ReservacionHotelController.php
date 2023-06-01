@@ -20,6 +20,13 @@ class ReservacionHotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+    {
+       $this->middleware('can:reservacionHotel.index')->only('index');
+       $this->middleware('can:reservacionHotel.create')->only('create');
+       $this->middleware('can:reservacionHotel.edit')->only('edit');
+    }
     public function index()
     {
         $reservacionHotel = ReservacionHotel::simplePaginate(10);

@@ -132,12 +132,39 @@ class RoleSeeder extends Seeder
             'name' => 'admin/reservacionHotel',
             'description' => 'Ver reservaciones del hotel'
         ])->assignRole($admin, $recepcionista);
+        Permission::create([
+            'name' => 'reservacionHotel.index',
+            'description' => 'Ver reservaciones del hotel'
+        ])->assignRole($admin, $recepcionista);
+        Permission::create([
+            'name' => 'reservacionHotel.create',
+            'description' => 'Crear reservaciones del hotel'
+        ])->assignRole($admin, $recepcionista);
 
+        Permission::create([
+            'name' => 'reservacionHotel.edit',
+            'description' => 'Editar reservaciones del hotel'
+        ])->assignRole($admin, $recepcionista);
+
+      
+
+      
         //Habitaciones
         Permission::create([
             'name' => 'habitacion',
             'description' => 'Ver Habitaciones'
         ])->assignRole($admin, $recepcionista);
+
+        Permission::create([
+            'name' => 'habitacion.create',
+            'description' => 'Crear Habitaciones'
+        ])->assignRole($admin, $recepcionista);
+        Permission::create([
+            'name' => 'habitacion.edit',
+            'description' => 'Crear Habitaciones'
+        ])->assignRole($admin, $recepcionista);
+
+
 
 
         //Productos
