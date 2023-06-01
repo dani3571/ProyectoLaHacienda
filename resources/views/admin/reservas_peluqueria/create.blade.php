@@ -3,7 +3,7 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Crear Nueva Reservación</h1>
+<h1>Registrar Nueva Reservación</h1>
 @endsection
 
 @section('content')
