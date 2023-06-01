@@ -10,6 +10,7 @@ use App\Models\Mascotas;
 use App\Models\User;
 use App\Http\Requests\ReportesRequest;
 use App\Models\Proveedores;
+use App\Models\ReservacionPeluqueria;
 use App\Models\Ventas;
 
 class ReportesController extends Controller
@@ -92,6 +93,28 @@ class ReportesController extends Controller
             $pdf = PDF::loadHTML($view);
             // Descargar o mostrar el PDF en el navegador
             return $pdf->stream('Reporte_Proveedores.pdf');
+        }
+
+        if($tipo == "reservacion_peluquerias")
+        {
+            $reservas_peluqueria = ReservacionPeluqueria::all();
+            $users = User::select(['id', 'name'])
+            ->get();
+            $mascotas = Mascotas::select(['id', 'nombre'])
+            ->get();
+            $fechaInicio = $request->input('fechaInicio');
+            $fechaFin = $request->input('fechaFin');
+            $view = view('admin.reservas_peluqueria.reporte', compact('name', 'reservas_peluqueria', 'reservas_peluqueria', 'mascotas','users', 'nombreSistema', 'fecha', 'hora'));
+             // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+            if ($fechaInicio && $fechaFin) {
+            $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+            }
+            // Generar el PDF con la vista del reporte
+            $pdf = PDF::loadHTML($view);
+      
+            return $pdf->stream('Reporte_Reservas_completadas.pdf');
+    
+
         }
 
     }
