@@ -18,14 +18,15 @@ return new class extends Migration
             $table->float('precioTotal', 10, 0);
             $table->integer('cantidadTotal');
             $table->date('fechaCompra');
-            $table->timestamps();
-
+            
 
             $table->unsignedBigInteger('id_proveedor'); 
             $table->foreign('id_proveedor')
             ->references('id')
             ->on('proveedores')
             ->onDelete('cascade');
+            
+            $table->timestamps();
 
 
         });

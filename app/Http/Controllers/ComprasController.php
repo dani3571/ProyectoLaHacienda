@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DetalleVentas;
-use App\Models\DetalleCompra;
+use App\Models\DetalleCompras;
 use App\Models\Proveedores;
 use App\Models\Productos;
-use App\Models\Ventas;
-use App\Models\Cliente;
+use App\Models\Compra;
 use Illuminate\Support\Facades\Auth;
 
 class ComprasController extends Controller
@@ -20,82 +18,57 @@ class ComprasController extends Controller
     }
     public function index()
     {
-        $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
-            ->select('detalle_ventas.*','ventas.*')
-            ->get();
-        return view('admin.compras.index', compact('ventas'));
+        $compras = Compra::all();
+        $proveedores = Proveedores::all();
+        return view('admin.compras.index', compact('compras', 'proveedores'));
     }
     public function show($id)
     {
-        $venta_individual = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
-            ->select('detalle_ventas.*','ventas.*')
-            ->where('ventas.id',$id)
+        
+        $compras = Compra::where('id', $id)
             ->get();
-        $ventas = DetalleVentas::join('ventas','detalle_ventas.id_venta','=','ventas.id')
-            ->join('productos','detalle_ventas.id_producto','=','productos.id')
-            ->select('detalle_ventas.*','ventas.*','productos.*')
-            ->where('detalle_ventas.id_venta',$id)
+        $proveedores = Proveedores::all();
+        $productos = Productos::all();
+        $detalles = DetalleCompras::where('detalle_compras.id_compra',$id)
             ->get();
-        return view('admin.ventas.detail', compact('ventas','venta_individual'));
+        return view('admin.compras.detail', compact('compras','detalles', 'proveedores', 'productos'));
     }
     public function create()
     {
         $productos = Productos::all();
         $proveedores = Proveedores::all();
-        return view('admin.ventas.create',compact('productos', 'proveedores'));
+        return view('admin.compras.create',compact('productos', 'proveedores'));
     }
 
     public function store(Request $request)
     {
-        $user = Auth::user();
-        //dd($user->all());
-        $detalleVentas = $request->input('venta');
-        $Fecha = $request->input('Fecha');
+        //dd( request()->all() );
+        $detalleCompra = $request->input('compra');
+        //dd($detalleCompra);
+        $Fecha = $request->input('fechaCompra');
         $Total = $request->input('Total');
         $CantidadTotal = $request->input('CantidadTotal');
-        $nuevaVenta = Ventas::create(
+        $IdProveedor = $request->input('IdProveedor');
+        $nuevaCompra = Compra::create(
             [
-                'usuario' => $user->name,
-                'cliente' => $Apellido,
-                'cantidad' => $CantidadTotal,
-                'total' => $Total,
-                'fechaVenta' => $Fecha
+                'precioTotal' => $Total,
+                'cantidadTotal' => $CantidadTotal,
+                'fechaCompra' => $Fecha,
+                'id_proveedor' => $IdProveedor
             ]
         );
-        $idVentaGenerado = $nuevaVenta->id;
-        foreach ($detalleVentas as $detalleVenta) {
-            $producto = Productos::findOrFail($detalleVenta['IdProducto']);
-            if($producto->cantidad - $detalleVenta['Cantidad'] >= 0)
-            {
-                $producto->cantidad = $producto->cantidad - $detalleVenta['Cantidad'];
-                $producto->save();
-            }   
-            else
-            {
-                $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
-                ->select('detalle_ventas.*','ventas.*')
-                ->get();
-                return redirect()->route('ventas.index', compact('ventas'))->with('fail', 'A ocurrido un error con la venta');
-            }
-            $detalle = new DetalleVentas();
-            $detalle->id_venta = $idVentaGenerado;
-            $detalle->id_producto = $detalleVenta['IdProducto'];
-            $detalle->subtotal = $detalleVenta['Subtotal'];
-            $detalle->cantidad_individual = $detalleVenta['Cantidad'];
-            $detalle->save();
+        $idCompraGenerado = $nuevaCompra->id;
+        foreach ($detalleCompra as $detalle) {
+            $producto = Productos::findOrFail($detalle['IdProducto']);
+            $producto->cantidad = $producto->cantidad + $detalle['Cantidad'];
+            $producto->save();
+            $detalleC = new DetalleCompras();
+            $detalleC->id_compra = $idCompraGenerado;
+            $detalleC->id_producto = $detalle['IdProducto'];
+            $detalleC->precio = $detalle['Precio'];
+            $detalleC->cantidad = $detalle['Cantidad'];
+            $detalleC->save();
         }
-        $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
-            ->select('detalle_ventas.*','ventas.*')
-            ->get();
-        $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
-        ->select('detalle_ventas.*','ventas.*')
-        ->get();
-        return redirect()->route('ventas.index', compact('ventas'))->with('success', 'La venta se ha registrado con éxito');
-    }
-
-    public function buscarCliente($nit)
-    {
-      $cliente = Cliente::where('nit', $nit)->first();
-      return response()->json($cliente);
+        return redirect()->route('compras.index')->with('success', 'La compra se ha registrado con éxito');
     }
 }

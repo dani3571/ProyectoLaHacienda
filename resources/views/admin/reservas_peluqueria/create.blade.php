@@ -153,23 +153,23 @@
     <script src="{{ asset('js/control_eleccion_servicio_peluqueria.js') }}"></script>
     
     <script>
-    function val() {
-        var user_id = document.getElementById("usuario_id").value;
-        var s = '<option value="">Seleccione la mascota</option>';
-        var count = 0;
-        @foreach ($mascotas as $mascota)
-            if({{ $mascota->usuario_id }} == user_id) {
-                s += '<option value="{{ $mascota->id }}">{{ $mascota->nombre }}</option>';
-                count++;
+        function val() {
+            var user_id = document.getElementById("usuario_id").value;
+            var s = '<option value="">Seleccione la mascota</option>';
+            var count = 0;
+            @foreach ($mascotas as $mascota)
+                if({{ $mascota->usuario_id }} == user_id) {
+                    s += '<option value="{{ $mascota->id }}">{{ $mascota->nombre }}</option>';
+                    count++;
+                }
+            @endforeach
+            if(count < 1){
+                s += '<option value="">El cliente no tiene mascotas registradas</option>';
             }
-        @endforeach
-        if(count < 1){
-            s += '<option value="">El cliente no tiene mascotas registradas</option>';
-        }
 
-        console.log(user_id);
-        const mascota = document.getElementById("mascota_id");
-        mascota.innerHTML = s;
-    }
-</script>
+            console.log(user_id);
+            const mascota = document.getElementById("mascota_id");
+            mascota.innerHTML = s;
+        }
+    </script>
 @endsection

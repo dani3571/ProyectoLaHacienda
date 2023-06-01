@@ -3,7 +3,7 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1 class ="text-muted">Ventas realizadas</h1>
+<h1 class ="text-muted">Compras realizadas</h1>
 <br>
 @endsection
 
@@ -34,26 +34,30 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Fecha de la Venta</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">Cantidad Total</th>
+                    <th scope="col">Precio Total</th>
                     <th></th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach ($ventas as $venta )
+                @foreach ($compras as $compra )
                 <tr>
-                    <th>{{$venta->id}}</th>
-                    <td>{{$venta->usuario}}</td>
-                    <td>{{$venta->cliente}}</td>
-                    <td>{{$venta->cantidad}}</td>
-                    <td>{{$venta->total}}</td>
-                    <td>{{$venta->fechaVenta}}</td>
+                    <th>{{$compra->id}}</th>
+                    <td>{{$compra->fechaCompra}}</td>
                     <td>
-                        <a href="{{ route('ventas.show', ['id' => $venta->id]) }}" class="btn btn-primary btn-sm mb-2">Detalle</a>
+                        @foreach ($proveedores as $proveedor )
+                            @if($proveedor->id == $compra->id_proveedor) 
+                                {{$proveedor->nombre}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>{{$compra->cantidadTotal}}</td>
+                    <td>{{$compra->precioTotal}} bs</td>
+                    <td>
+                        <a href="{{ route('compras.show', ['id' => $compra->id]) }}" class="btn btn-primary btn-sm mb-2">Detalle</a>
                     </td>
                 </tr>
                 @endforeach

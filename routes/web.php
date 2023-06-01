@@ -10,6 +10,7 @@ use App\Http\Controllers\Reservacion_peluqueriaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentasController;
+use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\ReservacionHotelController;
 use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\Reservacion_veterinariaController;
@@ -163,9 +164,8 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     //Compras
     Route::get('/compras/index', [ComprasController::class, 'index'])->name('compras.ventas');
     Route::post('/compras', [ComprasController::class, 'store'])->name('compras.store');
-    Route::get('/compras/buscarCliente/{nit}', [ComprasController::class, 'buscarCliente'])->name('compras.buscarCliente');
     Route::get('/compras/show/{id}', [ComprasController::class, 'show'])->name('compras.show');
-    Route::resource('compras','comprasController')
+    Route::resource('compras','ComprasController')
     ->except('show')
     ->names('compras');
 
