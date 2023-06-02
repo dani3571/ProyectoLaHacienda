@@ -48,6 +48,7 @@
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach ($user as $users)
                         <tr class="reserva">
@@ -58,18 +59,13 @@
                             <td>{{ $users->email }}</td>
                             <td>{{ $users->personaResponsable }}</td>
                             <td>{{ $users->telefonoResponsable }}</td>
-                            <td width="10px"><a href="{{ route('users.edit', $users) }}"
-                                    class="btn btn-primary btn-sm mb-2">Editar</a>
-                            </td>
-                            
-                    <td width="10px">
-                        <form action="{{ route('users.cambiar-estado', $users) }}" method="POST">
+                          
+                            <td width="10px">
+                        <form action="{{ route('users.restablecer-estado', $users->id) }}" method="POST">
                             @csrf
                             @method('PUT')      
-                            <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
+                            <input type="submit" value="Restablecer" class="btn btn-primary btn-sm mb-2">
                         </form>
-
-                    
                     </td>
                         </tr>
                     @endforeach
