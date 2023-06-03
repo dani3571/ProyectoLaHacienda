@@ -133,6 +133,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::get('/productos/{id}/edit', [ProductosController::class, 'edit'])->name('productos.edit');
     Route::put('/productos/{producto}/cambiarestado', [ProductosController::class, 'cambiarEstado'])->name('productos.cambiarestado');
     Route::put('/productos/{producto}/restablecer-estado', [ProductosController::class, 'restablecerEstado'])->name('productos.restablecer-estado');
+    Route::get('/productos/pdf', [ProveedoresController::class, 'generatePDFRD'])->name('productos.pdf');
 
     //Route::delete('/productos/{producto}/destroy', [ProductosController::class, 'destroy'])->name('productos.destroy');
     //Route::get('/reporte-productos-pdf', [ProductosController::class, 'generarReporte'])->name('reporte.productos.pdf');

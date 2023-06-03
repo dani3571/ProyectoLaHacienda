@@ -170,4 +170,29 @@ class ProductosController extends Controller
 
         return redirect()->route('productos.inactivos')->with('success-update', 'Producto restablecido con éxito');
     }
+
+    public function generatePDFPRD(Request $request)
+    {
+        $user = Auth::user();
+        $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+        $proveedores = Productos::all(); // Obtén los datos de los proveedores desde la base de datos
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+       
+        $view = view('admin.proveedores.reporte', compact('name', 'proveedores', 'nombreSistema', 'fecha', 'hora'));
+        
+         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        if ($fechaInicio && $fechaFin) {
+        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        // Generar el PDF con la vista del reporte
+        $pdf = PDF::loadHTML($view);
+     
+        return $pdf->stream('reporteProductos.pdf');
+      
+    }
 }

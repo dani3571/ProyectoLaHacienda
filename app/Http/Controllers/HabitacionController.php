@@ -21,9 +21,7 @@ class HabitacionController extends Controller
 
     public function __construct()
     {
-       $this->middleware('can:habitacion.index')->only('index');
-       $this->middleware('can:habitacion.create')->only('create');
-       $this->middleware('can:habitacion.edit')->only('edit');
+     
     }
     public function index()
     {
