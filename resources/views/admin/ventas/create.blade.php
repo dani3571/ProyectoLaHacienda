@@ -83,7 +83,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="Producto" class="form-select text-secondary">Seleccione producto</label>
-                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="Producto">
+                            <select class="form-select form-select-sm w-100 form-control" disabled style="padding:6px;" id="Producto">
                               @foreach ($productos as $item)
                               <option value="{{$item->nombre}}">{{$item->nombre}}</option>
                               @endforeach

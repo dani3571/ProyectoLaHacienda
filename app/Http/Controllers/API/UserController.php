@@ -40,6 +40,27 @@ class UserController extends Controller
             return response()->json(['error' => 'No se pudo crear el usuario'], 500);
         }
     }
+    public function update(Request $request, $id)
+    {
+
+        $usuario = User::find($id);
+
+        if (!$usuario) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+
+        $usuario->name = $request->input('name');
+        $usuario->ci = $request->input('ci');
+        $usuario->telefono = $request->input('telefono');
+        $usuario->direccion = $request->input('direccion');
+        $usuario->email = $request->input('email');
+        $usuario->personaResponsable = $request->input('personaResponsable');
+        $usuario->telefonoResponsable = $request->input('telefonoResponsable');
+        $usuario->password = Hash::make($request->input('password'));
+        $usuario->save();
+
+        return response()->json(['usuario' => $usuario]);
+    }
     public function login(Request $request)
     {
         $email = $request->input('email');

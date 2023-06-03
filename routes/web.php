@@ -67,10 +67,13 @@ Route::resource('users', 'UserController')
 //Ruta perfil
 Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
    //Usuarios
-
     Route::resource('users', 'UserController')
     ->except('create', 'store', 'show')
     ->names('users');
+    Route::put('/users/{users}/cambiar-estado', [UserController::class, 'cambiarEstado'])->name('users.cambiar-estado');
+    Route::put('/users/{users}/restablecer-estado', [UserController::class, 'restablecerEstado'])->name('users.restablecer-estado');
+    Route::get('/users/inactivos', [UserController::class, 'inactivos'])->name('users.inactivos');
+  
     Route::get('/pdfs', 'UserController@getPDFusuarios')->name('getPD');
     //Roles
     Route::resource('roles','RoleController')
