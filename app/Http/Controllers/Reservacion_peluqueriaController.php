@@ -23,7 +23,7 @@ class Reservacion_peluqueriaController extends Controller
      public function __construct()
      {
         $this->middleware('can:reservas_peluqueria.index')->only('index');
-        $this->middleware('can:reservas_peluqueria.create')->only('create');
+        
         $this->middleware('can:reservas_peluqueria.edit')->only('edit');
      }
     public function index()

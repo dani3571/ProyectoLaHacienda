@@ -67,10 +67,13 @@ Route::resource('users', 'UserController')
 //Ruta perfil
 Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
    //Usuarios
-
     Route::resource('users', 'UserController')
     ->except('create', 'store', 'show')
     ->names('users');
+    Route::put('/users/{users}/cambiar-estado', [UserController::class, 'cambiarEstado'])->name('users.cambiar-estado');
+    Route::put('/users/{users}/restablecer-estado', [UserController::class, 'restablecerEstado'])->name('users.restablecer-estado');
+    Route::get('/users/inactivos', [UserController::class, 'inactivos'])->name('users.inactivos');
+  
     Route::get('/pdfs', 'UserController@getPDFusuarios')->name('getPD');
     //Roles
     Route::resource('roles','RoleController')
@@ -133,6 +136,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::get('/productos/{id}/edit', [ProductosController::class, 'edit'])->name('productos.edit');
     Route::put('/productos/{producto}/cambiarestado', [ProductosController::class, 'cambiarEstado'])->name('productos.cambiarestado');
     Route::put('/productos/{producto}/restablecer-estado', [ProductosController::class, 'restablecerEstado'])->name('productos.restablecer-estado');
+    Route::get('/productos/pdf', [ProveedoresController::class, 'generatePDFRD'])->name('productos.pdf');
 
     //Route::delete('/productos/{producto}/destroy', [ProductosController::class, 'destroy'])->name('productos.destroy');
     //Route::get('/reporte-productos-pdf', [ProductosController::class, 'generarReporte'])->name('reporte.productos.pdf');

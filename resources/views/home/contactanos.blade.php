@@ -335,6 +335,77 @@ body{
     margin-top: 262px;
 }
 
+.section {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section h1 {
+    font-size: 35px;
+    color: #343a40;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.section ul li {
+    margin-bottom: 10px;
+}
+
+.section ul li a {
+    color: #007bff;
+    display: flex;
+    align-items: center;
+}
+
+.section ul li a img {
+    margin-right: 10px;
+}
+
+ul li a:hover img {
+    transform: scale(1.2); /* Escala el ícono al 120% */
+    transition: transform 0.3s ease-in-out; /* Agrega una transición suave */
+}
+
+ul li a:hover {
+    background-color: #486cb4;
+    color: white;
+}
+
+@media (max-width: 576px) {
+    .section {
+        padding: 20px;
+    }
+}
+
+#map {
+  height: 400px;
+}
+
+@media (max-width: 576px) {
+  #map {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+#contacto p,
+#contacto a {
+    font-size: 20px; /* Tamaño de fuente deseado */
+}
+
 </style>
 <!-- Bootstrap CSS -->
 
@@ -351,108 +422,64 @@ body{
 
 @endsection
 
-@section('title', 'La Hacienda')
-
 @section('content')
-<div  class="row bg-img-principal align-items-center" style="background-image: url({{url('images/main_movil.png')}}) ; background-size: cover; background-position:center;	height: 700px; ">
-      	
-	<div class="offset-3 col-7 bg-light p-3 d-none d-lg-block">
-		<h3 class="font-color-general" style="font-size:100px">CONTACTANOS</h3>
-	</div>
-
-
-	<div class="col-10 mx-auto bg-light p-3 d-block d-lg-none">
-		<h3 class="font-color-general">Complejo La Hacienda</h3>
-	</div>
-	  </div>
-	<!-- INICIO SECCIÓN NOSOTROS class="container-fluid bg-color-azul p-3"-->
-
-   
-	<section  id="nosotros"  class="container-fluid bg-color-azul p-3" style="margin-top: 2px">
-		<h4 class="text-white text-center p-3">
-			Quienes somos?
-		</h4>
-
-		<hr class="hrblanco">
-
-		<div class="row  align-items-center">
-			<div class="col-12 col-lg-6">
-				<img src="{{asset('images/hacienda.png')}}" width="600px" height="600px" class="img-fluid p-3" alt="nosotros">
-			</div>
-			
-			<div class="col-12 col-lg-6 text-white p-3">
-				<h4 class="my-3">
-					Nosotros:
-				</h4>
-		
-				<p  class="p-3" style="text-align: justify; font-size:x-large" >
-					El Complejo Veterinario La Hacienda, fundado en 2009 por Gina Muñoz Reyes de la Barra, es un establecimiento ubicado en Huajchilla, La Paz, Bolivia, que brinda una amplia gama de servicios para mascotas, incluyendo atención veterinaria, hospedaje y peluquería.
-				</p>
-				<p  class="p-3" style="text-align: justify; font-size:x-large" >
-					Desde su creación, La Hacienda se ha dedicado a brindar un servicio integral y de calidad a sus clientes, con un enfoque en el bienestar de los animales y la satisfacción de sus dueños. Con una amplia experiencia en el cuidado de mascotas, el personal altamente capacitado de La Hacienda se esfuerza por ofrecer un servicio personalizado y amable a cada uno de sus clientes, estableciendo relaciones duraderas basadas en la confianza y el respeto. 
-				</p>
-			</div>
-		</div>
-
-	</section>
-
-	<!-- FIN SECCIÓN NOSOTROS-->
-
-
-    <!-- INICIO SECCIÓN SERVICIOS-->
-	<section class="container-fluid" id="servicios">
-
-    <h4 class="text-white text-center p-3">
-			Misión
-		</h4>
-
-		<hr class="hrblanco">
-
-		<div class="row  align-items-center">
-			<div class="col-12 col-lg-6 text-white p-3">
-				<h4 class="my-3">
-					Misión:
-				</h4>
-		
-				<p  class="p-3" style="text-align: justify; font-size:x-large" >
-                Nuestra empresa se dedica a proporcionar una atención de calidad y comodidad a las mascotas de nuestros clientes. Nos esforzamos por ofrecer servicios personalizados y adaptados a las necesidades individuales de cada animal, con el fin de mejorar su experiencia con nosotros. 
-            </p>
-			</div>
-            <div class="col-12 col-lg-6">
-				<img src="{{asset('images/hacienda.png')}}" width="600px" height="600px" class="img-fluid p-3" alt="nosotros">
-			</div>
-		</div>
-	</section>
-    <section  id="nosotros"  class="container-fluid bg-color-azul p-3" style="margin-top: 2px">
-		<h4 class="text-white text-center p-3">
-			Visión
-		</h4>
-
-		<hr class="hrblanco">
-
-		<div class="row  align-items-center">
-			<div class="col-12 col-lg-6">
-				<img src="{{asset('images/hacienda.png')}}" width="600px" height="600px" class="img-fluid p-3" alt="nosotros">
-			</div>
-			
-			<div class="col-12 col-lg-6 text-white p-3">
-				<h4 class="my-3">
-					Visión:
-				</h4>
-		
-				<p  class="p-3" style="text-align: justify; font-size:x-large" >
-                Nuestra visión es de llegar a ser una empresa conocida por dar servicios de atención de calidad y comodidad para mascotas. Nos esforzamos por llegar a ser reconocidos como un hogar lejos del hogar para las mascotas de nuestros clientes, y ser el primer destino al que los dueños de mascotas acuden para garantizar que sus animales reciban el mejor cuidado posible.  
-                </p>
-			</div>
-		</div>
-
-	</section>
-	<!-- FIN SECCIÓN SERVICIOS-->
-    @endsection
+<section class="container-fluid bg-color-azul p-3" style="margin-top: 2px">
+<div class="row align-items-stretch">
+<div class="col-12 col-lg-6">
+    <div class="section" id="contacto">
+        <h1>Contacto</h1>
+        <p>Para cualquier consulta o solicitud de información, no dudes en ponerte en contacto con nosotros.</p>
+        <p>Puedes contactarnos a través de los siguientes medios:</p>
+        <br>
+        <ul>
+            <li><a href="tel:76563649" target="_blank"><img src="https://freesvg.org/img/phone-call-icon.png" alt="Llamar" width="30" height="30" class="icon-lg"> Llamar</a></li>
+            <li><a href="mailto:lahacienda@gmail.com" target="_blank"><img src="https://cdn.pixabay.com/photo/2019/10/19/17/24/gmail-4561841_1280.png" alt="Enviar correo electrónico" width="30" height="30" class="icon-lg"> Enviar correo electrónico</a></li>
+            <li><a href="https://wa.me/76563649" target="_blank"><img src="https://cdn.pixabay.com/photo/2021/05/22/11/38/whatsapp-6273368_1280.png" alt="WhatsApp" width="30" height="30" class="icon-lg"> WhatsApp</a></li>
+            <li><a href="https://www.google.com/maps/dir//9X63%2BP8Q+Hotel+Canino+La+Hacienda,+La+Paz/@-16.5665384,-68.1636657,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x915f2f555b6167a7:0xf0c72d6cb0364cfa!2m2!1d-68.0466162!2d-16.6382067?entry=ttu" target="_blank"><img src="https://media.istockphoto.com/id/1162532344/vector/animal-paw-or-footprint-in-location-marker-pin-icon-pet-shop-pet-store-location-icon-concept.jpg?s=612x612&w=0&k=20&c=itFccXy1dkz0Ue4p54Rgex2qCuvVQBIbpn5jQlCq1ZU=" alt="Dirección" width="30" height="30" class="icon-lg">Ir a dirección del complejo veterinario.</a></li>
+        </ul>
+        <br>
+    <p>Para acceder a funciones como reservación de hotel para mascotas, veterinaria y peluquería, puedes <a href="{{ route('login') }}">Iniciar sesión.</a><p>
+    <p>Si no estás registrado, puedes <a href="{{ route('register') }}">registrarte aquí</a> para acceder a más funciones.</p>    
+    </div>
+</div>
+<div class="col-12 col-lg-6">
+    <div class="section">
+        <h4>Dirección:</h4>
+        <ul>
+        <li><a href="https://www.google.com/maps/dir//9X63%2BP8Q+Hotel+Canino+La+Hacienda,+La+Paz/@-16.5665384,-68.1636657,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x915f2f555b6167a7:0xf0c72d6cb0364cfa!2m2!1d-68.0466162!2d-16.6382067?entry=ttu" target="_blank"><img src="https://media.istockphoto.com/id/1162532344/vector/animal-paw-or-footprint-in-location-marker-pin-icon-pet-shop-pet-store-location-icon-concept.jpg?s=612x612&w=0&k=20&c=itFccXy1dkz0Ue4p54Rgex2qCuvVQBIbpn5jQlCq1ZU=" alt="Dirección" width="30" height="30" class="icon-lg">Carretera Principal río abajo, entrada Los Jardines, Frente a la Parroquia del Santísimo Sacramento de Huajchilla, La Paz, Bolivia.</a></li>
+        </ul>
+        <div id="map"></div>
+    </div>
+</div>
+</div>
+</section>
+@endsection
 
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="{{asset('js/map.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwW..." crossorigin="anonymous"></script>
+<script>
+    function initMap() {
+        var options = {
+            zoom: 12,
+            center: {lat: -16.500000, lng: -68.150000} // Coordenadas del centro del mapa
+        }
+
+        // Nuevo mapa
+        var map = new google.maps.Map(document.getElementById('map'), options);
+
+        // Marcador
+        var marker = new google.maps.Marker({
+            position: {lat: lat: -16.637996289362487, lng: -68.04656417274363}, // Coordenadas del marcador
+            map: map,
+            title: 'La Hacienda' // Título del marcador
+        });
+    }
+</script>
+<!-- Código para cargar el mapa -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMQFfw2HqvUqtEOpdtOdumiOT6M3DOW3Y&callback=initMap" async defer></script>
 
 @endsection
 

@@ -29,11 +29,7 @@
 @endif
 
 <div class="card">
-    <div class="card-header">
-        <a class="btn btn-primary" href="{{route('mascotas.create')}}">Registrar mascota</a>
-        <a class="btn btn-primary" href="{{route('mascotas.inactivos')}}">Mascotas inactivas</a>
-        <a class="btn btn-primary" href="{{route('getPDF')}}">Reporte</a>
-    </div>
+
     <div class="card-body">
         <table class="table table-striped">
             <thead>
@@ -46,7 +42,6 @@
                     <th>fechaNacimiento</th>
                     <th>Caracter</th>
                     <th>Sexo</th>
-
                 </tr>
             </thead>
 
