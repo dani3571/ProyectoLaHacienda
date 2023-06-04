@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
+
+use Illuminate\Database\Seeder;
+use App\Models\DetalleVentas;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -38,6 +40,8 @@ class DatabaseSeeder extends Seeder
         //
         $this->call(MascotasSeeder::class);
         $this->call(ReservacionHotelSeeder::class);
+        $this->call(VentasSeeder::class);
+        $this->call(DetalleVentasSeeder::class);
     
     }
 }
