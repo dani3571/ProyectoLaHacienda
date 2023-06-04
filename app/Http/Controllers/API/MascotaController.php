@@ -8,11 +8,18 @@ use Illuminate\Http\Request;
 
 class MascotaController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $mascotas = Mascotas::where('usuario_id',$id)
         ->get();
-        return response()->json($mascotas);
+        if($mascotas)
+        {
+            return response()->json($mascotas);
+        }
+        else
+        {
+            return response()->json(['no encontrados' => 'El usuario no tiene mascotas'], 201);
+        }
     }
 
     public function store(Request $request)

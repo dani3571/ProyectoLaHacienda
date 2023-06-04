@@ -22,7 +22,7 @@ Route::put('updateuser/{id}', 'App\Http\Controllers\API\UserController@update');
 
 Route::post('crearusuario', 'App\Http\Controllers\API\UserController@create');
 
-Route::apiResource('mascotas', 'App\Http\Controllers\API\MascotaController');
+Route::get('mascotas/{id}', 'App\Http\Controllers\API\MascotaController@index');
 
 Route::apiResource('products', 'App\Http\Controllers\API\ProductosController');
 
