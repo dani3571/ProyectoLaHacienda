@@ -1,3 +1,12 @@
+<style>
+      .nav-item {
+        background: dark;
+      }
+      .menu-open{
+         background-color: #4d5059 !important;  
+      }
+
+ </style>
 <?php
 
 return [

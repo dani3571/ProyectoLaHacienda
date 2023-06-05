@@ -77,12 +77,14 @@
 
 
                         </tr>
+                      
                     @endforeach
+                 
                 </tbody>
             </table>
         </div>
     </div>
-
+   
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const buscadorUsuario = document.getElementById('buscadorUsuario');
@@ -104,6 +106,7 @@
             });
         });
     </script>
+   
 @endsection
 
 @section('scripts')

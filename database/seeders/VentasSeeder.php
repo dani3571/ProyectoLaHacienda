@@ -157,6 +157,33 @@ class VentasSeeder extends Seeder
                 'created_at' => $createdAt,
             ]);
         }
+          //JUNIO
+          for ($i = 0; $i < 3; $i++) {
+            $fechaVenta = Carbon::create(2023, 6, $faker->numberBetween(1, 20));
+            $createdAt = Carbon::create(2023, 6, $faker->numberBetween(1, 30));
+
+            $id = $faker->numberBetween(1, 6);
+            $producto = Productos::find($id);
+            $cantidad = $faker->numberBetween(1, 10);
+            $subtotal = $producto->precio * $cantidad;
+
+            $ventaActual = Ventas::create([
+                'usuario' => $faker->name,
+                'cliente' => $faker->name,
+                'cantidad' => $cantidad,
+                'total' => $subtotal,
+                'fechaVenta' => $fechaVenta,
+                'created_at' => $createdAt,
+            ]);
+            $ultimaVenta = Ventas::latest()->first();
+            DetalleVentas::create([
+                'id_venta' => $ventaActual->id,
+                'id_producto' => $id,
+                'subtotal' => $subtotal,
+                'cantidad_individual' => $cantidad,
+                'created_at' => $createdAt,
+            ]);
+        }
 
 
     }

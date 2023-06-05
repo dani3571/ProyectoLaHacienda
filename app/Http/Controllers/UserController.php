@@ -24,10 +24,11 @@ class UserController extends Controller
     }
     public function index()
     {
-      $user = User::simplePaginate(10)
-      ->where('estado', '1');
+      $user = User::where('estado', '1')->paginate(10);
+     
       return view('admin.users.index', compact('user'));
     }
+    
     public function inactivos()
     {
         $user = User::simplePaginate(10)

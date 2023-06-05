@@ -68,12 +68,13 @@
                                 <div class="text-4x1 font-medium text-gray-600">
 
                                     <?php
-                                    $resultado = DB::table('detalle_ventas as a')
-                                        ->join('productos as b', 'a.id', '=', 'b.id')
-                                        ->join('ventas as c', 'a.id', '=', 'c.id')
-                                        ->whereDate('c.fechaVenta', DB::raw('CURDATE()'))
-                                        ->selectRaw('SUM(c.cantidad* b.precio) as suma')
-                                        ->first();
+                           $fechaHoy = date('Y-m-d');
+                           $resultado = DB::table('detalle_ventas as a')
+                               ->join('ventas as c', 'a.id', '=', 'c.id')
+                           
+                               ->whereDate('c.fechaVenta', $fechaHoy)
+                               ->selectRaw('SUM(a.subtotal) as suma')
+                               ->first();
                                     
                                     if ($resultado->suma == 0) {
                                         echo '0 Bs';
@@ -215,21 +216,32 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <br>
-    <div class="chart-container" style="width: 100%; height: 600px; display: flex;">
-        <div style="width: 50%;">
-        <h3>Grafico general</h3>
-            <canvas id="myChart" style="width: 100%; height: 50%;"></canvas>
+    <div class="chart-container" style="width: 100%; height: 600px;">
+        <div style="display: flex; flex-wrap: wrap;">
+            <div style="width: 50%; height: 50%;">
+                <center> <h3>Grafico general</h3></center>
+                <canvas id="myChart" style="width: 100%; max-height: 100%;"></canvas>
+            </div>
+            <div style="width: 50%; max-height: 50%;">
+            <center>    <h3>Grafico del dia - Torta</h3></center>
+                <canvas id="myChart2" style="width: 100%; max-height: 85%;"></canvas>
+            </div>
         </div>
-        <div style="width: 50%;">
-        <h3>Grafico del dia - Torta</h3>
-            <canvas id="myChart2" style="width: 100%; height: 50%;max-height:50%;"></canvas>
-        </div>
-
-        <div style="width: 50%;">
-        <h3>Pronostico de ventas</h3>
-            <canvas id="myChart3" style="width: 100%; height: 50%;max-height:50%;"></canvas>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div style="width: 50%; max-height: 50%;">
+                <center>   <h3>Pronostico de ventas</h3></center>
+                <canvas id="salesChart" style="width: 100%; max-height: 100%;"></canvas>
+            </div>
+            <div style="width: 50%; max-height: 50%;">
+     
+                <center>   <h3>Pronostico de ganancias en ventas</h3></center>
+                <canvas id="earningsChart" style="width: 100%; max-height: 88.2%;"></canvas>
+            </div>
         </div>
     </div>
+    
+
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -394,47 +406,73 @@
 
     <!--REGRESION LINEAL-->
     <script>
+        // Obtener los datos del controlador
+        var labels = @json($labels);
+        var values = @json($values);
+        var prediction = @json($prediction);
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('myChart3');
-                 // Obtener el contexto del canvas
-                 var ctx = document.getElementById('salesChart').getContext('2d');
-
-            // Obtener los datos de las ventas desde el controlador o API
-            var labels = @json($labels);
-            var values = @json($values);
-            var prediction = @json($prediction);
-
-            // Agregar la predicción al final de los datos
-            labels.push('Próximo Mes');
-            values.push(prediction);
-            const myChart3 = new Chart(ctx, {
-                type: 'bar',
-                data: { 
-                    labels: ['s', 'ss']
-                    datasets: [{
-                        label: 'Ventas Pronosticadas',
-                        data: values,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+        // Configurar el gráfico
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ventas',
+                    data: values,
+                    backgroundColor: 'rgba(0, 123, 255, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            });
-        }, true);
+            }
+        });
     </script>
+    
+<script>
+    var ctx = document.getElementById('earningsChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($months) !!},
+            datasets: [{
+                label: 'Ganancia',
+                data: {!! json_encode($earnings) !!},
+                borderColor: 'rgba(0, 123, 255, 1)',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                borderWidth: 1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 @stop
 
 @section('css')
 @stop
-
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
