@@ -8,7 +8,8 @@ use App\Models\Habitacion;
 use Illuminate\Http\Request;
 use App\Http\Requests\HabitacionRequest;
 //use Spatie\Permission\Models\Habitacion;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class HabitacionController extends Controller
@@ -52,7 +53,13 @@ class HabitacionController extends Controller
     //Guardando la solicitud en una variable
     $habitacion = $request->all();
 
-         Habitacion::create($habitacion);
+        Habitacion::create($habitacion);
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha creado la habitacion [' .$request->nro_habitacion. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
         return redirect()->action([HabitacionController::class, 'index']);
     }
 
@@ -122,6 +129,31 @@ class HabitacionController extends Controller
      
      */
      $habitacion = Habitacion::findOrFail($id);
+
+    if($request->nro_habitacion != $habitacion->nro_habitacion){
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha modificado el numero de la habitacion [' .$habitacion->nro_habitacion. '] => [' .$request->nro_habitacion. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+    }
+    if($request->costo_habitacion != $habitacion->costo_habitacion){
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha modificado el costo de la habitacion [' .$request->nro_habitacion. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+    }
+    if($request->capacidad != $habitacion->capacidad){
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha modificado la capacidad de la habitacion [' .$request->nro_habitacion. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+    }
  
      $habitacion->fill($request->all());
  
