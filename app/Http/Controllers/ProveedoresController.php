@@ -9,6 +9,7 @@ use App\Http\Requests\ProveedoresRequest;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use PDF;
+use Illuminate\Support\Facades\Log;
 
 class ProveedoresController extends Controller
 {
@@ -81,6 +82,14 @@ class ProveedoresController extends Controller
     // Asignar otros campos según corresponda
     // Guardar el proveedor en la base de datos
     $proveedor->save();
+
+    $user = Auth::user();
+    $logMessage = 'El usuario ['.$user->name.'] ha registrado el proveedor [' .$proveedor->nombre. ']';
+    Log::build([
+        'driver' => 'single',
+        'path' => storage_path('logs/admin.log'),
+    ])->info($logMessage);
+
     // Redireccionar o mostrar una respuesta de éxito
     //return view('admin.proveedores.index', compact('proveedores'));
     return redirect()->action([ProveedoresController::class, 'index']);
@@ -123,6 +132,47 @@ class ProveedoresController extends Controller
     {
         $proveedor = Proveedores::findOrFail($id);
 
+        if($request->input('nombre') != $proveedor->nombre){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el nombre del proveedor [' .$proveedor->nombre. '] => [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('telefono') != $proveedor->telefono){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el telefono del proveedor [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('direccion') != $proveedor->direccion){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la direccion del proveedor [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('ciudad') != $proveedor->ciudad){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la ciudad del proveedor [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('url') != $proveedor->url){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la url del proveedor [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+
         $proveedor->nombre = $request->input('nombre');
         $proveedor->telefono = $request->input('telefono');
         $proveedor->direccion = $request->input('direccion');
@@ -154,6 +204,13 @@ class ProveedoresController extends Controller
         $proveedor->estado = 0;
         $proveedor->save();
 
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a INACTIVO el proveedor [' .$proveedor->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('proveedores.index')->with('success-update', 'EL PROVEEDOR SE A ELIMINADO CON EXITO');
     }
     public function restablecerEstado($id)
@@ -161,6 +218,13 @@ class ProveedoresController extends Controller
         $proveedor = Proveedores::findOrFail($id);
         $proveedor->estado = 1;
         $proveedor->save();
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a ACTIVO el proveedor [' .$proveedor->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
 
         return redirect()->route('proveedores.inactivos')->with('success-update', 'SE PUDO RESTABLECER CON EXITO');
     }

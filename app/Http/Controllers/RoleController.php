@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use PDF;
+use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
@@ -70,6 +71,13 @@ class RoleController extends Controller
         ]);
         $role->permissions()->sync($request->permissions);
 
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha creado el rol [' .$request->name. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->action([RoleController::class, 'index'])
             ->with('success', 'Rol creado con exito');
     }
@@ -104,10 +112,28 @@ class RoleController extends Controller
             'name' => 'required',
         ]);
 
+        if($request->name != $role->name){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el nombre del rol [' .$role->name. '] => [' .$request->name. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+
         $role->update([
+            
             'name' => $request->name,
         ]);
         $role->permissions()->sync($request->permissions);
+
+        
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha modificado los permisos del rol [' .$request->name. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
 
         return redirect()->action([RoleController::class, 'index'])
             ->with('success', 'Rol modificado con exito');
@@ -132,6 +158,14 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->estado = 0;
         $role->save();
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a INACTIVO el rol [' .$role->name. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('roles.index')->with('success', 'Eliminacion logica realizada con exito');
     }
     public function restablecerEstado($id)
@@ -139,6 +173,14 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->estado = 1;
         $role->save();
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a ACTIVO el rol [' .$role->name. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('roles.inactivos')->with('success', 'Rol restablecido con éxito');
            
     }
