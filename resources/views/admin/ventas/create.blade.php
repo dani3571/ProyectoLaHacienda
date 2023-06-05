@@ -39,7 +39,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="IdProducto" class="form-label text-secondary">Id Producto</label>
-                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" readonly id="IdProducto">
+                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" disabled id="IdProducto">
                               @foreach ($productos as $item)
                               <option value="{{$item->id}}">{{$item->id}}</option>
                               @endforeach
