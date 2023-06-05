@@ -27,6 +27,7 @@ class ReservacionHotelSeeder extends Seeder
             'estado' => '1',
             'usuario_id' => '1',
             'mascota_id' => '1',
+            'habitacion_id' => '1',
         ]);
     }
 }

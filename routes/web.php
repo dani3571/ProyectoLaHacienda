@@ -209,6 +209,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->except('create', 'store', 'show')
     ->names('reportes');
     Route::post('reportes', 'ReportesController@generarReporte')->name('generar.reporte');
+    
 
     });
 

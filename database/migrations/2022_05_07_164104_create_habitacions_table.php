@@ -19,13 +19,7 @@ return new class extends Migration
             $table->decimal('costo_habitacion');
             $table->integer('capacidad');
 
-         //revisar
-            $table->unsignedBigInteger('reservacionHotel_id')->nullable(); 
-            $table->foreign('reservacionHotel_id')
-            ->references('id')
-            ->on('reservacion_hotels')
-            ->onDelete('set null');
- 
+
             $table->timestamps();
 
         });

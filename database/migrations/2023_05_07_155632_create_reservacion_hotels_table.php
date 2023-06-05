@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -25,24 +24,32 @@ return new class extends Migration
             $table->decimal('extras', 8);
             $table->decimal('total', 8);
             $table->char('estado', 1)->default(1);
-        
-        //Foreign keys
-            $table->unsignedBigInteger('usuario_id'); 
-            $table->foreign('usuario_id')
-            ->references('id')
-             ->on('users')
-            ->onDelete('cascade');
+
             //Foreign keys
-            $table->unsignedBigInteger('mascota_id'); 
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('usuario_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            //Foreign keys
+            $table->unsignedBigInteger('mascota_id');
             $table->foreign('mascota_id')
-            ->references('id')
-            ->on('mascotas')
-            ->onDelete('cascade');
-        
+                ->references('id')
+                ->on('mascotas')
+                ->onDelete('cascade');
+
+                 //habitaciones
+            $table->unsignedBigInteger('habitacion_id');
+            $table->foreign('habitacion_id')
+                ->references('id')
+                ->on('habitacions')
+                ->onDelete('cascade');
+           
             $table->timestamps();
         });
 
-        
+
     }
 
     /**

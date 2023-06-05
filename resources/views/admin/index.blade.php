@@ -215,16 +215,22 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <br>
-
-
     <div class="chart-container" style="width: 100%; height: 600px; display: flex;">
         <div style="width: 50%;">
+        <h3>Grafico general</h3>
             <canvas id="myChart" style="width: 100%; height: 50%;"></canvas>
         </div>
         <div style="width: 50%;">
+        <h3>Grafico del dia - Torta</h3>
             <canvas id="myChart2" style="width: 100%; height: 50%;max-height:50%;"></canvas>
         </div>
+
+        <div style="width: 50%;">
+        <h3>Pronostico de ventas</h3>
+            <canvas id="myChart3" style="width: 100%; height: 50%;max-height:50%;"></canvas>
+        </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart');
@@ -380,18 +386,50 @@
                             'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 2
-
                     }, ]
-
-
                 }
             });
-
-
-
         }, true);
     </script>
 
+    <!--REGRESION LINEAL-->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('myChart3');
+                 // Obtener el contexto del canvas
+                 var ctx = document.getElementById('salesChart').getContext('2d');
+
+            // Obtener los datos de las ventas desde el controlador o API
+            var labels = @json($labels);
+            var values = @json($values);
+            var prediction = @json($prediction);
+
+            // Agregar la predicción al final de los datos
+            labels.push('Próximo Mes');
+            values.push(prediction);
+            const myChart3 = new Chart(ctx, {
+                type: 'bar',
+                data: { 
+                    labels: ['s', 'ss']
+                    datasets: [{
+                        label: 'Ventas Pronosticadas',
+                        data: values,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }, true);
+    </script>
 @stop
 
 @section('css')
