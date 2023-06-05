@@ -649,7 +649,12 @@ return [
                 ],
             ]
         ],
-        
+        [
+            'text' => 'Reportes',
+            'icon' => 'fas fa-solid fa-file-pdf',
+            'can'=>'users.index',
+            'url'  => 'logs',
+        ]
     ],
 
     /*
