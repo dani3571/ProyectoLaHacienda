@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Reservacion_peluqueriaRequest;
 use Spatie\Permission\Models\Role ;
 use PDF;
+use Illuminate\Support\Facades\Log;
 
 
 class Reservacion_peluqueriaController extends Controller
@@ -95,6 +96,14 @@ class Reservacion_peluqueriaController extends Controller
             $reservacion_peluqueria = $request->all();
             
             ReservacionPeluqueria::create($reservacion_peluqueria);
+
+            $cliente = User::findOrFail($request->usuario_id);
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha registrado una nueva reservacion de peluqueria para el cliente [' .$cliente->name. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
             
             return redirect()->route('reservas_peluqueria.index')->with('success', 'Reserva registrada con éxito');
         }
@@ -121,6 +130,15 @@ class Reservacion_peluqueriaController extends Controller
         if ($reservas_peluqueria === null) {
             
             $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($id);
+
+            $cliente = User::findOrFail($request->usuario_id);
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado una reservacion de peluqueria del cliente [' .$cliente->name. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+            
             $reservacion_peluqueria->fill($request->all());
             //guardamos la informacion actualizada
             $reservacion_peluqueria->save();
@@ -137,6 +155,14 @@ class Reservacion_peluqueriaController extends Controller
         $reservacion_peluqueria->estado = 0;
         //Guardamos el registro a la BD
         $reservacion_peluqueria->save();
+
+        $cliente = User::findOrFail($reservacion_peluqueria->usuario_id);
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cancelado una reservacion de peluqueria del cliente [' .$cliente->name. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
 
         return redirect()->route('reservas_peluqueria.index')->with('success', 'Su reserva fue cancelada');
     }

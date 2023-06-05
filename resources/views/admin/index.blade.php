@@ -68,12 +68,13 @@
                                 <div class="text-4x1 font-medium text-gray-600">
 
                                     <?php
-                                    $resultado = DB::table('detalle_ventas as a')
-                                        ->join('productos as b', 'a.id', '=', 'b.id')
-                                        ->join('ventas as c', 'a.id', '=', 'c.id')
-                                        ->whereDate('c.fechaVenta', DB::raw('CURDATE()'))
-                                        ->selectRaw('SUM(c.cantidad* b.precio) as suma')
-                                        ->first();
+                           $fechaHoy = date('Y-m-d');
+                           $resultado = DB::table('detalle_ventas as a')
+                               ->join('ventas as c', 'a.id', '=', 'c.id')
+                           
+                               ->whereDate('c.fechaVenta', $fechaHoy)
+                               ->selectRaw('SUM(a.subtotal) as suma')
+                               ->first();
                                     
                                     if ($resultado->suma == 0) {
                                         echo '0 Bs';
@@ -219,15 +220,16 @@
 
     <div class="chart-container" style="width: 100%; height: 600px; display: flex;">
         <div style="width: 50%;">
-            <h2 class="chart-title">Reporte line general</h2>
             <canvas id="myChart" style="width: 100%; height: 50%;"></canvas>
         </div>
-
         <div style="width: 50%;">
-            <h2 class="chart-title">Reporte del dia - Grafico de torta</h2>
             <canvas id="myChart2" style="width: 100%; height: 50%;max-height:50%;"></canvas>
         </div>
     </div>
+    
+
+    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart');
@@ -403,17 +405,76 @@
                             'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 2
-
                     }, ]
-
-
                 }
             });
-
-
-
         }, true);
     </script>
+
+    <!--REGRESION LINEAL-->
+    <script>
+        // Obtener los datos del controlador
+        var labels = @json($labels);
+        var values = @json($values);
+        var prediction = @json($prediction);
+
+        // Configurar el gráfico
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ventas',
+                    data: values,
+                    backgroundColor: 'rgba(0, 123, 255, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
+<script>
+    var ctx = document.getElementById('earningsChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($months) !!},
+            datasets: [{
+                label: 'Ganancia',
+                data: {!! json_encode($earnings) !!},
+                borderColor: 'rgba(0, 123, 255, 1)',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                borderWidth: 1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 @stop
 
@@ -426,7 +487,6 @@
         }
     </style>
 @stop
-
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

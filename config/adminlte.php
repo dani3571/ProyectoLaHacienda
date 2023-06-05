@@ -1,3 +1,12 @@
+<style>
+      .nav-item {
+        background: dark;
+      }
+      .menu-open{
+         background-color: #4d5059 !important;  
+      }
+
+ </style>
 <?php
 
 return [
@@ -556,7 +565,7 @@ return [
                 [
                     'text' => 'Reporte de ventas',
                     'icon' => 'fas fa-file-pdf',
-                    'route'  => 'getPDFVentas',
+                    'route'  => 'getPDFVentas'
                 ],
             ]
         ],
@@ -649,7 +658,12 @@ return [
                 ],
             ]
         ],
-        
+        [
+            'text' => 'Registro de actividad',
+            'icon' => 'fas fa-solid fa-file-pdf',
+            'can'=>'users.index',
+            'url'  => 'logs',
+        ]
     ],
 
     /*

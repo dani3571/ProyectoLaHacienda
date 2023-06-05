@@ -10,6 +10,7 @@ use Faker\Factory as FakerFactory;
 use App\Models\DetalleVentas;
 use App\Models\Productos;
 use App\Models\Ventas;
+
 class VentasSeeder extends Seeder
 {
     /**
@@ -19,28 +20,12 @@ class VentasSeeder extends Seeder
      */
     public function run()
     {
-        //FEBRERO 
 
         $faker = FakerFactory::create();
-
+        //ENERO
         for ($i = 0; $i < 10; $i++) {
-            $fechaVenta = Carbon::create(2023, 2, $faker->numberBetween(1, 28));
-            $createdAt = Carbon::create(2023, 2, $faker->numberBetween(1, 28));
-
-            DB::table('ventas')->insert([
-                'usuario' => $faker->name,
-                'cliente' => $faker->name,
-                'cantidad' => $faker->numberBetween(1, 10),
-                'total' => $faker->randomFloat(2, 10, 100),
-                'fechaVenta' => $fechaVenta,
-                'created_at' => $createdAt,
-            ]);
-        }
-        //MAYO
-        for ($i = 0; $i < 10; $i++) {
-            $fechaVenta = Carbon::create(2023, 5, $faker->numberBetween(1, 31));
-            $createdAt = Carbon::create(2023, 5, $faker->numberBetween(1, 31));
-            
+            $fechaVenta = Carbon::create(2023, 1, $faker->numberBetween(1, 31));
+            $createdAt = Carbon::create(2023, 1, $faker->numberBetween(1, 31));
             $id = $faker->numberBetween(1, 6);
             $producto = Productos::find($id);
             $cantidad = $faker->numberBetween(1, 10);
@@ -56,7 +41,7 @@ class VentasSeeder extends Seeder
             ]);
             $ultimaVenta = Ventas::latest()->first();
             DetalleVentas::create([
-                'id_venta' => $ventaActual -> id,
+                'id_venta' => $ventaActual->id,
                 'id_producto' => $id,
                 'subtotal' => $subtotal,
                 'cantidad_individual' => $cantidad,
@@ -64,6 +49,142 @@ class VentasSeeder extends Seeder
             ]);
         }
 
-        
+        //FEBRERO 
+        for ($i = 0; $i < 10; $i++) {
+            $fechaVenta = Carbon::create(2023, 2, $faker->numberBetween(1, 28));
+            $createdAt = Carbon::create(2023, 2, $faker->numberBetween(1, 28));
+            $id = $faker->numberBetween(1, 6);
+            $producto = Productos::find($id);
+            $cantidad = $faker->numberBetween(1, 10);
+            $subtotal = $producto->precio * $cantidad;
+
+            $ventaActual = Ventas::create([
+                'usuario' => $faker->name,
+                'cliente' => $faker->name,
+                'cantidad' => $cantidad,
+                'total' => $subtotal,
+                'fechaVenta' => $fechaVenta,
+                'created_at' => $createdAt,
+            ]);
+            $ultimaVenta = Ventas::latest()->first();
+            DetalleVentas::create([
+                'id_venta' => $ventaActual->id,
+                'id_producto' => $id,
+                'subtotal' => $subtotal,
+                'cantidad_individual' => $cantidad,
+                'created_at' => $createdAt,
+            ]);
+        }
+         //MARZO
+         for ($i = 0; $i < 10; $i++) {
+            $fechaVenta = Carbon::create(2023, 3, $faker->numberBetween(1, 31));
+            $createdAt = Carbon::create(2023, 3, $faker->numberBetween(1, 31));
+            $id = $faker->numberBetween(1, 6);
+            $producto = Productos::find($id);
+            $cantidad = $faker->numberBetween(1, 10);
+            $subtotal = $producto->precio * $cantidad;
+
+            $ventaActual = Ventas::create([
+                'usuario' => $faker->name,
+                'cliente' => $faker->name,
+                'cantidad' => $cantidad,
+                'total' => $subtotal,
+                'fechaVenta' => $fechaVenta,
+                'created_at' => $createdAt,
+            ]);
+            $ultimaVenta = Ventas::latest()->first();
+            DetalleVentas::create([
+                'id_venta' => $ventaActual->id,
+                'id_producto' => $id,
+                'subtotal' => $subtotal,
+                'cantidad_individual' => $cantidad,
+                'created_at' => $createdAt,
+            ]);
+        }
+
+          //ABRIL
+          for ($i = 0; $i < 10; $i++) {
+            $fechaVenta = Carbon::create(2023, 4, $faker->numberBetween(1, 30));
+            $createdAt = Carbon::create(2023, 4, $faker->numberBetween(1, 30));
+            $id = $faker->numberBetween(1, 6);
+            $producto = Productos::find($id);
+            $cantidad = $faker->numberBetween(1, 10);
+            $subtotal = $producto->precio * $cantidad;
+
+            $ventaActual = Ventas::create([
+                'usuario' => $faker->name,
+                'cliente' => $faker->name,
+                'cantidad' => $cantidad,
+                'total' => $subtotal,
+                'fechaVenta' => $fechaVenta,
+                'created_at' => $createdAt,
+            ]);
+            $ultimaVenta = Ventas::latest()->first();
+            DetalleVentas::create([
+                'id_venta' => $ventaActual->id,
+                'id_producto' => $id,
+                'subtotal' => $subtotal,
+                'cantidad_individual' => $cantidad,
+                'created_at' => $createdAt,
+            ]);
+        }
+
+
+        //MAYO
+        for ($i = 0; $i < 10; $i++) {
+            $fechaVenta = Carbon::create(2023, 5, $faker->numberBetween(1, 31));
+            $createdAt = Carbon::create(2023, 5, $faker->numberBetween(1, 31));
+
+            $id = $faker->numberBetween(1, 6);
+            $producto = Productos::find($id);
+            $cantidad = $faker->numberBetween(1, 10);
+            $subtotal = $producto->precio * $cantidad;
+
+            $ventaActual = Ventas::create([
+                'usuario' => $faker->name,
+                'cliente' => $faker->name,
+                'cantidad' => $cantidad,
+                'total' => $subtotal,
+                'fechaVenta' => $fechaVenta,
+                'created_at' => $createdAt,
+            ]);
+            $ultimaVenta = Ventas::latest()->first();
+            DetalleVentas::create([
+                'id_venta' => $ventaActual->id,
+                'id_producto' => $id,
+                'subtotal' => $subtotal,
+                'cantidad_individual' => $cantidad,
+                'created_at' => $createdAt,
+            ]);
+        }
+          //JUNIO
+          for ($i = 0; $i < 3; $i++) {
+            $fechaVenta = Carbon::create(2023, 6, $faker->numberBetween(1, 20));
+            $createdAt = Carbon::create(2023, 6, $faker->numberBetween(1, 30));
+
+            $id = $faker->numberBetween(1, 6);
+            $producto = Productos::find($id);
+            $cantidad = $faker->numberBetween(1, 10);
+            $subtotal = $producto->precio * $cantidad;
+
+            $ventaActual = Ventas::create([
+                'usuario' => $faker->name,
+                'cliente' => $faker->name,
+                'cantidad' => $cantidad,
+                'total' => $subtotal,
+                'fechaVenta' => $fechaVenta,
+                'created_at' => $createdAt,
+            ]);
+            $ultimaVenta = Ventas::latest()->first();
+            DetalleVentas::create([
+                'id_venta' => $ventaActual->id,
+                'id_producto' => $id,
+                'subtotal' => $subtotal,
+                'cantidad_individual' => $cantidad,
+                'created_at' => $createdAt,
+            ]);
+        }
+
+
     }
 }

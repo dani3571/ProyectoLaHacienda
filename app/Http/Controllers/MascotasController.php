@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use HasRole;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class MascotasController extends Controller
 {
@@ -91,15 +92,22 @@ class MascotasController extends Controller
             $mascota->image = $imageName;
         }
        
-      /*
+        /*
         $image = $request->file('image');
         //   $path = $image->store('public/images/mascotas');
-       $path = Storage::disk('mascotas')->putFile('', $image, 'public');
-  //  $path = $image->store('images/mascotas', 'public'); 
-    $imageName = basename($path);
+        $path = Storage::disk('mascotas')->putFile('', $image, 'public');
+         //  $path = $image->store('images/mascotas', 'public'); 
+         $imageName = basename($path);
         
-    */
-    $mascota->save();
+         */
+        $mascota->save();
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha registrado la mascota [' .$mascota->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
 
         // Mascotas::create($mascotas);
         return redirect()->action([MascotasController::class, 'index'])
@@ -166,7 +174,58 @@ class MascotasController extends Controller
     public function update(MascotaRequest $request, $id)
     {
         $mascota = Mascotas::findOrFail($id);
-        $mascota->fill($request->all());
+
+        if($request->nombre != $mascota->nombre){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el nombre de la mascota [' .$mascota->nombre. '] => [' .$request->nombre. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->raza != $mascota->raza){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la raza de la mascota [' .$request->nombre. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->color != $mascota->color){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el color de la mascota [' .$request->nombre. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->fechaNacimiento != $mascota->fechaNacimiento){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la fecha de nacimiento de la mascota [' .$request->nombre. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->caracter != $mascota->caracter){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el caracter de la mascota [' .$request->nombre. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->sexo != $mascota->sexo){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el sexo de la mascota [' .$request->nombre. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        
+
+        $mascota->fill($request->all());  
         //guardamos la informacion actualizada
         $mascota->save();
         //mostramos un mensaje de exito 
@@ -197,6 +256,13 @@ class MascotasController extends Controller
         //Guardamos el registro a la BD
         $mascota->save();
 
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a INACTIVO la mascota [' .$mascota->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('mascotas.index')->with('success', 'Eliminacion logica realizada con exito');
     }
 
@@ -207,6 +273,13 @@ class MascotasController extends Controller
         $mascota->estado = 1;
         //Guardamos el registro a la BD
         $mascota->save();
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a ACTIVO la mascota [' .$mascota->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
 
         return redirect()->route('mascotas.inactivos')->with('success', 'Mascota restablecida con éxito');
     }

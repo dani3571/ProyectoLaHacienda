@@ -14,6 +14,7 @@ use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\ReservacionHotelController;
 use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\Reservacion_veterinariaController;
+use App\Http\Controllers\LogController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
 
@@ -209,6 +210,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->except('create', 'store', 'show')
     ->names('reportes');
     Route::post('reportes', 'ReportesController@generarReporte')->name('generar.reporte');
+    
 
     });
 
@@ -217,6 +219,9 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::resource('profiles', ProfileController::class)
     ->only('edit', 'update')
     ->names('profiles');
+
+    //Logs
+    Route::get('/logs', 'App\Http\Controllers\LogController@show');
 
     
  

@@ -83,5 +83,63 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ])->assignRole('Cliente');
     
+        User::create([
+            'name' => 'Juan Pérez',
+            'ci' => '11223344',
+            'telefono' => '555-1234',
+            'direccion' => 'Calle Principal 123',
+            'email' => 'juan@example.com',
+            'personaResponsable' => 'María Gómez',
+            'telefonoResponsable' => '555-5678',
+            'password' => Hash::make('contraseña1'),
+        ])->assignRole('Cliente');
+        
+        // Crear usuario 3
+        User::create([
+            'name' => 'María Rodríguez',
+            'ci' => '55667788',
+            'telefono' => '555-4321',
+            'direccion' => 'Avenida Secundaria 456',
+            'email' => 'maria@example.com',
+            'personaResponsable' => 'Pedro Gutiérrez',
+            'telefonoResponsable' => '555-8765',
+            'password' => Hash::make('contraseña2'),
+        ])->assignRole('Cliente');
+        
+        // Crear usuario 4
+        User::create([
+            'name' => 'Luis García',
+            'ci' => '99887766',
+            'telefono' => '555-9876',
+            'direccion' => 'Calle Principal 789',
+            'email' => 'luis@example.com',
+            'personaResponsable' => 'Ana López',
+            'telefonoResponsable' => '555-2345',
+            'password' => Hash::make('contraseña3'),
+        ])->assignRole('Cliente');
+        
+        // Crear usuario 5
+        User::create([
+            'name' => 'Ana Pérez',
+            'ci' => '55443322',
+            'telefono' => '555-8765',
+            'direccion' => 'Avenida Principal 567',
+            'email' => 'ana@example.com',
+            'personaResponsable' => 'Juan Gómez',
+            'telefonoResponsable' => '555-6789',
+            'password' => Hash::make('contraseña4'),
+        ])->assignRole('Cliente');
+        
+        // Crear usuario 6
+        User::create([
+            'name' => 'Pedro López',
+            'ci' => '33221144',
+            'telefono' => '555-2345',
+            'direccion' => 'Avenida Secundaria 789',
+            'email' => 'pedro@example.com',
+            'personaResponsable' => 'María García',
+            'telefonoResponsable' => '555-4321',
+            'password' => Hash::make('contraseña5'),
+        ])->assignRole('Cliente');
     }
 }

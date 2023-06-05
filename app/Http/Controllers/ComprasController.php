@@ -9,6 +9,7 @@ use App\Models\Productos;
 use App\Models\Compra;
 use PDF;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ComprasController extends Controller
 {
@@ -70,6 +71,14 @@ class ComprasController extends Controller
             $detalleC->cantidad = $detalle['Cantidad'];
             $detalleC->save();
         }
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha creado una compra';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('compras.index')->with('success', 'La compra se ha registrado con éxito');
     }
 

@@ -54,7 +54,7 @@
             <tbody>
                 @foreach ($reservas_peluqueria as $reserva )
                 <tr>
-                    <td>{{$reserva->horaEntrega}}</td>
+                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
                     <td>
                         @foreach ($users as $user )
                             @if($user->id == $reserva->usuario_id) 
@@ -69,8 +69,8 @@
                             @endif
                         @endforeach
                     </td>
-                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
                     <td>{{$reserva->horaRecepcion}}</td>
+                    <td>{{$reserva->horaEntrega}}</td>
                     <td>@if($reserva->corte == '1') Si @else No @endif</td>
                     <td>@if($reserva->BanoSimple == '1') Si @else No @endif</td>
                     <td>@if($reserva->tranquilizante == '1') Si @else No @endif</td>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Productos;
 use App\Models\Categorias;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ProductosController extends Controller
 {
@@ -27,7 +29,7 @@ class ProductosController extends Controller
     {
         $productos = Productos::where('estado', 1)
             ->orderBy('id', 'asc')
-            ->simplePaginate(10);
+            ->get();
         
         $categoria = Categorias::all();
         
@@ -88,6 +90,14 @@ class ProductosController extends Controller
             $path = $request->file('image')->store('productos', 'imagenes');
             $producto->image = $path;
         }
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha creado el producto [' .$producto->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         $producto->save();
         return redirect()->route('productos.index')->with('success', 'Producto registrado exitosamente');
     }
@@ -127,6 +137,65 @@ class ProductosController extends Controller
     {
         $producto = Productos::findOrFail($id);
 
+        if($request->input('nombre') != $producto->nombre){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el nombre del producto [' .$producto->nombre. '] => [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('descripcion') != $producto->descripcion){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la descripcion del producto [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('categoria_id') != $producto->categoria_id){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la categoria del producto [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('precio') != $producto->precio){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado el precio del producto [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('cantidad') != $producto->cantidad){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la cantidad del producto [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if($request->input('fecha_vencimiento') != $producto->fecha_vencimiento){
+            $user = Auth::user();
+            $logMessage = 'El usuario ['.$user->name.'] ha modificado la fecha de vencimiento del producto [' .$request->input('nombre'). ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+        if ($request->hasFile('image')) {
+            if($request->file('image') != $producto->image){
+                $user = Auth::user();
+                $logMessage = 'El usuario ['.$user->name.'] ha modificado la imagen del producto [' .$request->input('nombre'). ']';
+                Log::build([
+                    'driver' => 'single',
+                    'path' => storage_path('logs/admin.log'),
+                ])->info($logMessage);
+            }
+        }
+        
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
         $producto->categoria_id = $request->input('categoria_id');
@@ -160,6 +229,13 @@ class ProductosController extends Controller
         $producto->estado = 0;
         $producto->save();
 
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a INACTIVO el producto [' .$producto->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('productos.index')->with('success-update', 'EL PROVEEDOR SE A ELIMINADO CON EXITO');
     }
     public function restablecerEstado($id)
@@ -167,6 +243,13 @@ class ProductosController extends Controller
         $producto = Productos::findOrFail($id);
         $producto->estado = 1;
         $producto->save();
+
+        $user = Auth::user();
+        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a ACTIVO el producto [' .$producto->nombre. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
 
         return redirect()->route('productos.inactivos')->with('success-update', 'Producto restablecido con éxito');
     }

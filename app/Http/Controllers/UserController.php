@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role ;
 use PDF;
+use Illuminate\Support\Facades\Log;
+
 class UserController extends Controller
 {
     /**
@@ -24,10 +26,11 @@ class UserController extends Controller
     }
     public function index()
     {
-      $user = User::simplePaginate(10)
-      ->where('estado', '1');
+      $user = User::where('estado', '1')->paginate(10);
+     
       return view('admin.users.index', compact('user'));
     }
+    
     public function inactivos()
     {
         $user = User::simplePaginate(10)
@@ -77,6 +80,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->estado = 0;
         $user->save();
+
+        $userADMIN = Auth::user();
+        $logMessage = 'El usuario ['.$userADMIN->name.'] ha cambiado el estado a INACTIVO al usuario [' .$user->name. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('users.index')->with('success', 'Modificacion de estado realizado con exito');
     }
     public function restablecerEstado($id)
@@ -84,6 +95,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->estado = 1;
         $user->save();
+
+        $userADMIN = Auth::user();
+        $logMessage = 'El usuario ['.$userADMIN->name.'] ha cambiado el estado a ACTIVO al usuario [' .$user->name. ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
         return redirect()->route('users.inactivos')->with('success', 'Usuario restablecido con éxito');
            
     }
