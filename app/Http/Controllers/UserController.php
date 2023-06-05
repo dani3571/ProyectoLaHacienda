@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mascotas;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +24,17 @@ class UserController extends Controller
     }
     public function index()
     {
-      $user = User::simplePaginate(10);
+      $user = User::simplePaginate(10)
+      ->where('estado', '1');
       return view('admin.users.index', compact('user'));
     }
-
+    public function inactivos()
+    {
+        $user = User::simplePaginate(10)
+        ->where('estado','0');
+        return view('admin.users.inactivos', compact('user'));
+       
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -64,6 +72,21 @@ class UserController extends Controller
       return redirect()->action([UserController::class,'index'])
                        ->with('success-delete', 'Usuario eliminado con exito');
     }
+    public function cambiarEstado($id)
+    {
+        $user = User::findOrFail($id);
+        $user->estado = 0;
+        $user->save();
+        return redirect()->route('users.index')->with('success', 'Modificacion de estado realizado con exito');
+    }
+    public function restablecerEstado($id)
+    {
+        $user = User::findOrFail($id);
+        $user->estado = 1;
+        $user->save();
+        return redirect()->route('users.inactivos')->with('success', 'Usuario restablecido con éxito');
+           
+    }
 
     public function getPDFusuarios(Request $request){
       $user = Auth::user();
@@ -93,6 +116,13 @@ class UserController extends Controller
         // Realiza la búsqueda de usuarios según el criterio de búsqueda
         $usuarios = User::where('name', 'LIKE', '%' . $query . '%')->get();
         return response()->json($usuarios);
+    }
+
+    public function detalleMascotas($id){
+      $usuario = User::findOrFail($id);
+      $mascotas = Mascotas::where('usuario_id', $id)->get();
+      return view('admin.users.detalleMascotas', compact('mascotas','usuario'));
+
     }
 
 }

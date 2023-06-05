@@ -18,5 +18,19 @@ class CategoriasSeeder extends Seeder
             'nombre' => 'Alimentos',
             'descripcion'=> 'Alimientos para animales caninos',
         ]);
+        Categorias::create([
+            'nombre' => 'Ropa',
+            'descripcion' => 'Ropa para mascotas',
+        ]);
+        
+        Categorias::create([
+            'nombre' => 'Accesorios',
+            'descripcion' => 'Accesorios para mascotas',
+        ]);
+        
+        Categorias::create([
+            'nombre' => 'Juguetes',
+            'descripcion' => 'Juguetes para mascotas',
+        ]);
     }
 }

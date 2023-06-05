@@ -30,7 +30,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form method="POST" action="{{route('mascotas.store')}}">
+        <form method="POST" action="{{route('mascotas.store')}}"  enctype="multipart/form-data">
             @csrf 
             <div class="form-group">
                 <label>Nombre</label>
@@ -109,6 +109,17 @@
                 </span>
                 @enderror
             </div>
+            <div class="form-group">
+                <label>Cargar imagen</label>
+                <input type="file" name="image">
+
+                @error('image')
+                    <span class="text-danger">
+                        <span>*{{ $message }}</span>
+                    </span>
+                @enderror
+            </div>
+            
             <div class="form-group">
          
                 <label>Sexo</label>

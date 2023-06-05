@@ -328,6 +328,11 @@ return [
                     'route'  => 'users.index',
                 ],
                 [
+                    'text' => 'Usuarios inactivos',
+                    'icon' => 'fas fa-stream',
+                    'route'  => 'users.inactivos',
+                ],
+                [
                     'text' => 'Reporte de usuarios',
                     'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPD',
@@ -363,14 +368,35 @@ return [
                 ],
             ]
         ],
-        [   
-                'text' => 'Mascotas',
-                'route'  => 'mascotas.index',
-                'icon' => 'fa fa-paw',
-                'active' => ['admin/mascotas*'],
-    
+        [
+            'text' => 'Mascotas',
+            'route'  => 'mascotas.index',
+            'icon' => 'fa fa-paw',
+            'active' => ['admin/mascotas*'],
+            'submenu' => [
+                [
+                    'text' => 'Listado de mascotas',
+                    'route'  => 'mascotas.index',        
+                    'icon' => 'fas fa-list-alt',
+                ],
+                [
+                    'text' => 'Mascotas inactivas',
+                    'icon' => 'fas fa-stream',
+                    'route'  => 'mascotas.inactivos',
+                ],
+           
+                [
+                    'text' => 'Crear mascotas',
+                    'icon' => 'fas fa-solid fa-plus',
+                    'route'  => 'mascotas.create',
+                ],
+                [
+                    'text' => 'Reporte de mascotas',
+                    'icon' => 'fas fa-file-pdf',
+                    'route'  => 'getPDF',
+                ],
+            ]
         ],
-
         [
             'text'    => 'Peluqueria',
             'can'=>'reservas_peluqueria.index',

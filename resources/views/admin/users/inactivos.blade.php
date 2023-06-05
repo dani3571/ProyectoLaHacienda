@@ -7,26 +7,26 @@
 @endsection
 
 @section('content')
-    @if (session('success'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            Swal.fire({
-                title: 'Éxito',
-                text: '{{ session('success') }}',
-                icon: 'success'
-            });
-        </script>
-    @endif
-    @if (session('fail'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            Swal.fire({
-                title: 'Error!',
-                text: '{{ session('fail') }}',
-                icon: 'error'
-            });
-        </script>
-    @endif
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Éxito',
+        text: '{{ session('success') }}',
+        icon: 'success'
+    });
+</script>
+@endif
+@if(session('fail'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error!',
+        text: '{{ session('fail') }}',
+        icon: 'error'
+    });
+</script>
+@endif
 
     <div class="card">
         <div class="card-header">
@@ -48,6 +48,7 @@
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach ($user as $users)
                         <tr class="reserva">
@@ -58,24 +59,14 @@
                             <td>{{ $users->email }}</td>
                             <td>{{ $users->personaResponsable }}</td>
                             <td>{{ $users->telefonoResponsable }}</td>
-
-                            <td width="10px"><a href="{{ route('users.edit', $users) }}"
-                                    class="btn btn-primary btn-sm mb-2">Editar</a>
-                            </td>
-
-                            <td width="10px"><a href="{{ route('users.detalleMascotas', $users->id) }}"
-                                class="btn btn-primary btn-sm mb-2">Mascotas</a>
-                            </td>
-
+                          
                             <td width="10px">
-                                <form action="{{ route('users.cambiar-estado', $users) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
-                                </form>
-                            </td>
-
-
+                        <form action="{{ route('users.restablecer-estado', $users->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')      
+                            <input type="submit" value="Restablecer" class="btn btn-primary btn-sm mb-2">
+                        </form>
+                    </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -92,8 +83,7 @@
                 const query = buscadorUsuario.value.toLowerCase();
 
                 for (let i = 0; i < reservas.length; i++) {
-                    const nombreUsuario = reservas[i].getElementsByTagName('td')[0].textContent
-                    .toLowerCase();
+                    const nombreUsuario = reservas[i].getElementsByTagName('td')[0].textContent.toLowerCase();
 
                     if (nombreUsuario.includes(query)) {
                         reservas[i].style.display = '';
@@ -107,5 +97,5 @@
 @endsection
 
 @section('scripts')
-
+    
 @endsection

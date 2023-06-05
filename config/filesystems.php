@@ -50,7 +50,12 @@ return [
             'url' => env('APP_URL') . '/images',
             'visibility' => 'public',
         ],
-
+        'mascotas' => [
+            'driver' => 'local',
+            'root' => public_path('images/mascotas'),
+            'url' => env('APP_URL').'/images/mascotas',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
