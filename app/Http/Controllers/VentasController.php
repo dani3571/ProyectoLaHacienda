@@ -8,6 +8,7 @@ use App\Models\Productos;
 use App\Models\Ventas;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use PDF;
 
 class VentasController extends Controller
@@ -101,6 +102,7 @@ class VentasController extends Controller
         $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
         ->select('detalle_ventas.*','ventas.*')
         ->get();
+        Log::info('Showing the user profile for user:' + $user->name);
         return redirect()->route('ventas.index', compact('ventas'))->with('success', 'La venta se ha registrado con éxito');
     }
 
