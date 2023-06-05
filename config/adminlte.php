@@ -530,7 +530,7 @@ return [
                 [
                     'text' => 'Reporte de ventas',
                     'icon' => 'fas fa-file-pdf',
-                    'route'  => 'getPDFVentas',
+                    'route'  => 'getPDFVentas'
                 ],
             ]
         ],
