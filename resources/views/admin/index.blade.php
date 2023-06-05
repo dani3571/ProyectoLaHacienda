@@ -219,9 +219,12 @@
 
     <div class="chart-container" style="width: 100%; height: 600px; display: flex;">
         <div style="width: 50%;">
+            <h2 class="chart-title">Reporte line general</h2>
             <canvas id="myChart" style="width: 100%; height: 50%;"></canvas>
         </div>
+
         <div style="width: 50%;">
+            <h2 class="chart-title">Reporte del dia - Grafico de torta</h2>
             <canvas id="myChart2" style="width: 100%; height: 50%;max-height:50%;"></canvas>
         </div>
     </div>
@@ -249,7 +252,7 @@
             const registrosVetSemestre = {!! json_encode($registrosVetSemestre) !!};
             const registrosHotelSemestre = {!! json_encode($registrosHotelSemestre) !!};
             const registrosPeluqueriaSemestre = {!! json_encode($registrosPeluqueriaSemestre) !!};
-            
+
             const myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -333,10 +336,30 @@
                         },
 
 
+
                     ]
 
 
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    if (index === values.length - 1) {
+                                        return 'Cantidad ' + value;
+                                    }
+
+                                    return value;
+                                },
+                                padding: 10 
+                            }
+
+                        }
+                    }
                 }
+
             });
         }, true);
     </script>
@@ -349,7 +372,7 @@
             const ventasRealizadas = {!! json_encode($ventasRealizadas) !!};
             const comprasRealizadas = {!! json_encode($comprasRealizadas) !!};
             const veterinariasReservadas = {!! json_encode($veterinariasReservadas) !!};
-            const hotelReservado  = {!! json_encode($hotelReservado ) !!};
+            const hotelReservado = {!! json_encode($hotelReservado) !!};
             const peluqueriasReservadas = {!! json_encode($peluqueriasReservadas) !!};
 
             const myChart2 = new Chart(ctx, {
@@ -361,7 +384,7 @@
                     datasets: [{
                         label: '# Reporte del dia',
                         data: [ventasRealizadas, comprasRealizadas, usuariosRegistrados,
-                        hotelReservado, veterinariasReservadas, peluqueriasReservadas
+                            hotelReservado, veterinariasReservadas, peluqueriasReservadas
                         ],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -395,6 +418,13 @@
 @stop
 
 @section('css')
+    <style>
+        .chart-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
 @stop
 
 @section('js')
