@@ -102,11 +102,14 @@ class VentasController extends Controller
         $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
         ->select('detalle_ventas.*','ventas.*')
         ->get();
+
+        //logs
         $logMessage = 'El usuario '.$user->name.' ha creado una venta';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
           ])->info($logMessage);
+        
         return redirect()->route('ventas.index', compact('ventas'))->with('success', 'La venta se ha registrado con éxito');
     }
 

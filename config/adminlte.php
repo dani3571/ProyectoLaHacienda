@@ -650,7 +650,7 @@ return [
             ]
         ],
         [
-            'text' => 'Reportes',
+            'text' => 'Registro de actividad',
             'icon' => 'fas fa-solid fa-file-pdf',
             'can'=>'users.index',
             'url'  => 'logs',
