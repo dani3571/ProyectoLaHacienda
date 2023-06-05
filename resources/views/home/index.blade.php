@@ -11,6 +11,9 @@
     text-decoration: none !important;
     list-style: none;
 }
+.text-lg {
+  font-size: 20px; 
+}
 #map {
   height: 800px;
   margin: 50px;
@@ -307,11 +310,13 @@ body{
 .hrblanco {
 	width: 10%;
 	background-color: white;
+    margin: 0 auto;
 }
 
 .hrazul {
 	width: 10%;
-	background-color: rgb(244, 246, 251);
+	background-color: rgb(0, 72, 255);
+    margin: 0 auto;
 }
 
 
@@ -373,7 +378,9 @@ body{
 			¿Quiénes somos?
 		</h4>
 
-		<hr class="hrblanco">
+		<hr class="hrblanco" style="width: 10%;
+        background-color: white;
+        margin: 0 auto;">
 
 		<div class="row  align-items-center">
 			<div class="col-12 col-lg-6">
@@ -406,7 +413,9 @@ body{
 			Servicios
 		</h2>
 
-		<hr class="hrazul">
+		<hr class="hrazul" style="	width: 10%;
+        background-color: blue;
+        margin: 0 auto;">
 
 		<div class="row">
 			<div class="col-12 col-lg-4">
@@ -439,10 +448,58 @@ body{
 
 		</div>
 	</section>
+    <section id="nosotros" class="container-fluid bg-color-azul p-3" style="margin-top: 2px">
+        <section class="container-fluid bg-color-azul p-5" id="contacto">
+          <h1 class="text-center p-3 text-white">
+            Contacto
+          </h1>
+      
+          <hr class="hrblanco">
+      
+          <div class="row">
+            <div class="col-12 col-lg-7">
+              <div class="row">
+                <div class="col-12 col-md-6 my-5">
+                  <h4 class="text-center text-white"><i class="fi-onluxl-bus-side"></i> Dirección</h4>
+                  <div class="text-white text-center my-3">
+                    <p class="text-lg">Av. Col. del Valle 732</p>
+                    <p class="text-lg mt-n3">Col. del Valle, CDMX</p>	
+                  </div>
+                </div>
+      
+                <div class="col-12 col-md-6 my-5">
+                  <h4 class="text-center text-white"><i class="fi-xnsuxl-smartphone-solid"></i> Teléfono</h4>
+                  <div class="text-white text-center my-3">
+                    <p class="text-lg">Tienda: 55 1234 5678</p>
+                    <p class="text-lg mt-n3">WhatsApp: 55 1234 5567</p>	
+                  </div>
+                </div>
+      
+                <div class="col-12 col-md-6 my-5">
+                  <h4 class="text-center text-white"><i class="fi-xnluxl-envelope"></i> Correo</h4>
+                  <div class="text-white text-center my-3">
+                    <p class="text-lg">contacto@eldoctor.com</p>
+                    <p class="text-lg mt-n3">ventas@eldogtor.com</p>	
+                  </div>
+                </div>
+      
+                <div class="col-12 col-md-6 my-5">
+                  <h4 class="text-center text-white"><i class="fi-xtluxl-calendar-thin"></i> Horario</h4>
+                  <div class="text-white text-center my-3">
+                    <p class="text-lg">Lunes a Viernes de 7am a 9 pm</p>
+                    <p class="text-lg mt-n3">Sábado de 7am a 1 pm</p>	
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-12 col-lg-5">
+              <div id="map" style="width: 100%; height: 450px;"></div>
+            </div>
+          </div>
+        </section>
+      </section>
     
-	<section  id="nosotros"  class="container-fluid bg-color-azul p-3" style="margin-top: 2px">
-        <div id="map"></div>
-    </section>
 	<!-- FIN SECCIÓN SERVICIOS-->
     @endsection
 

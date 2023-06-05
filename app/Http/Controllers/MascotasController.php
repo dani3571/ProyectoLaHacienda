@@ -9,6 +9,10 @@ use App\Http\Requests\MascotaRequest;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use PDF;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
+use HasRole;
+use Illuminate\Support\Facades\Storage;
 
 class MascotasController extends Controller
 {
@@ -22,10 +26,16 @@ class MascotasController extends Controller
         //Mostrar los mascotas registradas en el admin
         $user = Auth::user();
         //utilizamos user_id de la relacion con mascotas
-        $mascotas = Mascotas::where('usuario_id', $user->id)
-            ->where('estado', 1)
-            ->orderBy('id', 'asc')
-            ->simplePaginate(10);
+        if (Auth()->user()->hasRole('Cliente')) {
+            $mascotas = Mascotas::where('usuario_id', $user->id)
+                ->where('estado', 1)
+                ->orderBy('id', 'asc')
+                ->simplePaginate(10);
+        } else {
+            $mascotas = Mascotas::all()
+                ->where('estado', 1);
+        }
+
         return View('admin.mascotas.index', compact('mascotas'));
     }
     public function inactivos()
@@ -55,16 +65,43 @@ class MascotasController extends Controller
 
     public function store(MascotaRequest $request)
     {
+        /*
+       
+        //Guardando la solicitud en una variable
+       $mascotas = $request->all();
+   
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('mascotas', 'imagenes');
+            $mascotas->image = $path;
+        }
+        //$mascotas->usuario_id = $request->usuario_id;
+*/
         //merge combina los datos que tenemos con los que queremos obtener
         $request->merge([
             //obtenemos los datos de user como su id con Auth
             'usuario_id' => Auth::user()->id,
         ]);
+        $mascota = new Mascotas();
+        $mascota->fill($request->all());
 
-        //Guardando la solicitud en una variable
-        $mascotas = $request->all();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = $image->store('', 'mascotas');
+            $imageName = basename($path);
+            $mascota->image = $imageName;
+        }
+       
+      /*
+        $image = $request->file('image');
+        //   $path = $image->store('public/images/mascotas');
+       $path = Storage::disk('mascotas')->putFile('', $image, 'public');
+  //  $path = $image->store('images/mascotas', 'public'); 
+    $imageName = basename($path);
+        
+    */
+    $mascota->save();
 
-        Mascotas::create($mascotas);
+        // Mascotas::create($mascotas);
         return redirect()->action([MascotasController::class, 'index'])
             ->with('success', 'Mascota registrada con éxito');
     }
@@ -186,16 +223,16 @@ class MascotasController extends Controller
         $mascotas = Mascotas::all();
         $fechaInicio = $request->input('fechaInicio');
         $fechaFin = $request->input('fechaFin');
-       
+
         $view = view('admin.mascotas.reporte', compact('name', 'mascotas', 'nombreSistema', 'fecha', 'hora'));
-        
-         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+
+        // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
         if ($fechaInicio && $fechaFin) {
-        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+            $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
         }
         // Generar el PDF con la vista del reporte
         $pdf = PDF::loadHTML($view);
-     
+
         return $pdf->stream('mascotas.pdf');
     }
 }

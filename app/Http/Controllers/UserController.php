@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mascotas;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -115,6 +116,13 @@ class UserController extends Controller
         // Realiza la búsqueda de usuarios según el criterio de búsqueda
         $usuarios = User::where('name', 'LIKE', '%' . $query . '%')->get();
         return response()->json($usuarios);
+    }
+
+    public function detalleMascotas($id){
+      $usuario = User::findOrFail($id);
+      $mascotas = Mascotas::where('usuario_id', $id)->get();
+      return view('admin.users.detalleMascotas', compact('mascotas','usuario'));
+
     }
 
 }

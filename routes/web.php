@@ -73,7 +73,9 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::put('/users/{users}/cambiar-estado', [UserController::class, 'cambiarEstado'])->name('users.cambiar-estado');
     Route::put('/users/{users}/restablecer-estado', [UserController::class, 'restablecerEstado'])->name('users.restablecer-estado');
     Route::get('/users/inactivos', [UserController::class, 'inactivos'])->name('users.inactivos');
-  
+   
+    Route::get('/users/{id}/detalleMascotas', 'UserController@detalleMascotas')->name('users.detalleMascotas');
+
     Route::get('/pdfs', 'UserController@getPDFusuarios')->name('getPD');
     //Roles
     Route::resource('roles','RoleController')
@@ -97,7 +99,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
      Route::get('/pdf', 'MascotasController@getPDF')->name('getPDF');
 
      Route::get('/mascotas/inactivos', [MascotasController::class, 'inactivos'])->name('mascotas.inactivos');
-     
+    
      
     //reservas_peluqueria
     Route::resource('reservas_peluqueria', 'Reservacion_peluqueriaController')

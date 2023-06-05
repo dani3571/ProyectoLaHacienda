@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('caracter', 90)->nullable();
             $table->string('sexo', 30);        
             $table->char('estado')->default(1);
+            $table->string('image', 255);
     
             $table->unsignedBigInteger('usuario_id'); 
             $table->foreign('usuario_id')
