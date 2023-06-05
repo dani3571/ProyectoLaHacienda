@@ -20,7 +20,7 @@ class DetalleVentasSeeder extends Seeder
     {
         $faker = FakerFactory::create();
 
-        $ventas = Ventas::all();
+        $ventas = Ventas::take(10)->get();
         
         foreach ($ventas as $venta) {
             $createdAt = Carbon::create(2023, 2, $faker->numberBetween(1, 28));
