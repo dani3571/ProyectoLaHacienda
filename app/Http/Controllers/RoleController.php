@@ -109,7 +109,7 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
-
+        
         if($request->name != $role->name){
             $user = Auth::user();
             $logMessage = 'El usuario ['.$user->name.'] ha modificado el nombre del rol [' .$role->name. '] => [' .$request->name. ']';
