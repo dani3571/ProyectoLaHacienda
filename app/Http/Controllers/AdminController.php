@@ -82,8 +82,8 @@ class AdminController extends Controller
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
 
-        // Hacer la predicción para el próximo mes (junio)
-        $prediction = $regression->predict([7]); // 6 representa el mes de junio
+        // Hacer la predicción para el próximo mes (julio)
+        $prediction = $regression->predict([7]); 
         return $prediction;
     }
     private function predictNextMonthEarnings($data2)

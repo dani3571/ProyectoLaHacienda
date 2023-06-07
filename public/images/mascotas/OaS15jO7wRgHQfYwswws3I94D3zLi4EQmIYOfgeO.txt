@@ -1,0 +1,61 @@
+
+
+
+CALL InsertarReservacionHotelYActualizarHabitacion(
+    '2023-06-01',
+    '2023-06-05',
+    'Tratamiento de SPA',
+    50.00,
+    20.00,
+    10.00,
+    30.00,
+    5.00,
+    115.00,
+    '1',
+    1,
+    1,
+    2
+);
+
+
+
+
+
+
+
+CALL ActualizarReservacionHotel(
+    <p_reservacionHotel_id>,
+    <p_fechaIngreso>,
+    <p_fechaSalida>,
+    <p_tratamientos>,
+    <p_tranporte>,
+    <p_comida>,
+    <p_banioYCorte>,
+    <p_tratamiento>,
+    <p_extras>,
+    <p_total>,
+    <p_estado>,
+    <p_usuario_id>,
+    <p_mascota_id>,
+    <p_habitacion_id>
+);
+
+
+
+
+CALL ActualizarReservacionHotel(
+    1,
+    '2023-06-01',
+    '2023-06-05',
+    'Tratamiento de SPA',
+    50.00,
+    20.00,
+    10.00,
+    30.00,
+    5.00,
+    115.00,
+    '1',
+    1,
+    1,
+    2
+);

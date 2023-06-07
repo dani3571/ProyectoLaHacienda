@@ -31,82 +31,97 @@
     <div class="card">
         <div class="card-header">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <input type="text" name="buscadorUsuario" id="buscadorUsuario" placeholder="Buscar por nombre...">
+                <input type="text" name="buscadorUsuario" id="buscadorUsuario" placeholder="Buscar por nombre..."
+                    oninput="buscarUsuarios()">
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre completo</th>
-                        <th scope="col">CI</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Direccion</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">persona de referencia</th>
-                        <th scope="col">telefono de referencia</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($user as $users)
-                        <tr class="reserva">
-                            <td>{{ $users->name }}</td>
-                            <td>{{ $users->ci }}</td>
-                            <td>{{ $users->telefono }}</td>
-                            <td>{{ $users->direccion }}</td>
-                            <td>{{ $users->email }}</td>
-                            <td>{{ $users->personaResponsable }}</td>
-                            <td>{{ $users->telefonoResponsable }}</td>
-
-                            <td width="10px"><a href="{{ route('users.edit', $users) }}"
-                                    class="btn btn-primary btn-sm mb-2">Editar</a>
-                            </td>
-
-                            <td width="10px"><a href="{{ route('users.detalleMascotas', $users->id) }}"
-                                class="btn btn-primary btn-sm mb-2">Mascotas</a>
-                            </td>
-
-                            <td width="10px">
-                                <form action="{{ route('users.cambiar-estado', $users) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
-                                </form>
-                            </td>
-
-
+            <div id="tablaUsuarios">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">CI</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Acciones</th>
                         </tr>
-                      
-                    @endforeach
-                 
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($user as $users)
+                            <tr class="reserva">
+                                <td>{{ $users->name }}</td>
+                                <td>{{ $users->ci }}</td>
+                                <td>{{ $users->telefono }}</td>
+                                <td>{{ $users->direccion }}</td>
+                                <td>{{ $users->email }}</td>
+                                <td width="10px"><a href="{{ route('users.edit', $user) }}"
+                                        class="btn btn-primary btn-sm mb-2">Editar</a></td>
+                                <td width="10px"><a href="{{ route('users.detalleMascotas', $users->id) }}"
+                                        class="btn btn-primary btn-sm mb-2">Mascotas</a></td>
+                                <td width="10px">
+                                    <form action="{{ route('users.cambiar-estado', $users) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-3">
+                {{ $user->links() }}
+            </div>
         </div>
     </div>
-   
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        /*
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const buscadorUsuario = document.getElementById('buscadorUsuario');
+                        const reservas = document.getElementsByClassName('reserva');
+
+                        buscadorUsuario.addEventListener('input', function() {
+                            const query = buscadorUsuario.value.toLowerCase();
+
+                            for (let i = 0; i < reservas.length; i++) {
+                                const nombreUsuario = reservas[i].getElementsByTagName('td')[0].textContent
+                                    .toLowerCase();
+
+                                if (nombreUsuario.includes(query)) {
+                                    reservas[i].style.display = '';
+                                } else {
+                                    reservas[i].style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                    */
+        function buscarUsuarios() {
             const buscadorUsuario = document.getElementById('buscadorUsuario');
-            const reservas = document.getElementsByClassName('reserva');
+            const tablaUsuarios = document.getElementById('tablaUsuarios');
 
-            buscadorUsuario.addEventListener('input', function() {
-                const query = buscadorUsuario.value.toLowerCase();
+            const query = buscadorUsuario.value.toLowerCase();
 
-                for (let i = 0; i < reservas.length; i++) {
-                    const nombreUsuario = reservas[i].getElementsByTagName('td')[0].textContent
-                    .toLowerCase();
-
-                    if (nombreUsuario.includes(query)) {
-                        reservas[i].style.display = '';
-                    } else {
-                        reservas[i].style.display = 'none';
-                    }
+            // Realizar la solicitud AJAX al servidor
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/admin/users/buscar-usuarios?query=' + query);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Actualizar la tabla de usuarios con los resultados obtenidos
+                    tablaUsuarios.innerHTML = xhr.responseText;
+                } else {
+                    // Manejar errores si es necesario
                 }
-            });
-        });
+            };
+            xhr.send();
+        }
     </script>
-   
+
 @endsection
 
 @section('scripts')

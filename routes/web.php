@@ -74,8 +74,8 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::put('/users/{users}/cambiar-estado', [UserController::class, 'cambiarEstado'])->name('users.cambiar-estado');
     Route::put('/users/{users}/restablecer-estado', [UserController::class, 'restablecerEstado'])->name('users.restablecer-estado');
     Route::get('/users/inactivos', [UserController::class, 'inactivos'])->name('users.inactivos');
-   
-    Route::get('/users/{id}/detalleMascotas', 'UserController@detalleMascotas')->name('users.detalleMascotas');
+    Route::get('/users/buscar-usuarios', 'UserController@buscarUsuarios')->name('users.buscar');
+    Route::get('/users/{id}/detalleMascotas', 'UserController@detalleMascotas')->name('users.detalleMascotas'); 
 
     Route::get('/pdfs', 'UserController@getPDFusuarios')->name('getPD');
     //Roles

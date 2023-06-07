@@ -31,10 +31,10 @@ class MascotasController extends Controller
             $mascotas = Mascotas::where('usuario_id', $user->id)
                 ->where('estado', 1)
                 ->orderBy('id', 'asc')
-                ->simplePaginate(10);
+                ->simplePaginate(7);
         } else {
-            $mascotas = Mascotas::all()
-                ->where('estado', 1);
+            $mascotas = Mascotas::where('estado', 1)
+                ->simplePaginate(7);
         }
 
         return View('admin.mascotas.index', compact('mascotas'));
@@ -47,7 +47,7 @@ class MascotasController extends Controller
         $mascotas = Mascotas::where('usuario_id', $user->id)
             ->where('estado', 0)
             ->orderBy('id', 'asc')
-            ->simplePaginate(10);
+            ->simplePaginate(7);
         return View('admin.mascotas.inactivos', compact('mascotas'));
     }
     /**

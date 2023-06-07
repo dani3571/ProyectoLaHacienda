@@ -29,15 +29,13 @@ class RoleController extends Controller
      }
     public function index()
     {
-        $roles = Role::simplePaginate(10)
-        ->where('estado','1');
+        $roles = Role::where('estado','1')->simplePaginate(7);
 
         return view('admin.roles.index', compact('roles'));
     }
     public function inactivos()
     {
-        $roles = Role::simplePaginate(10)
-        ->where('estado','0');
+        $roles = Role::where('estado','0')->simplePaginate(7);
 
         return view('admin.roles.inactivos', compact('roles'));
        

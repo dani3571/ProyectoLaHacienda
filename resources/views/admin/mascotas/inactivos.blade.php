@@ -83,6 +83,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="text-center mt-3">
+            {{ $mascotas->links() }}
+        </div>
     </div>
 </div>
 @endsection

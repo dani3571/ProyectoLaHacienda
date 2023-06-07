@@ -3,9 +3,11 @@
 @section('title', 'Panel de administracion')
 
 @section('content_header')
+
 @stop
 
 @section('content')
+
     <div class="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
         <br>
         <h1 style="font-family: nunito,arial,verdana; font-size:20px">PANEL DE CONTROL</h1>
@@ -68,13 +70,13 @@
                                 <div class="text-4x1 font-medium text-gray-600">
 
                                     <?php
-                           $fechaHoy = date('Y-m-d');
-                           $resultado = DB::table('detalle_ventas as a')
-                               ->join('ventas as c', 'a.id', '=', 'c.id')
-                           
-                               ->whereDate('c.fechaVenta', $fechaHoy)
-                               ->selectRaw('SUM(a.subtotal) as suma')
-                               ->first();
+                                    $fechaHoy = date('Y-m-d');
+                                    $resultado = DB::table('detalle_ventas as a')
+                                        ->join('ventas as c', 'a.id', '=', 'c.id')
+                                    
+                                        ->whereDate('c.fechaVenta', $fechaHoy)
+                                        ->selectRaw('SUM(a.subtotal) as suma')
+                                        ->first();
                                     
                                     if ($resultado->suma == 0) {
                                         echo '0 Bs';
@@ -215,21 +217,44 @@
     
     ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <br>
 
-
-    <div class="chart-container" style="width: 100%; height: 600px; display: flex;">
-        <div style="width: 50%;">
-            <canvas id="myChart" style="width: 100%; height: 50%;"></canvas>
-        </div>
-        <div style="width: 50%;">
-            <canvas id="myChart2" style="width: 100%; height: 50%;max-height:50%;"></canvas>
+    <div class="card" >
+        <div class="card-body" >
+            <div class="chart-container" style="width: 100%; height: 800px;">
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div style="width: 50%; height: 50%;">
+                        <center>
+                            <h4>Grafico general</h4>
+                        </center>
+                        <canvas id="myChart" style="width: 100%; max-height: 100%;"></canvas>
+                    </div>
+                    <div style="width: 50%; height: 50%;">
+                        <center>
+                            <h4>Grafico del dia - Torta</h4>
+                        </center>
+                        <canvas id="myChart2" style="width: 100%; max-height: 88%;"></canvas>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; margin-top:30px">
+                    <div style="width: 50%; max-height: 50%;">
+                        <center>
+                            <h4>Pronostico de ventas</h4>
+                        </center>
+                        <canvas id="salesChart" style="width: 100%; height: 100%;"></canvas>
+                    </div>
+                    <div style="width: 50%; max-height: 50%;">
+                        <center>
+                            <h4>Pronostico de ganancias</h4>
+                        </center>
+                        <canvas id="earningsChart" style="width: 100%; max-height: 88%;"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
 
-    
-
+ 
+      
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart');
@@ -355,7 +380,7 @@
 
                                     return value;
                                 },
-                                padding: 10 
+                                padding: 10,
                             }
 
                         }
@@ -440,41 +465,35 @@
             }
         });
     </script>
-    
-<script>
-    var ctx = document.getElementById('earningsChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {!! json_encode($months) !!},
-            datasets: [{
-                label: 'Ganancia',
-                data: {!! json_encode($earnings) !!},
-                borderColor: 'rgba(0, 123, 255, 1)',
-                backgroundColor: 'rgba(0, 123, 255, 0.1)',
-                borderWidth: 1,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true
+
+    <script>
+        var ctx = document.getElementById('earningsChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($months) !!},
+                datasets: [{
+                    label: 'Ganancia',
+                    data: {!! json_encode($earnings) !!},
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    borderWidth: 1,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 @stop
 
@@ -484,6 +503,12 @@
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 10px;
+        }
+
+        .horizontal-label {
+            display: inline-block;
+            transform: rotate(-90deg);
+            white-space: nowrap;
         }
     </style>
 @stop

@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ])->assignRole('Cliente');
     
-    
+   
         User::create([
             'name' => 'Ana Martinez',
             'ci'=> '99887766',

@@ -75,6 +75,9 @@
               
             </tbody>
         </table>
+        <div class="text-center mt-3">
+            {{ $roles->links() }}
+        </div>
     </div>
 </div>
 @endsection

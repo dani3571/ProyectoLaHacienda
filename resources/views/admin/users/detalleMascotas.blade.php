@@ -46,18 +46,26 @@
                         <p><strong>Tipo:</strong> {{ $mascota->tipo }}</p>
                         <p><strong>Raza:</strong> {{ $mascota->raza }}</p>
                         <p><strong>Color:</strong> {{ $mascota->color }}</p>
-                
+                        <p><strong>Fecha de Nacimiento:</strong> {{ $mascota->fechaNacimiento }}</p>
+                  
                     </div>
                     <div class="columna-atributos">
-                           <p><strong>Fecha de Nacimiento:</strong> {{ $mascota->fechaNacimiento }}</p>
                         <p><strong>Carácter:</strong> {{ $mascota->caracter }}</p>
                         <p><strong>Sexo:</strong> {{ $mascota->sexo }}</p>
+                        <p><strong>Nombre de referencia:</strong> {{ $mascota->persona_referencia }}</p>
+                        <p><strong>Telefono de referencia:</strong> {{ $mascota->telefonoResponsable }}</p>
+
+
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     @endforeach
+    <div class="text-center mt-3">
+        {{ $mascotas->links() }}
+    </div>
 
 
     <style>
