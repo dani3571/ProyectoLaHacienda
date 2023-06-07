@@ -51,7 +51,7 @@
                         <option value="">Seleccione el tipo</option>
                    
                             <option value="Perro">Perro</option>
-                            <option value="Perro">Gato</option>
+                            <option value="Gato">Gato</option>
             
                     </select>
                     @error('tipo')
@@ -98,9 +98,8 @@
             </div>
             
             <div class="form-group">
-         
                 <label>Caracter</label>
-                <input type="text" class="form-control" id="caracter" name='caracter' placeholder="Caracter"
+                <input type="text" class="form-control" id="caracter" name='caracter' placeholder="Describa el Caracter"
                     value="{{ old('caracter') }}">
 
                 @error('caracter')
@@ -109,16 +108,34 @@
                 </span>
                 @enderror
             </div>
-            <div class="form-group">
-                <label>Cargar imagen</label>
-                <input type="file" name="image">
 
-                @error('image')
+            <div class="form-group">
+                <label>Peso</label>
+                <input type="text" class="form-control" id="peso" name='peso' placeholder="Ingrese el peso"
+                    value="{{ old('peso') }}">
+
+                @error('peso')
+                <span class="text-danger">
+                    <span>*{{ $message }}</span>
+                </span>
+                @enderror
+            </div>
+
+            <label>Tamaño</label>
+            <div class="form-group">
+                <select class="form-control" name="tamaño" id="tamaño">
+                    <option value="">Seleccione el tamaño de la mascota</option>
+                        <option value="Pequeño">Pequeño</option>
+                        <option value="Mediano">Mediano</option>
+                        <option value="Grande">Grande</option>
+                </select>
+                @error('tipo')
                     <span class="text-danger">
-                        <span>*{{ $message }}</span>
+                        <span>{{ $message }}</span>
                     </span>
                 @enderror
             </div>
+
             
             <div class="form-group">
          
@@ -142,6 +159,16 @@
                 </div>
 
 
+                <div class="form-group">
+                    <label>Cargar imagen</label>
+                    <input type="file" name="image">
+    
+                    @error('image')
+                        <span class="text-danger">
+                            <span>*{{ $message }}</span>
+                        </span>
+                    @enderror
+                </div>
               
 
                 <input type="submit" value="Registrar mascota" class="btn btn-primary">
@@ -149,4 +176,15 @@
      </form>
     </div>
 </div>
+@endsection
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
 @endsection

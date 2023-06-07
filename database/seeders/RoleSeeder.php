@@ -255,8 +255,13 @@ class RoleSeeder extends Seeder
 
         Permission::create([
             'name' => 'compras.create',
-            'description' => 'Crear compra'
+            'description' => 'Crear compras'
         ])->assignRole($admin);
+        Permission::create([
+            'name' => 'compras.edit',
+            'description' => 'Editar compras'
+        ])->assignRole($admin);
+
 
         //PROVEEDORES
         Permission::create([

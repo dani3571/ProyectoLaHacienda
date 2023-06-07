@@ -26,7 +26,10 @@ class UserController extends Controller
   }
   public function index(Request $request)
   {
-          $user = User::where('estado', '1')->simplePaginate(7);
+          $user = User::where('estado', '1')
+          ->with('roles')
+          ->simplePaginate(7);
+          
       return view('admin.users.index', compact('user'));
 
 

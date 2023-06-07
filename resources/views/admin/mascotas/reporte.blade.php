@@ -75,6 +75,9 @@
                 <th>Fecha de Nacimiento</th>
                 <th>Caracter</th>
                 <th>Sexo</th>
+                <th>Peso</th>
+                <th>Tamaño</th>
+
             </tr>
         </thead>
         <tbody>
@@ -88,6 +91,9 @@
                 <td>{{$mascota->fechaNacimiento}}</td>
                 <td>{{$mascota->caracter}}</td>
                 <td>{{$mascota->sexo}}</td>
+                <td>{{$mascota->peso}}</td>
+                <td>{{$mascota->tamaño}}</td>
+        
             </tr>
             @endforeach
         </tbody>

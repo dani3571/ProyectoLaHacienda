@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('caracter', 90)->nullable();
             $table->string('sexo', 30);        
             $table->char('estado')->default(1);
-            $table->string('peso', 5);
-            $table->string('tamaño', 15);
-            $table->string('image', 255);
+            $table->string('peso', 20);
+            $table->string('tamaño', 20);
+            $table->string('image', 255)->nullable();
             $table->unsignedBigInteger('usuario_id'); 
             $table->foreign('usuario_id')
             ->references('id')

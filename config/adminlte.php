@@ -1,5 +1,5 @@
-<?php
 
+<?php
 return [
 
     /*
@@ -17,6 +17,7 @@ return [
     'title' => '',
     'title_prefix' => 'La Hacienda |',
     'title_postfix' => '',
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -29,9 +30,10 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'logo_img' => 'vendor/adminlte/dist/img/logo2.png',
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
+ 
 
     /*
     |--------------------------------------------------------------------------
@@ -109,11 +111,11 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/logo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 
@@ -312,7 +314,7 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'   => 'Dashboard',
+            'text'   => 'Panel de control',
             'route'  => 'admin.index',
             'icon'   => 'fas fa-pager',
         ],

@@ -81,3 +81,14 @@
         });
     </script>
 @endsection
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
+@endsection

@@ -91,7 +91,7 @@ class MascotasController extends Controller
             $imageName = basename($path);
             $mascota->image = $imageName;
         }
-       
+
         /*
         $image = $request->file('image');
         //   $path = $image->store('public/images/mascotas');
@@ -103,7 +103,7 @@ class MascotasController extends Controller
         $mascota->save();
 
         $user = Auth::user();
-        $logMessage = 'El usuario ['.$user->name.'] ha registrado la mascota [' .$mascota->nombre. ']';
+        $logMessage = 'El usuario [' . $user->name . '] ha registrado la mascota [' . $mascota->nombre . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
@@ -173,59 +173,75 @@ class MascotasController extends Controller
 
     public function update(MascotaRequest $request, $id)
     {
+        $mascota = new Mascotas();
         $mascota = Mascotas::findOrFail($id);
 
-        if($request->nombre != $mascota->nombre){
+        if ($request->nombre != $mascota->nombre) {
             $user = Auth::user();
-            $logMessage = 'El usuario ['.$user->name.'] ha modificado el nombre de la mascota [' .$mascota->nombre. '] => [' .$request->nombre. ']';
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado el nombre de la mascota [' . $mascota->nombre . '] => [' . $request->nombre . ']';
             Log::build([
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
             ])->info($logMessage);
         }
-        if($request->raza != $mascota->raza){
+        if ($request->raza != $mascota->raza) {
             $user = Auth::user();
-            $logMessage = 'El usuario ['.$user->name.'] ha modificado la raza de la mascota [' .$request->nombre. ']';
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado la raza de la mascota [' . $request->nombre . ']';
             Log::build([
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
             ])->info($logMessage);
         }
-        if($request->color != $mascota->color){
+        if ($request->color != $mascota->color) {
             $user = Auth::user();
-            $logMessage = 'El usuario ['.$user->name.'] ha modificado el color de la mascota [' .$request->nombre. ']';
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado el color de la mascota [' . $request->nombre . ']';
             Log::build([
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
             ])->info($logMessage);
         }
-        if($request->fechaNacimiento != $mascota->fechaNacimiento){
+        if ($request->fechaNacimiento != $mascota->fechaNacimiento) {
             $user = Auth::user();
-            $logMessage = 'El usuario ['.$user->name.'] ha modificado la fecha de nacimiento de la mascota [' .$request->nombre. ']';
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado la fecha de nacimiento de la mascota [' . $request->nombre . ']';
             Log::build([
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
             ])->info($logMessage);
         }
-        if($request->caracter != $mascota->caracter){
+        if ($request->caracter != $mascota->caracter) {
             $user = Auth::user();
-            $logMessage = 'El usuario ['.$user->name.'] ha modificado el caracter de la mascota [' .$request->nombre. ']';
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado el caracter de la mascota [' . $request->nombre . ']';
             Log::build([
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
             ])->info($logMessage);
         }
-        if($request->sexo != $mascota->sexo){
+        if ($request->sexo != $mascota->sexo) {
             $user = Auth::user();
-            $logMessage = 'El usuario ['.$user->name.'] ha modificado el sexo de la mascota [' .$request->nombre. ']';
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado el sexo de la mascota [' . $request->nombre . ']';
             Log::build([
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
             ])->info($logMessage);
         }
-        
 
-        $mascota->fill($request->all());  
+        if ($request->image != $mascota->image) {
+            $user = Auth::user();
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado la imagen de la mascota [' . $request->nombre . ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+        }
+
+        $mascota->fill($request->all());
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = $image->store('', 'mascotas');
+            $imageName = basename($path);
+            $mascota->image = $imageName;
+        }
         //guardamos la informacion actualizada
         $mascota->save();
         //mostramos un mensaje de exito 
@@ -257,7 +273,7 @@ class MascotasController extends Controller
         $mascota->save();
 
         $user = Auth::user();
-        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a INACTIVO la mascota [' .$mascota->nombre. ']';
+        $logMessage = 'El usuario [' . $user->name . '] ha cambiado el estado a INACTIVO la mascota [' . $mascota->nombre . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
@@ -275,7 +291,7 @@ class MascotasController extends Controller
         $mascota->save();
 
         $user = Auth::user();
-        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a ACTIVO la mascota [' .$mascota->nombre. ']';
+        $logMessage = 'El usuario [' . $user->name . '] ha cambiado el estado a ACTIVO la mascota [' . $mascota->nombre . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),

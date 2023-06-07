@@ -23,6 +23,7 @@
     Swal.fire({
         title: 'Error!',
         text: '{{ session('fail') }}',
+        html: 'No existen registros de <strong>{{ session('tipo') }}</strong> entre las fechas <strong>{{ session('fechaInicio') }}</strong> y <strong>{{ session('fechaFin') }}</strong>',
         icon: 'error'
     });
 </script>
@@ -83,4 +84,16 @@
         </form>
     </div>
 </div>
+@endsection
+
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
 @endsection

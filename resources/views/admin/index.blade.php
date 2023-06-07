@@ -375,7 +375,7 @@
                             ticks: {
                                 callback: function(value, index, values) {
                                     if (index === values.length - 1) {
-                                        return 'Cantidad ' + value;
+                                      
                                     }
 
                                     return value;
@@ -442,17 +442,41 @@
         var labels = @json($labels);
         var values = @json($values);
         var prediction = @json($prediction);
+        
+        // Calcular la línea de regresión
+        var regressionLineData = [];
+        var regressionLineLabel = 'Línea de Regresión';
+
+    
+    // Calcular la línea de regresión
+    var regressionLineData = [];
+    var regressionLineLabel = 'Línea de Regresión';
+
+    var x1 = 0;
+    var y1 = values[0];
+    var x2 = values.length - 1;
+    var y2 = prediction;
+
+    regressionLineData.push({x: x1, y: y1});
+    regressionLineData.push({x: x2, y: y2});
 
         // Configurar el gráfico
         var ctx = document.getElementById('salesChart').getContext('2d');
         var chart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
                     label: 'Ventas',
                     data: values,
                     backgroundColor: 'rgba(0, 123, 255, 0.6)'
+                },
+                {
+                    label: regressionLineLabel,
+                    data: regressionLineData,
+                    type: 'line',
+                    fill: false,
+                    borderColor: 'rgba(255, 0, 0, 1)'
                 }]
             },
             options: {
@@ -486,9 +510,28 @@
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                        callback: function(value) {
+                            return value + ' Bs';
+                        }
+                    }
+                    }
+                },
+                plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += context.parsed.y + ' Bs';
+                            return label;
+                        }
                     }
                 }
+            }
             }
         });
     </script>
@@ -510,7 +553,16 @@
             transform: rotate(-90deg);
             white-space: nowrap;
         }
+        .nav-item {
+        background: dark;
+      }
+      .menu-open{
+         background-color: #4d5059 !important;  
+      }
+
+
     </style>
+    
 @stop
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

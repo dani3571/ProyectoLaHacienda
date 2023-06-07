@@ -23,7 +23,7 @@ class MascotasSeeder extends Seeder
             'caracter'=> 'Amigable',
             'sexo'=> 'Macho',
             'estado'=> '1',
-            'image'=>'jkKw30QeWbykjUvbEb4Kn8xzySNIFjue7FDnwfB1.png',
+            'image'=>'pMnYy6VPsESOMtY0NA5ngmQ3eIO9Vb6BAKLThvkk.png',
             'peso' => '15kg',
             'tamaño'=> 'mediano',
             'usuario_id'=> '1',

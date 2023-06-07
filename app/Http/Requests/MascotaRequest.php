@@ -26,11 +26,15 @@ class MascotaRequest extends FormRequest
         return [
             'nombre' => 'required|min:3',
             'tipo'=> 'required',
-            'raza' => 'required|min:2',
-            'color' => 'required|min:3',
+            'raza' => 'required|min:2|max:10',
+            'color' => 'required|min:3|max:10',
             'fechaNacimiento' => 'required',
-            'caracter' => 'required|min:5',
+            'caracter' => 'required|min:5|max:40',
             'sexo' => 'required',
+            'peso' => 'required|max:5',
+            'tamaño' => 'required',
+            'image' => 'image|mimes:jpg,png|max:2048', // Validación de la imagen
+            
         ];
 
 

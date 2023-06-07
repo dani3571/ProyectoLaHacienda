@@ -38,7 +38,15 @@ class ReportesController extends Controller
         //user condicional
         if ($tipo == "users") {
             $user = User::all()
-            ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+                ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+                if ($user->isEmpty()) {
+                    //   return view('admin.Reportes.index', compact('mensaje'));
+                    return redirect()->route('reportes.index')->with([
+                        'fail' => 'No existen registros entre las fechas',
+                        'fechaInicio' => $fechaInicio,
+                        'fechaFin' => $fechaFin,
+                    ]);
+                }
             // Cargar la vista del reporte
             $view = view('admin.users.reporte', compact('name', 'nombreSistema', 'fecha', 'hora', 'user', 'fechaInicio', 'fechaFin'));
             // Generar el PDF con la vista del reporte
@@ -51,7 +59,15 @@ class ReportesController extends Controller
             $mascotas = Mascotas::all()
                 ->where('estado', 1)
                 ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
-      
+            if ($mascotas->isEmpty()) {
+                //   return view('admin.Reportes.index', compact('mensaje'));
+                return redirect()->route('reportes.index')->with([
+                    'fail' => 'No existen registros entre las fechas',
+                    'fechaInicio' => $fechaInicio,
+                    'fechaFin' => $fechaFin,
+                    'tipo' => $tipo
+                ]);
+            }
             // Cargar la vista del reporte
             $view = view('admin.mascotas.reporte', compact('name', 'nombreSistema', 'fecha', 'hora', 'mascotas', 'fechaInicio', 'fechaFin'));
 
@@ -64,7 +80,17 @@ class ReportesController extends Controller
         //roles condicional
         if ($tipo == "roles") {
             $role = User::all()
-            ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+                ->where('estado', 1)
+                ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+            if ($role->isEmpty()) {
+                //   return view('admin.Reportes.index', compact('mensaje'));
+                return redirect()->route('reportes.index')->with([
+                    'fail' => 'No existen registros entre las fechas',
+                    'fechaInicio' => $fechaInicio,
+                    'fechaFin' => $fechaFin,
+                    'tipo' => $tipo
+                ]);
+            }
             // Cargar la vista del reporte
             $view = view('admin.roles.reportes', compact('name', 'nombreSistema', 'fecha', 'hora', 'role', 'fechaInicio', 'fechaFin'));
             // Generar el PDF con la vista del reporte
@@ -75,7 +101,16 @@ class ReportesController extends Controller
 
         if ($tipo == "ventas") {
             $ventas = Ventas::all()
-            ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+                ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+            if ($ventas->isEmpty()) {
+                //   return view('admin.Reportes.index', compact('mensaje'));
+                return redirect()->route('reportes.index')->with([
+                    'fail' => 'No existen registros entre las fechas',
+                    'fechaInicio' => $fechaInicio,
+                    'fechaFin' => $fechaFin,
+                    'tipo' => $tipo
+                ]);
+            }
             // Cargar la vista del reporte
             $view = view('admin.ventas.reporte', compact('name', 'nombreSistema', 'fecha', 'hora', 'ventas', 'fechaInicio', 'fechaFin'));
             // Generar el PDF con la vista del reporte
@@ -83,10 +118,19 @@ class ReportesController extends Controller
             // Descargar o mostrar el PDF en el navegador
             return $pdf->stream('Reporte_Ventas.pdf');
         }
-        
+
         if ($tipo == "proveedores") {
             $proveedores = Proveedores::all()
-            ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+                ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+            if ($proveedores->isEmpty()) {
+                //   return view('admin.Reportes.index', compact('mensaje'));
+                return redirect()->route('reportes.index')->with([
+                    'fail' => 'No existen registros entre las fechas',
+                    'fechaInicio' => $fechaInicio,
+                    'fechaFin' => $fechaFin,
+                    'tipo' => $tipo
+                ]);
+            }
             // Cargar la vista del reporte
             $view = view('admin.proveedores.reporte', compact('name', 'nombreSistema', 'fecha', 'hora', 'proveedores', 'fechaInicio', 'fechaFin'));
             // Generar el PDF con la vista del reporte
@@ -95,28 +139,36 @@ class ReportesController extends Controller
             return $pdf->stream('Reporte_Proveedores.pdf');
         }
 
-        if($tipo == "reservacion_peluquerias")
-        {
-            $reservas_peluqueria = ReservacionPeluqueria::all();
+        if ($tipo == "reservacion_peluquerias") {
+
+            //$reservas_peluqueria = ReservacionPeluqueria::all();
+            $reservas_peluqueria = ReservacionPeluqueria::whereBetween('fecha', [$fechaInicio, $fechaFin])->get();
+
+            // Verificar si no hay registros entre las fechas
+            if ($reservas_peluqueria->isEmpty()) {
+                //   return view('admin.Reportes.index', compact('mensaje'));
+                return redirect()->route('reportes.index')->with([
+                    'fail' => 'No existen registros entre las fechas',
+                    'fechaInicio' => $fechaInicio,
+                    'fechaFin' => $fechaFin,
+                    'tipo' => $tipo
+                ]);
+            }
             $users = User::select(['id', 'name'])
-            ->get();
+                ->get();
             $mascotas = Mascotas::select(['id', 'nombre'])
-            ->get();
+                ->get();
             $fechaInicio = $request->input('fechaInicio');
             $fechaFin = $request->input('fechaFin');
-            $view = view('admin.reservas_peluqueria.reporte', compact('name', 'reservas_peluqueria', 'reservas_peluqueria', 'mascotas','users', 'nombreSistema', 'fecha', 'hora'));
-             // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+            $view = view('admin.reservas_peluqueria.reporte', compact('name', 'reservas_peluqueria', 'reservas_peluqueria', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora'));
+            // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
             if ($fechaInicio && $fechaFin) {
-            $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+                $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
             }
             // Generar el PDF con la vista del reporte
             $pdf = PDF::loadHTML($view);
-      
-            return $pdf->stream('Reporte_Reservas_completadas.pdf');
-    
 
+            return $pdf->stream('Reporte_Reservas_completadas.pdf');
         }
     }
-    
-   
 }

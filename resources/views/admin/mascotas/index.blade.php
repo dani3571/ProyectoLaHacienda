@@ -42,6 +42,8 @@
                     <th>fechaNacimiento</th>
                     <th>Caracter</th>
                     <th>Sexo</th>
+                    <th>Peso</th>
+                    <th>Tamaño</th>
                 </tr>
             </thead>
 
@@ -56,6 +58,8 @@
                     <td>{{$mascota->fechaNacimiento}}</td>
                     <td>{{$mascota->caracter}}</td>
                     <td>{{$mascota->sexo}}</td>
+                    <td>{{$mascota->peso}}</td>
+                    <td>{{$mascota->tamaño}}</td>
                     
                     <td width="10px"><a href="{{route('mascotas.edit', $mascota)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
 
@@ -78,4 +82,15 @@
         </div>
     </div>
 </div>
+@endsection
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
 @endsection

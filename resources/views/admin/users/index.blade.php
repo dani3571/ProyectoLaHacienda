@@ -45,6 +45,7 @@
                             <th scope="col">Telefono</th>
                             <th scope="col">Direccion</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Rol</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -56,7 +57,12 @@
                                 <td>{{ $users->telefono }}</td>
                                 <td>{{ $users->direccion }}</td>
                                 <td>{{ $users->email }}</td>
-                                <td width="10px"><a href="{{ route('users.edit', $user) }}"
+                                <td>
+                                    @foreach ($users->roles as $role)
+                                        {{ $role->name }}
+                                    @endforeach
+                                </td>
+                                <td width="10px"><a href="{{ route('users.edit', $users) }}"
                                         class="btn btn-primary btn-sm mb-2">Editar</a></td>
                                 <td width="10px"><a href="{{ route('users.detalleMascotas', $users->id) }}"
                                         class="btn btn-primary btn-sm mb-2">Mascotas</a></td>
@@ -124,6 +130,17 @@
 
 @endsection
 
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
+@endsection
 @section('scripts')
 
 @endsection

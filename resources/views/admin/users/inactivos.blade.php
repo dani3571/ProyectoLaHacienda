@@ -45,6 +45,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">persona de referencia</th>
                         <th scope="col">telefono de referencia</th>
+                        <th scope="col">Rol</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -59,7 +60,11 @@
                             <td>{{ $users->email }}</td>
                             <td>{{ $users->personaResponsable }}</td>
                             <td>{{ $users->telefonoResponsable }}</td>
-                          
+                            <td>
+                                @foreach ($users->roles as $role)
+                                    {{ $role->name }}
+                                @endforeach
+                            </td>
                             <td width="10px">
                         <form action="{{ route('users.restablecer-estado', $users->id) }}" method="POST">
                             @csrf
@@ -101,4 +106,15 @@
 
 @section('scripts')
     
+@endsection
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
 @endsection

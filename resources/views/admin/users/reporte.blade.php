@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <style>
         /* Estilos CSS para el reporte */
         .logo {
@@ -100,3 +101,12 @@
     </div>
 </body>
 </html>
+
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>

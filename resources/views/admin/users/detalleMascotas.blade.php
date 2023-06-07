@@ -47,16 +47,21 @@
                         <p><strong>Raza:</strong> {{ $mascota->raza }}</p>
                         <p><strong>Color:</strong> {{ $mascota->color }}</p>
                         <p><strong>Fecha de Nacimiento:</strong> {{ $mascota->fechaNacimiento }}</p>
-                  
-                    </div>
+                        <p><strong>Peso:</strong> {{ $mascota->peso }}</p>
+                   </div>
                     <div class="columna-atributos">
+                        <p><strong>Tamaño:</strong> {{ $mascota->tamaño }}</p>
+                      
+                   
+                        <p><strong>Fecha de Nacimiento:</strong> {{ $mascota->fechaNacimiento }}</p>
                         <p><strong>Carácter:</strong> {{ $mascota->caracter }}</p>
                         <p><strong>Sexo:</strong> {{ $mascota->sexo }}</p>
                         <p><strong>Nombre de referencia:</strong> {{ $mascota->persona_referencia }}</p>
                         <p><strong>Telefono de referencia:</strong> {{ $mascota->telefonoResponsable }}</p>
 
-
                     </div>
+                    
+                 
                 </div>
             </div>
             
@@ -101,8 +106,17 @@
     .columna-atributos {
         width: 50%; /* Distribuye los atributos en dos columnas */
     }
+    .nav-item {
+        background: dark;
+      }
+      .menu-open{
+         background-color: #4d5059 !important;  
+      }
     </style>
+ 
 @endsection
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+  
 
 @section('scripts')
 
