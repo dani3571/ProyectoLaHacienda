@@ -22,11 +22,11 @@ class Reservacion_veterinariaController extends Controller
      public function __construct()
      {
         $this->middleware('can:reservas_veterinaria.index')->only('index');
-        $this->middleware('can:reservas_veterinaria.create')->only('create, store');
+        $this->middleware('can:reservas_veterinaria.create')->only('create', 'store');
         $this->middleware('can:reservas_veterinaria.canceladas')->only('canceladas');
         $this->middleware('can:reservas_veterinaria.completadas')->only('completadas');
-        $this->middleware('can:reservas_veterinaria.edit')->only('edit, update');
-
+        $this->middleware('can:reservas_veterinaria.edit')->only('edit', 'update');
+        $this->middleware('can:reservas_veterinaria.cancelar')->only('cancelar');
      }
     public function index()
     {

@@ -46,7 +46,14 @@
                             <th scope="col">Direccion</th>
                             <th scope="col">Email</th>
                             <th scope="col">Rol</th>
+
+                            @can('users.edit')
+                                <th scope="col">Acciones</th>
+                            @endcan
+                            @can('users.cambiar-estado')
                             <th scope="col">Acciones</th>
+                        @endcan
+                         
                         </tr>
                     </thead>
                     <tbody>
@@ -62,17 +69,25 @@
                                         {{ $role->name }}
                                     @endforeach
                                 </td>
-                                <td width="10px"><a href="{{ route('users.edit', $users) }}"
-                                        class="btn btn-primary btn-sm mb-2">Editar</a></td>
+
+                                @can('users.edit')
+                                    <td width="10px"><a href="{{ route('users.edit', $users) }}"
+                                            class="btn btn-primary btn-sm mb-2">Editar</a>
+                                    </td>
+                                @endcan
+
                                 <td width="10px"><a href="{{ route('users.detalleMascotas', $users->id) }}"
                                         class="btn btn-primary btn-sm mb-2">Mascotas</a></td>
-                                <td width="10px">
-                                    <form action="{{ route('users.cambiar-estado', $users) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
-                                    </form>
-                                </td>
+
+                                @can('users.cambiar-estado')
+                                    <td width="10px">
+                                        <form action="{{ route('users.cambiar-estado', $users) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
+                                        </form>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>
@@ -87,26 +102,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         /*
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const buscadorUsuario = document.getElementById('buscadorUsuario');
-                        const reservas = document.getElementsByClassName('reserva');
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const buscadorUsuario = document.getElementById('buscadorUsuario');
+                                    const reservas = document.getElementsByClassName('reserva');
 
-                        buscadorUsuario.addEventListener('input', function() {
-                            const query = buscadorUsuario.value.toLowerCase();
+                                    buscadorUsuario.addEventListener('input', function() {
+                                        const query = buscadorUsuario.value.toLowerCase();
 
-                            for (let i = 0; i < reservas.length; i++) {
-                                const nombreUsuario = reservas[i].getElementsByTagName('td')[0].textContent
-                                    .toLowerCase();
+                                        for (let i = 0; i < reservas.length; i++) {
+                                            const nombreUsuario = reservas[i].getElementsByTagName('td')[0].textContent
+                                                .toLowerCase();
 
-                                if (nombreUsuario.includes(query)) {
-                                    reservas[i].style.display = '';
-                                } else {
-                                    reservas[i].style.display = 'none';
-                                }
-                            }
-                        });
-                    });
-                    */
+                                            if (nombreUsuario.includes(query)) {
+                                                reservas[i].style.display = '';
+                                            } else {
+                                                reservas[i].style.display = 'none';
+                                            }
+                                        }
+                                    });
+                                });
+                                */
         function buscarUsuarios() {
             const buscadorUsuario = document.getElementById('buscadorUsuario');
             const tablaUsuarios = document.getElementById('tablaUsuarios');
@@ -132,14 +147,15 @@
 
 <link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
 @section('css')
-<style>
-.nav-item {
-    background: dark;
-  }
-  .menu-open{
-     background-color: #4d5059 !important;  
-  }
-</style>
+    <style>
+        .nav-item {
+            background: dark;
+        }
+
+        .menu-open {
+            background-color: #4d5059 !important;
+        }
+    </style>
 @endsection
 @section('scripts')
 

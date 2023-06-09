@@ -36,7 +36,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Rol</th>
+                    @can('roles.restablecer-estado')
                     <th>Acciones</th>
+                    @endcan
                 </tr>
             </thead>
 

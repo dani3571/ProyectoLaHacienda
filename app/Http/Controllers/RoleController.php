@@ -164,7 +164,7 @@ class RoleController extends Controller
             'path' => storage_path('logs/admin.log'),
         ])->info($logMessage);
 
-        return redirect()->route('roles.index')->with('success', 'Eliminacion logica realizada con exito');
+        return redirect()->route('roles.index')->with('success', 'El estado del rol se cambio con exito');
     }
     public function restablecerEstado($id)
     {

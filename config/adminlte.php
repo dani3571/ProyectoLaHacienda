@@ -322,21 +322,24 @@ return [
         ['header' => 'PANEL'],
         [
             'text' => 'Usuarios',
-            'icon' => 'fas fa-users',
             'can'=>'users.index',
+            'icon' => 'fas fa-users',
             'submenu' => [
                 [
                     'text' => 'Listado de usuarios',
+                    'can'=>'users.index',
                     'icon' => 'fas fa-list-alt',
                     'route'  => 'users.index',
                 ],
                 [
                     'text' => 'Usuarios inactivos',
+                    'can'=>'users.inactivos',
                     'icon' => 'fas fa-stream',
                     'route'  => 'users.inactivos',
                 ],
                 [
                     'text' => 'Reporte de usuarios',
+                    'can' => 'getPD',
                     'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPD',
                 ],
@@ -372,6 +375,7 @@ return [
                     'route'  => 'getPDFR',
                 ],
             ]
+            
         ],
         [
             'text' => 'Mascotas',
