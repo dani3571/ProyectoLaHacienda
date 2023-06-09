@@ -163,8 +163,13 @@
             
             @foreach ($reservas_peluqueria as $reserva)
                 var fechaReserva = '{{ \Carbon\Carbon::parse($reserva->fecha)->format('Y-m-d') }}';
-                if(fechaReserva == fecha && fechaReservacionOriginal != fecha){
-                    horas.splice(horas.indexOf('{{ $reserva->horaRecepcion }}'), 1)
+                if(fechaReserva == fecha){
+                    if(fechaReservacionOriginal != fecha){
+                        horas.splice(horas.indexOf('{{ $reserva->horaRecepcion }}'), 1)
+                    }
+                    else if('{{ $reserva->horaRecepcion }}' != '{{ $reservacion_peluqueria->horaRecepcion }}'){
+                        horas.splice(horas.indexOf('{{ $reserva->horaRecepcion }}'), 1)
+                    }
                 }
             @endforeach
             
@@ -183,4 +188,15 @@
             horaRecepcion.innerHTML = selectOptions;
         }
     </script>
+@endsection
+@section('css')
+    <style>
+        .nav-item {
+            background: dark;
+        }
+
+        .menu-open {
+            background-color: #4d5059 !important;
+        }
+    </style>
 @endsection

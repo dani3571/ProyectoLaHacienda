@@ -23,7 +23,10 @@ return new class extends Migration
             $table->char('corte', 1);
             $table->char('tranquilizante', 1)->default(0);
             $table->string('Observaciones', 200)->default("ninguna");
+            $table->decimal('costo', 8)->default(0);
+            $table->string('motivoCancelacion', 200)->default("sin motivo");
             $table->char('estado', 1)->default(1);
+            
              //Foreign keys
              $table->unsignedBigInteger('usuario_id'); 
              $table->foreign('usuario_id')
