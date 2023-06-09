@@ -41,24 +41,21 @@
             <div class="datos-mascota">
                 <h2 class="card-title">{{ $mascota->nombre }}</h2>
                 <div class="card-text columnas-atributos">
-                    <div class="columna-atributos">
-                        <p><strong>ID:</strong> {{ $mascota->id }}</p>
+                    <div class="columna-atributos">      
                         <p><strong>Tipo:</strong> {{ $mascota->tipo }}</p>
                         <p><strong>Raza:</strong> {{ $mascota->raza }}</p>
                         <p><strong>Color:</strong> {{ $mascota->color }}</p>
                         <p><strong>Fecha de Nacimiento:</strong> {{ $mascota->fechaNacimiento }}</p>
                         <p><strong>Peso:</strong> {{ $mascota->peso }}</p>
-                   </div>
+                    
+                    </div>
                     <div class="columna-atributos">
                         <p><strong>Tamaño:</strong> {{ $mascota->tamaño }}</p>
-                      
-                   
                         <p><strong>Fecha de Nacimiento:</strong> {{ $mascota->fechaNacimiento }}</p>
                         <p><strong>Carácter:</strong> {{ $mascota->caracter }}</p>
                         <p><strong>Sexo:</strong> {{ $mascota->sexo }}</p>
-                        <p><strong>Nombre de referencia:</strong> {{ $mascota->persona_referencia }}</p>
-                        <p><strong>Telefono de referencia:</strong> {{ $mascota->telefonoResponsable }}</p>
-
+                        <p><strong>Nombre de referencia:</strong> {{ $mascota->persona_referencia }} - {{$mascota->telefonoResponsable}}</p>
+                        
                     </div>
                     
                  
@@ -115,7 +112,7 @@
     </style>
  
 @endsection
-<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
   
 
 @section('scripts')

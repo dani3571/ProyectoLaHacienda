@@ -34,7 +34,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
+             
                     <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Raza</th>
@@ -44,23 +44,24 @@
                     <th>Sexo</th>
                     <th>Peso</th>
                     <th>Tamaño</th>
+             
+                    <th>Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
                 @foreach ($mascotas as $mascota )
                 <tr>
-                    <td>{{$mascota->id}}</td>
-                    <td>{{$mascota->nombre}}</td>
+                   <td>{{$mascota->nombre}}</td>
                     <td>{{$mascota->tipo}}</td>
                     <td>{{$mascota->raza}}</td>
                     <td>{{$mascota->color}}</td>
                     <td>{{$mascota->fechaNacimiento}}</td>
-                    <td>{{$mascota->caracter}}</td>
+                    <td>{{Str::limit($mascota->caracter, 4, '...')}}</td>
                     <td>{{$mascota->sexo}}</td>
                     <td>{{$mascota->peso}}</td>
                     <td>{{$mascota->tamaño}}</td>
-                    
+           
                     <td width="10px"><a href="{{route('mascotas.edit', $mascota)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
 
                     <td width="10px">
@@ -83,7 +84,7 @@
     </div>
 </div>
 @endsection
-<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
 @section('css')
 <style>
 .nav-item {

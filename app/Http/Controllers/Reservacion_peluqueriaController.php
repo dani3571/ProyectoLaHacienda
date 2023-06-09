@@ -46,7 +46,7 @@ class Reservacion_peluqueriaController extends Controller
             //->where('usuario_id', Auth::user()->id)
             ->orderBy('fecha', 'asc')
             ->orderBy('horaRecepcion', 'asc')
-            ->simplePaginate(10);
+            ->get();
 
         $mascotas = Mascotas::select(['id', 'nombre'])
             ->get();
@@ -59,8 +59,8 @@ class Reservacion_peluqueriaController extends Controller
 
     public function create()
     {
-        $reservas_peluqueria = ReservacionPeluqueria::select(['id', 'fecha'])
-            ->get();
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 1)
+        ->get();
         
         $mascotas = Mascotas::select(['id', 'nombre', 'usuario_id'])
             ->get();
@@ -114,10 +114,12 @@ class Reservacion_peluqueriaController extends Controller
     {
         //devolvemos a la vista admin.reservas_peluqueria.edit
         $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($id);
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 1)
+        ->get();
         $mascotas = Mascotas::select(['id', 'nombre'])
             ->where('usuario_id', $reservacion_peluqueria->usuario_id )
             ->get();
-        return view('admin.reservas_peluqueria.edit', compact('reservacion_peluqueria', 'mascotas'));
+        return view('admin.reservas_peluqueria.edit', compact('reservacion_peluqueria', 'mascotas', 'reservas_peluqueria'));
     }
 
     public function update(Reservacion_peluqueriaRequest $request, $id)

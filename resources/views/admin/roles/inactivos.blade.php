@@ -29,9 +29,7 @@
 @endif
 
 <div class="card">
-    <div class="card-header">
-        <a class="btn btn-primary" href="{{route('roles.index')}}">Roles registrados</a>
-    </div>
+  
     <div class="card-body">
         <table class="table table-striped">
             <thead>
@@ -69,7 +67,7 @@
     </div>
 </div>
 @endsection
-<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
 @section('css')
 <style>
 .nav-item {

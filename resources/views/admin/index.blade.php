@@ -218,8 +218,8 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <div class="card" >
-        <div class="card-body" >
+    <div class="card">
+        <div class="card-body">
             <div class="chart-container" style="width: 100%; height: 800px;">
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="width: 50%; height: 50%;">
@@ -253,8 +253,8 @@
         </div>
     </div>
 
- 
-      
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart');
@@ -375,7 +375,7 @@
                             ticks: {
                                 callback: function(value, index, values) {
                                     if (index === values.length - 1) {
-                                      
+
                                     }
 
                                     return value;
@@ -436,59 +436,69 @@
         }, true);
     </script>
 
-    <!--REGRESION LINEAL-->
-    <script>
-        // Obtener los datos del controlador
-        var labels = @json($labels);
-        var values = @json($values);
-        var prediction = @json($prediction);
-        
-        // Calcular la línea de regresión
-        var regressionLineData = [];
-        var regressionLineLabel = 'Línea de Regresión';
+<!--REGRESION LINEAL-->
+<script src={{asset('js/regression-js-master/dist/regression.js')}}></script>
+<script>
+    // Obtener los datos del controlador
+    var labels = @json($labels);
+    var values = @json($values);
+    var prediction = @json($prediction);
 
+    var transformedValues = values.map(value => Math.log(value));
+    // Crear una matriz de puntos de datos en el formato [x, y]
+    var datas = transformedValues.map((value, index) => [index + 1, value]);
+
+    // Calcular la línea de regresión utilizando la función regression
+    var result = regression.linear(datas);
+ 
+   // var result = regression.linear([[0, 1], [32, 67], [12, 79]]);
+
+    // Obtener los coeficientes de la línea de regresión
+    var slope = result.equation[0];
+    var intercept = result.equation[1];
     
-    // Calcular la línea de regresión
+
+    // Generar los puntos de la línea de regresión extendida hasta julio
     var regressionLineData = [];
-    var regressionLineLabel = 'Línea de Regresión';
+for (var i = 1; i <= values.length + 1; i++) {
+    var transformedX = Math.log(i);
+    var transformedY = slope * transformedX + intercept;
+    var y = Math.exp(transformedY);
+    regressionLineData.push({
+        x: i,
+        y: y
+    });
+}
 
-    var x1 = 0;
-    var y1 = values[0];
-    var x2 = values.length - 1;
-    var y2 = prediction;
-
-    regressionLineData.push({x: x1, y: y1});
-    regressionLineData.push({x: x2, y: y2});
-
-        // Configurar el gráfico
-        var ctx = document.getElementById('salesChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Ventas',
-                    data: values,
-                    backgroundColor: 'rgba(0, 123, 255, 0.6)'
-                },
-                {
-                    label: regressionLineLabel,
-                    data: regressionLineData,
-                    type: 'line',
-                    fill: false,
-                    borderColor: 'rgba(255, 0, 0, 1)'
-                }]
+    // Configurar el gráfico
+    var ctx = document.getElementById('salesChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Ventas',
+                data: values,
+                backgroundColor: 'rgba(0, 123, 255, 0.6)'
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            {
+                label: 'Línea de Regresión',
+                data: regressionLineData,
+                type: 'line',
+                fill: false,
+                borderColor: 'rgba(255, 0, 0, 1)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
-    </script>
+        }
+    });
+</script>
 
     <script>
         var ctx = document.getElementById('earningsChart').getContext('2d');
@@ -512,26 +522,26 @@
                     y: {
                         beginAtZero: true,
                         ticks: {
-                        callback: function(value) {
-                            return value + ' Bs';
+                            callback: function(value) {
+                                return value + ' Bs';
+                            }
                         }
-                    }
                     }
                 },
                 plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            var label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                var label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed.y + ' Bs';
+                                return label;
                             }
-                            label += context.parsed.y + ' Bs';
-                            return label;
                         }
                     }
                 }
-            }
             }
         });
     </script>
@@ -553,16 +563,16 @@
             transform: rotate(-90deg);
             white-space: nowrap;
         }
+
         .nav-item {
-        background: dark;
-      }
-      .menu-open{
-         background-color: #4d5059 !important;  
-      }
+            background: dark;
+        }
 
-
+        .menu-open {
+            background-color: #4d5059 !important;
+        }
     </style>
-    
+
 @stop
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

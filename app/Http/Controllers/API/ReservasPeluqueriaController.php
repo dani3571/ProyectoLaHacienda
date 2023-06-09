@@ -21,8 +21,22 @@ class ReservasPeluqueriaController extends Controller
             ->get();
         return response()->json($reservaciones);
     }
-    public function store(ReservacionPeluqueria $reservation)
+    public function create(Request $request)
     {
-
+        $reserva = ReservacionPeluqueria::create([
+            'name' => $request->input('name'),
+            'ci' => $request->input('ci'),
+            'telefono' => $request->input('telefono'),
+            'direccion' => $request->input('direccion'),
+            'email' => $request->input('email'),
+            'personaResponsable' => $request->input('personaResponsable'),
+            'telefonoResponsable' => $request->input('telefonoResponsable'),
+            'password' => Hash::make($request->input('password'),),
+        ]);
+        if ($reserva) {
+            return response()->json($reserva, 201);
+        } else {
+            return response()->json(['error' => 'No se pudo crear el usuario'], 500);
+        }
     }
 }

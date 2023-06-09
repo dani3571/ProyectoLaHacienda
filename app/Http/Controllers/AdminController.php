@@ -12,6 +12,8 @@ class AdminController extends Controller
     //
     public function index()
     {
+
+
         // Obtener los datos de ventas de la base de datos
         $data = DB::table('ventas')
             ->select(DB::raw('SUM(cantidad) as total_ventas'), DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'))
@@ -31,7 +33,7 @@ class AdminController extends Controller
 
         // Hacer la predicción para el próximo mes (junio)
         $prediction = $this->predictNextMonthSales($data);
-
+       
         // Obtener el nombre del próximo mes (junio)
         $nextMonthName = Carbon::now()->addMonth()->format('M Y');
 
@@ -41,7 +43,7 @@ class AdminController extends Controller
         // Agregar el nombre del próximo mes al array de etiquetas
         $labels[] = $nextMonthName;
 
-        
+
 
         // Obtener los datos de ganancias de la base de datos
         $data2 = DB::table('detalle_ventas')
@@ -92,16 +94,18 @@ class AdminController extends Controller
         $meanY = $sumY / $n; // Media de los valores de y
 
         // Calcular la pendiente (b) de la línea de regresión
-        $slope = ($sumXY - $n * $meanX * $meanY) / ($sumX2 - $n * $meanX * $meanX);
-
+        $slope = ($sumXY - $n * $meanX * $meanY) / ($sumX2 - $n * ($meanX * $meanX));
 
         // Calcular la intersección (a) con el eje y
         $intercept = $meanY - $slope * $meanX;
 
-        // Calcular la predicción para el próximo mes
-        $nextMonth = Carbon::now()->addMonth()->format('Y-m');
-        $nextMonthSales = $slope * Carbon::parse($nextMonth)->month + $intercept;
-        // Calcular los valores de la línea de regresión
+
+        // Formatear y normalizar los valores de las ventas
+        $formattedValues = [];
+        foreach ($data as $item) {
+            $formattedValues[] = number_format($item->total_ventas, 2, '.', '') / 1000; // Aplicar formateo y normalización
+        }
+
         $regressionLineValues = [];
         foreach ($data as $item) {
             $x = Carbon::parse($item->month)->month; // Obtener el mes como valor de x
@@ -109,12 +113,21 @@ class AdminController extends Controller
             $regressionLineValues[] = $slope * $x + $intercept;
         }
 
-        // Agregar el valor de la predicción para el próximo mes a la línea de regresión
+        // Calcular la predicción para el próximo mes
         $nextMonth = Carbon::now()->addMonth()->format('Y-m');
-        $regressionLineValues[] = $slope * Carbon::parse($nextMonth)->month + $intercept;
-        return $nextMonthSales;
+        $nextMonthSales = $slope * Carbon::parse($nextMonth)->month + $intercept;
 
+         
+         // Calcular los valores de la línea de regresión extendida hasta julio
+         $extendedRegressionLineValues = [];
+         for ($i = 1; $i <= $n + 7; $i++) {
+             $extendedRegressionLineValues[] = $slope * $i + $intercept;
+         }
+
+         return $nextMonthSales;
     }
+
+
     private function predictNextMonthEarnings($data2)
     {
         // Preparar los datos para la regresión lineal
