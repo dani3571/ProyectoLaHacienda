@@ -316,6 +316,7 @@ return [
         [
             'text'   => 'Panel de control',
             'route'  => 'admin.index',
+            'can' => 'admin.index',
             'icon'   => 'fas fa-pager',
         ],
         ['header' => 'PANEL'],
@@ -345,27 +346,29 @@ return [
             'text' => 'Roles',
             'route'  => 'roles.index',
             'icon' => 'fa fa-lock',
-            'can'=>'roles.index',
             'submenu' => [
                 [
                     'text' => 'Listado de roles',
                     'icon' => 'fas fa-list-alt',
+                    'can'=>'roles.index',
                     'route'  => 'roles.index',
                 ],
                 [
                     'text' => 'Listado de roles inactivos',
                     'icon' => 'fas fa-stream',
+                    'can'=>'roles.inactivos',
                     'route'  => 'roles.inactivos',
                 ],
-           
                 [
                     'text' => 'Crear roles',
                     'icon' => 'fas fa-solid fa-plus',
+                    'can'=>'roles.create',
                     'route'  => 'roles.create',
                 ],
                 [
                     'text' => 'Reporte de roles',
                     'icon' => 'fas fa-file-pdf',
+                    'can' => 'pdfss',
                     'route'  => 'getPDFR',
                 ],
             ]
@@ -619,21 +622,25 @@ return [
                 [
                     'text' => 'Registrar Nueva reserva',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'reservas_veterinaria.create',
                     'url'  => 'admin/reservas_veterinaria/create',
                 ],
                 [
                     'text' => 'Reservas Activas',
                     'icon' => 'fas fa-fw fa-list',
+                    'can' => 'reservas_veterinaria.index',
                     'url'  => 'admin/reservas_veterinaria',
                 ],
                 [
                     'text' => 'Reservas completadas',
                     'icon' => 'fas fa-fw fa-list',
+                    'can' => 'reservas_veterinaria.completadas',
                     'url'  => 'admin/reservas_veterinaria/completadas',
                 ],
                 [
                     'text' => 'Reservas Canceladas',
                     'icon' => 'fas fa-fw fa-list',
+                    'can' => 'reservas_veterinaria.canceladas',
                     'url'  => 'admin/reservas_veterinaria/canceladas',
                 ],
             ]

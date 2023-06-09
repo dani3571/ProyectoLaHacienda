@@ -30,7 +30,7 @@ class RoleSeeder extends Seeder
         Permission::create([
             'name' => 'admin.index',
             'description' => 'Ver el dashboard'
-        ])->syncRoles([$admin, $veterinario, $adiestrador, $recepcionista, $ayudanteCirugias, $cliente]);
+        ])->syncRoles([$admin, $veterinario, $adiestrador, $recepcionista, $ayudanteCirugias]);
 
         //distintos permisos
         //permisos de rol
@@ -57,12 +57,12 @@ class RoleSeeder extends Seeder
 
         Permission::create([
             'name' => 'roles.cambiar-estado',
-            'description' => 'Cambiar de estado al rol'
+            'description' => 'Cambiar de estado roles'
         ])->assignRole($admin);
 
         Permission::create([
             'name' => 'roles.restablecer-estado',
-            'description' => 'Restablecer rol inactivo'
+            'description' => 'Restablecer roles inactivos'
         ])->assignRole($admin);
 
         Permission::create([
@@ -241,7 +241,6 @@ class RoleSeeder extends Seeder
             'description' => 'Ver Listado de categorias inactivas'
         ])->assignRole($admin);
 
-
         //COMPRAS
         Permission::create([
             'name' => 'compras',
@@ -262,13 +261,7 @@ class RoleSeeder extends Seeder
             'description' => 'Editar compras'
         ])->assignRole($admin);
 
-
         //PROVEEDORES
-        Permission::create([
-            'name' => 'proveedores',
-            'description' => 'Ver proveedores'
-        ])->assignRole($admin);
-
         Permission::create([
             'name' => 'proveedores.edit',
             'description' => 'Editar proveedores'
@@ -303,5 +296,35 @@ class RoleSeeder extends Seeder
             'name' => 'proveedores.pdf',
             'description' => 'Ver reporte de proveedores'
         ])->assignRole($admin);
+
+
+        //VETERINARIA
+        Permission::create([
+            'name' => 'reservas_veterinaria.index',
+            'description' => 'Ver listado de reservas activas de veterinaria'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+    
+        Permission::create([
+            'name' => 'reservas_veterinaria.create',
+            'description' => 'Crear reservas de veterinaria'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+
+        Permission::create([
+            'name' => 'reservas_veterinaria.edit',
+            'description' => 'Editar reservas de veterinaria'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias,$recepcionista);
+
+        Permission::create([
+            'name' => 'reservas_veterinaria.completadas',
+            'description' => 'Ver listado de reservas de veterinaria completadas'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+
+        Permission::create([
+            'name' => 'reservas_veterinaria.canceladas',
+            'description' => 'Ver listado de reservas de veterinaria canceladas'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+
+
+
     }
 }

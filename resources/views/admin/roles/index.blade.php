@@ -46,6 +46,7 @@
                     <th>ID</th>
                     <th>Rol</th>
                     <th>Acciones</th>
+           
                 </tr>
             </thead>
 
@@ -54,19 +55,21 @@
                 <tr>
                     <td>{{$role->id}}</td>
                     <td>{{$role->name}}</td>
-
+                    
+                    @can('roles.edit')
                     <td width="10px"><a href="{{route('roles.edit', $role)}}" class="btn btn-primary btn-sm mb-2">Editar</a></td>
+                    @endcan
 
 
+                    @can('roles.cambiar-estado')
                     <td width="10px">
                         <form action="{{ route('roles.cambiar-estado', $role->id) }}" method="POST">
                             @csrf
                             @method('PUT')      
                             <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
-                        </form>
-
-                    
+                        </form> 
                     </td>
+                    @endcan
                 </tr>
                 @endforeach
 
