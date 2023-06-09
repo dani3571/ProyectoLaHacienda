@@ -43,5 +43,7 @@ class DatabaseSeeder extends Seeder
       //  $this->call(ReservacionHotelSeeder::class);
         $this->call(VentasSeeder::class);
 
+        $this->call(HabitacionesSeeder::class);
+
     }
 }
