@@ -64,24 +64,21 @@
        
     </div>
     <table class="tabla">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Cliente</th>
-                <th scope="col">Mascota</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Hora Recepcion</th>
-                <th scope="col">Hora Entrega</th>
-                <th scope="col">corte</th>
-                <th scope="col">Baño simple</th>
-                <th scope="col">tranquilizante</th>
-                <th scope="col">observaciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($reservas_peluqueria as $reserva )
+    <thead>
                 <tr>
-                    <td>{{$reserva->id}}</td>
+                    <th scope="col">Fecha de atencion</th>
+                    <th scope="col">Hora de atencion</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Mascota</th>
+                    <th scope="col">Costo de atencion</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($reservas_peluqueria as $reserva )
+                <tr>
+                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
+                    <td>{{$reserva->horaRecepcion}}</td>
                     <td>
                         @foreach ($users as $user )
                             @if($user->id == $reserva->usuario_id) 
@@ -96,16 +93,12 @@
                             @endif
                         @endforeach
                     </td>
-                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
-                    <td>{{$reserva->horaRecepcion}}</td>
-                    <td>{{$reserva->horaEntrega}}</td>
-                    <td>@if($reserva->corte == '1') Si @else No @endif</td>
-                    <td>@if($reserva->BanoSimple == '1') Si @else No @endif</td>
-                    <td>@if($reserva->tranquilizante == '1') Si @else No @endif</td>
-                    <td>{{$reserva->Observaciones}}</td>
+                    <td>{{$reserva->costo}}</td>
+                    
                 </tr>
-            @endforeach
-        </tbody>
+                @endforeach
+            </tbody>
+        
     </table>
     <div class="footer">
         <hr style="width: 34%; margin-top: 150px;">
