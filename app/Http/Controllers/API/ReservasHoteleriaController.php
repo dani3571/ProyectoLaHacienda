@@ -24,7 +24,6 @@ class ReservasHoteleriaController extends Controller
     public function create(Request $request)
     {
         $reserva = ReservacionHotel::create([
-            'id' => $request->input('id'),
             'fechaIngreso' => $request->input('fechaIngreso'),
             'fechaSalida' => $request->input('fechaSalida'),
             'tratamientos' => $request->input('tratamientos'),
@@ -40,9 +39,10 @@ class ReservasHoteleriaController extends Controller
             'habitacion_id' => $request->input('habitacion_id'),
         ]);
         if ($reserva) {
-            return response()->json($reserva, 201);
+            $ultimareserva = ReservacionHotel::latest()->first();
+            return response()->json($ultimareserva, 201);
         } else {
-            return response()->json(['error' => 'No se pudo crear el usuario'], 500);
+            return response()->json(['error' => 'No se pudo crear la reserva'], 500);
         }
     }
 }
