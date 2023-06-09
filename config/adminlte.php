@@ -349,6 +349,7 @@ return [
             'text' => 'Roles',
             'route'  => 'roles.index',
             'icon' => 'fa fa-lock',
+            'can' => 'roles.index',
             'submenu' => [
                 [
                     'text' => 'Listado de roles',
@@ -440,8 +441,8 @@ return [
         ],
         
         [
-            'text'    => 'Productos',
-
+            'text'=>'Productos',
+            'can' => 'productos.index',
             'icon'    => 'fas fa-fw fa-shopping-cart',
             'submenu' => [
                 [
@@ -495,6 +496,7 @@ return [
         ],
         [
             'text'    => 'Compras',
+            'can' => 'compras.index',
             'icon'    => 'fas fa-fw fa-shopping-cart',
             'submenu' => [
                 [
