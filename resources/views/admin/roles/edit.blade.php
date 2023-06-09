@@ -81,7 +81,7 @@
         });
     </script>
 @endsection
-<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
 @section('css')
 <style>
 .nav-item {

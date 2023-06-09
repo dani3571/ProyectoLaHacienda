@@ -30,9 +30,7 @@
 
 
 <div class="card">
-    <div class="card-header">
-        <a class="btn btn-primary" href="{{route('mascotas.index')}}">Mascotas registradas</a>
-    </div>
+  
     <div class="card-body">
         <table class="table table-striped">
             <thead>
@@ -45,6 +43,9 @@
                     <th>fechaNacimiento</th>
                     <th>Caracter</th>
                     <th>Sexo</th>
+                    <th>Peso</th>
+                    <th>Tamaño</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
 
@@ -60,7 +61,8 @@
                     <td>{{$mascota->fechaNacimiento}}</td>
                     <td>{{$mascota->caracter}}</td>
                     <td>{{$mascota->sexo}}</td>
-                    
+                    <td>{{$mascota->peso}}</td>
+                    <td>{{$mascota->tamaño}}</td>
   
                     <td width="10px">
                         <form action="{{ route('mascotas.restablecer-estado', $mascota->id) }}" method="POST">
@@ -89,7 +91,7 @@
     </div>
 </div>
 @endsection
-<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
 @section('css')
 <style>
 .nav-item {
