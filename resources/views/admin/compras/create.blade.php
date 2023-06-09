@@ -126,6 +126,15 @@
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/ventas.css') }}">
+    <style>
+        .nav-item {
+            background: dark;
+        }
+
+        .menu-open {
+            background-color: #4d5059 !important;
+        }
+    </style>
 @endsection
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -136,7 +145,6 @@
         function val() {
             var producto_id = document.getElementById("IdProducto").value;
             var producto_nombre = document.getElementById("NombreProducto");
-            console.log(producto_id);
             @foreach ($productos as $item)
                 if({{ $item->id }} == producto_id) {
                     producto_nombre.value = "{{ $item->nombre }}";

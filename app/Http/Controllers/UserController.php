@@ -21,8 +21,10 @@ class UserController extends Controller
   public function __construct()
   {
     $this->middleware('can:users.index')->only('index');
-    $this->middleware('can:users.edit')->only('edit');
-    $this->middleware('can:users.getPDFusuarios')->only('getPDFusuarios');
+    $this->middleware('can:users.edit')->only('edit, update');
+    $this->middleware('can:users.cambiar-estado')->only('cambiarEstado');
+    $this->middleware('can:users.restablecer-estado')->only('restablecerEstado');
+    $this->middleware('can:pdfs')->only('pdfs');
   }
   public function index(Request $request)
   {

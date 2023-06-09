@@ -67,7 +67,7 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Fecha</th>
+                <th scope="col">Fecha de compra</th>
                 <th scope="col">Proveedor</th>
                 <th scope="col">Cantidad Total</th>
                 <th scope="col">Precio Total</th>

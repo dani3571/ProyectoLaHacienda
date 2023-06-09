@@ -107,6 +107,8 @@ btnAgregarProducto.addEventListener("click", function (e) {
     document.getElementById("tbody").appendChild(fila);
     // Limpiar los valores del formulario
     document.getElementById("Cantidad").value = "";
+    document.getElementById("Preciocompra").value = "";
+    document.getElementById("IdProducto").selectedIndex = 0;
     contador++;
     actualizarTotal();
 });

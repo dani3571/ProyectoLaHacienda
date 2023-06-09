@@ -36,7 +36,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Rol</th>
+                    @can('roles.restablecer-estado')
                     <th>Acciones</th>
+                    @endcan
                 </tr>
             </thead>
 
@@ -46,7 +48,7 @@
                     <td>{{$role->id}}</td>
                     <td>{{$role->name}}</td>
 
-                 
+                    @can('roles.restablecer-estado')
                     <td width="10px">
                         <form action="{{ route('roles.restablecer-estado', $role->id) }}" method="POST">
                             @csrf
@@ -54,6 +56,7 @@
                             <input type="submit" value="Restablecer" class="btn btn-primary btn-sm mb-2">
                         </form>
                     </td>
+                    @endcan
 
                 
                 </tr>

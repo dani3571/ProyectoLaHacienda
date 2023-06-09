@@ -46,8 +46,8 @@ class Reservacion_peluqueriaController extends Controller
             //->where('usuario_id', Auth::user()->id)
             ->orderBy('fecha', 'asc')
             ->orderBy('horaRecepcion', 'asc')
-            ->get();
-
+            ->simplepaginate(10);
+        
         $mascotas = Mascotas::select(['id', 'nombre'])
             ->get();
         
@@ -140,7 +140,6 @@ class Reservacion_peluqueriaController extends Controller
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
             ])->info($logMessage);
-            
             $reservacion_peluqueria->fill($request->all());
             //guardamos la informacion actualizada
             $reservacion_peluqueria->save();
@@ -155,6 +154,9 @@ class Reservacion_peluqueriaController extends Controller
         $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($request->Reserva_id);
         //modificamos el estado a 0
         $reservacion_peluqueria->estado = 0;
+        if($request->Observaciones != null){
+            $reservacion_peluqueria->motivoCancelacion = $request->motivo;
+        }
         //Guardamos el registro a la BD
         $reservacion_peluqueria->save();
 
@@ -166,27 +168,77 @@ class Reservacion_peluqueriaController extends Controller
             'path' => storage_path('logs/admin.log'),
         ])->info($logMessage);
 
-        return redirect()->route('reservas_peluqueria.index')->with('success', 'Su reserva fue cancelada');
+        return redirect()->route('reservas_peluqueria.index')->with('success', 'La reserva fue cancelada correctamente');
     }
 
     public function canceladas()
     {
         //utilizamos user_id de la relacion con mascotas
-        $reservas_peluqueria = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
-            ->where('estado', 0)
-            ->orderBy('id', 'asc')
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 0)
+            ->orderBy('fecha', 'asc')
+            ->orderBy('horaRecepcion', 'asc')
             ->simplePaginate(10);
-        return View('admin.reservas_peluqueria.canceladas', compact('reservas_peluqueria'));
+
+        $mascotas = Mascotas::select(['id', 'nombre'])
+            ->get();
+    
+        $users = User::select(['id', 'name'])
+            ->get();
+        return View('admin.reservas_peluqueria.canceladas', compact('reservas_peluqueria', 'mascotas', 'users'));
     }
 
     public function completadas()
     {
         //utilizamos user_id de la relacion con mascotas
-        $reservas_peluqueria = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
-            ->where('estado', 2)
-            ->orderBy('id', 'asc')
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 2)
+            ->orderBy('fecha', 'asc')
+            ->orderBy('horaRecepcion', 'asc')
             ->simplePaginate(10);
-        return View('admin.reservas_peluqueria.completadas', compact('reservas_peluqueria'));
+
+            $mascotas = Mascotas::select(['id', 'nombre'])
+            ->get();
+        
+            $users = User::select(['id', 'name'])
+            ->get();
+
+        return View('admin.reservas_peluqueria.completadas', compact('reservas_peluqueria', 'mascotas', 'users'));
+    }
+
+    public function registrarCosto(Request $request)
+    {
+        $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($request->Reserva_id);
+        $cliente = User::findOrFail($reservacion_peluqueria->usuario_id);
+        $user = Auth::user();
+        if($request->confirmacion == 1){
+            //resgitramos el costo
+            $reservacion_peluqueria->costo = $request->costo;
+            //Guardamos
+            $reservacion_peluqueria->save();
+
+            $logMessage = 'El usuario ['.$user->name.'] ha resgistrado el costo de una reservacion de peluqueria del cliente [' .$cliente->name. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+
+            return redirect()->route('reservas_peluqueria.completadas')->with('success', 'Se registro el costo correctamente');
+        }else{
+            //modificamos el estado a 0
+            $reservacion_peluqueria->estado = 0;
+            if($request->Observaciones != null){
+                $reservacion_peluqueria->motivoCancelacion = $request->motivo;
+            }
+            //Guardamos el registro en la BD
+            $reservacion_peluqueria->save();
+            
+            $logMessage = 'El usuario ['.$user->name.'] ha cancelado una reservacion de peluqueria del cliente [' .$cliente->name. ']';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+
+            return redirect()->route('reservas_peluqueria.completadas')->with('success', 'La reserva fue cancelada correctamente');
+        }
     }
 
     public function getPDFpeluqueria(Request $request){
@@ -196,9 +248,10 @@ class Reservacion_peluqueriaController extends Controller
         $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
         // Obtener la hora actual
         $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
-        $reservas_peluqueria = ReservacionPeluqueria::where('usuario_id', Auth::user()->id)
-            ->where('estado', 2)
-            ->orderBy('id', 'asc')
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 2)
+            ->where('costo', '>', 0)
+            ->orderBy('fecha', 'asc')
+            ->orderBy('horaRecepcion', 'asc')
             ->get();
         $mascotas = Mascotas::select(['id', 'nombre'])
         ->get();

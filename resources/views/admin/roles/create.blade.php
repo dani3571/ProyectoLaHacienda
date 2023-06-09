@@ -38,6 +38,8 @@
                     <option value="categorias">Permisos de categorias</option>
                     <option value="productos">Permisos de productos</option>
                     <option value="compras">Permisos de compras</option>
+                    <option value="veterinaria">Permisos de veterinaria</option>
+                    
                     <option value="dashboard">General</option>
                 </select>
             </div>

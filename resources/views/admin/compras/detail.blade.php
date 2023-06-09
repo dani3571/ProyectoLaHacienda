@@ -23,7 +23,7 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Fecha</th>
+                    <th scope="col">Fecha de compra</th>
                     <th scope="col">Proveedor</th>
                     <th scope="col">Cantidad Total</th>
                     <th scope="col">Precio Total</th>
@@ -83,4 +83,15 @@
         </table>
     </div>
 </div>
+@endsection
+@section('css')
+    <style>
+        .nav-item {
+            background: dark;
+        }
+
+        .menu-open {
+            background-color: #4d5059 !important;
+        }
+    </style>
 @endsection
