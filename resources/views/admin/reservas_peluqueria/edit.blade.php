@@ -90,7 +90,7 @@
             <div class="form-group">
             <label>Elija el servicio que se le dara a la mascota</label><br>
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="">Corte</label>
+                    <label class="form-check-label" for="">Corte de pelo</label>
                     <input class="form-check-input ml-2" type="radio" name='servicio' value="0" 
                     @if($reservacion_peluqueria->corte == '1' && $reservacion_peluqueria->BanoSimple == '0') checked @endif>
                 </div>
@@ -150,8 +150,8 @@
     <script src="{{ asset('js/control_eleccion_servicio_peluqueria.js') }}"></script>
     <script>
         if(document.getElementById("fecha").value != ""){
+            var fechaReservacionOriginal = document.getElementById("fecha").value;
             controlHorasDisponibles(document.getElementById("fecha").value);
-            
         }
         
         function handler(e){
@@ -163,7 +163,7 @@
             
             @foreach ($reservas_peluqueria as $reserva)
                 var fechaReserva = '{{ \Carbon\Carbon::parse($reserva->fecha)->format('Y-m-d') }}';
-                if(fechaReserva == fecha && '{{$reserva->horaRecepcion}}' != '{{$reservacion_peluqueria->horaRecepcion}}'){
+                if(fechaReserva == fecha && fechaReservacionOriginal != fecha){
                     horas.splice(horas.indexOf('{{ $reserva->horaRecepcion }}'), 1)
                 }
             @endforeach
