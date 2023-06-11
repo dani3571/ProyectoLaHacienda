@@ -139,7 +139,7 @@ class VentasController extends Controller
   
         return $pdf->stream('Reporte_Ventas.pdf');
       }
-      public function getPDFreciboventas(Request $request, $id) {
+      public function getPDFreciboventas($id) {
         $user = Auth::user();
         $name = $user->name;
         $nombreSistema = "SISTEMA GENESIS";
@@ -155,12 +155,7 @@ class VentasController extends Controller
             ->select('detalle_ventas.*','ventas.*','productos.*')
             ->where('detalle_ventas.id_venta',$id)
             ->get();
-        $fechaInicio = $request->input('fechaInicio');
-        $fechaFin = $request->input('fechaFin');
         $view = view('admin.ventas.recibo', compact('name', 'ventas', 'venta_individual', 'nombreSistema', 'fecha', 'hora'));
-        if ($fechaInicio && $fechaFin) {
-            $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
-        }
         $pdf = PDF::loadHTML($view);
   
         return $pdf->stream('Recibo_venta.pdf');
