@@ -30,6 +30,7 @@ btnAgregarProducto.addEventListener("click", function (e) {
     const inputSubtotal = document.createElement("input");
     // Asignar los valores a las celdas (mismo código que en el ejemplo anterior)
     celdaIdProducto.textContent = idProducto;
+    celdaIdProducto.setAttribute("style", "display: none;");
     celdaProducto.textContent = producto;
     celdaCantidad.textContent = cantidad;
     celdaCantidad.setAttribute("class", "cantidad");

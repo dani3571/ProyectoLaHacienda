@@ -36,7 +36,7 @@
                             <input readonly type="Text" class="form-control" id="Fecha" value="{{ now()-> format('Y-m-d') }}" name="Fecha">
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col" style = "display: none;">
                         <div class="mb-3">
                             <label for="IdProducto" class="form-label text-secondary">Id Producto</label>
                             <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" disabled id="IdProducto">
@@ -45,6 +45,11 @@
                               @endforeach
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <label class="form-label">Datos del cliente</label>
                     </div>
                 </div>
                 <div class="row">
@@ -59,6 +64,12 @@
                             <label for="Nit" class="form-label text-secondary">NIT</label>
                             <input type="Number" class="form-control" id="Nit" required name="Nit">
                         </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col text-center">
+                        <label class="form-label">Datos del producto</label>
                     </div>
                 </div>
                 <div class="row">
@@ -83,7 +94,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="Producto" class="form-select text-secondary">Seleccione producto</label>
-                            <select class="form-select form-select-sm w-100 form-control" disabled style="padding:6px;" id="Producto">
+                            <select class="form-select form-select-sm w-100 form-control" style="padding:6px;" id="Producto">
                               @foreach ($productos as $item)
                               <option value="{{$item->nombre}}">{{$item->nombre}}</option>
                               @endforeach
@@ -119,7 +130,7 @@
                     <table class="table table-sm table-bordered table-striped" id="tabla" >
                         <thead class="table-primary">
                             <tr class="text-center">
-                                <th scope="col">Id</th>
+                                <th scope="col" style="display: none;">Id</th>
                                 <th scope="col">Producto</th>
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Precio Individual</th>

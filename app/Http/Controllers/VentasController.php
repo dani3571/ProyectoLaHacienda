@@ -26,7 +26,7 @@ class VentasController extends Controller
     {
         $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
             ->select('detalle_ventas.*','ventas.*')
-            ->get();
+            ->simplePaginate(7);
         return view('admin.ventas.index', compact('ventas'));
     }
     public function show($id)
@@ -132,11 +132,37 @@ class VentasController extends Controller
         $view = view('admin.ventas.reporte', compact('name', 'ventas', 'nombreSistema', 'fecha', 'hora'));
          // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
         if ($fechaInicio && $fechaFin) {
-        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+            $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
         }
         // Generar el PDF con la vista del reporte
         $pdf = PDF::loadHTML($view);
   
         return $pdf->stream('Reporte_Ventas.pdf');
+      }
+      public function getPDFreciboventas(Request $request, $id) {
+        $user = Auth::user();
+        $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+        $venta_individual = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')
+            ->select('detalle_ventas.*','ventas.*')
+            ->where('ventas.id',$id)
+            ->get();
+        $ventas = DetalleVentas::join('ventas','detalle_ventas.id_venta','=','ventas.id')
+            ->join('productos','detalle_ventas.id_producto','=','productos.id')
+            ->select('detalle_ventas.*','ventas.*','productos.*')
+            ->where('detalle_ventas.id_venta',$id)
+            ->get();
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+        $view = view('admin.ventas.recibo', compact('name', 'ventas', 'venta_individual', 'nombreSistema', 'fecha', 'hora'));
+        if ($fechaInicio && $fechaFin) {
+            $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        $pdf = PDF::loadHTML($view);
+  
+        return $pdf->stream('Recibo_venta.pdf');
       }
 }

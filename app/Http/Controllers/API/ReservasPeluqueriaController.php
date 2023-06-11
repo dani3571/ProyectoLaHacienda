@@ -24,17 +24,22 @@ class ReservasPeluqueriaController extends Controller
     public function create(Request $request)
     {
         $reserva = ReservacionPeluqueria::create([
-            'name' => $request->input('name'),
-            'ci' => $request->input('ci'),
-            'telefono' => $request->input('telefono'),
-            'direccion' => $request->input('direccion'),
-            'email' => $request->input('email'),
-            'personaResponsable' => $request->input('personaResponsable'),
-            'telefonoResponsable' => $request->input('telefonoResponsable'),
-            'password' => Hash::make($request->input('password'),),
+            'fecha' => $request->input('fecha'),
+            'horaRecepcion' => $request->input('horaRecepcion'),
+            'horaEntrega' => $request->input('horaEntrega'),
+            'BanoSimple' => $request->input('BanoSimple'),
+            'corte' => $request->input('corte'),
+            'tranquilizante' => $request->input('tranquilizante'),
+            'Observaciones' => $request->input('Observaciones'),
+            'estado' => $request->input('estado'),
+            'usuario_id' => $request->input('usuario_id'),
+            'mascota_id' => $request->input('mascota_id'),
+            'created_at' => $request->input('created_at'),
+            'updated_at' => $request->input('updated_at'),
         ]);
         if ($reserva) {
-            return response()->json($reserva, 201);
+            $ultimareserva = ReservacionPeluqueria::latest()->first();
+            return response()->json($ultimareserva, 201);
         } else {
             return response()->json(['error' => 'No se pudo crear el usuario'], 500);
         }

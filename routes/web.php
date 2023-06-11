@@ -167,6 +167,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     Route::get('/ventas/buscarCliente/{nit}', [VentasController::class, 'buscarCliente'])->name('ventas.buscarCliente');
     Route::get('/ventas/show/{id}', [VentasController::class, 'show'])->name('ventas.show');
     Route::get('/ventas/getPDFventas', 'VentasController@getPDFventas')->name('getPDFVentas');
+    Route::get('/ventas/getPDFreciboventas/{id}', 'VentasController@getPDFreciboventas')->name('getPDFreciboventas');
     Route::resource('ventas','VentasController')
     ->except('show')
     ->names('ventas');
