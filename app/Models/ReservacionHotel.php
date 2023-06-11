@@ -11,7 +11,7 @@ class ReservacionHotel extends Model
     use HasFactory;
 
     protected $guarded = ['id','created_at','updated_at'];
-   
+    public $timestamps = true;
     //relacion inversa de uno a muchos (ReservacionHotel - UsuarioReservacionHotel)
     //relacion de 1 a muchos
     /*

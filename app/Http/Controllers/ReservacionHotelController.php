@@ -30,9 +30,12 @@ class ReservacionHotelController extends Controller
     }
     public function index()
     {
+        $users = User::all();
+        $mascotas = Mascotas::all();
+        $habitaciones = Habitacion::all();
         $reservacionHotel = ReservacionHotel::simplePaginate(10);
 
-        return view('admin.reservacionHotel.index', compact('reservacionHotel'));
+        return view('admin.reservacionHotel.index', compact('reservacionHotel','users','mascotas','habitaciones'));
     }
 
     /**
@@ -42,16 +45,22 @@ class ReservacionHotelController extends Controller
      */
     public function create()
     {
-        $reservacionHotel = Permission::all();
-        $users = User::all();
-        /*$users = TuModelo::select('id', 'name')
-        ->get();*/
-        $mascotas = Mascotas::all();
-        $habitacions = Habitacion::all();
+        $reservacionHotel = ReservacionHotel::select(['id', 'estado','mascota_id'])
+            ->get();
+        
+        $mascotas = Mascotas::select(['id', 'nombre', 'peso', 'tamaño', 'tipo', 'usuario_id'])
+            ->get();
+        
+        $users = User::select(['id', 'name','direccion'])
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $habitacions = Habitacion::where('estado', '=', '1')->get();
+
         return   view('admin.reservacionHotel.create', compact('reservacionHotel'))
         -> with ('users', $users)
         -> with ('mascotas', $mascotas)
-        -> with ('habitaciones', $habitacions);
+        -> with ('habitacions', $habitacions);
     }
 
     public function store(ReservacionHotelRequest $request)
@@ -217,42 +226,54 @@ class ReservacionHotelController extends Controller
 
 
 
-    public function ejecutarProcedimiento(Request $request)
+    public function SPInsertarReservacionHotel(Request $request)
     {
         // Obtener los datos del formulario
         $fechaIngreso = $request->input('fechaIngreso');
         $fechaSalida = $request->input('fechaSalida');
         // Obtener los demás datos del formulario
-        $tratamientos = $request->input('tratamientos');
-        $tranporte = $request->input('tranporte');
-        $comida = $request->input('comida');
-        $banioYCorte = $request->input('banioYCorte');
-        $tratamiento = $request->input('tratamiento');
-        $extras = $request->input('extras');
-        $total = $request->input('total');
+        $horaRecepcion = $request->input('horaRecepcion');
+        $tratamiento_veterinaria = $request->input('tratamiento_veterinaria');
+        $tratamiento_corte_banio = $request->input('tratamiento_corte_banio');
+        $observaciones = $request->input('observaciones');
+        $zona_direccion = $request->input('zona_direccion');
+        $direccion = $request->input('direccion');
+        $costo_transporte = $request->input('costo_transporte');
+        $costo_comida = $request->input('costo_comida');
+        $costo_veterinaria = $request->input('costo_veterinaria');
+        $costo_corte_banio = $request->input('costo_corte_banio');
+        $costo_extras = $request->input('costo_extras');
+        $costo_total = $request->input('costo_total');
+        $horaCheckin = $request->input('horaCheckin');
+        $horaCheckout = $request->input('horaCheckout');
         $estado = $request->input('estado');
         $usuario_id = $request->input('usuario_id');
         $mascota_id = $request->input('mascota_id');
         $habitacion_id = $request->input('habitacion_id');
-        
-        // Ejecutar el procedimiento almacenado
-        // Ejecutar el procedimiento almacenado
-DB::statement('CALL InsertarReservacionHotelYActualizarHabitacion(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-    $fechaIngreso,
-    $fechaSalida,
-    // Pasar los demás datos del formulario como argumentos
-    $tratamientos,
-    $tranporte,
-    $comida,
-    $banioYCorte,
-    $tratamiento,
-    $extras,
-    $total,
-    $estado,
-    $usuario_id,
-    $mascota_id,
-    $habitacion_id
-]);
+
+    // Ejecutar el procedimiento almacenado
+    DB::statement('CALL SPInsertarReservacionHotel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+        $fechaIngreso,
+        $fechaSalida,
+        $horaRecepcion,
+        $tratamiento_veterinaria,
+        $tratamiento_corte_banio,
+        $observaciones,
+        $zona_direccion,
+        $direccion,
+        $costo_transporte,
+        $costo_comida,
+        $costo_veterinaria,
+        $costo_corte_banio,
+        $costo_extras,
+        $costo_total,
+        $horaCheckin,
+        $horaCheckout,
+        $estado,
+        $usuario_id,
+        $mascota_id,
+        $habitacion_id
+    ]);
 
 
         // Redireccionar o mostrar un mensaje de éxito
@@ -298,8 +319,6 @@ DB::statement('CALL ActualizarReservacionHotel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
     $mascota_id,
     $habitacion_id
 ]);
-
-
         // Redireccionar o mostrar un mensaje de éxito
         return redirect()->route('reservacionHotel.index')->with('success', 'Reserva modificada con éxito');
     }

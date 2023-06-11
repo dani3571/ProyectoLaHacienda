@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('habitacions', function (Blueprint $table) {
             $table->id();
             $table->integer('nro_habitacion');
+            $table->string('tipo_ocupante',20);
             $table->decimal('costo_habitacion');
-            $table->integer('capacidad');
-
+            $table->string('tamano_habitacion',20);
+            $table->char('estado', 1)->default(1);
 
             $table->timestamps();
 

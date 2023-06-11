@@ -42,17 +42,18 @@
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                         <!--BUSCADOR CON JS-->
-                        <input type="text" name="buscador" id="buscador" placeholder="Buscar...">
-                        <input type="date" name="buscadorDate" id="buscadorDate">
-                        <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
-                            <span id="card_title">
-                                {{ __('Reservacion Hotel') }}
+                        <span id="card_title">
+                                {{ __('Buscar reservación por usuario o cliente:') }}
                             </span>
-
-                             <div class="float-right">
-                             <a class="btn btn-primary" href="{{route('reservacionHotel.create')}}">Agregar reservación</a>
-                                </a>
-                              </div>
+                        <input type="text" name="buscador" id="buscador" placeholder="Buscar por nombre de cliente...">
+                        <span id="card_title">
+                                {{ __('Fecha Ingreso:') }}
+                            </span>
+                        <input type="date" name="buscadorDate" id="buscadorDate">
+                        <span id="card_title">
+                                {{ __('Fecha Salida:') }}
+                            </span>
+                        <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -66,37 +67,80 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
-										<th>Fechaingreso</th>
-										<th>Fechasalida</th>
-										<th>Tratamientos</th>
-										<th>Tranporte</th>
-										<th>Comida</th>
-										<th>Banioycorte</th>
-										<th>Tratamiento</th>
-										<th>Extras</th>
-										<th>Total</th>
-
-                                        <th></th>
+                                        <th>No de Registro</th>
+                                        <th>Nombre Cliente</th>
+                                        <th>Nombre Mascota</th>
+                                        <th>Nro Habitación</th>
+										<th>Fecha ingreso</th>
+										<th>Fecha salida</th>
+                                        <th>Hora entrega</th>
+                                        <th>Servicio Tratamientos veterinarios</th>
+										<th>Servicio de corte y baño</th>
+										<th>Observaciones para reservación</th>
+										<th>Zona recojo</th>
+										<th>Dirección de recojo</th>
+										<th>Costo transporte</th>
+										<th>Costo comida</th>
+                                        <th>Costo veterinaria</th>
+                                        <th>Costo corte/baño</th>
+                                        <th>Costos extras</th>
+                                        <th>Costo Total</th>
+                                        <th>Hora CheckIn</th>
+                                        <th>Hora CheckOut</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($reservacionHotel as $reservacionHotel)
 
-                                        <tr class="reserva" id="{{ $reservacionHotel->fechaIngreso }}">
+                                        <tr class="reserva" id="{{ $reservacionHotel->fechaIngreso }}@foreach ($users as $user )
+                                                @if($user->id == $reservacionHotel->usuario_id) 
+                                                    {{$user->name}}
+                                                @endif
+                                            @endforeach
+                                            @foreach ($mascotas as $mascota )
+                                                @if($mascota->id == $reservacionHotel->mascota_id) 
+                                                    {{$mascota->nombre}}
+                                                @endif
+                                            @endforeach">
                                         <span class="reserva1" id="{{ $reservacionHotel->fechaSalida }}">
                                             <td>{{ $reservacionHotel->id }}</td>
-                                            
+                                            <td>
+                                            @foreach ($users as $user )
+                                                @if($user->id == $reservacionHotel->usuario_id) 
+                                                    {{$user->name}}
+                                                @endif
+                                            @endforeach
+                                            </td>
+                                            <td>
+                                            @foreach ($mascotas as $mascota )
+                                                @if($mascota->id == $reservacionHotel->mascota_id) 
+                                                    {{$mascota->nombre}}
+                                                @endif
+                                            @endforeach
+                                            </td>
+                                            <td>
+                                            @foreach ($habitaciones as $habitacion )
+                                                @if($habitacion->id == $reservacionHotel->habitacion_id) 
+                                                    {{$habitacion->nro_habitacion}}
+                                                @endif
+                                            @endforeach
+                                            </td>
 											<td>{{ $reservacionHotel->fechaIngreso }}</td>
 											<td>{{ $reservacionHotel->fechaSalida }}</td>
-											<td>{{ $reservacionHotel->tratamientos }}</td>
-											<td>{{ $reservacionHotel->tranporte }}</td>
-											<td>{{ $reservacionHotel->comida }}</td>
-											<td>{{ $reservacionHotel->banioYCorte }}</td>
-											<td>{{ $reservacionHotel->tratamiento }}</td>
-											<td>{{ $reservacionHotel->extras }}</td>
-											<td>{{ $reservacionHotel->total }}</td>
+											<td>{{ $reservacionHotel-> horaRecepcion}}</td>
+                                            <td>{{ $reservacionHotel-> tratamiento_veterinaria}}</td>
+                                            <td>{{ $reservacionHotel-> tratamiento_corte_banio}}</td>
+                                            <td>{{ $reservacionHotel-> observaciones}}</td>
+                                            <td>{{ $reservacionHotel-> zona_direccion}}</td>
+                                            <td>{{ $reservacionHotel-> direccion}}</td>
+                                            <td>{{ $reservacionHotel-> costo_transporte}}</td>
+                                            <td>{{ $reservacionHotel-> costo_comida}}</td>
+                                            <td>{{ $reservacionHotel-> costo_veterinaria}}</td>
+                                            <td>{{ $reservacionHotel-> costo_corte_banio}}</td>
+                                            <td>{{ $reservacionHotel-> costo_extras}}</td>
+											<td>{{ $reservacionHotel->costo_total }}</td>
+                                            <td>{{ $reservacionHotel-> horaCheckin}}</td>
+                                            <td>{{ $reservacionHotel-> horaCheckout}}</td>
 
                                             <td width="10px"><a href="{{route('reservacionHotel.edit', $reservacionHotel)}}" class="btn btn-primary btn-sm mb-2">Modificar</a></td>
                                             <td width="10px"><a href="{{route('reservacionHotel.show', $reservacionHotel)}}" class="btn btn-secondary btn-sm mb-2">Detalles</a></td>
