@@ -100,7 +100,7 @@
                     @foreach ($ventas as $venta)
                     <tr>
                         <th>{{$venta->id_producto}}</th>
-                        <td>{{$venta->usuario}}</td>
+                        <td>{{$venta->nombre}}</td>
                         <td>{{$venta->cantidad_individual}}</td>
                         <td>{{$venta->precio}}</td>
                         <td>{{$venta->subtotal}}</td>

@@ -93,6 +93,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="text-center mt-3">
+                {{ $user->links() }}
+            </div>
         </div>
     </div>
 
