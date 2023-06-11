@@ -26,14 +26,18 @@ class ReservacionHotelRequest extends FormRequest
         return [
             'fechaIngreso' => 'required',
             'fechaSalida'=> 'required',
-            'tratamientos' => 'required',
-            'tranporte' => 'required',
-            'comida' => 'required',
-            'banioYCorte' => 'required',
-            'tratamiento' => 'required',
-            'extras' => 'required',
-            'total' => 'required',
+            'tratamiento_veterinaria' => 'required',
+            'tratamiento_corte_banio' => 'required',
+            'observaciones' => 'required',
+            'costo_transporte' => 'required',
+            'costo_comida' => 'required',
+            'costo_veterinaria' => 'required',
+            'costo_corte_banio' => 'required',
+            'costo_extras' => 'required',
+            'costo_total' => 'required',
             'usuario_id' => 'required',
+            'mascota_id ' => 'required',
+            'habitacion_id ' => 'required',
         ];
 
 
