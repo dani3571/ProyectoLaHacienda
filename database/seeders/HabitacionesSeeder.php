@@ -16,8 +16,10 @@ class HabitacionesSeeder extends Seeder
     {
         Habitacion::create([
             'nro_habitacion' => 1,
-            'costo_habitacion'=> 150,
-            'capacidad'=> 20
+            'tipo_ocupante'=> "",
+            'costo_habitacion'=> 35.0,
+            'tamano_habitacion'=> 20,
+            'estado' => 1
         ]);
     }
 }

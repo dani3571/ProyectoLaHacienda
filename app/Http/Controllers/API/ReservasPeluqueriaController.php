@@ -31,6 +31,8 @@ class ReservasPeluqueriaController extends Controller
             'corte' => $request->input('corte'),
             'tranquilizante' => $request->input('tranquilizante'),
             'Observaciones' => $request->input('Observaciones'),
+            'costo' => $request->input('costo'),
+            'motivoCancelacion' => $request->input('motivoCancelacion'),
             'estado' => $request->input('estado'),
             'usuario_id' => $request->input('usuario_id'),
             'mascota_id' => $request->input('mascota_id'),
