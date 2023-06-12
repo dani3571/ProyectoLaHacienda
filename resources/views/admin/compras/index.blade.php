@@ -56,9 +56,12 @@
                     </td>
                     <td>{{$compra->cantidadTotal}}</td>
                     <td>{{$compra->precioTotal}} bs</td>
+
+                    @can('compras.show')
                     <td>
                         <a href="{{ route('compras.show', ['id' => $compra->id]) }}" class="btn btn-primary btn-sm mb-2">Detalle</a>
                     </td>
+                    @endcan
                 </tr>
                 @endforeach
             </tbody>

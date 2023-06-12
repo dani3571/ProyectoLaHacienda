@@ -19,9 +19,12 @@ class VentasController extends Controller
     {
       $this->middleware('can:ventas.index')->only('index');
       $this->middleware('can:ventas.create')->only('create');
+      $this->middleware('can:ventas.show')->only('show');
+      $this->middleware('can:ventas.getPDFreciboventas')->only('getPDFreciboventas');
+      $this->middleware('can:ventas.getPDFVentas')->only('getPDFVentas');
     }
 
-    
+
     public function index()
     {
         $ventas = DetalleVentas::join('ventas','detalle_ventas.id','=','ventas.id')

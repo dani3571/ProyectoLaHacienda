@@ -28,8 +28,7 @@
                 <div class="form-group">
                     <label for="permissionType">Tipo de Permiso:</label>
                     <select class="form-control"  id="filtro_permisos">
-                        <option value="">Todos</option>
-                        <option value="usuarios">Permisos de usuariosUsuarios</option>
+                        <option value="usuarios">Permisos de Usuarios</option>
                         <option value="roles">Permisos de roles</option>
                         <option value="veterinaria">Permisos de Reservacion veterinaria</option>
                         <option value="peluqueria">Permisos de reservacion peluqueria</option>

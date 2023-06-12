@@ -481,22 +481,23 @@ return [
                     'text'    => 'Producto',
                     'id' => 'menuProducto',
                     'icon'    => 'fas fa-fw fa-cart-plus',
-                    'can' => 'productos',
-                    'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Crear',
+                            'can' => 'productos.create',
                             'icon'    => 'fas fa-fw fa-plus-square',
                             'url'     => 'admin/productos/create',
                         ],
                         [
                             'text' => 'Inactivos',
-                            'route'  => 'categorias.inactivos',
+                            'can' => 'productos.inactivos',
+                            'route'  => 'productos.inactivos',
                             'icon'    => 'fas fa-fw fa-toggle-off',
                             'url'     => 'admin/productos/inactivos',
                         ],
                         [
                             'text'    => 'Listar',
+                            'can'=> 'productos.index',
                             'icon'    => 'fas fa-list-alt',
                             'url'     => 'admin/productos',
                         ],
@@ -541,21 +542,23 @@ return [
                     'text'    => 'Compra',
                     'id' => 'menuCompra',
                     'icon'    => 'fas fa-fw fa-cart-plus',
-                    'can' => 'compras',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Crear',
                             'icon'    => 'fas fa-fw fa-plus-square',
+                            'can' => 'compras.create',
                             'url'  => 'admin/compras/create',
                         ],
                         [
                             'text'    => 'Listar',
+                            'can' => 'compras.index', 
                             'icon'    => 'fas fa-list-alt',
                             'url'     => 'admin/compras',
                         ],
                         [
                             'text' => 'Reporte de compras',
+                            'can' => 'compras.getPDFcompras', 
                             'icon' => 'fas fa-file-pdf',
                             'route'  => 'getPDFcompras',
                         ],
@@ -567,20 +570,22 @@ return [
             'text' => 'Ventas',
             'icon' => 'fas fa-fw fa-money-check',
             'id' => 'menuVentas',
-            'can' => 'ventas.index',
             'submenu' => [
                 [
                     'text' => 'Listado de ventas',
+                    'can' => 'ventas.index',
                     'icon' => 'fas fa-list-alt',
                     'url'  => 'admin/ventas',
                 ],
                 [
                     'text' => 'Crear nueva venta',
+                    'can' => 'ventas.create',
                     'icon' => 'fas fa-fw fa-cart-plus',
                     'url'  => 'admin/ventas/create',
                 ],
                 [
                     'text' => 'Reporte de ventas',
+                    'can' => 'ventas.getPDFVentas',
                     'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPDFVentas'
                 ],

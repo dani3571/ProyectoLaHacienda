@@ -17,6 +17,9 @@ class ComprasController extends Controller
     {
       $this->middleware('can:compras.index')->only('index');
       $this->middleware('can:compras.create')->only('create');
+      $this->middleware('can:compras.show')->only('show');
+     // $this->middleware('can:compras.getPDFreciboventas')->only('getPDFreciboventas');
+      $this->middleware('can:compras.getPDFcompras')->only('getPDFcompras');
     }
     public function index()
     {
@@ -26,7 +29,6 @@ class ComprasController extends Controller
     }
     public function show($id)
     {
-        
         $compras = Compra::where('id', $id)
             ->get();
         $proveedores = Proveedores::all();

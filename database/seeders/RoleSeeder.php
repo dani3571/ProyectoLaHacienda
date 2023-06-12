@@ -74,17 +74,29 @@ class RoleSeeder extends Seeder
          //VENTAS
          Permission::create([
              'name' => 'ventas.index',
-             'description' => 'Ver ventas'
+             'description' => 'Ver listado de ventas'
          ])->assignRole($admin);
          Permission::create([
              'name' => 'ventas.create',
              'description' => 'Crear ventas'
          ])->assignRole($admin);
+
          Permission::create([
-             'name' => 'ventas.edit',
-             'description' => 'Editar ventas'
-         ])->assignRole($admin);
- 
+            'name' => 'ventas.show',
+            'description' => 'Ver detalle de ventas'
+        ])->assignRole($admin);
+
+        Permission::create([
+            'name' => 'ventas.getPDFreciboventas',
+            'description' => 'Sacar facturas de detalle ventas'
+        ])->assignRole($admin);
+       
+         Permission::create([
+            'name' => 'ventas.getPDFventas',
+            'description' => 'Sacar reporte de ventas'
+        ])->assignRole($admin);
+
+
          //usuarios
          Permission::create([
              'name' => 'users.index',
@@ -186,13 +198,8 @@ class RoleSeeder extends Seeder
  
          //Productos
          Permission::create([
-             'name' => 'productos',
-             'description' => 'Ver productos'
-         ])->assignRole($admin);
- 
-         Permission::create([
              'name' => 'productos.index',
-             'description' => 'Ver productos'
+             'description' => 'Ver listado de productos'
          ])->assignRole($admin);
  
          Permission::create([
@@ -207,12 +214,12 @@ class RoleSeeder extends Seeder
  
          Permission::create([
              'name' => 'productos.cambiarestado',
-             'description' => 'Cambiar estado del producto'
+             'description' => 'Cambiar estado de productos'
          ])->assignRole($admin);
  
          Permission::create([
              'name' => 'productos.restablecer-estado',
-             'description' => 'Restablecer estado del producto'
+             'description' => 'Restablecer estado de productos'
          ])->assignRole($admin);
  
          Permission::create([
@@ -222,7 +229,6 @@ class RoleSeeder extends Seeder
  
  
          //Categorias
- 
          Permission::create([
              'name' => 'categorias',
              'description' => 'Ver categorias'
@@ -260,11 +266,6 @@ class RoleSeeder extends Seeder
  
          //COMPRAS
          Permission::create([
-             'name' => 'compras',
-             'description' => 'Ver Compras'
-         ])->assignRole($admin);
- 
-         Permission::create([
              'name' => 'compras.index',
              'description' => 'Ver listado de compras'
          ])->assignRole($admin);
@@ -274,10 +275,22 @@ class RoleSeeder extends Seeder
              'description' => 'Crear compras'
          ])->assignRole($admin);
          Permission::create([
-             'name' => 'compras.edit',
-             'description' => 'Editar compras'
-         ])->assignRole($admin);
- 
+            'name' => 'compras.show',
+            'description' => 'Ver detalle de compras'
+        ])->assignRole($admin);
+
+        Permission::create([
+            'name' => 'compras.getPDFcompras',
+            'description' => 'Sacar reporte de compras'
+        ])->assignRole($admin);
+
+/*
+        Permission::create([
+            'name' => 'compras.edit',
+            'description' => 'Sacar facturas de detalle compras'
+        ])->assignRole($admin);
+*/
+
          //PROVEEDORES
          Permission::create([
              'name' => 'proveedores.edit',

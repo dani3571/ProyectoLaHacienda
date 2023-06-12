@@ -28,7 +28,7 @@
                 <label for="permissionType">Tipo de Permiso:</label>
                 <select class="form-control"  id="filtro_permisos">
                     <option value="">Todos</option>
-                    <option value="usuarios">Permisos de usuariosUsuarios</option>
+                    <option value="usuarios">Permisos de Usuarios</option>
                     <option value="roles">Permisos de roles</option>
                     <option value="veterinaria">Permisos de Reservacion veterinaria</option>
                     <option value="peluqueria">Permisos de reservacion peluqueria</option>
@@ -38,8 +38,8 @@
                     <option value="categorias">Permisos de categorias</option>
                     <option value="productos">Permisos de productos</option>
                     <option value="compras">Permisos de compras</option>
+                    <option value="ventas">Permisos de ventas</option>
                     <option value="veterinaria">Permisos de veterinaria</option>
-                    
                     <option value="dashboard">General</option>
                 </select>
             </div>

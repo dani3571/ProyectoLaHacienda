@@ -30,7 +30,13 @@
                     <th scope="col">IMAGEN</th>
                     <th scope="col">FECHA COMPRA</th>
                     <th scope="col">FECHA VENCIMIENTO</th>
+        
+                    @can('productos.edit')
+                        <th scope="col">ACCIONES</th>   
+                    @endcan
+                    @can('productos.cambiarestado')
                     <th scope="col">ACCIONES</th>
+                    @endcan 
                 </tr>
             </thead>
 
@@ -62,17 +68,21 @@
 
         <td>{{ $producto->fecha_compra }}</td>
         <td>{{ $producto->fecha_vencimiento }}</td>
+        @can('productos.edit')
         <td>
             <a href="{{ route('productos.edit', $producto) }}" class="btn btn-primary btn-sm mb-2">Modificar</a>
         </td>
+        @endcan
+      
+        @can('productos.cambiarestado')
         <td width="10px">
-                       
         <form method="POST" action="{{ route('productos.cambiarestado', $producto->id) }}">
                 @csrf
                 @method('PUT')      
                 <input type="submit" value="Cambiar Estado" class="btn btn-danger btn-sm">
             </form>
         </td>
+        @endcan
     </tr>
 @endforeach
 

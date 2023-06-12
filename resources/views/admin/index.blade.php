@@ -586,16 +586,16 @@
             if (submenuVeterinaria.children().length === 0) {
                 $('#menuVeterinaria').hide();
             }
-    
+    /*
             // Ocultar el menú Productos si no tiene submenús
-            var submenuProductos = $('#menuProductos .treeview-menu');
+            var submenuProductos = $('#menuProductos .nav-item has-treeview menu-is-opening menu-open');
             if (submenuProductos.children().length === 0) {
                 $('#menuProductos').hide();
             }
-    
+    */
             // Ocultar el menú Mascotas si no tiene submenús
-            var submenuMascotas = $('#menuMascotas .treeview-menu');
-            if (submenuMascotas.length === 0 || submenuMascotas.children().length === 0) {
+            var submenuMascotas = $('#menuMascotas .nav nav-treeview');
+            if (submenuMascotas.children().length === 0) {
                 $('#menuMascotas').hide();
             }
         });

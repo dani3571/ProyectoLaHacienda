@@ -62,8 +62,11 @@
                     <td>{{$venta->cantidad}}</td>
                     <td>{{$venta->total}}</td>
                     <td>{{$venta->fechaVenta}}</td>
+
                     <td>
+                        @can('ventas.show')
                         <a href="{{ route('ventas.show', ['id' => $venta->id]) }}" class="btn btn-primary btn-sm mb-2">Detalle</a>
+                        @endcan
                     </td>
                 </tr>
                 @endforeach

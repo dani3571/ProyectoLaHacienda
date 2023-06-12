@@ -63,11 +63,14 @@
                     
   
                     <td width="10px">
+                        @can('productos.restablecer-estado')
                         <form action="{{ route('productos.restablecer-estado', $producto->id) }}" method="POST">
                             @csrf
                             @method('PUT')      
                             <input type="submit" value="Activar" class="btn btn-primary btn-sm mb-2">
                         </form>
+                        
+                        @endcan
                     </td>
 
                     <td width="5px">

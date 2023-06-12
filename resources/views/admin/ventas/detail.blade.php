@@ -9,7 +9,9 @@
 </a>
 <br>
 <br>
+@can('ventas.getPDFreciboventas')
 <a href="{{ route('getPDFreciboventas', ['id' => $venta_individual[0]->id]) }}" class="btn btn-primary">Imprimir recibo</a>
+@endcan
 @endsection
 
 @section('content')
