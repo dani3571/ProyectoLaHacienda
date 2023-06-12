@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,6 +54,13 @@ return [
             'driver' => 'local',
             'root' => public_path('images/mascotas'),
             'url' => env('APP_URL').'/images/mascotas',
+            'visibility' => 'public',
+        ],
+
+        'profiless' => [
+            'driver' => 'local',
+            'root' => public_path('images/profiles'),
+            'url' => env('APP_URL').'/images/profiles',
             'visibility' => 'public',
         ],
         's3' => [

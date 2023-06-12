@@ -84,7 +84,8 @@
     </div>
 </div>
 @endsection
-<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
+
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
 @section('css')
 <style>
 .nav-item {
@@ -94,4 +95,18 @@
      background-color: #4d5059 !important;  
   }
 </style>
+@endsection
+
+
+@section('js')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Ocultar el menú Veterinaria si no tiene submenús
+        var submenuVeterinaria = $('#menuVeterinaria .treeview-menu');
+        if (submenuVeterinaria.children().length === 0) {
+            $('#menuVeterinaria').hide();
+        }
+    });
+</script>
 @endsection

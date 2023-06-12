@@ -47,11 +47,11 @@
 
                 <label>Tipo</label>
                 <div class="form-group">
-                    <select class="form-control" name="tipo" id="tipo">
+                    <select class="form-control" name="tipo" id="tipo" {{ old('tipo') }}>
                         <option value="">Seleccione el tipo</option>
 
-                        <option value="Perro">Perro</option>
-                        <option value="Gato">Gato</option>
+                        <option {{ old('tipo') == 'Perro' ? 'selected' : '' }} value="Perro">Perro</option>
+                        <option {{ old('tipo') == 'Gato' ? 'selected' : '' }} value="Gato">Gato</option>
 
                     </select>
                     @error('tipo')
@@ -60,6 +60,8 @@
                         </span>
                     @enderror
                 </div>
+
+
 
                 <div class="form-group">
 
@@ -113,8 +115,14 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Peso</label>
-                            <input type="text" class="form-control" id="peso" name='peso'
-                                placeholder="Ingrese el peso" value="{{ old('peso') }}">
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="peso" name="peso"
+                                    placeholder="Ingrese el peso" value="{{ old('peso') }}">
+                                <select class="form-control input-group-append custom-select-sm" name="unidad_peso">
+                                    <option value="kg">kg</option>
+                                    <option value="lb">lb</option>
+                                </select>
+                            </div>
                             @error('peso')
                                 <span class="text-danger">
                                     <span>*{{ $message }}</span>
@@ -127,9 +135,9 @@
                             <label>Tamaño</label>
                             <select class="form-control" name="tamaño" id="tamaño">
                                 <option value="">Seleccione el tamaño de la mascota</option>
-                                <option value="Pequeño">Pequeño</option>
-                                <option value="Mediano">Mediano</option>
-                                <option value="Grande">Grande</option>
+                                <option {{ old('tamaño') == 'Pequeño' ? 'selected' : '' }} value="Pequeño">Pequeño</option>
+                                <option {{ old('tamaño') == 'Mediano' ? 'selected' : '' }} value="Mediano">Mediano</option>
+                                <option {{ old('tamaño') == 'Grande' ? 'selected' : '' }} value="Grande">Grande</option>
                             </select>
                             @error('tipo')
                                 <span class="text-danger">
@@ -189,6 +197,13 @@
 
         .menu-open {
             background-color: #4d5059 !important;
+        }
+
+        .custom-select-sm {
+            width: 60px;
+            height: 38px;
+            font-size: 15px;
+            padding: 0;
         }
     </style>
 @endsection

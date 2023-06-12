@@ -192,7 +192,7 @@
             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" 
                data-bs-toggle="dropdown" aria-expanded="false">
 
-			   <img src="{{ asset('images/user.png') }}" alt="Profile" class="img-profile">
+               <img src="{{Auth::user()->profile->photo ? asset('storage/' .Auth::user()->profile->photo) : asset('images/user.png')}}" alt="Profile" class="img-profile">
           
                 <span class="name-user">{{Auth::user()->name}}</span>
             </a>

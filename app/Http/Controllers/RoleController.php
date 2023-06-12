@@ -18,27 +18,25 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-     {
-       $this->middleware('can:roles.index')->only('index');
-       $this->middleware('can:roles.create')->only('create');
-       $this->middleware('can:roles.edit')->only('edit');
-       $this->middleware('can:roles.inactivos')->only('inactivos');
-       $this->middleware('can:roles.getPDFRole')->only('getPDFRole');
-
-     }
+    public function __construct()
+    {
+        $this->middleware('can:roles.index')->only('index');
+        $this->middleware('can:roles.create')->only('create');
+        $this->middleware('can:roles.edit')->only('edit');
+        $this->middleware('can:roles.inactivos')->only('inactivos');
+        $this->middleware('can:roles.getPDFRole')->only('getPDFRole');
+    }
     public function index()
     {
-        $roles = Role::where('estado','1')->simplePaginate(7);
+        $roles = Role::where('estado', '1')->simplePaginate(7);
 
         return view('admin.roles.index', compact('roles'));
     }
     public function inactivos()
     {
-        $roles = Role::where('estado','0')->simplePaginate(7);
+        $roles = Role::where('estado', '0')->simplePaginate(7);
 
         return view('admin.roles.inactivos', compact('roles'));
-       
     }
     /**
      * Show the form for creating a new resource.
@@ -70,7 +68,7 @@ class RoleController extends Controller
         $role->permissions()->sync($request->permissions);
 
         $user = Auth::user();
-        $logMessage = 'El usuario ['.$user->name.'] ha creado el rol [' .$request->name. ']';
+        $logMessage = 'El usuario [' . $user->name . '] ha creado el rol [' . $request->name . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
@@ -109,10 +107,10 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
-        
-        if($request->name != $role->name){
+
+        if ($request->name != $role->name) {
             $user = Auth::user();
-            $logMessage = 'El usuario ['.$user->name.'] ha modificado el nombre del rol [' .$role->name. '] => [' .$request->name. ']';
+            $logMessage = 'El usuario [' . $user->name . '] ha modificado el nombre del rol [' . $role->name . '] => [' . $request->name . ']';
             Log::build([
                 'driver' => 'single',
                 'path' => storage_path('logs/admin.log'),
@@ -120,14 +118,14 @@ class RoleController extends Controller
         }
 
         $role->update([
-            
+
             'name' => $request->name,
         ]);
         $role->permissions()->sync($request->permissions);
 
-        
+
         $user = Auth::user();
-        $logMessage = 'El usuario ['.$user->name.'] ha modificado los permisos del rol [' .$request->name. ']';
+        $logMessage = 'El usuario [' . $user->name . '] ha modificado los permisos del rol [' . $request->name . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
@@ -136,7 +134,7 @@ class RoleController extends Controller
         return redirect()->action([RoleController::class, 'index'])
             ->with('success', 'Rol modificado con exito');
     }
- 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -145,9 +143,9 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-       $role->delete();
-       return redirect()->action([RoleController::class, 'index'])
-       ->with('success', 'Rol eliminado con exito');
+        $role->delete();
+        return redirect()->action([RoleController::class, 'index'])
+            ->with('success', 'Rol eliminado con exito');
     }
 
 
@@ -158,7 +156,7 @@ class RoleController extends Controller
         $role->save();
 
         $user = Auth::user();
-        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a INACTIVO el rol [' .$role->name. ']';
+        $logMessage = 'El usuario [' . $user->name . '] ha cambiado el estado a INACTIVO el rol [' . $role->name . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
@@ -173,34 +171,34 @@ class RoleController extends Controller
         $role->save();
 
         $user = Auth::user();
-        $logMessage = 'El usuario ['.$user->name.'] ha cambiado el estado a ACTIVO el rol [' .$role->name. ']';
+        $logMessage = 'El usuario [' . $user->name . '] ha cambiado el estado a ACTIVO el rol [' . $role->name . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
         ])->info($logMessage);
 
         return redirect()->route('roles.inactivos')->with('success', 'Rol restablecido con éxito');
-           
     }
-    public function getPDFRole(Request $request){
+    public function getPDFRole(Request $request)
+    {
         $user = Auth::user();
-		$name = $user->name;
+        $name = $user->name;
         $nombreSistema = "SISTEMA GENESIS";
         $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
         $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
         $role = Role::all();
         $fechaInicio = $request->input('fechaInicio');
         $fechaFin = $request->input('fechaFin');
-       
+
         $view = view('admin.roles.reportes', compact('name', 'role', 'nombreSistema', 'fecha', 'hora'));
-         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
         if ($fechaInicio && $fechaFin) {
-        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+            $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
         }
         // Generar el PDF con la vista del reporte
 
         $pdf = PDF::loadHTML($view);
-     
+
         return $pdf->stream('Reporte_Roles.pdf');
-	}
+    }
 }

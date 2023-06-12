@@ -28,6 +28,7 @@ class ProfileController extends Controller
     {
     //   $this->authorize('update', $profile);
         $user = Auth::user();
+     
         //Si encuentra una foto que elimine la anterior y asigne la nueva
         if ($request->hasFile('photo')) {
             //Eliminar foto anterior 
@@ -38,6 +39,7 @@ class ProfileController extends Controller
             //si no tiene foto que se quede con la actual
             $photo = $user->profile->photo;
         }
+    
 
         //Asignar nombre y correo
         $user->name = $request->name;
@@ -48,7 +50,8 @@ class ProfileController extends Controller
         $user->personaResponsable = $request->personaResponsable;
         $user->telefonoResponsable = $request->telefonoResponsable;
     
-        
+        //Asignamos la foto
+        $user->profile->photo = $photo;
         //Guardar campos de usuario
       //ojo
       //aunque de error funciona

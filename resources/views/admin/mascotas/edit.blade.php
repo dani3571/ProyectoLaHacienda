@@ -30,7 +30,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('mascotas.update', $mascota->id) }}">
+            <form method="POST" action="{{ route('mascotas.update', $mascota->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -53,10 +53,11 @@
                 <label>Tipo</label>
                 <div class="form-group">
                     <select class="form-control" name="tipo" id="tipo">
-                        <option value="{{ $mascota->tipo }}">Seleccione el tipo</option>
-                        <option value="Perro">Perro</option>
-                        <option value="Gato">Gato</option>
+                        <option>Seleccione el tipo</option>
+                        <option value="Perro" {{ $mascota->tipo == 'Perro' ? 'selected' : '' }}>Perro</option>
+                        <option value="Gato" {{ $mascota->tipo == 'Gato' ? 'selected' : '' }}>Gato</option>
                     </select>
+    
                     @error('tipo')
                         <span class="text-danger">
                             <span>{{ $message }}</span>
@@ -117,8 +118,13 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Peso</label>
-                            <input type="text" class="form-control" id="peso" name='peso'
-                                placeholder="Ingrese el peso" value="{{ $mascota->peso }}">
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" value="{{ old('peso', preg_replace('/[^0-9]/', '', $mascota->peso)) }}">
+                                <select class="form-control input-group-append" name="unidad_peso">
+                                    <option value="kg" {{ old('unidad_peso', preg_replace('/[^a-zA-Z]/', '', $mascota->peso)) === 'kg' ? 'selected' : '' }}>kg</option>
+                                    <option value="lb" {{ old('unidad_peso', preg_replace('/[^a-zA-Z]/', '', $mascota->peso)) === 'lb' ? 'selected' : '' }}>lb</option>
+                                </select>
+                            </div>
                             @error('peso')
                                 <span class="text-danger">
                                     <span>*{{ $message }}</span>
@@ -126,14 +132,17 @@
                             @enderror
                         </div>
                     </div>
+
+
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Tamaño</label>
                             <select class="form-control" name="tamaño" id="tamaño" value="{{ $mascota->tamaño }}">
                                 <option value="">Seleccione el tamaño de la mascota</option>
-                                <option value="Pequeño">Pequeño</option>
-                                <option value="Mediano">Mediano</option>
-                                <option value="Grande">Grande</option>
+                                <option value="Pequeño" {{ $mascota->tamaño == 'Pequeño' ? 'selected' : '' }}>Pequeño</option>
+                                <option value="Mediano" {{ $mascota->tamaño == 'Mediano' ? 'selected' : '' }}>Mediano</option>
+                                <option value="Grande" {{ $mascota->tamaño == 'Grande' ? 'selected' : '' }}>Grande</option>
                             </select>
                             @error('tipo')
                                 <span class="text-danger">
@@ -171,11 +180,11 @@
                 <div class="form-group">
                     <label>Cambiar imagen</label>
                     <input type="file" class="form-control-file mb-2" id="image" name='image'>
-
-                    <div class="rounded mx-auto d-block">
-                        <img src="{{ asset('images/mascotas/' . $mascota->image) }}" style="width: 250px">
-                    </div>
-
+                    <!--
+                        <div class="rounded mx-auto d-block">
+                            <img src="{{ $mascota->image ? asset('storage/' . $mascota->image) : asset('images/user.png') }}" alt="Profile" class="img-profile" style="width:50px;height:50px">
+                        </div>
+                    -->
                     @error('image')
                         <span class="text-danger">
                             <span>*{{ $message }}</span>
@@ -188,8 +197,8 @@
             </form>
         </div>
     </div>
-   
-  
+
+
 @endsection
 
 
@@ -222,8 +231,18 @@
             .catch(error => {
                 console.error(error);
             });
+
+            $(document).ready(function() {
+        // Ocultar el menú Veterinaria si no tiene submenús
+        var submenuVeterinaria = $('#menuVeterinaria .treeview-menu');
+        if (submenuVeterinaria.children().length === 0) {
+            $('#menuVeterinaria').hide();
+        }
+    });
     </script>
 @endsection
+
+
 
 <link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
 @section('css')

@@ -6,6 +6,7 @@ use App\Models\Mascotas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MascotaRequest;
+use App\Http\Requests\ProfileRequest;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use PDF;
@@ -14,6 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 use HasRole;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class MascotasController extends Controller
 {
@@ -66,17 +68,6 @@ class MascotasController extends Controller
 
     public function store(MascotaRequest $request)
     {
-        /*
-       
-        //Guardando la solicitud en una variable
-       $mascotas = $request->all();
-   
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('mascotas', 'imagenes');
-            $mascotas->image = $path;
-        }
-        //$mascotas->usuario_id = $request->usuario_id;
-*/
         //merge combina los datos que tenemos con los que queremos obtener
         $request->merge([
             //obtenemos los datos de user como su id con Auth
@@ -84,22 +75,21 @@ class MascotasController extends Controller
         ]);
         $mascota = new Mascotas();
         $mascota->fill($request->all());
-
+        //Si encuentra una foto que elimine la anterior y asigne la nueva
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $path = $image->store('', 'mascotas');
-            $imageName = basename($path);
-            $mascota->image = $imageName;
+            //Asignar nueva foto
+            $photo = $request['image']->store('mascotas');
+        } else {
+            //si no tiene foto que se quede con la actual
+            $photo = $mascota->image;
         }
+        //Asignamos la foto
+        $mascota->image = $photo;
 
-        /*
-        $image = $request->file('image');
-        //   $path = $image->store('public/images/mascotas');
-        $path = Storage::disk('mascotas')->putFile('', $image, 'public');
-         //  $path = $image->store('images/mascotas', 'public'); 
-         $imageName = basename($path);
-        
-         */
+        $peso = $request->input('peso');
+        $unidad_peso = $request->input('unidad_peso');
+        $mascota->peso = $peso . ' ' . $unidad_peso;
+
         $mascota->save();
 
         $user = Auth::user();
@@ -114,53 +104,8 @@ class MascotasController extends Controller
             ->with('success', 'Mascota registrada con éxito');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Mascotas  $mascotas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mascotas $mascotas)
-    {
-        /*
-        $this->authorize('published', $mascotas);
-        $comments = $article->comments()->simplePaginate(5);
-        return view('subscriber.articles.show', compact('article', 'comments'));
-   */
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Mascotas  $mascotas
-     * @return \Illuminate\Http\Response
-     */
 
-    //llamamos al metodo creado en el policy
-    // $this->authorize('view', $mascotas);
-    /*      $mascotas = Mascotas::select(['id', 'nombre'])
-              ->where('estado', 1)
-              ->get();
-          return view('admin.mascotas.edit', compact('mascotas'));
-    */
-    /*
-             $mascotas->update([
-             'nombre' => $request->nombre,
-             'tipo' => $request->tipo,
-             'raza' => $request->raza,
-             'color' => $request->color,
-             'fechaNacimiento' => $request->fechaNacimiento,
-             'caracter' => $request->caracter,
-             'sexo' => $request->sexo,
-             'estado' => $request->estado,
-             'usuario_id' =>Auth::user()->id,
-             
-
-        ]);
-        return redirect()->action([MascotasController::class, 'index'])
-            ->with('success-update', 'Datos de la mascota modificados con exito');
-    
-    */
 
 
     public function edit($id)
@@ -173,78 +118,53 @@ class MascotasController extends Controller
 
     public function update(MascotaRequest $request, $id)
     {
-        $mascota = new Mascotas();
         $mascota = Mascotas::findOrFail($id);
-
+    
+        // Si encuentra una foto, elimine la anterior y asigne la nueva
+        if ($request->hasFile('image')) {
+            // Eliminar foto anterior
+            File::delete(public_path('storage/' . $mascota->image));
+            // Asignar nueva foto
+            $photo = $request->file('image')->store('mascotas');
+            // Asignar la nueva foto a la mascota
+            $mascota->image = $photo;
+        }
+    
+        // Actualizar los campos individuales si han cambiado
         if ($request->nombre != $mascota->nombre) {
-            $user = Auth::user();
-            $logMessage = 'El usuario [' . $user->name . '] ha modificado el nombre de la mascota [' . $mascota->nombre . '] => [' . $request->nombre . ']';
-            Log::build([
-                'driver' => 'single',
-                'path' => storage_path('logs/admin.log'),
-            ])->info($logMessage);
+            $mascota->nombre = $request->nombre;
         }
         if ($request->raza != $mascota->raza) {
-            $user = Auth::user();
-            $logMessage = 'El usuario [' . $user->name . '] ha modificado la raza de la mascota [' . $request->nombre . ']';
-            Log::build([
-                'driver' => 'single',
-                'path' => storage_path('logs/admin.log'),
-            ])->info($logMessage);
+            $mascota->raza = $request->raza;
         }
         if ($request->color != $mascota->color) {
-            $user = Auth::user();
-            $logMessage = 'El usuario [' . $user->name . '] ha modificado el color de la mascota [' . $request->nombre . ']';
-            Log::build([
-                'driver' => 'single',
-                'path' => storage_path('logs/admin.log'),
-            ])->info($logMessage);
+            $mascota->color = $request->color;
         }
         if ($request->fechaNacimiento != $mascota->fechaNacimiento) {
-            $user = Auth::user();
-            $logMessage = 'El usuario [' . $user->name . '] ha modificado la fecha de nacimiento de la mascota [' . $request->nombre . ']';
-            Log::build([
-                'driver' => 'single',
-                'path' => storage_path('logs/admin.log'),
-            ])->info($logMessage);
+            $mascota->fechaNacimiento = $request->fechaNacimiento;
         }
         if ($request->caracter != $mascota->caracter) {
-            $user = Auth::user();
-            $logMessage = 'El usuario [' . $user->name . '] ha modificado el caracter de la mascota [' . $request->nombre . ']';
-            Log::build([
-                'driver' => 'single',
-                'path' => storage_path('logs/admin.log'),
-            ])->info($logMessage);
+            $mascota->caracter = $request->caracter;
         }
         if ($request->sexo != $mascota->sexo) {
-            $user = Auth::user();
-            $logMessage = 'El usuario [' . $user->name . '] ha modificado el sexo de la mascota [' . $request->nombre . ']';
-            Log::build([
-                'driver' => 'single',
-                'path' => storage_path('logs/admin.log'),
-            ])->info($logMessage);
+            $mascota->sexo = $request->sexo;
         }
-
-        if ($request->image != $mascota->image) {
-            $user = Auth::user();
-            $logMessage = 'El usuario [' . $user->name . '] ha modificado la imagen de la mascota [' . $request->nombre . ']';
-            Log::build([
-                'driver' => 'single',
-                'path' => storage_path('logs/admin.log'),
-            ])->info($logMessage);
-        }
-
-        $mascota->fill($request->all());
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $path = $image->store('', 'mascotas');
-            $imageName = basename($path);
-            $mascota->image = $imageName;
-        }
-        //guardamos la informacion actualizada
+    
+        // Obtener el valor del campo de peso y eliminar cualquier caracter no numérico
+        $peso = preg_replace('/[^0-9]/', '', $request->peso);
+    
+        // Obtener el valor del campo de unidad de peso
+        $unidad_peso = $request->unidad_peso;
+    
+        // Unir el peso y la unidad de peso
+        $peso_completo = $peso . ' ' . $unidad_peso;
+    
+        $mascota->peso = $peso_completo;
+    
+        // Guardar la información actualizada
         $mascota->save();
-        //mostramos un mensaje de exito 
+    
+        // Mostrar un mensaje de éxito
         return redirect()->route('mascotas.index')
             ->with('success', 'Mascota actualizada con éxito');
     }

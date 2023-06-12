@@ -33,7 +33,7 @@ class MascotaRequest extends FormRequest
             'sexo' => 'required',
             'peso' => 'required|max:5',
             'tamaño' => 'required',
-            'image' => 'image|mimes:jpg,png|max:2048', // Validación de la imagen
+            'image' => 'image|mimes:jpg,png,jpeg', // Validación de la imagen
             
         ];
 

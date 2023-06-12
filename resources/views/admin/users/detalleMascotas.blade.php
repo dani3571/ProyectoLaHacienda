@@ -36,7 +36,8 @@
         <div class="card-body d-flex">
           
             <div class="foto-mascota">
-                <img style="max-width:190px; max-height: 240px;" src="{{ asset('images/mascotas/' . basename($mascota->image)) }}" class="img-fluid" alt="{{ $mascota->nombre }}">
+             
+                <img style="max-width:190px; max-height: 240px;"  src="{{$mascota->image ? asset('storage/' .$mascota->image) : asset('images/user.png')}}" alt="Mascota" class="img-mascota" style="width:50px;height:50px">
             </div>
             <div class="datos-mascota">
                 <h2 class="card-title">{{ $mascota->nombre }}</h2>
@@ -115,6 +116,3 @@
 <link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
   
 
-@section('scripts')
-
-@endsection

@@ -1,5 +1,9 @@
 
 <?php
+
+use Illuminate\Support\Facades\Gate;
+use JeroenNoten\LaravelAdminLte\AdminLte;
+
 return [
 
     /*
@@ -17,7 +21,7 @@ return [
     'title' => '',
     'title_prefix' => 'La Hacienda |',
     'title_postfix' => '',
-    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +37,7 @@ return [
     'logo_img' => 'vendor/adminlte/dist/img/logo2.png',
     'use_ico_only' => true,
     'use_full_favicon' => true,
- 
+
 
     /*
     |--------------------------------------------------------------------------
@@ -322,18 +326,19 @@ return [
         ['header' => 'PANEL'],
         [
             'text' => 'Usuarios',
-            'can'=>'users.index',
+            'can' => 'users.index',
+            'id' => 'menuUsuarios',
             'icon' => 'fas fa-users',
             'submenu' => [
                 [
                     'text' => 'Listado de usuarios',
-                    'can'=>'users.index',
+                    'can' => 'users.index',
                     'icon' => 'fas fa-list-alt',
                     'route'  => 'users.index',
                 ],
                 [
                     'text' => 'Usuarios inactivos',
-                    'can'=>'users.inactivos',
+                    'can' => 'users.inactivos',
                     'icon' => 'fas fa-stream',
                     'route'  => 'users.inactivos',
                 ],
@@ -348,25 +353,26 @@ return [
         [
             'text' => 'Roles',
             'route'  => 'roles.index',
+            'id' => 'menuRoles',
             'icon' => 'fa fa-lock',
             'can' => 'roles.index',
             'submenu' => [
                 [
                     'text' => 'Listado de roles',
                     'icon' => 'fas fa-list-alt',
-                    'can'=>'roles.index',
+                    'can' => 'roles.index',
                     'route'  => 'roles.index',
                 ],
                 [
                     'text' => 'Listado de roles inactivos',
                     'icon' => 'fas fa-stream',
-                    'can'=>'roles.inactivos',
+                    'can' => 'roles.inactivos',
                     'route'  => 'roles.inactivos',
                 ],
                 [
                     'text' => 'Crear roles',
                     'icon' => 'fas fa-solid fa-plus',
-                    'can'=>'roles.create',
+                    'can' => 'roles.create',
                     'route'  => 'roles.create',
                 ],
                 [
@@ -376,17 +382,18 @@ return [
                     'route'  => 'getPDFR',
                 ],
             ]
-            
+
         ],
         [
             'text' => 'Mascotas',
             'route'  => 'mascotas.index',
+            'id' => 'menuMascotas',
             'icon' => 'fa fa-paw',
             'active' => ['admin/mascotas*'],
             'submenu' => [
                 [
                     'text' => 'Listado de mascotas',
-                    'route'  => 'mascotas.index',        
+                    'route'  => 'mascotas.index',
                     'icon' => 'fas fa-list-alt',
                 ],
                 [
@@ -394,7 +401,7 @@ return [
                     'icon' => 'fas fa-stream',
                     'route'  => 'mascotas.inactivos',
                 ],
-           
+
                 [
                     'text' => 'Crear mascotas',
                     'icon' => 'fas fa-solid fa-plus',
@@ -409,7 +416,8 @@ return [
         ],
         [
             'text'    => 'Peluqueria',
-            'can'=>'reservas_peluqueria.index',
+            'id' => 'menuPeluqueria',
+            'can' => 'reservas_peluqueria.index',
             'icon'    => 'fas fa-fw fa-splotch',
             'submenu' => [
                 [
@@ -439,15 +447,16 @@ return [
                 ],
             ],
         ],
-        
+
         [
-            'text'=>'Productos',
-            'can' => 'productos.index',
+            'text' => 'Productos',
+            'id' => 'menuProductos',
             'icon'    => 'fas fa-fw fa-shopping-cart',
             'submenu' => [
                 [
                     'text'    => 'Categoria',
-                    'can'=>'categorias',
+                    'can' => 'categorias',
+                    'id' => 'menuCategorias',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'url'     => '#',
                     'submenu' => [
@@ -470,8 +479,9 @@ return [
                 ],
                 [
                     'text'    => 'Producto',
+                    'id' => 'menuProducto',
                     'icon'    => 'fas fa-fw fa-cart-plus',
-                    'can'=>'productos',
+                    'can' => 'productos',
                     'url'     => '#',
                     'submenu' => [
                         [
@@ -493,15 +503,18 @@ return [
                     ],
                 ],
             ],
+
         ],
         [
             'text'    => 'Compras',
             'can' => 'compras.index',
+            'id' => 'menuCompras',
             'icon'    => 'fas fa-fw fa-shopping-cart',
             'submenu' => [
                 [
                     'text'    => 'Proveedor',
                     'can' => 'proveedores',
+                    'id' => 'menuProveedor',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'url'     => '#',
                     'submenu' => [
@@ -526,6 +539,7 @@ return [
                 ],
                 [
                     'text'    => 'Compra',
+                    'id' => 'menuCompra',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'can' => 'compras',
                     'url'     => '#',
@@ -552,7 +566,8 @@ return [
         [
             'text' => 'Ventas',
             'icon' => 'fas fa-fw fa-money-check',
-            'can'=>'ventas.index',
+            'id' => 'menuVentas',
+            'can' => 'ventas.index',
             'submenu' => [
                 [
                     'text' => 'Listado de ventas',
@@ -571,42 +586,45 @@ return [
                 ],
             ]
         ],
-        
+
         [
             'text' => ' Reservaciones de Hotel',
+            'id' => 'menuHotel',
             'url'  => 'admin/reservacionHotel',
-            'can'=>'admin/reservacionHotel',
+            'can' => 'admin/reservacionHotel',
             'icon' => 'fas fa-fw fa-hotel',
             'submenu' => [
-                ['text' => 'Reservaciones',
-                'icon' => 'fas fa-fw fa-list',
-                'url'  => 'admin/reservacionHotel',
-            ],
-            [
-                'text' => 'Registrar Nueva reserva',
-                'icon' => 'fas fa-fw fa-plus',
-                'url'  => 'admin/reservacionHotel/create',
-            ],
-            [
-                'text' => 'Reservas Activas',
-                'icon' => 'fas fa-fw fa-list',
-                'url'  => '',
-            ],
-            [
-                'text' => 'Reservas completadas',
-                'icon' => 'fas fa-fw fa-list',
-                'url'  => '',
-            ],
-            [
-                'text' => 'Reservas Canceladas',
-                'icon' => 'fas fa-fw fa-list',
-                'url'  => '',
-            ],
+                [
+                    'text' => 'Reservaciones',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservacionHotel',
+                ],
+                [
+                    'text' => 'Registrar Nueva reserva',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'url'  => 'admin/reservacionHotel/create',
+                ],
+                [
+                    'text' => 'Reservas Activas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => '',
+                ],
+                [
+                    'text' => 'Reservas completadas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => '',
+                ],
+                [
+                    'text' => 'Reservas Canceladas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => '',
+                ],
             ]
         ],
         [
             'text' => 'Habitaciones de hotel',
-            'can'=>'habitacion',
+            'can' => 'habitacion',
+            'id' => 'menuHabitacion',
             'icon' => 'fas fa-fw fa-hotel',
             'submenu' => [
                 [
@@ -623,6 +641,7 @@ return [
         ],
         [
             'text' => 'Veterinaria',
+            'id' => 'menuVeterinaria',
             'icon' => 'fas fa-file-medical',
             'submenu' => [
                 [
@@ -649,17 +668,20 @@ return [
                     'can' => 'reservas_veterinaria.canceladas',
                     'url'  => 'admin/reservas_veterinaria/canceladas',
                 ],
-            ]
+            ],
+
+
         ],
         [
             'text' => 'Reportes',
+            'id' => 'menuReportes',
             'icon' => 'fas fa-solid fa-file-pdf',
-            'can'=>'users.index',
+            'can' => 'users.index',
             'submenu' => [
                 [
                     'text' => 'Generar reporte',
                     'icon' => 'fas fa-folder-plus',
-                    
+
                     'route'  => 'reportes.index',
                 ],
             ]
@@ -667,7 +689,7 @@ return [
         [
             'text' => 'Registro de actividad',
             'icon' => 'fas fa-solid fa-file-pdf',
-            'can'=>'users.index',
+            'can' => 'users.index',
             'url'  => 'logs',
         ]
     ],
@@ -775,8 +797,10 @@ return [
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
                 ],
+
             ],
         ],
+
     ],
 
     /*
@@ -825,4 +849,5 @@ return [
     */
 
     'livewire' => false,
+
 ];

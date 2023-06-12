@@ -436,69 +436,70 @@
         }, true);
     </script>
 
-<!--REGRESION LINEAL-->
-<script src={{asset('js/regression-js-master/dist/regression.js')}}></script>
-<script>
-    // Obtener los datos del controlador
-    var labels = @json($labels);
-    var values = @json($values);
-    var prediction = @json($prediction);
+    <!--REGRESION LINEAL-->
+    <script src={{ asset('js/regression-js-master/dist/regression.js') }}></script>
+    <script>
+        // Obtener los datos del controlador
+        var labels = @json($labels);
+        var values = @json($values);
+        var prediction = @json($prediction);
 
-    var transformedValues = values.map(value => Math.log(value));
-    // Crear una matriz de puntos de datos en el formato [x, y]
-    var datas = transformedValues.map((value, index) => [index + 1, value]);
+        var transformedValues = values.map(value => Math.log(value));
+        // Crear una matriz de puntos de datos en el formato [x, y]
+        var datas = transformedValues.map((value, index) => [index + 1, value]);
 
-    // Calcular la línea de regresión utilizando la función regression
-    var result = regression.linear(datas);
- 
-   // var result = regression.linear([[0, 1], [32, 67], [12, 79]]);
+        // Calcular la línea de regresión utilizando la función regression
+        var result = regression.linear(datas);
 
-    // Obtener los coeficientes de la línea de regresión
-    var slope = result.equation[0];
-    var intercept = result.equation[1];
-    
+        // var result = regression.linear([[0, 1], [32, 67], [12, 79]]);
 
-    // Generar los puntos de la línea de regresión extendida hasta julio
-    var regressionLineData = [];
-for (var i = 1; i <= values.length + 1; i++) {
-    var transformedX = Math.log(i);
-    var transformedY = slope * transformedX + intercept;
-    var y = Math.exp(transformedY);
-    regressionLineData.push({
-        x: i,
-        y: y
-    });
-}
+        // Obtener los coeficientes de la línea de regresión
+        var slope = result.equation[0];
+        var intercept = result.equation[1];
 
-    // Configurar el gráfico
-    var ctx = document.getElementById('salesChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Ventas',
-                data: values,
-                backgroundColor: 'rgba(0, 123, 255, 0.6)'
+
+        // Generar los puntos de la línea de regresión extendida hasta julio
+        var regressionLineData = [];
+        for (var i = 1; i <= values.length + 1; i++) {
+            var transformedX = Math.log(i);
+            var transformedY = slope * transformedX + intercept;
+            var y = Math.exp(transformedY);
+            regressionLineData.push({
+                x: i,
+                y: y
+            });
+        }
+
+        // Configurar el gráfico
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: 'Ventas',
+                        data: values,
+                        backgroundColor: 'rgba(0, 123, 255, 0.6)'
+                    },
+                    {
+                        label: 'Línea de Regresión',
+                        data: regressionLineData,
+                        type: 'line',
+                        fill: false,
+                        borderColor: 'rgba(255, 0, 0, 1)'
+                    }
+                ]
             },
-            {
-                label: 'Línea de Regresión',
-                data: regressionLineData,
-                type: 'line',
-                fill: false,
-                borderColor: 'rgba(255, 0, 0, 1)'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
     <script>
         var ctx = document.getElementById('earningsChart').getContext('2d');
@@ -546,10 +547,9 @@ for (var i = 1; i <= values.length + 1; i++) {
         });
     </script>
 
-
-
 @stop
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @section('css')
     <style>
         .chart-title {
@@ -578,4 +578,26 @@ for (var i = 1; i <= values.length + 1; i++) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Ocultar el menú Veterinaria si no tiene submenús
+            var submenuVeterinaria = $('#menuVeterinaria .treeview-menu');
+            if (submenuVeterinaria.children().length === 0) {
+                $('#menuVeterinaria').hide();
+            }
+    
+            // Ocultar el menú Productos si no tiene submenús
+            var submenuProductos = $('#menuProductos .treeview-menu');
+            if (submenuProductos.children().length === 0) {
+                $('#menuProductos').hide();
+            }
+    
+            // Ocultar el menú Mascotas si no tiene submenús
+            var submenuMascotas = $('#menuMascotas .treeview-menu');
+            if (submenuMascotas.length === 0 || submenuMascotas.children().length === 0) {
+                $('#menuMascotas').hide();
+            }
+        });
+    </script>
 @stop
