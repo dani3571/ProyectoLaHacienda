@@ -6,7 +6,17 @@
 <h1 class ="text-muted">Ventas realizadas</h1>
 <br>
 @endsection
-
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
+@endsection
 @section('content')
 @if(session('success'))
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

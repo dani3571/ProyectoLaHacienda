@@ -22,7 +22,7 @@ class MascotaController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
 
     }
