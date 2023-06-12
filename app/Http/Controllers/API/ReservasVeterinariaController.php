@@ -31,8 +31,6 @@ class ReservasVeterinariaController extends Controller
             'estado' => $request->input('estado'),
             'usuario_id' => $request->input('usuario_id'),
             'mascota_id' => $request->input('mascota_id'),
-            'created_at' => $request->input('created_at'),
-            'updated_at' => $request->input('updated_at'),
         ]);
         if ($reserva) {
             $ultimareserva = ReservacionVeterinaria::latest()->first();

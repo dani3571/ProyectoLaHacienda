@@ -24,21 +24,25 @@ class MascotaController extends Controller
 
     public function create(Request $request)
     {
-
-    }
-
-    public function show($id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    public function destroy($id)
-    {
-
+        $mascota = Mascotas::create([
+            'nombre' => $request->input('nombre'),
+            'tipo' => $request->input('tipo'),
+            'raza' => $request->input('raza'),
+            'color' => $request->input('color'),
+            'fechaNacimiento' => $request->input('fechaNacimiento'),
+            'caracter' => $request->input('caracter'),
+            'sexo' => $request->input('sexo'),
+            'estado' => $request->input('estado'),
+            'peso' => $request->input('peso'),
+            'tamaño' => $request->input('tamaño'),
+            'image' => $request->input('image'),
+            'usuario_id' => $request->input('usuario_id'),
+        ]);
+        if ($reserva) {
+            $ultimaMascota = Mascotas::latest()->first();
+            return response()->json($ultimaMascota, 201);
+        } else {
+            return response()->json(['error' => 'No se pudo crear la mascota'], 500);
+        }
     }
 }
