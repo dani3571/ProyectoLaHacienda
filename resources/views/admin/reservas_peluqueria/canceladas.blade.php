@@ -58,6 +58,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="text-center mt-3">
+            {{ $reservas_peluqueria->links() }}
+        </div>
     </div>
 </div>
 @endsection

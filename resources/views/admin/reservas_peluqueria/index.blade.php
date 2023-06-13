@@ -82,6 +82,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="text-center mt-3">
+            {{ $reservas_peluqueria->links() }}
+        </div>
     </div>
 </div>
 
@@ -99,8 +102,8 @@
                 <div class="modal-body">
                     <input type="hidden" name="Reserva_id" id="Reserva_id">
                     ¿Seguro que quiere cancelar su reserva?
-                    <label id="LabelMotivo" class="form-check-label">Motivo</label>
-                    <input type="hidden" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cancela la reservacion">
+                    <br><label id="LabelMotivo" class="form-check-label">Motivo</label>
+                    <input type="text" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cancela la reservacion">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger btn-sm">Si. cancelar</button>
