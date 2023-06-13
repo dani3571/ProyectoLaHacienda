@@ -189,9 +189,14 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         Route::post('/reservacionHotel/insertar-reservacionHotel', 'ReservacionHotelController@SPInsertarReservacionHotel')->name('reservacionHotel.SPInsertarReservacionHotel');
         Route::post('/reservacionHotel/edit-procedimiento', 'ReservacionHotelController@editProcedimiento')->name('reservacionHotel.editProcedimiento');
         Route::get('/reservacionHotel/index', [reservacionHotelController::class, 'index'])->name('reservacionHotel.index');
+        Route::post('/reservacionHotel/cancelar', [reservacionHotelController::class, 'cancelar'])->name('reservacionHotel.cancelar');
         Route::get('/reservacionHotel/canceladas', [reservacionHotelController::class, 'canceladas'])->name('reservacionHotel.canceladas');
         Route::get('/reservacionHotel/completadas', [reservacionHotelController::class, 'completadas'])->name('reservacionHotel.completadas');
+        Route::get('/reservacionHotel/activas', [reservacionHotelController::class, 'activas'])->name('reservacionHotel.activas');
+        Route::get('/reservacionHotel/pendientes', [reservacionHotelController::class, 'pendientes'])->name('reservacionHotel.pendientes');
         Route::get('/reservacionHotel/index', [reservacionHotelController::class, 'index'])->name('reservacionHotel.index');
+        Route::post('/reservacionHotel/checkin', [ReservacionHotelController::class, 'checkin'])->name('reservacionHotel.checkin');
+        Route::post('/reservacionHotel/checkout', [ReservacionHotelController::class, 'checkout'])->name('reservacionHotel.checkout');
         //HABITACIONES
         Route::resource('habitacion','HabitacionController')
         ->except('show')

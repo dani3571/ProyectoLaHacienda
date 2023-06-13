@@ -33,7 +33,7 @@ class ReservacionHotelController extends Controller
         $users = User::all();
         $mascotas = Mascotas::all();
         $habitaciones = Habitacion::all();
-        $reservacionHotel = ReservacionHotel::simplePaginate(10);
+        $reservacionHotel = ReservacionHotel::where('estado', 1)->simplePaginate(10);
 
         return view('admin.reservacionHotel.index', compact('reservacionHotel','users','mascotas','habitaciones'));
     }
@@ -105,8 +105,7 @@ class ReservacionHotelController extends Controller
               ->get();
           return view('admin.mascotas.edit', compact('mascotas'));
     */
-    
-          $reservacionHotel = reservacionHotel::findOrFail($id);
+          $reservacionHotel = ReservacionHotel::findOrFail($id);
           $users = User::all();
           $mascotas = Mascotas::all();
           $habitacions = Habitacion::all();
@@ -167,36 +166,22 @@ class ReservacionHotelController extends Controller
         return redirect()->route('reservacionHotel.index')->with('success-update', 'Reservación eliminada con exito');
         //return redirect()->route('reservacionHotel.inactivos')->with('success-update', 'Reservación eliminada con exito');
     }
-    /*
-    public function cambiarEstado($id)
-    {
-        $mascota = Mascotas::findOrFail($id);
-        $mascota->estado = 0;
-        $mascota->save();
-
-        return redirect()->route('mascotas.index')->with('success-update', 'Eliminacion logica realizada con exito');
-    }
-
-    public function restablecerEstado($id)
-    {
-        $mascota = Mascotas::findOrFail($id);
-        $mascota->estado = 1;
-        $mascota->save();
-
-        return redirect()->route('mascotas.inactivos')->with('success-update', 'Mascota restablecida con éxito');
-    }
-    */
 
     public function cancelar(Request $request)
-    {
-        /*$reservacionHotel = reservacionHotel::findOrFail($request->Reserva_id);
-        //modificamos el estado a 0
-        $reservacionHotel->estado = 0;
-        //Guardamos el registro a la BD
-        $reservacionHotel->save();
+{
+    $reservacionHotel = ReservacionHotel::findOrFail($request->Reserva_id);
+    // modificamos el estado a 0
+    $reservacionHotel->estado = 0;
+    // Guardamos el registro en la BD
+    $reservacionHotel->save();
 
-        return redirect()->route('reservacionHotel.index')->with('success', 'Su reserva fue cancelada');*/
-    }
+    // Actualizamos el estado de las habitaciones
+    Habitacion::where('id', $reservacionHotel->habitacion_id)
+        ->update(['estado' => 1]);
+
+    return redirect()->route('reservacionHotel.index')->with('success', 'Su reserva fue cancelada');
+}
+
 
     public function canceladas()
     {
@@ -206,10 +191,77 @@ class ReservacionHotelController extends Controller
             ->orderBy('id', 'asc')
             ->simplePaginate(10);
         return View('admin.reservacionHotel.canceladas', compact('reservacionHotel'));*/
-        $reservacionHotel = ReservacionHotel::simplePaginate(10);
+        $users = User::all();
+        $mascotas = Mascotas::all();
+        $habitaciones = Habitacion::all();
+        $reservacionHotel = ReservacionHotel::where('estado', 0)->simplePaginate(10);
 
-        return view('admin.reservacionHotel.index', compact('reservacionHotel'));
+        return view('admin.reservacionHotel.canceladas', compact('reservacionHotel','users','mascotas','habitaciones'));
     }
+
+    public function checkin(Request $request)
+    {
+
+        $reservacionHotel = ReservacionHotel::findOrFail($request->input('Reserva_idch'));
+        $horaActual = $request->input('horaCheckin');
+        // Modificamos el estado a 2
+        $reservacionHotel->estado = 2;
+        $reservacionHotel->horaCheckin = $horaActual;
+
+        // Guardamos el registro en la BD
+        $reservacionHotel->save();
+
+        return redirect()->route('reservacionHotel.activas')->with('success', 'Su reserva está activada');
+    }
+
+    public function activas()
+    {
+        $reservaciones_pasadas = ReservacionHotel::where('estado', 2) 
+            //->where('usuario_id', Auth::user()->id)
+            ->where('fechaSalida', '<=', now()->format('Y-m-d'))
+            ->get();
+        foreach($reservaciones_pasadas as $reserva){
+            $reservacionHotel = ReservacionHotel::findOrFail($reserva->id);
+            //modificamos el estado a 3
+            $reservacionHotel->estado = 3;
+            $reservacionHotel->costo_extras = 10;
+            $reservacionHotel->costo_total = 10;
+            //Guardamos el registro a la BD
+            $reservacionHotel->save();
+        }
+        //utilizamos user_id de la relacion con mascotas
+        /*$reservacionHotel = reservacionHotel::where('usuario_id', Auth::user()->id)
+            ->where('estado', 0)
+            ->orderBy('id', 'asc')
+            ->simplePaginate(10);
+        return View('admin.reservacionHotel.canceladas', compact('reservacionHotel'));*/
+        $users = User::all();
+        $mascotas = Mascotas::all();
+        $habitaciones = Habitacion::all();
+        $reservacionHotel = ReservacionHotel::where('estado', 2)->simplePaginate(10);
+
+        return view('admin.reservacionHotel.activas', compact('reservacionHotel','users','mascotas','habitaciones'));
+    }
+
+    public function checkout(Request $request)
+    {
+
+        $reservacionHotel = ReservacionHotel::findOrFail($request->input('Reserva_idcho'));
+        $horaActual = $request->input('horaCheckout');
+        // Modificamos el estado a 4
+        $reservacionHotel->estado = 4;
+        $reservacionHotel->horaCheckout = $horaActual;
+
+        // Guardamos el registro en la BD
+        $reservacionHotel->save();
+        
+        // Actualizamos el estado de las habitaciones
+        Habitacion::where('id', $reservacionHotel->habitacion_id)
+        ->update(['estado' => 1]);
+
+        return redirect()->route('reservacionHotel.completadas')->with('success', 'Su reserva está completada');
+    }
+
 
     public function completadas()
     {
@@ -219,9 +271,22 @@ class ReservacionHotelController extends Controller
             ->orderBy('id', 'asc')
             ->simplePaginate(10);
         return View('admin.reservacionHotel.completadas', compact('reservacionHotel'));*/
-        $reservacionHotel = ReservacionHotel::simplePaginate(10);
+        $users = User::all();
+        $mascotas = Mascotas::all();
+        $habitaciones = Habitacion::all();
+        $reservacionHotel = ReservacionHotel::where('estado', 4)->simplePaginate(10);
 
-        return view('admin.reservacionHotel.index', compact('reservacionHotel'));
+        return view('admin.reservacionHotel.completadas', compact('reservacionHotel','users','mascotas','habitaciones'));
+    }
+
+    public function pendientes()
+    {
+        $users = User::all();
+        $mascotas = Mascotas::all();
+        $habitaciones = Habitacion::all();
+        $reservacionHotel = ReservacionHotel::where('estado', 3)->simplePaginate(10);
+
+        return view('admin.reservacionHotel.pendientes', compact('reservacionHotel','users','mascotas','habitaciones'));
     }
 
 
@@ -281,45 +346,64 @@ class ReservacionHotelController extends Controller
     }
 
 
+
+
+
     public function editProcedimiento(Request $request)
     {
         // Obtener los datos del formulario
-        $reservacionHotel_id = $request -> input('reservacionHotel_id');
         $fechaIngreso = $request->input('fechaIngreso');
         $fechaSalida = $request->input('fechaSalida');
         // Obtener los demás datos del formulario
-        $tratamientos = $request->input('tratamientos');
-        $tranporte = $request->input('tranporte');
-        $comida = $request->input('comida');
-        $banioYCorte = $request->input('banioYCorte');
-        $tratamiento = $request->input('tratamiento');
-        $extras = $request->input('extras');
-        $total = $request->input('total');
+        $horaRecepcion = $request->input('horaRecepcion');
+        $tratamiento_veterinaria = $request->input('tratamiento_veterinaria');
+        $tratamiento_corte_banio = $request->input('tratamiento_corte_banio');
+        $observaciones = $request->input('observaciones');
+        $zona_direccion = $request->input('zona_direccion');
+        $direccion = $request->input('direccion');
+        $costo_transporte = $request->input('costo_transporte');
+        $costo_comida = $request->input('costo_comida');
+        $costo_veterinaria = $request->input('costo_veterinaria');
+        $costo_corte_banio = $request->input('costo_corte_banio');
+        $costo_extras = $request->input('costo_extras');
+        $costo_total = $request->input('costo_total');
+        $horaCheckin = $request->input('horaCheckin');
+        $horaCheckout = $request->input('horaCheckout');
         $estado = $request->input('estado');
         $usuario_id = $request->input('usuario_id');
         $mascota_id = $request->input('mascota_id');
         $habitacion_id = $request->input('habitacion_id');
+        $habitacion_id_nuevo = $request->input('habitacion_id_nuevo');
         
         // Ejecutar el procedimiento almacenado
-        // Ejecutar el procedimiento almacenado
-DB::statement('CALL ActualizarReservacionHotel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-    $reservacionHotel_id,
-    $fechaIngreso,
-    $fechaSalida,
-    // Pasar los demás datos del formulario como argumentos
-    $tratamientos,
-    $tranporte,
-    $comida,
-    $banioYCorte,
-    $tratamiento,
-    $extras,
-    $total,
-    $estado,
-    $usuario_id,
-    $mascota_id,
-    $habitacion_id
-]);
+        DB::statement('CALL SPActualizarReservacionHotel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+            $fechaIngreso,
+            $fechaSalida,
+            $horaRecepcion,
+            $tratamiento_veterinaria,
+            $tratamiento_corte_banio,
+            $observaciones,
+            $zona_direccion,
+            $direccion,
+            $costo_transporte,
+            $costo_comida,
+            $costo_veterinaria,
+            $costo_corte_banio,
+            $costo_extras,
+            $costo_total,
+            $horaCheckin,
+            $horaCheckout,
+            $estado,
+            $usuario_id,
+            $mascota_id,
+            $habitacion_id,
+            $habitacion_id_nuevo
+        ]);
+        
+    
         // Redireccionar o mostrar un mensaje de éxito
         return redirect()->route('reservacionHotel.index')->with('success', 'Reserva modificada con éxito');
     }
+    
+
 }

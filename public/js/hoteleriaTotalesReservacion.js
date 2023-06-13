@@ -2,7 +2,7 @@
 const hidden = document.getElementById("hiddenAtributes")
 hidden.style.display = 'none';
 
-
+calculateSum();
 //SUMA DE COSTOS - RESERVACIÓN DE HOTELERÍA.
 function calculateSum() {
     const num1 = parseFloat(document.getElementById("costo_transporte").value) || 0;
@@ -58,31 +58,39 @@ $(document).ready(function() {
     var checkCorteBanio = $("#check_corte_banio");
     var costoVeterinaria = $("#costo_veterinaria");
     var costoCorteBanio = $("#costo_corte_banio");
+    var inputVeterinaria = $("#input_veterinaria");
+    var inputCorteBanio = $("#input_corte_banio");
 
     // Establecer el número por defecto
     var numeroPorDefecto = 100;
 
     // Función para actualizar los costos
     function actualizarCostos() {
+      calculateSum();
         if (checkVeterinaria.prop("checked")) {
             costoVeterinaria.val(numeroPorDefecto);
             checkVeterinaria.prop("value", "1");
+            inputVeterinaria.val("1");
             calculateSum();
         } else {
             costoVeterinaria.val(0);
             checkVeterinaria.prop("value", "0");
+            inputVeterinaria.val("0");
             calculateSum();
         }
 
         if (checkCorteBanio.prop("checked")) {
             costoCorteBanio.val(numeroPorDefecto);
             checkCorteBanio.prop("value", "1");
+            inputCorteBanio.val("1");
             calculateSum();
         } else {
             costoCorteBanio.val(0);
             checkCorteBanio.prop("value", "0");
+            inputCorteBanio.val("0");
             calculateSum();
         }
+        calculateSum();
     }
 
 
@@ -129,17 +137,22 @@ const inputCostoTransporte = document.getElementById('costo_transporte');
 
 // Agrega un event listener al select
 selectZona.addEventListener('change', function() {
-    // Verifica si la opción seleccionada es "Zona Sur"
     if (selectZona.value === 'Zona sur') {
-        // Establece el valor del input a 100 (o cualquier otro número que desees)
         inputCostoTransporte.value = '100';
         calculateSum();
+    } else if (selectZona.value === 'Miraflores') {
+        inputCostoTransporte.value = '150';
+        calculateSum();
+    } else if (selectZona.value === 'Sopocachi') {
+        inputCostoTransporte.value = '160';
+        calculateSum();
+    } else if (selectZona.value === 'Centro') {
+        inputCostoTransporte.value = '180';
+        calculateSum();
     } else {
-        // Si no es "Zona Sur", borra el valor del input
         inputCostoTransporte.value = '';
     }
 });
-
 
 //ACTIVAR O DESACTIVAR LOS CAMPOS DE TRANSPORTE - HOTELERÍA.
 // Obtén el checkbox y el div

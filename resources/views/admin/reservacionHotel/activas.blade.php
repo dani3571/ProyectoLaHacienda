@@ -3,7 +3,7 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Reservaciones Activas sin confirmar - Hotel de mascotas</h1>
+<h1>Reservaciones Activas - Hotel de mascotas</h1>
 @endsection
 
 @section('content')
@@ -131,8 +131,8 @@
                                             <td>@if($reservacionHotel-> tratamiento_veterinaria == '1') Si @else No @endif</td>
                                             <td>@if($reservacionHotel-> tratamiento_corte_banio == '1') Si @else No @endif</td>
                                             <td>{{ $reservacionHotel-> observaciones}}</td>
-                                            <td>@if($reservacionHotel-> zona_direccion == null) No transporte @else $reservacionHotel-> zona_direccion @endif</td>
-                                            <td>@if($reservacionHotel-> direccion == null) No transporte @else $reservacionHotel-> direccion @endif</td>
+                                            <td>{{ $reservacionHotel-> zona_direccion}}</td>
+                                            <td>{{ $reservacionHotel-> direccion}}</td>
                                             <td>{{ $reservacionHotel-> costo_transporte}}</td>
                                             <td>{{ $reservacionHotel-> costo_comida}}</td>
                                             <td>{{ $reservacionHotel-> costo_veterinaria}}</td>
@@ -142,9 +142,9 @@
                                             <td>{{ $reservacionHotel-> horaCheckin}}</td>
                                             <td>{{ $reservacionHotel-> horaCheckout}}</td>
 
-                                            <td width="10px"><a href="{{route('reservacionHotel.edit', $reservacionHotel)}}" class="btn btn-primary btn-sm mb-2">Modificar</a></td>
+                                            <!--<td width="10px"><a href="{{route('reservacionHotel.edit', $reservacionHotel)}}" class="btn btn-primary btn-sm mb-2">Modificar</a></td>-->
                                             <td width="10px"><a href="{{route('reservacionHotel.show', $reservacionHotel)}}" class="btn btn-secondary btn-sm mb-2">Detalles</a></td>
-                                            <td><button type="button" class="btn btn-secondary btn-sm mb-2 confirmarCheckin" value="{{$reservacionHotel->id}}" > Confirmar CheckIn </button></td>
+                                            <td><button type="button" class="btn btn-secondary btn-sm mb-2 confirmarCheckout" value="{{$reservacionHotel->id}}" > Confirmar CheckOut </button></td>
                                             <td width="10px">
 
                                             <!--<td width="5px">
@@ -168,10 +168,10 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="text" name="Reserva_id" id="Reserva_id">
+                                                                <input type="hidden" name="Reserva_id" id="Reserva_id">
                                                                 ¿Seguro que quiere cancelar su reserva?
                                                                 <label id="LabelMotivo" class="form-check-label">Motivo</label>
-                                                                <input type="text" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cancela la reservacion">
+                                                                <input type="hidden" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="submit" class="btn btn-danger btn-sm">Si. cancelar</button>
@@ -181,25 +181,25 @@
                                                 </div>
                                             </div>
 
-                                            <div class="modal fade" id="ModalCheckin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">                                           
+                                            <div class="modal fade" id="ModalCheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">                                           
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
-                                                        <form action="{{ route('reservacionHotel.checkin') }}" method="POST">
+                                                        <form action="{{ route('reservacionHotel.checkout') }}" method="POST">
                                                             @csrf
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">checkIn Reserva</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">checkOut Reserva</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="hidden" name="Reserva_idch" id="Reserva_idch">
-                                                                ¿Seguro que quiere hacer checkIn a su reserva?
+                                                                <input type="hidden" name="Reserva_idcho" id="Reserva_idcho">
+                                                                ¿CheckOut a la reserva?
                                                                 <!--<label id="LabelMotivo" class="form-check-label">Motivo</label>-->
-                                                                <input type="hidden" class="form-control" name="horaCheckin" id="horaCheckin" placeholder="Indique el motivo por el cancela la reservacion">
+                                                                <input type="hidden" class="form-control" name="horaCheckout" id="horaCheckout" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Si. checkIn</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Si. checkOut</button>
                                                             </div>
                                                         </form>
                                                     </div>

@@ -594,36 +594,40 @@ return [
 
         [
             'text' => ' Reservaciones de Hotel',
-            'id' => 'menuHotel',
             'url'  => 'admin/reservacionHotel',
-            'can' => 'admin/reservacionHotel',
+            'can'=>'admin/reservacionHotel',
             'icon' => 'fas fa-fw fa-hotel',
             'submenu' => [
                 [
-                    'text' => 'Reservaciones',
-                    'icon' => 'fas fa-fw fa-list',
-                    'url'  => 'admin/reservacionHotel',
-                ],
-                [
-                    'text' => 'Registrar Nueva reserva',
-                    'icon' => 'fas fa-fw fa-plus',
-                    'url'  => 'admin/reservacionHotel/create',
-                ],
-                [
-                    'text' => 'Reservas Activas',
-                    'icon' => 'fas fa-fw fa-list',
-                    'url'  => '',
-                ],
-                [
-                    'text' => 'Reservas completadas',
-                    'icon' => 'fas fa-fw fa-list',
-                    'url'  => '',
-                ],
-                [
-                    'text' => 'Reservas Canceladas',
-                    'icon' => 'fas fa-fw fa-list',
-                    'url'  => '',
-                ],
+                'text' => 'Registrar Nueva reserva',
+                'icon' => 'fas fa-fw fa-plus',
+                'url'  => 'admin/reservacionHotel/create',
+            ],
+            [
+            'text' => 'Reservas sin Confirmar',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => 'admin/reservacionHotel',
+            ],
+            [
+                'text' => 'Reservas Activas',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => 'admin/reservacionHotel/activas',
+            ],
+            [
+                'text' => 'Reservas Pendientes de Salida',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => 'admin/reservacionHotel/pendientes',
+            ],
+            [
+                'text' => 'Reservas Completadas',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => 'admin/reservacionHotel/completadas',
+            ],
+            [
+                'text' => 'Reservas Canceladas',
+                'icon' => 'fas fa-fw fa-list',
+                'url'  => 'admin/reservacionHotel/canceladas',
+            ],
             ]
         ],
         [

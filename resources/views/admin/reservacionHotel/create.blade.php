@@ -116,7 +116,7 @@
                     <b><i>Costo de habitación:</i></b>
                     <br>
                     <input type="text" class="form-control" id="costo_habitacion" name='costo_habitacion' placeholder="Costo de habitación"
-                    value="{{ old('costo_corte_banio') ?? 0 }}" readonly>
+                    value="{{ old('costo_habitacion') ?? 0 }}" readonly>
             </div>
             <div class="form-group">
                 <label>Fecha Ingreso</label>
@@ -165,7 +165,8 @@
             <div class="form-group">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for=""><b><i>Revisión veterinaria de rutina</i></b></label>
-                    <input class="form-check-input ml-2" type="checkbox" id="check_veterinaria" name="tratamiento_veterinaria" value="0">
+                    <input class="form-check-input ml-2" type="checkbox" id="check_veterinaria" value="0">
+                    <input type="hidden" id="input_veterinaria" name="tratamiento_veterinaria" value="0">
                 </div>
             </div>
             <div class="form-group">
@@ -183,7 +184,8 @@
             <div class="form-group">
     <div class="form-check form-check-inline">
         <label class="form-check-label" for=""><b><i>Corte y baño en la estadía</i></b></label>
-        <input class="form-check-input ml-2" type="checkbox" id="check_corte_banio" name="tratamiento_corte_banio" value="0">
+        <input class="form-check-input ml-2" type="checkbox" id="check_corte_banio" value="0">
+        <input type="hidden" id="input_corte_banio" name="tratamiento_corte_banio" value="0">
     </div>
 </div>
 
@@ -227,6 +229,9 @@
                 <select class="form-control" id="zona_direccion" name='zona_direccion'>
                     <option value="">Seleccionar zona</option>
                     <option value="Zona sur">Zona Sur</option>
+                    <option value="Sopocachi">Sopocachi</option>
+                    <option value="Miraflores">Miraflores</option>
+                    <option value="Centro">Centro</option>
                 </select>
                 @error('zona_direccion')
                 <span class="text-danger">
