@@ -55,7 +55,7 @@ class VentasSeeder extends Seeder
             $createdAt = Carbon::create(2023, 2, $faker->numberBetween(1, 28));
             $id = $faker->numberBetween(1, 6);
             $producto = Productos::find($id);
-            $cantidad = $faker->numberBetween(1, 10);
+            $cantidad = $faker->numberBetween(1, 25);
             $subtotal = $producto->precio * $cantidad;
 
             $ventaActual = Ventas::create([
@@ -81,7 +81,7 @@ class VentasSeeder extends Seeder
             $createdAt = Carbon::create(2023, 3, $faker->numberBetween(1, 31));
             $id = $faker->numberBetween(1, 6);
             $producto = Productos::find($id);
-            $cantidad = $faker->numberBetween(1, 10);
+            $cantidad = $faker->numberBetween(1, 30);
             $subtotal = $producto->precio * $cantidad;
 
             $ventaActual = Ventas::create([
@@ -108,7 +108,7 @@ class VentasSeeder extends Seeder
             $createdAt = Carbon::create(2023, 4, $faker->numberBetween(1, 30));
             $id = $faker->numberBetween(1, 6);
             $producto = Productos::find($id);
-            $cantidad = $faker->numberBetween(1, 10);
+            $cantidad = $faker->numberBetween(1, 40);
             $subtotal = $producto->precio * $cantidad;
 
             $ventaActual = Ventas::create([
@@ -137,7 +137,7 @@ class VentasSeeder extends Seeder
 
             $id = $faker->numberBetween(1, 6);
             $producto = Productos::find($id);
-            $cantidad = $faker->numberBetween(1, 10);
+            $cantidad = $faker->numberBetween(1, 50);
             $subtotal = $producto->precio * $cantidad;
 
             $ventaActual = Ventas::create([
@@ -164,7 +164,7 @@ class VentasSeeder extends Seeder
 
             $id = $faker->numberBetween(1, 6);
             $producto = Productos::find($id);
-            $cantidad = $faker->numberBetween(1, 10);
+            $cantidad = $faker->numberBetween(1, 80);
             $subtotal = $producto->precio * $cantidad;
 
             $ventaActual = Ventas::create([

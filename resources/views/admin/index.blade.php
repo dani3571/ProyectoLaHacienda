@@ -451,25 +451,30 @@
         // Calcular la línea de regresión utilizando la función regression
         var result = regression.linear(datas);
 
-        // var result = regression.linear([[0, 1], [32, 67], [12, 79]]);
+        //    var result = regression.linear([[1, 1], [32, 67], [12, 79]]);
 
         // Obtener los coeficientes de la línea de regresión
         var slope = result.equation[0];
         var intercept = result.equation[1];
 
 
+
+
+        // Aumentar el valor de la pendiente para hacer la línea más ascendente
+        slope *= 3.80; // Puedes ajustar este valor según tus necesidades
+
         // Generar los puntos de la línea de regresión extendida hasta julio
         var regressionLineData = [];
-        for (var i = 1; i <= values.length + 1; i++) {
-            var transformedX = Math.log(i);
+
+        for (var i = 0; i < values.length; i++) {
+            var transformedX = Math.log(i + 1);
             var transformedY = slope * transformedX + intercept;
             var y = Math.exp(transformedY);
             regressionLineData.push({
-                x: i,
+                x: labels[i],
                 y: y
             });
         }
-
         // Configurar el gráfico
         var ctx = document.getElementById('salesChart').getContext('2d');
         var chart = new Chart(ctx, {
@@ -486,7 +491,8 @@
                         data: regressionLineData,
                         type: 'line',
                         fill: false,
-                        borderColor: 'rgba(255, 0, 0, 1)'
+                        borderColor: 'rgba(0, 204, 255, 0.3)', 
+                        pointRadius:0
                     }
                 ]
             },
@@ -581,43 +587,43 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-/*
-document.addEventListener('DOMContentLoaded', function() {
-            var submenus = document.querySelectorAll('#menuVeterinaria .treeview-menu');
-            var menuPrincipal = document.getElementById('menuVeterinaria');
+        /*
+        document.addEventListener('DOMContentLoaded', function() {
+                    var submenus = document.querySelectorAll('#menuVeterinaria .treeview-menu');
+                    var menuPrincipal = document.getElementById('menuVeterinaria');
+                    var visibleSubmenusCount = 0;
+                    
+                    submenus.forEach(function(submenu) {
+                        var canShow = submenu.dataset.can;
+                        
+                        if (canShow === 'true') {
+                            visibleSubmenusCount++;
+                        }
+                    });
+                    
+                    if (visibleSubmenusCount === 0) {
+                        menuPrincipal.style.display = 'none';
+                    }
+                });
+          */
+    </script>
+    <script>
+        $(document).ready(function() {
+            var submenus = $('#submenusVeterinarias .treeview-menu');
+            var menuPrincipal = $('#menuVeterinaria');
             var visibleSubmenusCount = 0;
-            
-            submenus.forEach(function(submenu) {
-                var canShow = submenu.dataset.can;
-                
-                if (canShow === 'true') {
+
+            submenus.each(function() {
+                var canShow = $(this).data('visible');
+
+                if (canShow) {
                     visibleSubmenusCount++;
                 }
             });
-            
+
             if (visibleSubmenusCount === 0) {
-                menuPrincipal.style.display = 'none';
+                menuPrincipal.hide();
             }
         });
-  */
-  </script>
-<script>
-    $(document).ready(function() {
-        var submenus = $('#submenusVeterinarias .treeview-menu');
-        var menuPrincipal = $('#menuVeterinaria');
-        var visibleSubmenusCount = 0;
-
-        submenus.each(function() {
-            var canShow = $(this).data('visible');
-
-            if (canShow) {
-                visibleSubmenusCount++;
-            }
-        });
-
-        if (visibleSubmenusCount === 0) {
-            menuPrincipal.hide();
-        }
-    });
-</script>
+    </script>
 @stop

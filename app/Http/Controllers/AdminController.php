@@ -71,61 +71,58 @@ class AdminController extends Controller
         // Pasar los datos a la vista
         return view('admin.index')->with(compact('labels', 'values', 'prediction', 'months', 'earnings'));
     }
-    private function predictNextMonthSales($data)
-    {
-        // Calcular los coeficientes de la regresión lineal
-        $n = count($data); // Número de datos
-        $sumX = 0; // Sumatoria de los valores de x
-        $sumY = 0; // Sumatoria de los valores de y
-        $sumXY = 0; // Sumatoria de los productos xy
-        $sumX2 = 0; // Sumatoria de los cuadrados de x
+   private function predictNextMonthSales($data)
+{
+    // Calcular los coeficientes de la regresión lineal
+    $n = count($data); // Número de datos
+    $sumX = 0; // Sumatoria de los valores de x
+    $sumY = 0; // Sumatoria de los valores de y
+    $sumXY = 0; // Sumatoria de los productos xy
+    $sumX2 = 0; // Sumatoria de los cuadrados de x
 
-        foreach ($data as $item) {
-            $x = Carbon::parse($item->month)->month; // Obtener el mes como valor de x
-            $y = $item->total_ventas;
+    foreach ($data as $item) {
+        $x = Carbon::parse($item->month)->month; // Obtener el mes como valor de x
+        $y = $item->total_ventas;
 
-            $sumX += $x;
-            $sumY += $y;
-            $sumXY += $x * $y;
-            $sumX2 += $x * $x;
-        }
-
-        $meanX = $sumX / $n; // Media de los valores de x
-        $meanY = $sumY / $n; // Media de los valores de y
-
-        // Calcular la pendiente (b) de la línea de regresión
-        $slope = ($sumXY - $n * $meanX * $meanY) / ($sumX2 - $n * ($meanX * $meanX));
-
-        // Calcular la intersección (a) con el eje y
-        $intercept = $meanY - $slope * $meanX;
-
-
-        // Formatear y normalizar los valores de las ventas
-        $formattedValues = [];
-        foreach ($data as $item) {
-            $formattedValues[] = number_format($item->total_ventas, 2, '.', '') / 1000; // Aplicar formateo y normalización
-        }
-
-        $regressionLineValues = [];
-        foreach ($data as $item) {
-            $x = Carbon::parse($item->month)->month; // Obtener el mes como valor de x
-            $y = $item->total_ventas;
-            $regressionLineValues[] = $slope * $x + $intercept;
-        }
-
-        // Calcular la predicción para el próximo mes
-        $nextMonth = Carbon::now()->addMonth()->format('Y-m');
-        $nextMonthSales = $slope * Carbon::parse($nextMonth)->month + $intercept;
-
-         
-         // Calcular los valores de la línea de regresión extendida hasta julio
-         $extendedRegressionLineValues = [];
-         for ($i = 1; $i <= $n + 7; $i++) {
-             $extendedRegressionLineValues[] = $slope * $i + $intercept;
-         }
-
-         return $nextMonthSales;
+        $sumX += $x;
+        $sumY += $y;
+        $sumXY += $x * $y;
+        $sumX2 += $x * $x;
     }
+
+    $meanX = $sumX / $n; // Media de los valores de x
+    $meanY = $sumY / $n; // Media de los valores de y
+
+    // Calcular la pendiente (b) de la línea de regresión
+    $slope = ($sumXY - $n * $meanX * $meanY) / ($sumX2 - $n * ($meanX * $meanX));
+
+    // Calcular la intersección (a) con el eje y
+    $intercept = $meanY - $slope * $meanX;
+
+    // Formatear y normalizar los valores de las ventas
+    $formattedValues = [];
+    foreach ($data as $item) {
+        $formattedValues[] = number_format($item->total_ventas, 2, '.', '') / 1000; // Aplicar formateo y normalización
+    }
+
+    $regressionLineValues = [];
+    foreach ($formattedValues as $index => $value) {
+        $x = $index + 1; // Valor de x correspondiente al índice
+        $regressionLineValues[] = $slope * $x + $intercept;
+    }
+
+    // Calcular la predicción para el próximo mes
+    $nextMonth = Carbon::now()->addMonth()->format('Y-m');
+    $nextMonthSales = $slope * Carbon::parse($nextMonth)->month + $intercept;
+
+    // Calcular los valores de la línea de regresión extendida hasta julio
+    $extendedRegressionLineValues = [];
+    for ($i = 1; $i <= count($formattedValues) + 7; $i++) {
+        $extendedRegressionLineValues[] = $slope * $i + $intercept;
+    }
+
+    return $nextMonthSales;
+}
 
 
     private function predictNextMonthEarnings($data2)
