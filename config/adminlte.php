@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Gate;
 use JeroenNoten\LaravelAdminLte\AdminLte;
+use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php;
 
 return [
 
@@ -395,25 +396,38 @@ return [
                     'text' => 'Listado de mascotas',
                     'route'  => 'mascotas.index',
                     'icon' => 'fas fa-list-alt',
+                    'data' => [
+                        'visible' => true,
+                    ],
                 ],
                 [
                     'text' => 'Mascotas inactivas',
                     'icon' => 'fas fa-stream',
                     'route'  => 'mascotas.inactivos',
+                    'data' => [
+                        'visible' => true,
+                    ],
                 ],
 
                 [
                     'text' => 'Crear mascotas',
                     'icon' => 'fas fa-solid fa-plus',
                     'route'  => 'mascotas.create',
+                    'data' => [
+                        'visible' => true,
+                    ],
                 ],
                 [
                     'text' => 'Reporte de mascotas',
                     'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPDF',
+                    'data' => [
+                        'visible' => true,
+                    ],
                 ],
             ]
         ],
+        
         [
             'text'    => 'Peluqueria',
             'id' => 'menuPeluqueria',
@@ -654,28 +668,41 @@ return [
             'icon' => 'fas fa-file-medical',
             'submenu' => [
                 [
+                    'id' => 'submenusVeterinarias',
                     'text' => 'Registrar Nueva reserva',
                     'icon' => 'fas fa-fw fa-plus',
                     'can' => 'reservas_veterinaria.create',
                     'url'  => 'admin/reservas_veterinaria/create',
+                    'data' => [
+                        'can' => 'reservas_veterinaria.create' ? 'true' : 'false',
+                    ],
                 ],
                 [
                     'text' => 'Reservas Activas',
                     'icon' => 'fas fa-fw fa-list',
                     'can' => 'reservas_veterinaria.index',
                     'url'  => 'admin/reservas_veterinaria',
+                    'data' => [
+                        'can' => 'reservas_veterinaria.index' ? 'true' : 'false',
+                    ],
                 ],
                 [
                     'text' => 'Reservas completadas',
                     'icon' => 'fas fa-fw fa-list',
                     'can' => 'reservas_veterinaria.completadas',
                     'url'  => 'admin/reservas_veterinaria/completadas',
+                    'data' => [
+                        'can' => 'reservas_veterinaria.completadas' ? 'true' : 'false',
+                    ],
                 ],
                 [
                     'text' => 'Reservas Canceladas',
                     'icon' => 'fas fa-fw fa-list',
                     'can' => 'reservas_veterinaria.canceladas',
                     'url'  => 'admin/reservas_veterinaria/canceladas',
+                    'data' => [
+                        'can' => 'reservas_veterinaria.canceladas' ? 'true' : 'false',
+                    ],
                 ],
             ],
 

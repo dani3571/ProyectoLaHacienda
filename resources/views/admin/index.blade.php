@@ -579,25 +579,45 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
-        $(document).ready(function() {
-            // Ocultar el menú Veterinaria si no tiene submenús
-            var submenuVeterinaria = $('#menuVeterinaria .treeview-menu');
-            if (submenuVeterinaria.children().length === 0) {
-                $('#menuVeterinaria').hide();
-            }
-    /*
-            // Ocultar el menú Productos si no tiene submenús
-            var submenuProductos = $('#menuProductos .nav-item has-treeview menu-is-opening menu-open');
-            if (submenuProductos.children().length === 0) {
-                $('#menuProductos').hide();
-            }
-    */
-            // Ocultar el menú Mascotas si no tiene submenús
-            var submenuMascotas = $('#menuMascotas .nav nav-treeview');
-            if (submenuMascotas.children().length === 0) {
-                $('#menuMascotas').hide();
+/*
+document.addEventListener('DOMContentLoaded', function() {
+            var submenus = document.querySelectorAll('#menuVeterinaria .treeview-menu');
+            var menuPrincipal = document.getElementById('menuVeterinaria');
+            var visibleSubmenusCount = 0;
+            
+            submenus.forEach(function(submenu) {
+                var canShow = submenu.dataset.can;
+                
+                if (canShow === 'true') {
+                    visibleSubmenusCount++;
+                }
+            });
+            
+            if (visibleSubmenusCount === 0) {
+                menuPrincipal.style.display = 'none';
             }
         });
-    </script>
+  */
+  </script>
+<script>
+    $(document).ready(function() {
+        var submenus = $('#submenusVeterinarias .treeview-menu');
+        var menuPrincipal = $('#menuVeterinaria');
+        var visibleSubmenusCount = 0;
+
+        submenus.each(function() {
+            var canShow = $(this).data('visible');
+
+            if (canShow) {
+                visibleSubmenusCount++;
+            }
+        });
+
+        if (visibleSubmenusCount === 0) {
+            menuPrincipal.hide();
+        }
+    });
+</script>
 @stop
