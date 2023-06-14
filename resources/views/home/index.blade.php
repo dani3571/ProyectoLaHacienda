@@ -421,8 +421,8 @@ body{
 			<div class="col-12 col-lg-4">
                 
 				<h5 class="font-color-general text-center p-3"  style="font-size:xx-large">Veterinaria</h5>
-                <img src="{{asset('images/veterinaria.jpg')}}"  class="img-fluid " alt="imagen nutricion">	
-                <p class="p-3" style="text-align: justify; font-size:max-large" >
+                <img style="height: 306px; width:510px" src="{{asset('images/Veterinaria2.jfif')}}"  class="img-fluid " alt="imagen nutricion">	
+                <p class="p-3" style="text-align: justify; font-size:x-large" >
 					Nos dedicamos a brindar atención médica de alta calidad y compasiva para su mascota, esforzandonos por conocer a cada uno de nuestros pacientes y sus necesidades individuales. 
 				</p>
 
@@ -432,16 +432,16 @@ body{
 				<h5 class="font-color-general text-center p-3" style="font-size:xx-large">Hoteleria</h5>
                 <img src="{{asset('images/hoteleria.jpg')}}" class="img-fluid" alt="imagen nutricion">	
            
-                <p class="p-3" style="text-align: justify; font-size:max-large" >
+                <p class="p-3" style="text-align: justify; font-size:x-large" >
 					Nuestro servicio de hotelería canina ofrece un hogar lejos del hogar para su perro mientras está fuera. Contamos con instalaciones seguras y cómodas para mantener a su perro feliz y saludable durante su estadía.
 				</p>
 			</div>
 
 			<div class="col-12 col-lg-4">
 				<h5 class="font-color-general text-center p-3"  style="font-size:xx-large">Peluquería</h5>
-                <img src="{{asset('images/pel3.jpg')}}" class="img-fluid" alt="imagen nutricion">	
+                <img style="height: 306px; width:510px" src="{{asset('images/imagenPeluqueria.jpg')}}" class="img-fluid" alt="imagen nutricion">	
             
-                <p class="p-3" style="text-align: justify; font-size:max-large" >
+                <p class="p-3" style="text-align: justify; font-size:x-large" >
 					Ofrecemos un servicio de peluquería canina personalizado con productos de alta calidad. Desde baños y cortes de pelo hasta tratamientos de piel y uñas, nos aseguramos de adaptar nuestros servicios a las necesidades de cada mascota.
 					</p>
 			</div>
@@ -460,7 +460,7 @@ body{
             <div class="col-12 col-lg-7">
               <div class="row">
                 <div class="col-12 col-md-6 my-5">
-                  <h4 class="text-center text-white"><i class="fi-onluxl-bus-side"></i> Dirección</h4>
+                  <h3 class="text-center text-white"><i class="fi-onluxl-bus-side"></i> Dirección</h3>
                   <div class="text-white text-center my-3">
                     <p class="text-lg">Av. Col. del Valle 732</p>
                     <p class="text-lg mt-n3">Col. del Valle, CDMX</p>	
@@ -468,7 +468,7 @@ body{
                 </div>
       
                 <div class="col-12 col-md-6 my-5">
-                  <h4 class="text-center text-white"><i class="fi-xnsuxl-smartphone-solid"></i> Teléfono</h4>
+                  <h3 class="text-center text-white"><i class="fi-xnsuxl-smartphone-solid"></i> Teléfono</h3>
                   <div class="text-white text-center my-3">
                     <p class="text-lg">Tienda: 55 1234 5678</p>
                     <p class="text-lg mt-n3">WhatsApp: 55 1234 5567</p>	
@@ -476,7 +476,7 @@ body{
                 </div>
       
                 <div class="col-12 col-md-6 my-5">
-                  <h4 class="text-center text-white"><i class="fi-xnluxl-envelope"></i> Correo</h4>
+                  <h3 class="text-center text-white"><i class="fi-xnluxl-envelope"></i> Correo</h3>
                   <div class="text-white text-center my-3">
                     <p class="text-lg">contacto@eldoctor.com</p>
                     <p class="text-lg mt-n3">ventas@eldogtor.com</p>	

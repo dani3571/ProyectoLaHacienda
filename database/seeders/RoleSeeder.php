@@ -75,32 +75,32 @@ class RoleSeeder extends Seeder
             Permission::create([
                 'name' => 'mascotas.index',
                 'description' => 'Listar mascotas'
-            ])->assignRole($admin, $cliente);
+            ])->assignRole($admin, $cliente, $veterinario, $recepcionista, $adiestrador, $ayudanteCirugias);
     
             Permission::create([
                 'name' => 'mascotas.create',
                 'description' => 'Crear mascotas'
-            ])->assignRole($admin, $cliente);
+            ])->assignRole($admin, $cliente, $veterinario, $recepcionista, $adiestrador, $ayudanteCirugias);
     
             Permission::create([
                 'name' => 'mascotas.edit',
                 'description' => 'Editar mascotas'
-            ])->assignRole($admin, $cliente);
+            ])->assignRole($admin, $cliente, $veterinario, $recepcionista, $adiestrador, $ayudanteCirugias);
     
             Permission::create([
                 'name' => 'mascotas.inactivos',
                 'description' => 'Ver mascotas inactivas'
-            ])->assignRole($admin, $cliente);
+            ])->assignRole($admin, $cliente, $veterinario, $recepcionista, $adiestrador, $ayudanteCirugias);
     
             Permission::create([
                 'name' => 'mascotas.cambiar-estado',
                 'description' => 'Cambiar de estado mascotas'
-            ])->assignRole($admin, $cliente);
+            ])->assignRole($admin, $cliente, $veterinario, $recepcionista, $adiestrador, $ayudanteCirugias);
     
             Permission::create([
                 'name' => 'mascotas.restablecer-estado',
                 'description' => 'Restablecer mascotas inactivos'
-            ])->assignRole($admin, $cliente);
+            ])->assignRole($admin, $cliente, $veterinario, $recepcionista, $adiestrador, $ayudanteCirugias);
     
  
          //VENTAS
