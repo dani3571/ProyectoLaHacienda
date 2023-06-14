@@ -108,12 +108,13 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->names('reservas_peluqueria');
     Route::post('/reservas_peluqueria', [Reservacion_peluqueriaController::class, 'store'])->name('reservas_peluqueria.store');
     Route::get('/reservas_peluqueria/{id}/edit', [Reservacion_peluqueriaController::class, 'edit'])->name('reservas_peluqueria.edit');
-    //Route::put('/reservas_peluqueria/{id}/cancelar', [Reservacion_peluqueriaController::class, 'cancelar'])->name('reservas_peluqueria.cancelar');
+    Route::get('/reservas_peluqueria/create_CLI', [Reservacion_peluqueriaController::class, 'create_CLI'])->name('reservas_peluqueria.create_CLI');
     Route::post('/reservas_peluqueria/cancelar', [Reservacion_peluqueriaController::class, 'cancelar'])->name('reservas_peluqueria.cancelar');
     Route::post('/reservas_peluqueria/registrarCosto', [Reservacion_peluqueriaController::class, 'registrarCosto'])->name('reservas_peluqueria.registrarCosto');
     Route::get('/reservas_peluqueria/canceladas', [Reservacion_peluqueriaController::class, 'canceladas'])->name('reservas_peluqueria.canceladas');
     Route::get('/reservas_peluqueria/completadas', [Reservacion_peluqueriaController::class, 'completadas'])->name('reservas_peluqueria.completadas');
     Route::get('/reservas_peluqueria/index', [Reservacion_peluqueriaController::class, 'index'])->name('reservas_peluqueria.index');
+    Route::get('/reservas_peluqueria/reservas_CLI', [Reservacion_peluqueriaController::class, 'reservas_CLI'])->name('reservas_peluqueria.reservas_CLI');
     Route::get('/reservas_peluqueria/getPDFpeluqueria', 'Reservacion_peluqueriaController@getPDFpeluqueria')->name('getPDFpeluqueria');
 
     //proveedores

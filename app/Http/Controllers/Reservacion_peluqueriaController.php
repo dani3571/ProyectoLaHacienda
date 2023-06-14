@@ -57,6 +57,33 @@ class Reservacion_peluqueriaController extends Controller
         return view('admin.reservas_peluqueria.index', compact('reservas_peluqueria', 'mascotas', 'users'));
     }
 
+    public function reservas_CLI()
+    {
+        $reservaciones_pasadas = ReservacionPeluqueria::where('estado', 1) 
+            //->where('usuario_id', Auth::user()->id)
+            ->where('fecha', '<=', now()->format('Y-m-d'))
+            ->where('horaEntrega', '<=', now()->format('H:i'))
+            ->get();
+        foreach($reservaciones_pasadas as $reserva){
+            $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($reserva->id);
+            //modificamos el estado a 2
+            $reservacion_peluqueria->estado = 2;
+            //Guardamos el registro a la BD
+            $reservacion_peluqueria->save();
+        }
+        
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 1)
+            ->where('usuario_id', Auth::user()->id)
+            ->orderBy('fecha', 'asc')
+            ->orderBy('horaRecepcion', 'asc')
+            ->simplepaginate(10);
+        
+        $mascotas = Mascotas::select(['id', 'nombre'])
+            ->get();
+        
+        return view('admin.reservas_peluqueria.reservas_CLI', compact('reservas_peluqueria', 'mascotas'));
+    }
+
     public function create()
     {
         $reservas_peluqueria = ReservacionPeluqueria::where('estado', 1)
@@ -70,6 +97,20 @@ class Reservacion_peluqueriaController extends Controller
             ->get();
             
         return view('admin.reservas_peluqueria.create', compact('reservas_peluqueria', 'mascotas', 'users'));
+    }
+
+    public function create_CLI()
+    {
+        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 1)
+        ->get();
+        
+        $mascotas = Mascotas::select(['id', 'nombre', 'usuario_id'])
+            ->where('usuario_id', Auth::user()->id)
+            ->get();
+        
+        $user = Auth::user();
+            
+        return view('admin.reservas_peluqueria.create_CLI', compact('reservas_peluqueria', 'mascotas', 'user'));
     }
 
     public function store(Reservacion_peluqueriaRequest $request)

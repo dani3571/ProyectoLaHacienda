@@ -441,18 +441,28 @@ return [
                     'url'  => 'admin/reservas_peluqueria/create',
                 ],
                 [
+                    'text' => 'Registrar Nueva reserva - Cliente',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'url'  => 'admin/reservas_peluqueria/create_CLI',
+                ],
+                [
+                    'text' => 'Mis Reservas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/reservas_peluqueria/reservas_CLI',
+                ],
+                [
                     'text' => 'Reservas Activas',
                     'icon' => 'fas fa-fw fa-list',
                     'url'  => 'admin/reservas_peluqueria',
                 ],
                 [
                     'text' => 'Reservas completadas',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-fw fa-check',
                     'url'  => 'admin/reservas_peluqueria/completadas',
                 ],
                 [
                     'text' => 'Reservas Canceladas',
-                    'icon' => 'fas fa-fw fa-list',
+                    'icon' => 'fas fa-fw fa-ban',
                     'url'  => 'admin/reservas_peluqueria/canceladas',
                 ],
                 [

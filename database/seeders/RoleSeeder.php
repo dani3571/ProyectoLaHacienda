@@ -179,14 +179,23 @@ class RoleSeeder extends Seeder
  
          Permission::create([
              'name' => 'reservas_peluqueria.canceladas',
-             'description' => 'Ver las reservaciones canceladas'
+             'description' => 'Ver reservaciones de peluqueria canceladas'
          ])->assignRole($admin, $adiestrador);
  
          Permission::create([
              'name' => 'reservas_peluqueria.completadas',
              'description' => 'Ver reservaciones de peluquerias completadas'
          ])->assignRole($admin, $adiestrador);
- 
+
+         Permission::create([
+            'name' => 'reservas_peluqueria.create',
+            'description' => 'Crear reservaciones de peluqueria'
+        ])->assignRole($admin, $adiestrador);
+
+         Permission::create([
+            'name' => 'reservas_peluqueria.create_CLI',
+            'description' => 'Crear reservaciones de peluqueria - Cliente'
+        ])->assignRole($admin, $adiestrador);
  
          //PERMSOS RESERVACION HOTELERIA 
          Permission::create([

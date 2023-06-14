@@ -65,7 +65,7 @@
                     </td>
                     <td>
                         @if($reserva->costo > 0) 
-                            {{$reserva->costo}}
+                            {{$reserva->costo}} Bs
                         @else
                             <button type="button" class="btn btn-primary CostoReserva" value="{{$reserva->id}}" > Registrar costo </button>
                         @endif
@@ -104,7 +104,7 @@
                         <input class="form-check-input ml-2" type="radio" name='confirmacion' value="0" >
                     </div>
                     <label id="LabelCosto" class="form-check-label">Ingrese cuanto dinero se cobro</label>
-                    <input type="number" class="form-control" name="costo" id="costo" step=".01" value = 0 min = 0>
+                    <input type="number" class="form-control" name="costo" id="costo" step=".1" min="50"/>
                     <label id="LabelMotivo" class="form-check-label">Motivo</label>
                     <input type="text" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cual no se realizo la atencion">
                 </div>
@@ -139,7 +139,7 @@
                 costo.style.display = "block";
                 LabelCosto.style.display = "block";
                 costo.removeAttribute('disabled');
-                costo.value = 0;
+                costo.value = 50;
                 motivo.style.display = "none";
                 LabelMotivo.style.display = "none";
                 motivo.setAttribute('disabled', '');
