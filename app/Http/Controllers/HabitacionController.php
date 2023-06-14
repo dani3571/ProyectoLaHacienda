@@ -26,7 +26,8 @@ class HabitacionController extends Controller
     }
     public function index()
     {
-        $habitacion = Habitacion::simplePaginate(10);
+        $habitacion = Habitacion::simplePaginate(10)
+        ->where('estado', 1);
 
         return view('admin.habitacion.index', compact('habitacion'));
     }
@@ -38,20 +39,14 @@ class HabitacionController extends Controller
      */
     public function create()
     {
-        $habitacion = Permission::all();
+        $habitacion = Habitacion::all();
 
         return   view('admin.habitacion.create', compact('habitacion'));
     }
 
     public function store(HabitacionRequest $request)
     {
-       //merge combina los datos que tenemos con los que queremos obtener
-       //$request->merge([
-        //obtenemos los datos de user como su id con Auth
-        //'usuario_id' => Auth::user()->id,
-    //]);
-    //Guardando la solicitud en una variable
-    $habitacion = $request->all();
+        $habitacion = $request->all();
 
         Habitacion::create($habitacion);
         $user = Auth::user();
@@ -84,14 +79,6 @@ class HabitacionController extends Controller
      */
     public function edit($id)
     {
-          //llamamos al metodo creado en el policy
-         // $this->authorize('view', $mascotas);
-    /*      $mascotas = Mascotas::select(['id', 'nombre'])
-              ->where('estado', 1)
-              ->get();
-          return view('admin.mascotas.edit', compact('mascotas'));
-    */
-
           $habitacion = habitacion::findOrFail($id);
 
           return view('admin.habitacion.edit', compact('habitacion'));
@@ -110,24 +97,6 @@ class HabitacionController extends Controller
 
      public function update(HabitacionRequest $request, $id)
      {
-         /*
-              $mascotas->update([
-              'nombre' => $request->nombre,
-              'tipo' => $request->tipo,
-              'raza' => $request->raza,
-              'color' => $request->color,
-              'fechaNacimiento' => $request->fechaNacimiento,
-              'caracter' => $request->caracter,
-              'sexo' => $request->sexo,
-              'estado' => $request->estado,
-              'usuario_id' =>Auth::user()->id,
-              
- 
-         ]);
-         return redirect()->action([MascotasController::class, 'index'])
-             ->with('success-update', 'Datos de la mascota modificados con exito');
-     
-     */
      $habitacion = Habitacion::findOrFail($id);
 
     if($request->nro_habitacion != $habitacion->nro_habitacion){
@@ -178,50 +147,30 @@ class HabitacionController extends Controller
         return redirect()->route('habitacion.index')->with('success-update', 'Reservación eliminada con exito');
         //return redirect()->route('habitacion.inactivos')->with('success-update', 'Reservación eliminada con exito');
     }
-    
-    public function asignaReservaHotel(Request $request, $id)
+
+    public function desactivar(Request $request)
     {
-        // Valida los datos del formulario
-        $request->validate([
-            'reservacionHotel_id' => 'required'
-        ]);
-    
-        // Encuentra el registro que deseas actualizar
-        $habitacion = Habitacion::find($id);
-    
-        if (!$habitacion) {
-            // Maneja el caso en el que no se encuentre el registro
-            return response()->json(['error' => 'Registro no encontrado.'], 404);
-        }
-    
-        // Actualiza los campos del modelo con los valores del formulario
-        $habitacion->reservacionHotel_id = $request->input('reservacionHotel_id');
-    
-        // Guarda los cambios en la base de datos
+        $habitacion = Habitacion::findOrFail($request->Habi_id);
+        $habitacion->estado = 0;
         $habitacion->save();
-    
-        // Retorna una respuesta en formato JSON
-        return response()->json(['success' => 'Registro actualizado correctamente.']);
-    }
-    
 
-    /*
-    public function cambiarEstado($id)
+        return redirect()->route('habitacion.desactivadas')->with('success-update', 'Habitación desactivada con éxito');
+    }
+
+    public function desactivadas(Request $request)
     {
-        $mascota = Mascotas::findOrFail($id);
-        $mascota->estado = 0;
-        $mascota->save();
+        $habitacion = Habitacion::simplePaginate(10)
+        ->where('estado', 0);
 
-        return redirect()->route('mascotas.index')->with('success-update', 'Eliminacion logica realizada con exito');
+        return view('admin.habitacion.desactivadas', compact('habitacion'));
     }
 
-    public function restablecerEstado($id)
+    public function reactivar(Request $request)
     {
-        $mascota = Mascotas::findOrFail($id);
-        $mascota->estado = 1;
-        $mascota->save();
+        $habitacion = Habitacion::findOrFail($request->Habi_id);
+        $habitacion->estado = 1;
+        $habitacion->save();
 
-        return redirect()->route('mascotas.inactivos')->with('success-update', 'Mascota restablecida con éxito');
+        return redirect()->route('habitacion.index')->with('success-update', 'Habitación restablecida con éxito');
     }
-    */
 }
