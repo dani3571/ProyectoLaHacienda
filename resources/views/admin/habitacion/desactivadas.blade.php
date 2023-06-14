@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Habitaciones activas')
+@section('title', 'Habitaciones Inactivas')
 
 @section('content_header')
 <h1>Habitaciones activas</h1>
@@ -41,27 +41,26 @@
                 <td>{{ $habitacion->tipo_ocupante }}</td>
 				<td>{{ $habitacion->costo_habitacion }}</td>
 				<td>{{ $habitacion->tamano_habitacion }}</td>
-                <td>
-                <td><a class="btn btn-sm btn-success" href="{{ route('habitacion.edit',$habitacion->id) }}"> {{ __('Modificar') }}</a></td> 
-                <td><button type="button" class="btn btn-sm btn-danger desactivarHabitacion" value="{{$habitacion->id}}" > Desactivar </button></td>    
+                <td> 
+                <td><button type="button" class="btn btn-sm btn-primary reactivarHabitacion" value="{{$habitacion->id}}" > Restablecer </button></td>    
             </td>                  
-                <div class="modal fade" id="ModalDesactivar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">                                           
+                <div class="modal fade" id="ModalReactivar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">                                           
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <form action="{{ route('habitacion.desactivar',$habitacion->id) }}" method="POST">
+                            <form action="{{ route('habitacion.reactivar',$habitacion->id) }}" method="POST">
                                 @csrf
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Desactivar habitación</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Restablecer habitación</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <input type="hidden" name="Habi_id" id="Habi_id">
-                                    ¿Desactivar habitación?
+                                    ¿Restablecer habitación?
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-danger btn-sm">Si. desactivar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm">Si. restablecer</button>
                                 </div>
                             </form>
                         </div>
@@ -78,11 +77,11 @@
 @section('js')
 <script>
     $(document).ready(function () {
-    $('.desactivarHabitacion').click(function (e) {
+    $('.reactivarHabitacion').click(function (e) {
         e.preventDefault();
         var habi_id = $(this).val();
         $('#Habi_id').val(habi_id);
-        $('#ModalDesactivar').modal('show');
+        $('#ModalReactivar').modal('show');
     });
 });
 </script>

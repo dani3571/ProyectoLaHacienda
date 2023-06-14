@@ -25,26 +25,9 @@ class HabitacionRequest extends FormRequest
     {
         return [
             'nro_habitacion' => 'required',
+            'tipo_ocupante' => 'required',
             'costo_habitacion'=> 'required',
-            'capacidad' => 'required',
+            'tamano_habitacion' => 'required',
         ];
-
-
-        /*
-           $table->id();
-            $table->string('nombre', 60);
-            $table->string('tipo', 30);
-            $table->string('raza', 30);
-            $table->string('color', 30);
-            $table->date('fechaNacimiento');
-            $table->string('caracter', 90)->nullable();
-            $table->string('sexo', 30);        
-            $table->char('estado')->default(1);
-    
-            $table->unsignedBigInteger('usuario_id'); 
-            $table->foreign('usuario_id')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade'); */
     }
 }

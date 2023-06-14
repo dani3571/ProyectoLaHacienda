@@ -202,8 +202,9 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         ->except('show')
         ->names('habitacion');
         Route::get('/habitacion/show/{id}', [HabitacionController::class, 'show'])->name('habitacion.show');
-        //Ruta ajax habitaciones
-        Route::put('/habitacion/{id}/asigna-reserva-hotel', 'HabitacionController@asignaReservaHotel')->name('habitacion.asignaReservaHotel');
+        Route::post('/habitacion/desactivar/{id}', [HabitacionController::class, 'desactivar'])->name('habitacion.desactivar');
+        Route::get('/habitacion/desactivadas', [HabitacionController::class, 'desactivadas'])->name('habitacion.desactivadas');
+        Route::post('/habitacion/reactivar/{id}', [HabitacionController::class, 'reactivar'])->name('habitacion.reactivar');
 
         //VETERINARIA
         Route::resource('reservas_veterinaria', 'Reservacion_veterinariaController')->except('show')->names('reservas_veterinaria');

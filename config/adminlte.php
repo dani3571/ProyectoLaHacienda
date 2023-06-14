@@ -659,14 +659,19 @@ return [
             'icon' => 'fas fa-fw fa-hotel',
             'submenu' => [
                 [
-                    'text' => 'Habitaciones',
+                    'text' => 'Registrar Nueva habitación',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'url'  => 'admin/habitacion/create',
+                ],
+                [
+                    'text' => 'Habitaciones Activas',
                     'icon' => 'fas fa-fw fa-list',
                     'url'  => 'admin/habitacion',
                 ],
                 [
-                    'text' => 'Registrar Nueva habitación',
-                    'icon' => 'fas fa-fw fa-plus',
-                    'url'  => 'admin/habitacion/create',
+                    'text' => 'Habitaciones Inactivas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'url'  => 'admin/habitacion/desactivadas',
                 ],
             ]
         ],

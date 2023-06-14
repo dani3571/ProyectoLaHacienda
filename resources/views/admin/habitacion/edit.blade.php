@@ -3,7 +3,7 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Registrar nueva reservación</h1>
+<h1>Modificar habitación</h1>
 @endsection
 
 @section('content')
@@ -27,10 +27,9 @@
                         </span>
                     @enderror
             </div> 
-            
             <div class="form-group">
-                <label>nro_habitacion</label>
-                <input type="number" class="form-control" id="nro_habitacion" name='nro_habitacion' placeholder="nro_habitacion"
+                <label>Número de habitación</label>
+                <input type="number" class="form-control" id="nro_habitacion" name='nro_habitacion' placeholder="Ingrese el número de habitación"
                     value="{{ $habitacion->nro_habitacion }}">
 
                     @error('nro_habitacion')
@@ -40,9 +39,24 @@
                     @enderror
             </div> 
             <div class="form-group">
-                <label>costo_habitacion</label>
-                <input type="number" class="form-control" id="costo_habitacion" name='costo_habitacion' placeholder="costo_habitacion"
-                value="{{ $habitacion->costo_habitacion }}">
+                <label>Tipo de ocupante</label>
+                <select class="form-control" name="tipo_ocupante" id="tipo_ocupante" {{ old('tipo_ocupante') }}>
+                        <option value="">Seleccione el tipo de habitación</option>
+
+                        <option {{ old('tipo_ocupante') == 'Perro' ? 'selected' : '' }} value="Perro">Perro</option>
+                        <option {{ old('tipo_ocupante') == 'Gato' ? 'selected' : '' }} value="Gato">Gato</option>
+
+                    </select>
+                    @error('tipo_ocupante')
+                        <span class="text-danger">
+                            <span>{{ $message }}</span>
+                        </span>
+                    @enderror
+            </div> 
+            <div class="form-group">
+                <label>Costo de habitación</label>
+                <input type="number" class="form-control" id="costo_habitacion" name='costo_habitacion' placeholder="Ingrese el costo de habitación"
+                    value="{{ $habitacion->costo_habitacion }}">
 
                     @error('costo_habitacion')
                         <span class="text-danger">
@@ -51,32 +65,21 @@
                     @enderror
             </div> 
             <div class="form-group">
-                <label>capacidad</label>
-                <input type="number" class="form-control" id="capacidad" name='capacidad' placeholder="capacidad"
-                value="{{ $habitacion->capacidad }}">
-
-                    @error('capacidad')
+                <label>Tamaño de habitación</label>
+                <select class="form-control" name="tamano_habitacion" id="tamano_habitacion">
+                        <option value="">Seleccione el tamaño de habitación</option>
+                        <option {{ old('tamano_habitacion') == 'Pequeño' ? 'selected' : '' }} value="Pequeño">Pequeño</option>
+                        <option {{ old('tamano_habitacion') == 'Mediano' ? 'selected' : '' }} value="Mediano">Mediano</option>
+                        <option {{ old('tamano_habitacion') == 'Grande' ? 'selected' : '' }} value="Grande">Grande</option>
+                </select>
+                    @error('tamano_habitacion')
                         <span class="text-danger">
                             <span>{{ $message }}</span>
                         </span>
                     @enderror
             </div>
-                <!--<label>reservacionHotel_id </label>
-                <div class="form-group">
-                    <select class="form-control" name="reservacionHotel_id" id="reservacionHotel_id">
-                        <option value="{{ $habitacion->id }}">{{ $habitacion->id }}</option>
-                   
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-            
-                    </select>
-                    @error('reservacionHotel_id')
-                        <span class="text-danger">
-                            <span>{{ $message }}</span>
-                        </span>
-                    @enderror
-                </div>-->
-                <input type="submit" value="Registrar reservación" class="btn btn-primary">
+            <input type="submit" value="Guardar cambios" class="btn btn-primary">
+            <a class="btn btn-danger" href="{{route('habitacion.index')}}">Volver</a>
      </form>
     </div>
 </div>

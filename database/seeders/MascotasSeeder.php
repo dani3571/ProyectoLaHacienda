@@ -25,7 +25,7 @@ class MascotasSeeder extends Seeder
             'estado'=> '1',
             'image'=>'4D4Gf1BprcE5mlnChPZmrGUiGN48NOAkPc1XXPF3.jpg',
             'peso' => '15kg',
-            'tamaño'=> 'mediano',
+            'tamaño'=> 'Mediano',
             'usuario_id'=> '1',
         ]);
     }
