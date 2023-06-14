@@ -40,6 +40,7 @@
                     <option value="compras">Permisos de compras</option>
                     <option value="ventas">Permisos de ventas</option>
                     <option value="veterinaria">Permisos de veterinaria</option>
+                    <option value="mascotas">Permisos de mascotas</option>
                     <option value="dashboard">General</option>
                 </select>
             </div>

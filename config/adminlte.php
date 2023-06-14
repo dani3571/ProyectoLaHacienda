@@ -389,6 +389,7 @@ return [
             'text' => 'Mascotas',
             'route'  => 'mascotas.index',
             'id' => 'menuMascotas',
+            'can' => 'mascotas.index',
             'icon' => 'fa fa-paw',
             'active' => ['admin/mascotas*'],
             'submenu' => [
@@ -465,11 +466,13 @@ return [
         [
             'text' => 'Productos',
             'id' => 'menuProductos',
+            'can' => 'productos.index',
+            'can' => 'categorias.index',
             'icon'    => 'fas fa-fw fa-shopping-cart',
             'submenu' => [
                 [
                     'text'    => 'Categoria',
-                    'can' => 'categorias',
+                    'can' => 'categorias.index',
                     'id' => 'menuCategorias',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'url'     => '#',
@@ -494,6 +497,7 @@ return [
                 [
                     'text'    => 'Producto',
                     'id' => 'menuProducto',
+                    'can' => 'productos.index',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'submenu' => [
                         [
@@ -523,12 +527,13 @@ return [
         [
             'text'    => 'Compras',
             'can' => 'compras.index',
+            'can' => 'proveedores.index', 
             'id' => 'menuCompras',
             'icon'    => 'fas fa-fw fa-shopping-cart',
             'submenu' => [
                 [
                     'text'    => 'Proveedor',
-                    'can' => 'proveedores',
+                    'can' => 'proveedores.index',
                     'id' => 'menuProveedor',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'url'     => '#',
@@ -555,6 +560,7 @@ return [
                 [
                     'text'    => 'Compra',
                     'id' => 'menuCompra',
+                    'can' => 'compras.index',
                     'icon'    => 'fas fa-fw fa-cart-plus',
                     'url'     => '#',
                     'submenu' => [
@@ -582,6 +588,7 @@ return [
         ],
         [
             'text' => 'Ventas',
+            'can' => 'ventas.index',
             'icon' => 'fas fa-fw fa-money-check',
             'id' => 'menuVentas',
             'submenu' => [
@@ -608,6 +615,7 @@ return [
 
         [
             'text' => ' Reservaciones de Hotel',
+            'can' => 'reservacionHotel.index',
             'url'  => 'admin/reservacionHotel',
             'can'=>'admin/reservacionHotel',
             'icon' => 'fas fa-fw fa-hotel',
@@ -664,6 +672,7 @@ return [
         ],
         [
             'text' => 'Veterinaria',
+            'can' => 'reservas_veterinaria.index',
             'id' => 'menuVeterinaria',
             'icon' => 'fas fa-file-medical',
             'submenu' => [

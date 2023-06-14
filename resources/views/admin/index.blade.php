@@ -220,7 +220,7 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="chart-container" style="width: 100%; height: 800px;">
+            <div class="chart-container" style="width: 100%; height: 900px;">
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="width: 50%; height: 50%;">
                         <center>
@@ -508,7 +508,8 @@
     </script>
 
     <script>
-        var ctx = document.getElementById('earningsChart').getContext('2d');
+
+var ctx = document.getElementById('earningsChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -551,7 +552,9 @@
                 }
             }
         });
-    </script>
+  
+
+  </script>
 
 @stop
 
@@ -607,23 +610,5 @@
                 });
           */
     </script>
-    <script>
-        $(document).ready(function() {
-            var submenus = $('#submenusVeterinarias .treeview-menu');
-            var menuPrincipal = $('#menuVeterinaria');
-            var visibleSubmenusCount = 0;
-
-            submenus.each(function() {
-                var canShow = $(this).data('visible');
-
-                if (canShow) {
-                    visibleSubmenusCount++;
-                }
-            });
-
-            if (visibleSubmenusCount === 0) {
-                menuPrincipal.hide();
-            }
-        });
-    </script>
+   
 @stop

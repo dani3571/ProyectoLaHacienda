@@ -72,13 +72,7 @@
                         </form>
                     </td>
 
-                    <td width="5px">
-                        <form action="{{route('mascotas.destroy', $mascota->id)}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" value="Eliminar" class="btn btn-danger btn-sm">
-                        </form>
-                    </td>
+                   
   
                 </tr>
                 
