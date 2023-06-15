@@ -728,6 +728,42 @@ return [
                         'can' => 'reservas_veterinaria.canceladas' ? 'true' : 'false',
                     ],
                 ],
+                [
+                    'text' => 'Diagnósticos',
+                    'icon' => 'fas fa-fw fa-list',
+                    'can' => 'diagnostico.index',
+                    'url'  => 'admin/diagnostico',
+                    'data' => [
+                        'can' => 'diagnostico.index' ? 'true' : 'false',
+                    ],
+                ],
+                [
+                    'text' => 'Crear diagnóstico',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'diagnostico.create',
+                    'url'  => 'admin/diagnostico',
+                    'data' => [
+                        'can' => 'diagnostico.create' ? 'true' : 'false',
+                    ],
+                ],
+                [
+                    'text' => 'Vacunas',
+                    'icon' => 'fas fa-fw fa-list',
+                    'can' => 'vacunas.index',
+                    'url'  => 'admin/diagnostico',
+                    'data' => [
+                        'can' => 'diagnostico.create' ? 'true' : 'false',
+                    ],
+                ],
+                [
+                    'text' => 'Asignar Vacunas',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'can' => 'vacunas.create',
+                    'url'  => 'admin/diagnostico',
+                    'data' => [
+                        'can' => 'diagnostico.create' ? 'true' : 'false',
+                    ],
+                ],
             ],
 
 
