@@ -401,6 +401,36 @@ class RoleSeeder extends Seeder
              'description' => 'Ver listado de reservas de veterinaria canceladas'
          ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
  
+         //VACUNAS
+         Permission::create([
+            'name' => 'vacunas.index',
+            'description' => 'Ver listado de vacunas'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+
+         Permission::create([
+            'name' => 'vacunas.create',
+            'description' => 'Registrar vacunas'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
      
+        Permission::create([
+            'name' => 'vacunas.edit',
+            'description' => 'Modificar datos de vacunas'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+
+        //DIAGNÓSTICOS
+        Permission::create([
+            'name' => 'diagnostico.index',
+            'description' => 'Ver listado de diagnosticos'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+
+         Permission::create([
+            'name' => 'diagnostico.create',
+            'description' => 'Registrar diagnostico'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
+     
+        Permission::create([
+            'name' => 'diagnostico.edit',
+            'description' => 'Modificar datos de diagnostico'
+        ])->assignRole($admin, $veterinario, $ayudanteCirugias, $recepcionista);
     }
 }
