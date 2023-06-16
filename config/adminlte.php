@@ -422,6 +422,7 @@ return [
                     'text' => 'Reporte de mascotas',
                     'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPDF',
+                    'can'=>'reporte.ds',
                     'data' => [
                         'visible' => true,
                     ],
