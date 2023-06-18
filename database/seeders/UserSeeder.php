@@ -28,6 +28,17 @@ class UserSeeder extends Seeder
         ])->assignRole('Administrador');
 
         User::create([
+            'name' => 'Gina Muñoz',
+            'ci' => '11111111',
+            'telefono' => '71532191',
+            'direccion' => 'Huajchilla',
+            'email' => 'gina@gmail.com',
+            'personaResponsable' => 'Maria Gutierrez',
+            'telefonoResponsable' => '13721353',
+            'password' => Hash::make('12345678'),
+        ])->assignRole('Administrador');
+
+        User::create([
             'name' => 'Juan Perez',
             'ci' => '13243252',
             'telefono' => '3123124',
