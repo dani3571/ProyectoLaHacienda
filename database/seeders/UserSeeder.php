@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'direccion' => 'Huajchilla',
             'email' => 'gina@gmail.com',
             'personaResponsable' => 'Maria Gutierrez',
-            'telefonoResponsable' => '13721353',
+            'telefonoResponsable' => '1372135321',
             'password' => Hash::make('12345678'),
         ])->assignRole('Administrador');
 
