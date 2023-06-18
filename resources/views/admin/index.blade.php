@@ -240,7 +240,7 @@
                         <center>
                             <h4>Pronostico de ventas</h4>
                         </center>
-                        <canvas id="salesChart" style="width: 100%; height: 100%;"></canvas>
+                        <canvas id="graficoVentas" style="width: 100%; height: 100%;"></canvas>
                     </div>
                     <div style="width: 50%; max-height: 50%;">
                         <center>
@@ -438,66 +438,37 @@
 
     <!--REGRESION LINEAL-->
     <script src={{ asset('js/regression-js-master/dist/regression.js') }}></script>
+
+
     <script>
-        // Obtener los datos del controlador
-        var labels = @json($labels);
-        var values = @json($values);
-        var prediction = @json($prediction);
-
-        var transformedValues = values.map(value => Math.log(value));
-        // Crear una matriz de puntos de datos en el formato [x, y]
-        var datas = transformedValues.map((value, index) => [index + 1, value]);
-
-        // Calcular la línea de regresión utilizando la función regression
-        var result = regression.linear(datas);
-
-        //    var result = regression.linear([[1, 1], [32, 67], [12, 79]]);
-
-        // Obtener los coeficientes de la línea de regresión
-        var slope = result.equation[0];
-        var intercept = result.equation[1];
-
-
-
-
-        // Aumentar el valor de la pendiente para hacer la línea más ascendente
-        slope *= 3.80; // Puedes ajustar este valor según tus necesidades
-
-        // Generar los puntos de la línea de regresión extendida hasta julio
-        var regressionLineData = [];
-
-        for (var i = 0; i < values.length; i++) {
-            var transformedX = Math.log(i + 1);
-            var transformedY = slope * transformedX + intercept;
-            var y = Math.exp(transformedY);
-            regressionLineData.push({
-                x: labels[i],
-                y: y
-            });
-        }
-        // Configurar el gráfico
-        var ctx = document.getElementById('salesChart').getContext('2d');
+        var ctx = document.getElementById('graficoVentas').getContext('2d');
+        var labels = {!! json_encode($labels) !!};
+        var data = {!! json_encode($data) !!};
+        var regressionData = {!! json_encode($regressionData) !!};
+ 
         var chart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [{
-                        label: 'Ventas',
-                        data: values,
-                        backgroundColor: 'rgba(0, 123, 255, 0.6)'
+                datasets: [
+                    {
+                        label: 'Cantidad de ventas',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
                     },
                     {
-                        label: 'Línea de Regresión',
-                        data: regressionLineData,
+                        label: 'Línea de regresión',
+                        data: regressionData,
                         type: 'line',
                         fill: false,
-                        borderColor: 'rgba(0, 204, 255, 0.3)', 
-                        pointRadius:0
+                        borderColor: 'rgba(192, 75, 192, 1)',
+                        borderWidth: 1
                     }
                 ]
             },
             options: {
-                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -508,8 +479,7 @@
     </script>
 
     <script>
-
-var ctx = document.getElementById('earningsChart').getContext('2d');
+        var ctx = document.getElementById('earningsChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -552,9 +522,7 @@ var ctx = document.getElementById('earningsChart').getContext('2d');
                 }
             }
         });
-  
-
-  </script>
+    </script>
 
 @stop
 
@@ -591,24 +559,24 @@ var ctx = document.getElementById('earningsChart').getContext('2d');
 
     <script>
         /*
-        document.addEventListener('DOMContentLoaded', function() {
-                    var submenus = document.querySelectorAll('#menuVeterinaria .treeview-menu');
-                    var menuPrincipal = document.getElementById('menuVeterinaria');
-                    var visibleSubmenusCount = 0;
-                    
-                    submenus.forEach(function(submenu) {
-                        var canShow = submenu.dataset.can;
-                        
-                        if (canShow === 'true') {
-                            visibleSubmenusCount++;
-                        }
-                    });
-                    
-                    if (visibleSubmenusCount === 0) {
-                        menuPrincipal.style.display = 'none';
-                    }
-                });
-          */
+                document.addEventListener('DOMContentLoaded', function() {
+                            var submenus = document.querySelectorAll('#menuVeterinaria .treeview-menu');
+                            var menuPrincipal = document.getElementById('menuVeterinaria');
+                            var visibleSubmenusCount = 0;
+                            
+                            submenus.forEach(function(submenu) {
+                                var canShow = submenu.dataset.can;
+                                
+                                if (canShow === 'true') {
+                                    visibleSubmenusCount++;
+                                }
+                            });
+                            
+                            if (visibleSubmenusCount === 0) {
+                                menuPrincipal.style.display = 'none';
+                            }
+                        });
+                  */
     </script>
-   
+
 @stop
