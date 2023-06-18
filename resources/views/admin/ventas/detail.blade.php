@@ -9,11 +9,19 @@
 </a>
 <br>
 <br>
-@can('ventas.getPDFreciboventas')
 <a href="{{ route('getPDFreciboventas', ['id' => $venta_individual[0]->id]) }}" class="btn btn-primary">Imprimir recibo</a>
-@endcan
 @endsection
-
+<link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo2.png') }}">
+@section('css')
+<style>
+.nav-item {
+    background: dark;
+  }
+  .menu-open{
+     background-color: #4d5059 !important;  
+  }
+</style>
+@endsection
 @section('content')
 @if (session('success-delete'))
 <div class="alert alert-info">

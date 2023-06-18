@@ -616,7 +616,6 @@ return [
                 ],
                 [
                     'text' => 'Reporte de ventas',
-                    'can' => 'ventas.getPDFVentas',
                     'icon' => 'fas fa-file-pdf',
                     'route'  => 'getPDFVentas'
                 ],
