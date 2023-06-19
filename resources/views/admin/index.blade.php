@@ -7,68 +7,79 @@
 @stop
 
 @section('content')
+    @can('admin.index')
+        <div class="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
+            <br>
+            <h1 style="font-family: nunito,arial,verdana; font-size:20px">PANEL DE CONTROL</h1>
+            <br>
+            <div class="w-full h-full rounded border-dashed border-2 border-gray-300">
+                <div class="mt-8 row">
 
-    <div class="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
-        <br>
-        <h1 style="font-family: nunito,arial,verdana; font-size:20px">PANEL DE CONTROL</h1>
-        <br>
-        <div class="w-full h-full rounded border-dashed border-2 border-gray-300">
-            <div class="mt-8 row">
-
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="text-lg text-gray-400">Cantidad de productos registrados</div>
-                            <div class="d-flex align-items-center pt-1">
-                                <div class="text-4x1 font-medium text-gray-600">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-lg text-gray-400">Cantidad de productos registrados</div>
+                                <div class="d-flex align-items-center pt-1">
+                                    <div class="text-4x1 font-medium text-gray-600">
+    @endcan
                                     <?php
                                     use Illuminate\Support\Facades\DB;
                                     $cantidad = DB::table('productos')->count();
+                                    if (
+                                        auth()
+                                            ->user()
+                                            ->hasRole('Administrador')
+                                    ) {
+                                        echo $cantidad;
+                                    }
                                     
-                                    echo $cantidad;
                                     ?>
+                                     @can('admin.index')
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="text-blue-500">
+                                    <ion-icon name="cart-outline" size="large"></ion-icon>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer bg-white">
-                            <div class="text-blue-500">
-                                <ion-icon name="cart-outline" size="large"></ion-icon>
-                            </div>
-                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="text-lg text-gray-400">Ventas</div>
-                            <div class="d-flex align-items-center pt-1">
-                                <div class="text-4x1 font-medium text-gray-600">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-lg text-gray-400">Ventas</div>
+                                <div class="d-flex align-items-center pt-1">
+                                    <div class="text-4x1 font-medium text-gray-600">
+                                    @endcan
                                     <?php
                                     $fecha = DB::table('ventas')
                                         ->whereDate('fechaVenta', DB::raw('CURDATE()'))
                                         ->count();
-                                    
-                                    echo $fecha;
+                                        if (auth()->user()->hasRole('Administrador')) {
+                                            echo $fecha;
+                                        }
                                     ?>
+                                    @can('admin.index')
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="text-blue-500">
+                                    <ion-icon name="bag-check-outline" size="large"></ion-icon>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer bg-white">
-                            <div class="text-blue-500">
-                                <ion-icon name="bag-check-outline" size="large"></ion-icon>
-                            </div>
-                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="text-lg text-gray-400">Ganancia</div>
-                            <div class="d-flex align-items-center pt-1">
-                                <div class="text-4x1 font-medium text-gray-600">
-
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-lg text-gray-400">Ganancia</div>
+                                <div class="d-flex align-items-center pt-1">
+                                    <div class="text-4x1 font-medium text-gray-600">
+                                    @endcan
                                     <?php
                                     $fechaHoy = date('Y-m-d');
                                     $resultado = DB::table('detalle_ventas as a')
@@ -78,25 +89,28 @@
                                         ->selectRaw('SUM(a.subtotal) as suma')
                                         ->first();
                                     
-                                    if ($resultado->suma == 0) {
+                                    if ($resultado->suma == 0 && auth()->user()->hasRole('Administrador')) {
                                         echo '0 Bs';
-                                    } else {
+                                    } elseif (auth()->user()->hasRole('Administrador')) {
                                         echo $resultado->suma . ' Bs';
+                                
                                     }
                                     ?>
+                                    @can('admin.index')
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <div class="text-blue-500">
-                                <ion-icon name="cash-outline" size="large"></ion-icon>
+                            <div class="card-footer bg-white">
+                                <div class="text-blue-500">
+                                    <ion-icon name="cash-outline" size="large"></ion-icon>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endcan
 
     <?php
     //Dashboard
@@ -217,44 +231,85 @@
     
     ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <div class="card">
-        <div class="card-body">
-            <div class="chart-container" style="width: 100%; height: 900px;">
-                <div style="display: flex; flex-wrap: wrap;">
-                    <div style="width: 50%; height: 50%;">
-                        <center>
-                            <h4>Grafico general</h4>
-                        </center>
-                        <canvas id="myChart" style="width: 100%; max-height: 100%;"></canvas>
+    @can('admin.index')
+        <div class="card" >
+            <div class="card-body">
+                <div class="chart-container" style="width: 100%; max-height: 900px;">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <div style="width: 50%; height: 50%;">
+                            <center>
+                                <h4>Grafico general</h4>
+                            </center>
+                            <canvas id="myChart" style="width: 100%; max-height: 100%;"></canvas>
+                        </div>
+                        <div style="width: 50%; height: 50%;">
+                            <center>
+                                <h4>Cantidad diaria por categoria</h4>
+                            </center>
+                            <canvas id="myChart2" style="width: 100%; max-height: 88%;"></canvas>
+                        </div>
                     </div>
-                    <div style="width: 50%; height: 50%;">
-                        <center>
-                            <h4>Grafico del dia - Torta</h4>
-                        </center>
-                        <canvas id="myChart2" style="width: 100%; max-height: 88%;"></canvas>
-                    </div>
-                </div>
-                <div style="display: flex; flex-wrap: wrap; margin-top:30px">
-                    <div style="width: 50%; max-height: 50%;">
-                        <center>
-                            <h4>Pronostico de ventas</h4>
-                        </center>
-                        <canvas id="graficoVentas" style="width: 100%; height: 100%;"></canvas>
-                    </div>
-                    <div style="width: 50%; max-height: 50%;">
-                        <center>
-                            <h4>Pronostico de ganancias</h4>
-                        </center>
-                        <canvas id="earningsChart" style="width: 100%; max-height: 88%;"></canvas>
+                    <div style="display: flex; flex-wrap: wrap; margin-top:30px">
+                        <div style="width: 50%; max-height: 50%;">
+                            <center>
+                                <h4>Pronostico de ventas</h4>
+                            </center>
+                            <canvas id="graficoVentas" style="width: 100%; height: 100%;"></canvas>
+                        </div>
+                        <div style="width: 50%; max-height: 50%;">
+                            <center>
+                                <h4>Pronostico de ganancias</h4>
+                            </center>
+                            
+                            <canvas id="earningsChart" style="width: 100%; max-height: 88%;"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+  
+    @else
+    <div class="container mx-auto py-10">
+        <h1>Bienvenido al sistema Genesis</h1>
+        <p></p>
     </div>
+    @endcan
 
 
+@stop
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@section('css')
+    <style>
+        .chart-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .horizontal-label {
+            display: inline-block;
+            transform: rotate(-90deg);
+            white-space: nowrap;
+        }
+
+        .nav-item {
+            background: dark;
+        }
+
+        .menu-open {
+            background-color: #4d5059 !important;
+        }
+    </style>
+
+@stop
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart');
@@ -445,13 +500,12 @@
         var labels = {!! json_encode($labels) !!};
         var data = {!! json_encode($data) !!};
         var regressionData = {!! json_encode($regressionData) !!};
- 
+
         var chart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [
-                    {
+                datasets: [{
                         label: 'Cantidad de ventas',
                         data: data,
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -523,60 +577,5 @@
             }
         });
     </script>
-
-@stop
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-@section('css')
-    <style>
-        .chart-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .horizontal-label {
-            display: inline-block;
-            transform: rotate(-90deg);
-            white-space: nowrap;
-        }
-
-        .nav-item {
-            background: dark;
-        }
-
-        .menu-open {
-            background-color: #4d5059 !important;
-        }
-    </style>
-
-@stop
-@section('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        /*
-                document.addEventListener('DOMContentLoaded', function() {
-                            var submenus = document.querySelectorAll('#menuVeterinaria .treeview-menu');
-                            var menuPrincipal = document.getElementById('menuVeterinaria');
-                            var visibleSubmenusCount = 0;
-                            
-                            submenus.forEach(function(submenu) {
-                                var canShow = submenu.dataset.can;
-                                
-                                if (canShow === 'true') {
-                                    visibleSubmenusCount++;
-                                }
-                            });
-                            
-                            if (visibleSubmenusCount === 0) {
-                                menuPrincipal.style.display = 'none';
-                            }
-                        });
-                  */
-    </script>
-
+      
 @stop

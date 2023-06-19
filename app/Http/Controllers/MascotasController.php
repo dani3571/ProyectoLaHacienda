@@ -184,26 +184,21 @@ class MascotasController extends Controller
         return redirect()->route('mascotas.inactivos')->with('success', 'Registro de mascota eliminada con exito');
     }
 
-    public function cambiarEstado($id)
-    {
+    public function cambiarEstado($id){
         $mascota = Mascotas::findOrFail($id);
         //modificamos el estado a 0
         $mascota->estado = 0;
         //Guardamos el registro a la BD
         $mascota->save();
-
         $user = Auth::user();
         $logMessage = 'El usuario [' . $user->name . '] ha cambiado el estado a INACTIVO la mascota [' . $mascota->nombre . ']';
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
         ])->info($logMessage);
-
         return redirect()->route('mascotas.index')->with('success', 'Eliminacion logica realizada con exito');
     }
-
-    public function restablecerEstado($id)
-    {
+    public function restablecerEstado($id){
         $mascota = Mascotas::findOrFail($id);
         //modificamos el estado a 1
         $mascota->estado = 1;
@@ -216,7 +211,6 @@ class MascotasController extends Controller
             'driver' => 'single',
             'path' => storage_path('logs/admin.log'),
         ])->info($logMessage);
-
         return redirect()->route('mascotas.inactivos')->with('success', 'Mascota restablecida con éxito');
     }
 

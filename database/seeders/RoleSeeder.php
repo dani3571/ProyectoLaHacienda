@@ -30,7 +30,7 @@ class RoleSeeder extends Seeder
          Permission::create([
              'name' => 'admin.index',
              'description' => 'Ver el dashboard'
-         ])->syncRoles([$admin, $veterinario, $adiestrador, $recepcionista, $ayudanteCirugias]);
+         ])->syncRoles([$admin]);
  
          //distintos permisos
          //permisos de rol
