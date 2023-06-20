@@ -36,8 +36,8 @@
         <div class="card-body d-flex">
           
             <div class="foto-mascota">
-             <img style ="width: 190px; height:200px" src="{{asset('images/mascotas/0YTk9AvohqXfn5MeaLzCteHmYiaSnDs2mRGxgzfp.jpg')}}">
-             
+             <img style="max-width:190px; height:200px" src="{{$mascota->image ? asset('storage/' . $mascota->image) : asset('images/user.png')}}" alt="Mascota" class="img-profile">
+          
             
             </div>
             <div class="datos-mascota">
