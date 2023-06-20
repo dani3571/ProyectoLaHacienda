@@ -33,6 +33,20 @@
             </div>
 
             <div class="form-group">
+    <label>Mascota</label>
+    @foreach ($mascotas as $mascota)
+    @if ($vacuna->mascota_id == $mascota->id)
+        <input type="text" class="form-control" id="mascota_id" name="mascota_id" value="{{ $mascota->nombre }}" readonly>
+        <input type="hidden" name="mascota_id" value="{{ $vacuna->mascota_id }}">
+    @endif
+    @error('mascota_id')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+    @endforeach
+</div>
+
+
+            <div class="form-group">
                 <label>Nombre de la vacuna</label>
                 <input type="text" class="form-control" id="nombre_vacuna" name='nombre_vacuna' placeholder="Ingrese el nombre de la vacuna"
                 value="{{ $vacuna->nombre_vacuna }}">

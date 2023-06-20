@@ -26,7 +26,7 @@ class VacunasRequest extends FormRequest
         return [
             'nombre_vacuna' => 'required',
             'fecha_vacuna' => 'required',
-            'mascota_id '=> 'required',
+            'mascota_id'=> 'required',
         ];
     }
 }

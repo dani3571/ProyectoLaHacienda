@@ -3,7 +3,7 @@
 @section('title', 'Habitaciones Inactivas')
 
 @section('content_header')
-<h1>Habitaciones activas</h1>
+<h1>Habitaciones Inactivas</h1>
 @endsection
 
 @section('content')

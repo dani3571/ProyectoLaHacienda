@@ -24,11 +24,10 @@ class DiagnosticoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_diagnostico' => 'required',
             'descripcion' => 'required',
-            'fecha_diagnostico' => 'required',
-            'resultados' => 'required',
-            'tratamiento' => 'required',
+            'fecha' => 'required',
+            'fechaVolver' => 'required',
+            'costo' => 'required',
             'mascota_id' => 'required',
         ];
     }

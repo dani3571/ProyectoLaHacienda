@@ -12,6 +12,8 @@ use App\Models\User;
 use App\Models\Mascotas;
 use App\Models\Habitacion;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
 
 class ReservacionHotelController extends Controller
@@ -342,7 +344,22 @@ class ReservacionHotelController extends Controller
 
 
         // Redireccionar o mostrar un mensaje de éxito
-        return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+        //return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+        // Redireccionar o mostrar un mensaje de éxito
+        // Obtener la URL de la página anterior
+        $previousUrl = url()->previous();
+
+        // Verificar la URL de la página anterior y redireccionar según corresponda
+        if (strpos($previousUrl, 'createCLI') !== false) {
+            // Redireccionar a la página createCLI
+            return redirect()->route('reservacionHotel.indexCLI')->with('success', 'Reserva registrada con éxito');
+        } elseif (strpos($previousUrl, 'create') !== false) {
+            // Redireccionar a la página create
+            return redirect()->route('reservacionHotel.create')->with('success', 'Reserva registrada con éxito');
+        } else {
+            // Redireccionar a una página predeterminada en caso de no coincidir con las anteriores
+            return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+        }
     }
 
 
@@ -403,7 +420,113 @@ class ReservacionHotelController extends Controller
     
         // Redireccionar o mostrar un mensaje de éxito
         return redirect()->route('reservacionHotel.index')->with('success', 'Reserva modificada con éxito');
+        $previousUrl = url()->previous();
+
+        // Verificar la URL de la página anterior y redireccionar según corresponda
+        if (strpos($previousUrl, 'createCLI') !== false) {
+            // Redireccionar a la página createCLI
+            return redirect()->route('reservacionHotel.indexCLI')->with('success', 'Reserva registrada con éxito');
+        } elseif (strpos($previousUrl, 'create') !== false) {
+            // Redireccionar a la página create
+            return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+        } else {
+            // Redireccionar a una página predeterminada en caso de no coincidir con las anteriores
+            return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+        }
     }
     
+    public function indexCLI()
+    {
+    $user = auth()->user(); // Obtener el usuario autenticado
+    $users = User::all();
+    $mascotas = Mascotas::all();
+    $habitaciones = Habitacion::all();
+    $reservacionHotel = ReservacionHotel::where(function ($query) {
+        $query->where('estado', '1')
+              ->orWhere('estado', '2')
+              ->orWhere('estado', '3');
+    })->where('usuario_id', $user->id)
+      ->simplePaginate(10);
+
+    return view('admin.reservacionHotel.indexCLI', compact('reservacionHotel', 'users', 'mascotas', 'habitaciones'));
+    }
+
+    public function completadasCLI()
+    {
+    $user = auth()->user(); // Obtener el usuario autenticado
+    $users = User::all();
+    $mascotas = Mascotas::all();
+    $habitaciones = Habitacion::all();
+    $reservacionHotel = ReservacionHotel::where(function ($query) {
+        $query->where('estado', '4');
+    })->where('usuario_id', $user->id)
+      ->simplePaginate(10);
+
+    return view('admin.reservacionHotel.completadasCLI', compact('reservacionHotel', 'users', 'mascotas', 'habitaciones'));
+    }
+
+    public function canceladasCLI()
+    {
+    $user = auth()->user(); // Obtener el usuario autenticado
+    $users = User::all();
+    $mascotas = Mascotas::all();
+    $habitaciones = Habitacion::all();
+    $reservacionHotel = ReservacionHotel::where(function ($query) {
+        $query->where('estado', '0');
+    })->where('usuario_id', $user->id)
+      ->simplePaginate(10);
+
+    return view('admin.reservacionHotel.canceladasCLI', compact('reservacionHotel', 'users', 'mascotas', 'habitaciones'));
+    }
+
+    public function createCLI()
+{
+    $reservacionHotel = ReservacionHotel::select(['id', 'estado','mascota_id'])
+        ->get();
+    
+    $mascotas = Mascotas::select(['id', 'nombre', 'peso', 'tamaño', 'tipo', 'usuario_id'])
+        ->get();
+    
+    $user = auth()->user(); // Obtener el usuario autenticado
+    
+    $habitacions = Habitacion::where('estado', '=', '1')->get();
+
+    return view('admin.reservacionHotel.createCLI', compact('reservacionHotel'))
+        ->with('user', $user) // Pasar el usuario a la vista
+        ->with('mascotas', $mascotas)
+        ->with('habitacions', $habitacions);
+}
+
+public function getPDFhotel(Request $request){
+    $user = Auth::user();
+    $name = $user->name;
+    $nombreSistema = "SISTEMA GENESIS";
+    $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+    // Obtener la hora actual
+    $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+    $reservacionHotel = ReservacionHotel::where('estado', 4)
+        ->where('costo_total', '>', 0)
+        ->orderBy('fechaSalida', 'asc')
+        ->orderBy('horaRecepcion', 'asc')
+        ->get();
+    $mascotas = Mascotas::all();
+    $users = User::select(['id', 'name'])
+        ->get();
+    $fechaInicio = $request->input('fechaInicio');
+    $fechaFin = $request->input('fechaFin');
+    $habitaciones = Habitacion::all();
+    
+    //return view('admin.reservacionHotel.reporte', compact('name', 'reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
+    
+    $view = view('admin.reservacionHotel.reporte', compact('name', 'reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
+     // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+    if ($fechaInicio && $fechaFin) {
+    $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+    }
+    // Generar el PDF con la vista del reporte
+    $pdf = PDF::loadHTML($view);
+
+    return $pdf->stream('Reporte_Reservas_completadas.pdf');
+}
 
 }

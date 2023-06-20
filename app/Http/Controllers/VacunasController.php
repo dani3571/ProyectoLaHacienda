@@ -8,8 +8,8 @@ use App\Models\Vacunas;
 use Illuminate\Http\Request;
 use App\Http\Requests\VacunasRequest;
 //use Spatie\Permission\Models\Vacunas;
-//use Illuminate\Support\Facades\Auth;
-//use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\Mascotas;
 use App\Models\User;
 
@@ -27,17 +27,17 @@ class VacunasController extends Controller
 
     }
     public function index()
-    {
-        $vacunas = Vacunas::simplePaginate(10);
+{
+    $vacunas = Vacunas::orderBy('id', 'desc')->simplePaginate(10);
 
-        $mascotas = Mascotas::select(['id', 'nombre', 'peso', 'tamaño', 'tipo', 'usuario_id'])
-            ->get();
-        //->where('estado', 1);
+    $mascotas = Mascotas::select(['id', 'nombre', 'peso', 'tamaño', 'tipo', 'usuario_id'])
+        ->get();
+    //->where('estado', 1);
 
-        return view('admin.vacunas.index', compact('vacunas'))
-        -> with ('mascotas', $mascotas);
+    return view('admin.vacunas.index', compact('vacunas'))
+        ->with('mascotas', $mascotas);
+}
 
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -117,13 +117,13 @@ class VacunasController extends Controller
 
      public function update(VacunasRequest $request, $id)
      {
-     $vacuna = Vacunas::findOrFail($id);
+        $vacuna = Vacunas::findOrFail($id);
  
-     $vacuna->fill($request->all());
+        $vacuna->fill($request->all());
  
-     $vacuna->save();
+        $vacuna->save();
  
-     return redirect()->route('vacunas.index')
+        return redirect()->route('vacunas.index')
          ->with('success-update', 'Vacuna con éxito');
      }
 

@@ -10,8 +10,9 @@
 
 <div class="card">
     <div class="card-body">
-        <form method="POST" action="{{ route('diagnostico.store') }}">
+        <form method="POST" action="{{ route('diagnostico.update', $diagnostico->id) }}">
             @csrf
+            @method('PUT')
             <div class="form-group">
                 <label>Mascota</label>
                 <select class="form-control" id="mascota_id" name='mascota_id'>

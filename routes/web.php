@@ -197,6 +197,12 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         Route::get('/reservacionHotel/index', [reservacionHotelController::class, 'index'])->name('reservacionHotel.index');
         Route::post('/reservacionHotel/checkin', [ReservacionHotelController::class, 'checkin'])->name('reservacionHotel.checkin');
         Route::post('/reservacionHotel/checkout', [ReservacionHotelController::class, 'checkout'])->name('reservacionHotel.checkout');
+        Route::get('/reservacionHotel/indexCLI', [reservacionHotelController::class, 'indexCLI'])->name('reservacionHotel.indexCLI');
+        Route::get('/reservacionHotel/createCLI', [reservacionHotelController::class, 'createCLI'])->name('reservacionHotel.createCLI');
+        Route::get('/reservacionHotel/completadasCLI', [reservacionHotelController::class, 'completadasCLI'])->name('reservacionHotel.completadasCLI');
+        Route::get('/reservacionHotel/canceladasCLI', [reservacionHotelController::class, 'canceladasCLI'])->name('reservacionHotel.canceladasCLI');
+        Route::get('/reservacionHotel/getPDFHotel', 'reservacionHotelController@getPDFHotel')->name('getPDFHotel');
+
         //HABITACIONES
         Route::resource('habitacion','HabitacionController')
         ->except('show')
@@ -225,7 +231,6 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         Route::resource('diagnostico','DiagnosticoController')
         ->except('show')
         ->names('diagnostico');
-        Route::post('/diagnostico', [DiagnosticoController::class, 'store'])->name('diagnostico.store');
         Route::get('/diagnostico/show/{id}', [DiagnosticoController::class, 'show'])->name('diagnostico.show');
 
     //Reportes

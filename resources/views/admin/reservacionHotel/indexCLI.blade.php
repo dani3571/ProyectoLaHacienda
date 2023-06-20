@@ -3,7 +3,7 @@
 @section('title', 'Panel de administración')
 
 @section('content_header')
-<h1>Reservaciones Activas sin confirmar - Hotel de mascotas</h1>
+<h1>Tus reservas - Hotel de mascotas</h1>
 @endsection
 
 @section('content')
@@ -136,18 +136,8 @@
                                             <td>{{ $reservacionHotel-> horaCheckin}}</td>
                                             <td>{{ $reservacionHotel-> horaCheckout}}</td>
 
-                                            <td width="10px"><a href="{{route('reservacionHotel.edit', $reservacionHotel)}}" class="btn btn-primary btn-sm mb-2">Modificar</a></td>
-                                            <td width="10px"><a href="{{route('reservacionHotel.show', $reservacionHotel)}}" class="btn btn-secondary btn-sm mb-2">Detalles</a></td>
-                                            <td><button type="button" class="btn btn-secondary btn-sm mb-2 confirmarCheckin" value="{{$reservacionHotel->id}}" > Confirmar CheckIn </button></td>
+                                            <!--<td width="10px"><a href="{{route('reservacionHotel.show', $reservacionHotel)}}" class="btn btn-secondary btn-sm mb-2">Detalles</a></td>-->
                                             <td width="10px">
-
-                                            <!--<td width="5px">
-                                                <form action="{{route('reservacionHotel.destroy', $reservacionHotel->id)}}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="submit" value="Cancelar" class="btn btn-danger btn-sm">
-                                                </form>
-                                            </td>-->
                                             <td><button type="button" class="btn btn-danger cancelarReserva" value="{{$reservacionHotel->id}}" > Cancelar </button></td>
                                             
                                             <div class="modal fade" id="ModalCancelar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">                                           
