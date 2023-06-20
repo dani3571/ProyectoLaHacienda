@@ -59,9 +59,9 @@
 </head>
 <body>
     <header>
-        <div class="logo">
+        <!--<div class="logo">
             <img width="60px" height="60px" src="{{asset('images/logo.png')}}" alt="Logo de la empresa"> 
-        </div>
+        </div>-->
         <h1 class="nombre-sistema">SISTEMA GENESIS</h1>
     </header>
     <center>
