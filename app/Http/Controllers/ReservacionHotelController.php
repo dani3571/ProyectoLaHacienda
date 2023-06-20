@@ -87,7 +87,7 @@ class ReservacionHotelController extends Controller
      */
     public function show($id)
     {
-        $reservacionHotel = reservacionHotel::findOrFail($id);
+        $reservacionHotel = ReservacionHotel::findOrFail($id);
 
         return view('admin.reservacionHotel.show', compact('reservacionHotel'));
     }
@@ -188,7 +188,7 @@ class ReservacionHotelController extends Controller
     public function canceladas()
     {
         //utilizamos user_id de la relacion con mascotas
-        /*$reservacionHotel = reservacionHotel::where('usuario_id', Auth::user()->id)
+        /*$reservacionHotel = ReservacionHotel::where('usuario_id', Auth::user()->id)
             ->where('estado', 0)
             ->orderBy('id', 'asc')
             ->simplePaginate(10);
@@ -232,7 +232,7 @@ class ReservacionHotelController extends Controller
             $reservacionHotel->save();
         }
         //utilizamos user_id de la relacion con mascotas
-        /*$reservacionHotel = reservacionHotel::where('usuario_id', Auth::user()->id)
+        /*$reservacionHotel = ReservacionHotel::where('usuario_id', Auth::user()->id)
             ->where('estado', 0)
             ->orderBy('id', 'asc')
             ->simplePaginate(10);
@@ -268,7 +268,7 @@ class ReservacionHotelController extends Controller
     public function completadas()
     {
         //utilizamos user_id de la relacion con mascotas
-        /*$reservacionHotel = reservacionHotel::where('usuario_id', Auth::user()->id)
+        /*$reservacionHotel = ReservacionHotel::where('usuario_id', Auth::user()->id)
             ->where('estado', 2)
             ->orderBy('id', 'asc')
             ->simplePaginate(10);
