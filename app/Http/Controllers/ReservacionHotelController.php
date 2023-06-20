@@ -14,6 +14,7 @@ use App\Models\Habitacion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+use Illuminate\Support\Facades\Log;
 
 
 class ReservacionHotelController extends Controller
@@ -516,9 +517,9 @@ public function getPDFhotel(Request $request){
     $fechaFin = $request->input('fechaFin');
     $habitaciones = Habitacion::all();
     
-    return view('admin.reservacionHotel.reporte', compact('name', 'reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
+    //return view('admin.reservacionHotel.reporte', compact('name', 'reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
     
-    /*$view = view('admin.reservacionHotel.reporte', compact('name', 'reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
+    $view = view('admin.reservacionHotel.reporte', compact('name', 'reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
      // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
     if ($fechaInicio && $fechaFin) {
     $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
@@ -526,7 +527,7 @@ public function getPDFhotel(Request $request){
     // Generar el PDF con la vista del reporte
     $pdf = PDF::loadHTML($view);
 
-    return $pdf->stream('Reporte_Reservas_completadas.pdf');*/
+    return $pdf->stream('Reporte_Reservas_completadas.pdf');
 }
 
 }
