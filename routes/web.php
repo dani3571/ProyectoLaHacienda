@@ -201,7 +201,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         Route::get('/reservacionHotel/createCLI', [reservacionHotelController::class, 'createCLI'])->name('reservacionHotel.createCLI');
         Route::get('/reservacionHotel/completadasCLI', [reservacionHotelController::class, 'completadasCLI'])->name('reservacionHotel.completadasCLI');
         Route::get('/reservacionHotel/canceladasCLI', [reservacionHotelController::class, 'canceladasCLI'])->name('reservacionHotel.canceladasCLI');
-        Route::get('/reservacionHotel/getPDFHotel', reservacionHotelController::class, 'getPDFHotel')->name('getPDFHotel');
+        Route::get('/reservacionHotel/getPDFHotel', 'reservacionHotelController@getPDFHotel')->name('getPDFHotel');
 
         //HABITACIONES
         Route::resource('habitacion','HabitacionController')
