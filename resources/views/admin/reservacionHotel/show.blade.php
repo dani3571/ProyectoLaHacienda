@@ -1,13 +1,5 @@
-@extends('adminlte::page')
-
-@section('title', 'Panel de administración')
-
-@section('content_header')
-<h1>Detalle</h1>
-@endsection
-
-@section('content')
-
+<!DOCTYPE html>
+<html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
@@ -198,19 +190,4 @@
         Firma
     </div>
 </div>
-<br><br><br>
-<div id="buttonWhiteSpaces">
-        <!--<button id="btn-print" class="btn btn-success btn-lg">Imprimir PDF</button>-->
-        <button id="btn-savepdf" class="btn btn-primary btn-lg">Generar reporte</button>
-        <br><br>
-      </div>
-</div>
-@endsection
-@section('js')
-<script src="{{ asset('js/mostrarDetalleJS.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-@endsection
+</html>
