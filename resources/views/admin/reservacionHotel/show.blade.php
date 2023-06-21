@@ -10,7 +10,61 @@
 
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+    <style>
+        .logo {
+            float: right;
+            width: 100px;
+            height: auto;
+        }
+        .nombre-sistema {
+            font-size: 18px;
+        }
+        .titulo {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .fecha-usuario {
+            clear: both;
+            margin-bottom: 20px;
+        }
+        .tabla-wrapper {
+            max-height: 400px; /* Establece la altura máxima de la tabla */
+            overflow-y: auto; /* Habilita la barra de desplazamiento vertical si se excede la altura máxima */
+        }
+        .tabla {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        .fila {
+            display: table-row;
+        }
+        .celda {
+            display: table-cell;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .encabezado {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .titulo-campo {
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .center {
+            text-align: center;
+        }
+        table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+  </style>
 </head>
 
 <div class="card">
