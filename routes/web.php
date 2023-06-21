@@ -218,6 +218,9 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         Route::get('/reservas_veterinaria/canceladas', [Reservacion_veterinariaController::class, 'canceladas'])->name('reservas_veterinaria.canceladas');
         Route::get('/reservas_veterinaria/completadas', [Reservacion_veterinariaController::class, 'completadas'])->name('reservas_veterinaria.completadas');
         Route::get('/reservas_veterinaria/index', [Reservacion_veterinariaController::class, 'index'])->name('reservas_veterinaria.index');
+        Route::get('/reservas_veterinaria/indexCLI', [Reservacion_veterinariaController::class, 'indexCLI'])->name('reservas_veterinaria.indexCLI');
+        Route::get('/reservas_veterinaria/createCLI', [Reservacion_veterinariaController::class, 'createCLI'])->name('reservas_veterinaria.createCLI');
+        Route::get('/reservas_veterinaria/reservas_veterinaria_PDF', [Reservacion_veterinariaController::class, 'reservas_veterinaria_PDF'])->name('reservas_veterinaria.reservas_veterinaria_PDF');
 
 
         //VACUNAS

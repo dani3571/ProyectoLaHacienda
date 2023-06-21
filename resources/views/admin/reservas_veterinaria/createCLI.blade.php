@@ -32,29 +32,19 @@
     <div class="card-body">
         <form method="POST" action="{{route('reservas_veterinaria.store')}}" >
             @csrf 
-            
-
             <div class="form-group">
-                <label>Cliente</label>
-                <select class="form-control" id="usuario_id" name='usuario_id' onchange="val()">
-                    <option value="">Seleccione al cliente</option>
-                    @foreach ($users as $user )
-                        <option value="{{$user->id}}" {{ old('usuario_id') == $user->id ? "selected" : "" }}>{{$user->name}}</option>
-                    @endforeach
-                </select>
-                    @error('usuario_id')
-                        <span class="text-danger">
-                            <span>{{ $message }}</span>
-                        </span>
-                    @enderror
+                <input type="hidden" id="usuario_id" name="usuario_id" value="{{ $user->id }}">            
             </div>
 
             <div class="form-group">
                 <label>Mascota</label>
                 <select class="form-control" id="mascota_id" name='mascota_id'>
-                <option value="">Seleccione la mascota</option>
+                    <option value="">Seleccione la mascota</option>
+                    @foreach ($mascotas as $mascota )
+                        <option value="{{$mascota->id}}">{{$mascota->nombre}}</option>
+                    @endforeach
                 </select>
-                    @error('mascota_id')
+                    @error('tipo')
                         <span class="text-danger">
                             <span>{{ $message }}</span>
                         </span>
@@ -111,8 +101,6 @@
 @endsection
 @section('js')
     <script src="{{ asset('js/control_horario.js') }}"></script>
-    <script src="{{ asset('js/control_eleccion_servicio_peluqueria.js') }}"></script>
-    
     <script>
         if(document.getElementById("fecha").value != ""){
             controlHorasDisponibles(document.getElementById("fecha").value);
@@ -165,15 +153,4 @@
             horaRecepcion.innerHTML = selectOptions;
         }
     </script>
-@endsection
-@section('css')
-    <style>
-        .nav-item {
-            background: dark;
-        }
-
-        .menu-open {
-            background-color: #4d5059 !important;
-        }
-    </style>
 @endsection

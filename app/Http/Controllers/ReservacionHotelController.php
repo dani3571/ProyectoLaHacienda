@@ -107,7 +107,7 @@ class ReservacionHotelController extends Controller
         // Generar el PDF con la vista del reporte
         $pdf = PDF::loadHTML($view)->setOptions(['defaultFont' => 'sans-serif']);
 
-        return $pdf->stream('Reporte_Reservas_completadas.pdf');
+        return $pdf->stream('Detalle_Reserva.pdf');
     }
 
     /**
