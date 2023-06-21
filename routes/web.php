@@ -211,6 +211,7 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
         Route::post('/habitacion/desactivar/{id}', [HabitacionController::class, 'desactivar'])->name('habitacion.desactivar');
         Route::get('/habitacion/desactivadas', [HabitacionController::class, 'desactivadas'])->name('habitacion.desactivadas');
         Route::post('/habitacion/reactivar/{id}', [HabitacionController::class, 'reactivar'])->name('habitacion.reactivar');
+        Route::get('/habitacion/habitaciones_activas_PDF', [HabitacionController::class, 'habitaciones_activas_PDF'])->name('habitacion.habitaciones_activas_PDF');
 
         //VETERINARIA
         Route::resource('reservas_veterinaria', 'Reservacion_veterinariaController')->except('show')->names('reservas_veterinaria');

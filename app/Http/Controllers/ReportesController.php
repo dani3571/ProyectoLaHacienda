@@ -12,6 +12,7 @@ use App\Http\Requests\ReportesRequest;
 use App\Models\Proveedores;
 use App\Models\ReservacionPeluqueria;
 use App\Models\Ventas;
+use App\Models\Habitacion;
 
 class ReportesController extends Controller
 {
@@ -169,6 +170,37 @@ class ReportesController extends Controller
             $pdf = PDF::loadHTML($view);
 
             return $pdf->stream('Reporte_Reservas_completadas.pdf');
+        }
+
+        if ($tipo == "habitacions") {
+
+            $habitaciones = Habitacion::all()
+                ->whereBetween('created_at', [$fechaInicio . ' 00:00:00', $fechaFin . ' 23:59:59']);
+            // Verificar si no hay registros entre las fechas
+            if ($habitaciones->isEmpty()) {
+                //   return view('admin.Reportes.index', compact('mensaje'));
+                return redirect()->route('reportes.index')->with([
+                    'fail' => 'No existen registros entre las fechas',
+                    'fechaInicio' => $fechaInicio,
+                    'fechaFin' => $fechaFin,
+                    'tipo' => $tipo
+                ]);
+            }
+            $users = User::select(['id', 'name'])
+                ->get();
+            $mascotas = Mascotas::select(['id', 'nombre'])
+                ->get();
+            $fechaInicio = $request->input('fechaInicio');
+            $fechaFin = $request->input('fechaFin');
+            $view = view('admin.habitacion.reporte', compact('name', 'habitaciones', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora'));
+            // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+            if ($fechaInicio && $fechaFin) {
+                $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+            }
+            // Generar el PDF con la vista del reporte
+            $pdf = PDF::loadHTML($view);
+
+            return $pdf->stream('habitaciones_activas.pdf');
         }
     }
 }

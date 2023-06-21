@@ -10,6 +10,7 @@ use App\Http\Requests\HabitacionRequest;
 //use Spatie\Permission\Models\Habitacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use PDF;
 
 
 class HabitacionController extends Controller
@@ -172,5 +173,28 @@ class HabitacionController extends Controller
         $habitacion->save();
 
         return redirect()->route('habitacion.index')->with('success-update', 'Habitación restablecida con éxito');
+    }
+    public function habitaciones_activas_PDF(Request $request)
+    {
+        $user = Auth::user();
+        $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+        $habitaciones = Habitacion::where('estado', 1)
+            ->orderBy('id', 'asc')
+            ->get();
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+        $view = view('admin.habitacion.reporte', compact('name', 'habitaciones', 'nombreSistema', 'fecha', 'hora'));
+         // Si se seleccionaron fechas de filtrado, pasarlas como variables a la vista
+        if ($fechaInicio && $fechaFin) {
+        $view->with('fechaInicio', $fechaInicio)->with('fechaFin', $fechaFin);
+        }
+        // Generar el PDF con la vista del reporte
+        $pdf = PDF::loadHTML($view);
+  
+        return $pdf->stream('habitaciones_activas.pdf');
     }
 }
