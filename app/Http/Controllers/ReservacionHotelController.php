@@ -89,8 +89,25 @@ class ReservacionHotelController extends Controller
     public function show($id)
     {
         $reservacionHotel = ReservacionHotel::findOrFail($id);
+        $user = Auth::user();
+        $name = $user->name;
+        $nombreSistema = "SISTEMA GENESIS";
+        $fecha = date('Y-m-d'); // Obtiene la fecha actual en formato 'YYYY-MM-DD'
+        // Obtener la hora actual
+        $hora = date('H:i'); // Obtiene la hora actual en formato 'HH:MM'
+        $mascotas = Mascotas::all();
+        $users = User::select(['id', 'name'])
+            ->get();
+        $habitaciones = Habitacion::all();
 
-        return view('admin.reservacionHotel.show', compact('reservacionHotel'));
+        //return view('admin.reservacionHotel.show', compact('id','name','reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
+        //'name', 'reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
+        
+        $view = view('admin.reservacionHotel.show', compact('id','name','reservacionHotel', 'mascotas', 'users', 'nombreSistema', 'fecha', 'hora','habitaciones'));
+        // Generar el PDF con la vista del reporte
+        $pdf = PDF::loadHTML($view);
+
+        return $pdf->stream('Reporte_Reservas_completadas.pdf');
     }
 
     /**

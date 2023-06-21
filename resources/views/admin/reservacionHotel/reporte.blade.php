@@ -142,7 +142,8 @@
                     </td>
                     <td>
                         <span class="titulo-campo">Dirección:</span>
-                        {{ $reserva->zona_direccion }} - {{ $reserva->direccion }}
+                        @if($reserva-> zona_direccion == null) No transporte @else
+                        {{ $reserva->zona_direccion }} - {{ $reserva->direccion }} @endif
                     </td>
                 </tr>
                 <tr class="encabezado">

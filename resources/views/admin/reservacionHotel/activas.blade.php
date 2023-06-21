@@ -130,8 +130,8 @@
 											<td>{{ $reservacionHotel-> horaRecepcion}}</td>
                                             <td>@if($reservacionHotel-> tratamiento_veterinaria == '1') Si @else No @endif</td>
                                             <td>@if($reservacionHotel-> tratamiento_corte_banio == '1') Si @else No @endif</td>
-                                            <td>{{ $reservacionHotel-> observaciones}}</td>
-                                            <td>{{ $reservacionHotel-> zona_direccion}}</td>
+                                            <td>@if($reservacionHotel-> zona_direccion == null) No transporte @else {{ $reservacionHotel->zona_direccion }} @endif</td>
+                                            <td>@if($reservacionHotel-> direccion == null) No transporte @else {{ $reservacionHotel->direccion }} @endif</td>
                                             <td>{{ $reservacionHotel-> direccion}}</td>
                                             <td>{{ $reservacionHotel-> costo_transporte}}</td>
                                             <td>{{ $reservacionHotel-> costo_comida}}</td>
