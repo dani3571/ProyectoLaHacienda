@@ -96,7 +96,8 @@
                         <span class="titulo-campo">Mascota:</span>
                         @foreach ($mascotas as $mascota)
                             @if ($mascota->id == $reserva->mascota_id) 
-                                {{ $mascota->nombre }} <br> <span class="titulo-campo">Raza:</span>{{ $mascota->raza }}
+                                {{ $mascota->nombre }} <br> <span class="titulo-campo">Raza: </span>{{ $mascota->raza }}
+                                <br> <span class="titulo-campo">Sexo: </span>{{ $mascota->sexo }}
                             @endif
                         @endforeach
                     </td>

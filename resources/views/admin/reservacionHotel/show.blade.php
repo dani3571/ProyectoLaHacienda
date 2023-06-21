@@ -69,7 +69,7 @@
         <h1 class="nombre-sistema">SISTEMA GENESIS</h1>
     </header>
     <center>
-        <h2 class="titulo">REPORTE DE RESERVAS COMPLETADAS - HOTEL DE MASCOTAS</h2>
+        <h2 class="titulo">DETALLE DE RESERVA - HOTEL DE MASCOTAS</h2>
         @if (isset($fechaInicio) && isset($fechaFin))
             <p>Fechas de filtrado: {{ $fechaInicio }} - {{ $fechaFin }}</p>
         @endif
@@ -98,8 +98,9 @@
                     <td>
                         <span class="titulo-campo">Mascota:</span>
                         @foreach ($mascotas as $mascota)
-                            @if ($mascota->id == $reservacionHotel->mascota_id) 
-                                {{ $mascota->nombre }} <br> <span class="titulo-campo">Raza:</span>{{ $mascota->raza }}
+                            @if ($mascota->id == $reserva->mascota_id) 
+                                {{ $mascota->nombre }} <br> <span class="titulo-campo">Raza: </span>{{ $mascota->raza }}
+                                <br> <span class="titulo-campo">Sexo: </span>{{ $mascota->sexo }}
                             @endif
                         @endforeach
                     </td>
