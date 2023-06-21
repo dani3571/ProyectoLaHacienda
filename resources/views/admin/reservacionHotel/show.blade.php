@@ -10,47 +10,6 @@
 
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <style>
-    body {
-      padding: 20px;
-    }
-    
-    .title {
-      color: blue;
-      font-size: 24px;
-      margin-top: 10px;
-      margin-bottom: 20px;
-    }
-    
-    .form-group {
-      margin-bottom: 20px;
-    }
-    
-    .btn-group {
-      margin-bottom: 20px;
-    }
-    
-    .dates-group {
-      margin-bottom: 20px;
-    }
-    
-    .costs-title {
-      font-size: 18px;
-      margin-top: 30px;
-      margin-bottom: 10px;
-    }
-    
-    .costs-group {
-      margin-bottom: 10px;
-    }
-    
-    .btn-right {
-      margin-left: 10px;
-    }
-    #buttonWhiteSpaces{
-        text-align: right;
-        padding-right: 250px;
-    }
     <style>
         .logo {
             float: right;
