@@ -62,7 +62,7 @@ class Reservacion_peluqueriaController extends Controller
         $reservaciones_pasadas = ReservacionPeluqueria::where('estado', 1) 
             //->where('usuario_id', Auth::user()->id)
             ->where('fecha', '<=', now()->format('Y-m-d'))
-            ->where('horaEntrega', '<=', now()->format('H:i'))
+            //->where('horaEntrega', '<=', now()->format('H:i'))
             ->get();
         foreach($reservaciones_pasadas as $reserva){
             $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($reserva->id);
@@ -72,16 +72,28 @@ class Reservacion_peluqueriaController extends Controller
             $reservacion_peluqueria->save();
         }
         
-        $reservas_peluqueria = ReservacionPeluqueria::where('estado', 1)
+        $reservas_activas = ReservacionPeluqueria::where('estado', 1)
             ->where('usuario_id', Auth::user()->id)
             ->orderBy('fecha', 'asc')
             ->orderBy('horaRecepcion', 'asc')
-            ->simplepaginate(10);
+            ->simplepaginate(3);
         
+        $reservas_completadas = ReservacionPeluqueria::where('estado', 2)
+            ->where('usuario_id', Auth::user()->id)
+            ->orderBy('fecha', 'asc')
+            ->orderBy('horaRecepcion', 'asc')
+            ->simplepaginate(3);
+
+        $reservas_canceladas = ReservacionPeluqueria::where('estado', 0)
+            ->where('usuario_id', Auth::user()->id)
+            ->orderBy('fecha', 'asc')
+            ->orderBy('horaRecepcion', 'asc')
+            ->simplepaginate(3);
+
         $mascotas = Mascotas::select(['id', 'nombre'])
             ->get();
         
-        return view('admin.reservas_peluqueria.reservas_CLI', compact('reservas_peluqueria', 'mascotas'));
+        return view('admin.reservas_peluqueria.reservas_CLI', compact('reservas_activas', 'reservas_completadas', 'reservas_canceladas', 'mascotas'));
     }
 
     public function create()
@@ -151,6 +163,42 @@ class Reservacion_peluqueriaController extends Controller
         else return redirect()->route('reservas_peluqueria.create')->with('fail', 'Horario no disponible, por favor elija otro');
     }
 
+    public function store_CLI(Reservacion_peluqueriaRequest $request)
+    {
+        $reservas_peluqueria = ReservacionPeluqueria::where('fecha', '=', $request->fecha)
+        ->where('horaRecepcion', '=', $request->horaRecepcion)
+        ->where('estado', 1)
+        ->first();
+        
+        if ($reservas_peluqueria === null) {
+            //Verificamos si el campo Observaciones esta vacio
+            if($request->Observaciones === null){
+                //merge combina los datos que tenemos con los que queremos obtener
+                $request->merge([
+                    //Si el campo Observaciones esta vacio entonces
+                    //Colocamos ninguna como predeterminado
+                    'Observaciones' => "ninguna"
+                ]);
+            }
+
+            //Guardando la solicitud en una variable
+            $reservacion_peluqueria = $request->all();
+            
+            ReservacionPeluqueria::create($reservacion_peluqueria);
+
+            $cliente = User::findOrFail($request->usuario_id);
+            $user = Auth::user();
+            $logMessage = 'El cliente ['.$user->name.'] ha registrado una nueva reservacion de peluqueria';
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/admin.log'),
+            ])->info($logMessage);
+            
+            return redirect()->route('reservas_peluqueria.reservas_CLI')->with('success', 'Reserva registrada con éxito');
+        }
+        else return redirect()->route('reservas_peluqueria.create_CLI')->with('fail', 'Horario no disponible, por favor elija otro');
+    }
+
     public function edit($id)
     {
         //devolvemos a la vista admin.reservas_peluqueria.edit
@@ -195,7 +243,7 @@ class Reservacion_peluqueriaController extends Controller
         $reservacion_peluqueria = ReservacionPeluqueria::findOrFail($request->Reserva_id);
         //modificamos el estado a 0
         $reservacion_peluqueria->estado = 0;
-        if($request->Observaciones != null){
+        if($request->motivo != null){
             $reservacion_peluqueria->motivoCancelacion = $request->motivo;
         }
         //Guardamos el registro a la BD

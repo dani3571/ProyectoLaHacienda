@@ -29,11 +29,9 @@
 @endif
 
 <div class="card">
-    <!--<div class="card-header">
-        <a class="btn btn-primary" href="{{route('reservas_peluqueria.create')}}">Registrar Reservación</a>
-        <a class="btn btn-success" href="{{route('reservas_peluqueria.completadas')}}">Reservaciones Completadas</a>
-        <a class="btn btn-secondary" href="{{route('reservas_peluqueria.canceladas')}}">Reservaciones Canceladas</a>
-    </div>-->
+    <div class="card-header">
+        <h3>RESERVAS ACTIVAS</h3>
+    </div>
     <div class="card-body">
         <table class="table table-striped">
             <thead>
@@ -51,7 +49,7 @@
             </thead>
 
             <tbody>
-                @foreach ($reservas_peluqueria as $reserva )
+                @foreach ($reservas_activas as $reserva )
                 <tr>
                     <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
                     <td>
@@ -75,7 +73,90 @@
             </tbody>
         </table>
         <div class="text-center mt-3">
-            {{ $reservas_peluqueria->links() }}
+            {{ $reservas_activas->links() }}
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>RESERVAS COMPLETADAS</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha de atencion</th>
+                    <th>Hora de atencion</th>
+                    <th>Mascota</th>
+                    <th>Costo de atencion</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($reservas_completadas as $reserva )
+                <tr>
+                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
+                    <td>{{$reserva->horaRecepcion}}</td>
+                    <td>
+                        @foreach ($mascotas as $mascota )
+                            @if($mascota->id == $reserva->mascota_id) 
+                                {{$mascota->nombre}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        @if($reserva->costo > 0) 
+                            {{$reserva->costo}} Bs
+                        @else
+                            <b class="text-danger">Sin registrar</b>
+                        @endif
+                    </td>
+                    
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="text-center mt-3">
+            {{ $reservas_completadas->links() }}
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>RESERVAS CANCELADAS</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha de atencion</th>
+                    <th>Hora de atencion</th>
+                    <th>Mascota</th>
+                    <th>motivo</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($reservas_canceladas as $reserva )
+                <tr>
+                    <td>{{date('d/m/Y', strtotime($reserva->fecha))}}</td>
+                    <td>{{$reserva->horaRecepcion}}</td>
+                    <td>
+                        @foreach ($mascotas as $mascota )
+                            @if($mascota->id == $reserva->mascota_id) 
+                                {{$mascota->nombre}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>{{$reserva->motivoCancelacion}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="text-center mt-3">
+            {{ $reservas_canceladas->links() }}
         </div>
     </div>
 </div>

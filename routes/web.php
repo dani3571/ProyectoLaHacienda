@@ -107,6 +107,9 @@ Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
     ->except('show')
     ->names('reservas_peluqueria');
     Route::post('/reservas_peluqueria', [Reservacion_peluqueriaController::class, 'store'])->name('reservas_peluqueria.store');
+    Route::post('/reservas_peluqueria/store_CLI', [Reservacion_peluqueriaController::class, 'store_CLI'])->name('reservas_peluqueria.store_CLI');
+    Route::get('/reservas_peluqueria/create_CLI', [Reservacion_peluqueriaController::class, 'create_CLI'])->name('reservas_peluqueria.create_CLI');
+    Route::get('/reservas_peluqueria/reservas_CLI', [Reservacion_peluqueriaController::class, 'reservas_CLI'])->name('reservas_peluqueria.reservas_CLI');
     Route::get('/reservas_peluqueria/{id}/edit', [Reservacion_peluqueriaController::class, 'edit'])->name('reservas_peluqueria.edit');
     //Route::put('/reservas_peluqueria/{id}/cancelar', [Reservacion_peluqueriaController::class, 'cancelar'])->name('reservas_peluqueria.cancelar');
     Route::post('/reservas_peluqueria/cancelar', [Reservacion_peluqueriaController::class, 'cancelar'])->name('reservas_peluqueria.cancelar');
