@@ -37,3 +37,20 @@ document.addEventListener("keyup", e => {
         });
     }
     });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const cancelarBusquedaButton = document.getElementById("cancelarBusqueda");
+    
+        cancelarBusquedaButton.addEventListener("click", () => {
+            document.getElementById("buscador").value = "";
+            document.getElementById("buscadorDate").value = "";
+            document.getElementById("buscadorDateSalida").value = "";
+    
+            // Eliminar la clase "filtro" de todos los elementos .reserva y .reserva1
+            document.querySelectorAll(".reserva, .reserva1").forEach(element => {
+                element.classList.remove("filtro");
+            });
+        });
+    });
+    

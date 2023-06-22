@@ -199,7 +199,21 @@ class ReservacionHotelController extends Controller
     Habitacion::where('id', $reservacionHotel->habitacion_id)
         ->update(['estado' => 1]);
 
-    return redirect()->route('reservacionHotel.index')->with('success', 'Su reserva fue cancelada');
+    //return redirect()->route('reservacionHotel.index')->with('success', 'Su reserva fue cancelada');
+    // Obtener la URL de la página anterior
+    $previousUrl = url()->previous();
+
+    // Verificar la URL de la página anterior y redireccionar según corresponda
+    if (strpos($previousUrl, 'indexCLI') !== false) {
+        // Redireccionar a la página createCLI
+        return redirect()->route('reservacionHotel.indexCLI')->with('success', 'Reserva registrada con éxito');
+    } elseif (strpos($previousUrl, 'index') !== false) {
+        // Redireccionar a la página create
+        return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+    } else {
+        // Redireccionar a una página predeterminada en caso de no coincidir con las anteriores
+        return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
+    }
 }
 
 
@@ -373,7 +387,7 @@ class ReservacionHotelController extends Controller
             return redirect()->route('reservacionHotel.indexCLI')->with('success', 'Reserva registrada con éxito');
         } elseif (strpos($previousUrl, 'create') !== false) {
             // Redireccionar a la página create
-            return redirect()->route('reservacionHotel.create')->with('success', 'Reserva registrada con éxito');
+            return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');
         } else {
             // Redireccionar a una página predeterminada en caso de no coincidir con las anteriores
             return redirect()->route('reservacionHotel.index')->with('success', 'Reserva registrada con éxito');

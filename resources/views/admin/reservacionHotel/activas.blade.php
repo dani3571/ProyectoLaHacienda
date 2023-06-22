@@ -51,9 +51,10 @@
                             </span>
                         <input type="date" name="buscadorDate" id="buscadorDate">
                         <span id="card_title">
-                                {{ __('Fecha Salida:') }}
+                                {{ __('Salida:') }}
                             </span>
                         <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
+                        <button type="button" id="cancelarBusqueda" class="btn btn-secondary btn-sm">x</button>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -80,7 +81,7 @@
 										<th>Zona recojo</th>
 										<th>Dirección de recojo</th>
 										<th>Costo transporte</th>
-										<th>Costo comida</th>
+										<th>Costo alimentación</th>
                                         <th>Costo veterinaria</th>
                                         <th>Costo corte/baño</th>
                                         <th>Costos extras</th>
@@ -174,7 +175,7 @@
                                                                 <input type="hidden" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Si. cancelar</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Sí, Cancelar</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -187,19 +188,19 @@
                                                         <form action="{{ route('reservacionHotel.checkout') }}" method="POST">
                                                             @csrf
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">checkOut Reserva</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">CheckOut Reserva</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="Reserva_idcho" id="Reserva_idcho">
-                                                                ¿CheckOut a la reserva?
+                                                                ¿Desea confirmar la finalización de la reserva?
                                                                 <!--<label id="LabelMotivo" class="form-check-label">Motivo</label>-->
                                                                 <input type="hidden" class="form-control" name="horaCheckout" id="horaCheckout" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Si. checkOut</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Sí, Confirmar CheckOut</button>
                                                             </div>
                                                         </form>
                                                     </div>

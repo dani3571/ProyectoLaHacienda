@@ -51,9 +51,10 @@
                             </span>
                         <input type="date" name="buscadorDate" id="buscadorDate">
                         <span id="card_title">
-                                {{ __('Fecha Salida:') }}
+                                {{ __('Salida:') }}
                             </span>
                         <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
+                        <button type="button" id="cancelarBusqueda" class="btn btn-secondary btn-sm">x</button>
                         </div>
                     </div>
                     <div class="card-body">

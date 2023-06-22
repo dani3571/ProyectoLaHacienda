@@ -41,21 +41,23 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <!--BUSCADOR CON JS-->
-                        <span id="card_title">
+                            <!-- BUSCADOR CON JS -->
+                            <span id="card_title">
                                 {{ __('Buscar reservación por usuario o cliente:') }}
                             </span>
-                        <input type="text" name="buscador" id="buscador" placeholder="Buscar por nombre de cliente...">
-                        <span id="card_title">
+                            <input type="text" name="buscador" id="buscador" placeholder="Buscar por nombre de cliente...">
+                            <span id="card_title">
                                 {{ __('Fecha Ingreso:') }}
                             </span>
-                        <input type="date" name="buscadorDate" id="buscadorDate">
-                        <span id="card_title">
-                                {{ __('Fecha Salida:') }}
+                            <input type="date" name="buscadorDate" id="buscadorDate">
+                            <span id="card_title">
+                                {{ __('Salida:') }}
                             </span>
-                        <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
+                            <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
+                            <button type="button" id="cancelarBusqueda" class="btn btn-secondary btn-sm">x</button>
                         </div>
                     </div>
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -74,7 +76,7 @@
 										<th>Zona recojo</th>
 										<th>Dirección de recojo</th>
 										<th>Costo transporte</th>
-										<th>Costo comida</th>
+										<th>Costo alimentación</th>
                                         <th>Costo veterinaria</th>
                                         <th>Costo corte/baño</th>
                                         <th>Costos extras</th>
@@ -163,12 +165,12 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="Reserva_id" id="Reserva_id">
-                                                                ¿Seguro que quiere cancelar su reserva?
+                                                                ¿Seguro que desea cancelar su reserva?
                                                                 <label id="LabelMotivo" class="form-check-label">Motivo</label>
                                                                 <input type="text" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Si. cancelar</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Sí, cancelar</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -181,19 +183,19 @@
                                                         <form action="{{ route('reservacionHotel.checkin') }}" method="POST">
                                                             @csrf
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">checkIn Reserva</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">CheckIn Reserva</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="Reserva_idch" id="Reserva_idch">
-                                                                ¿Seguro que quiere hacer checkIn a su reserva?
+                                                                ¿Seguro que desea confirmar esta reserva?
                                                                 <!--<label id="LabelMotivo" class="form-check-label">Motivo</label>-->
                                                                 <input type="hidden" class="form-control" name="horaCheckin" id="horaCheckin" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Si. checkIn</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Sí, Confirmar</button>
                                                             </div>
                                                         </form>
                                                     </div>

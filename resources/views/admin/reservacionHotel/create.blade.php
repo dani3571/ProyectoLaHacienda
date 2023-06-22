@@ -252,7 +252,7 @@
             </div>
             </div>
             <div class="form-group">
-                <label>Costo de comida</label>
+                <label>Costo de alimentación</label>
                 <div><b><i>Detalle de costo comida: <br>
                 <p>El precio de la comida es 40 Bs, multiplicado por <span id="detComida">x</span> días, resulta en un total de Bs: </p></b></i></div>
                 <input type="text" class="form-control" id="costo_comida" name='costo_comida' placeholder="costo_comida"
@@ -374,7 +374,7 @@ function val() {
         }
     @endforeach
     if(count < 1){
-        s += '<option value="">El cliente no tiene mascotas registradas</option>';
+        s += '<option value="">El cliente no tiene mascotas registradas o ya se encuentran con una reservación activa</option>';
     }
     //getUserAddress();
     //console.log(user_id);

@@ -7,6 +7,35 @@
 @endsection
 
 @section('content')
+<style>
+#datepicker {
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.date-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.date-input-wrapper .input-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #999;
+  cursor: pointer;
+}
+
+.date-input-wrapper .input-icon i {
+  pointer-events: none;
+}
+</style>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-q2L6SWQ45vP/bfeF6y9zNc8Eu2o4zPNgc70pMOzAvzVlsfj2uEzgY/4b4SPS1cz9XNARgZ6GEGOer0Djn6Et2w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 @if(session('success'))
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -51,11 +80,26 @@
                     @enderror
             </div>
 
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label>Fecha de la cita</label>
                 <input type="date" class="form-control" id="fecha" name='fecha' min="{{ (new DateTime('tomorrow'))-> format('Y-m-d') }}" 
                 value="{{ old('fecha') }}" onchange="handler(event);">
 
+                @error('fecha')
+                <span class="text-danger">
+                    <span>*{{ $message }}</span>
+                </span>
+                @enderror
+            </div>-->
+
+            <div class="form-group">
+                <label for="datepicker">Fecha de la cita:</label>
+                <br>
+                    <div class="date-input-wrapper">
+                        <input type="text" id="datepicker" data-min-date="{{ (new DateTime('+0 days'))->format('Y-m-d') }}" value="{{ (new DateTime('+0 days'))->format('d/m/Y') }}" readonly>
+                        <span class="input-icon"><i class="fas fa-calendar-alt"></i></span>
+                    </div>
+                <input type="hidden" id="fechaOculta"  name="fecha" value="{{ (new DateTime('+0 days'))->format('Y-m-d') }}">
                 @error('fecha')
                 <span class="text-danger">
                     <span>*{{ $message }}</span>
@@ -99,6 +143,7 @@
     </div>
 </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @section('js')
     <script src="{{ asset('js/control_horario.js') }}"></script>
     <script>
@@ -153,4 +198,51 @@
             horaRecepcion.innerHTML = selectOptions;
         }
     </script>
+
+<script>
+//FORMATO FECHA DATEPICKER ESPECIAL
+$(function() {
+  var disabledDates = ['12-25', '01-01', '07-17']; // Fechas deshabilitadas en formato MM-DD
+
+  // Obtener la fecha mínima del atributo de datos en formato "yyyy-mm-dd"
+  var minDateStr = $("#datepicker").data("min-date");
+  var minDate = new Date(minDateStr);
+
+  $("#datepicker").datepicker({
+    dayNamesMin: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+    dateFormat: 'dd/mm/yy',
+    beforeShowDay: function(date) {
+      var day = date.getDay();
+      var formattedDate = $.datepicker.formatDate('dd-mm-yy', date);
+
+      // Deshabilitar fines de semana (0: Domingo, 6: Sábado)
+      if (day === 0 || day === 6) {
+        return [false];
+      }
+
+      // Deshabilitar fechas específicas
+      if ($.inArray(formattedDate, disabledDates) != -1) {
+        return [false];
+      }
+
+      // Habilitar solo fechas a partir de la fecha mínima
+      if (date < minDate) {
+        return [false];
+      }
+
+      return [true];
+    },
+    onSelect: function(dateText, inst) {
+      var selectedDate = $.datepicker.parseDate('dd/mm/yy', dateText);
+      var formattedDate = $.datepicker.formatDate('yy-mm-dd', selectedDate);
+      $("#fechaOculta").val(formattedDate);
+      controlHorasDisponibles(formattedDate);
+    }
+  });
+});
+
+</script>
+<script src="https://www.tutorialspoint.com/jquery/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 @endsection

@@ -51,9 +51,10 @@
                             </span>
                         <input type="date" name="buscadorDate" id="buscadorDate">
                         <span id="card_title">
-                                {{ __('Fecha Salida:') }}
+                                {{ __('Salida:') }}
                             </span>
                         <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
+                        <button type="button" id="cancelarBusqueda" class="btn btn-secondary btn-sm">x</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -153,42 +154,42 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="Reserva_id" id="Reserva_id">
-                                                                ¿Seguro que quiere cancelar su reserva?
+                                                                ¿Seguro que desea cancelar su reserva?
                                                                 <label id="LabelMotivo" class="form-check-label">Motivo</label>
                                                                 <input type="text" class="form-control" name="motivo" id="motivo" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Si. cancelar</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Sí. Cancelar</button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="modal fade" id="ModalCheckin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">                                           
+                                            <!--<div class="modal fade" id="ModalCheckin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">                                           
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <form action="{{ route('reservacionHotel.checkin') }}" method="POST">
                                                             @csrf
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">checkIn Reserva</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">CheckIn Reserva</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="Reserva_idch" id="Reserva_idch">
-                                                                ¿Seguro que quiere hacer checkIn a su reserva?
-                                                                <!--<label id="LabelMotivo" class="form-check-label">Motivo</label>-->
-                                                                <input type="hidden" class="form-control" name="horaCheckin" id="horaCheckin" placeholder="Indique el motivo por el cancela la reservacion">
+                                                                ¿Seguro que desea confirmar esta reserva?
+                                                                <label id="LabelMotivo" class="form-check-label">Motivo</label>-->
+                                                                <!--<input type="hidden" class="form-control" name="horaCheckin" id="horaCheckin" placeholder="Indique el motivo por el cancela la reservacion">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-danger btn-sm">Si. checkIn</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm">Sí, Confirmar CheckIn</button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
                                             <!--<form action="{{ route('mascotas.cambiar-estado', $reservacionHotel->id) }}" method="POST">
                                                 @csrf

@@ -51,9 +51,10 @@
                             </span>
                         <input type="date" name="buscadorDate" id="buscadorDate">
                         <span id="card_title">
-                                {{ __('Fecha Salida:') }}
+                                {{ __('Salida:') }}
                             </span>
                         <input type="date" name="buscadorDateSalida" id="buscadorDateSalida">
+                        <button type="button" id="cancelarBusqueda" class="btn btn-secondary btn-sm">x</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -74,7 +75,7 @@
 										<th>Zona recojo</th>
 										<th>Dirección de recojo</th>
 										<th>Costo transporte</th>
-										<th>Costo comida</th>
+										<th>Costo alimentación</th>
                                         <th>Costo veterinaria</th>
                                         <th>Costo corte/baño</th>
                                         <th>Costos extras</th>

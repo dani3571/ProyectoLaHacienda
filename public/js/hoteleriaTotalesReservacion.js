@@ -33,7 +33,7 @@ function dateDiff(){
     }
     fechaSalidaInput.value = fechaSalida.toISOString().split("T")[0];
     }
-    
+    fechaSalida.setDate(fechaIngreso.getDate() + 1);
     fechaSalidaInput.min = fechaSalida.toISOString().split("T")[0];
 
     const diffTime = Math.abs(fechaSalida - fechaIngreso);
