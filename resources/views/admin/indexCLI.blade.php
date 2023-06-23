@@ -128,8 +128,8 @@
                 <a href="/admin/reservas_peluqueria/indexCLI"><img src="{{asset('images/pelu.jpg')}}" alt="" class="img-responsive"  width="300" height="300"/></a>
                 <figcaption>
                     <h4>Peluqueria</h4>
-                    <a type="button" href="/admin/reservas_peluqueria/createCLI" class="btn btn-outline-dark">Reservar</a>
-                    <a type="button" href="/admin/reservas_peluqueria/indexCLI" class="btn btn-outline-dark">Ver mis reservas</a>
+                    <a type="button" href="/admin/reservas_peluqueria/create_CLI" class="btn btn-outline-dark">Reservar</a>
+                    <a type="button" href="/admin/reservas_peluqueria/reservas_CLI" class="btn btn-outline-dark">Ver mis reservas</a>
                 </figcaption>
                 </figure>
             </div>
