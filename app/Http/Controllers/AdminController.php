@@ -81,6 +81,9 @@ class AdminController extends Controller
         foreach ($labels as $label) {
             $regressionData[] = $slope * $label + $intercept;
         }
+
+    
+
         //   return view('chart', compact('labels', 'data'));
         // Obtener los datos de ganancias de la base de datos
         $data2 = DB::table('detalle_ventas')
