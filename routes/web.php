@@ -58,6 +58,14 @@ Route::get('/products', [ProductosController::class, 'index', 'productos'])
 
 //ADMINISTRADOR
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin/indexCLI', [AdminController::class, 'indexCLI'])->name('admin.indexCLI');
+Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+Route::get('/vacunasMascota/{id}', [AdminController::class, 'vacunasMascota'])->name('admin.vacunasMascota');
+Route::get('/diagnosticosMascota/{id}', [AdminController::class, 'diagnosticosMascota'])->name('admin.diagnosticosMascota');
+Route::get('/createMascota', [AdminController::class, 'createMascota'])->name('admin.createMascota');
+Route::get('/editMascota/{id}', [AdminController::class, 'editMascota'])->name('admin.editMascota');
+Route::post('/storeMascota', [AdminController::class, 'storeMascota'])->name('admin.storeMascota');
+Route::put('/updateMascota/{id}', [AdminController::class, 'updateMascota'])->name('admin.updateMascota');
 
 //Usuarios
 Route::resource('users', 'UserController')

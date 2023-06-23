@@ -30,7 +30,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('mascotas.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.storeMascota') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label>Nombre</label>
@@ -89,11 +89,11 @@
 
                 <div class="form-group">
                     <label>Fecha Nacimiento</label>
-                    <!--<input type="date" class="form-control" id="fechaNacimiento" name='fechaNacimiento'
-                        placeholder="Fecha de Nacimiento" value="{{ old('fechaNacimiento') }}">-->
                     <input type="date" class="form-control" id="fechaNacimiento" name='fechaNacimiento'
                     placeholder="Fecha de Nacimiento" value="{{ old('fechaNacimiento') }}"
                     max="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}">
+
+
                     @error('fechaNacimiento')
                         <span class="text-danger">
                             <span>*{{ $message }}</span>

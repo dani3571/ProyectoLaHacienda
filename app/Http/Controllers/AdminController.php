@@ -9,10 +9,177 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 //use Phpml\Regression\SimpleLinearRegression;    
 use Phpml\Math\Matrix;
+use App\Models\User;
+use App\Models\Mascotas;
+use App\Http\Requests\MascotaRequest;
+use App\Models\Vacunas;
+use App\Models\Diagnostico;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 
 class AdminController extends Controller
 {
+    public function profile()
+    {
+        $user = auth()->user();
+        $mascotas = Mascotas::where('usuario_id', 1)->simplePaginate(10);
+        return view('admin.profile', compact('user','mascotas'));
+    }
+
+    public function vacunasMascota($id)
+    {
+    $mascotas = Mascotas::select(['id', 'nombre', 'peso', 'tamaño', 'tipo', 'usuario_id'])
+        ->get();
+
+    $vacunas = Vacunas::where('mascota_id', $id)
+        ->orderBy('id', 'desc')
+        ->simplePaginate(10);
+
+    return view('admin.vacunas', compact('vacunas'))
+        ->with('mascotas', $mascotas);
+    }
+
+    public function diagnosticosMascota($id)
+    {
+    $mascotas = Mascotas::select(['id', 'nombre', 'peso', 'tamaño', 'tipo', 'usuario_id'])
+        ->get();
+
+    $diagnosticos = Diagnostico::where('mascota_id', $id)
+        ->orderBy('id', 'desc')
+        ->simplePaginate(10);
+
+    return view('admin.diagnosticos', compact('diagnosticos'))
+        ->with('mascotas', $mascotas);
+    }
+
+    public function createMascota()
+    {
+        $mascotas = Mascotas::select(['id', 'nombre'])
+            ->where('estado', 1)
+            ->get();
+        return view('admin.createMascota', compact('mascotas'));
+    }
+
+    public function storeMascota(MascotaRequest $request)
+    {
+        //merge combina los datos que tenemos con los que queremos obtener
+        $request->merge([
+            //obtenemos los datos de user como su id con Auth
+            'usuario_id' => Auth::user()->id,
+        ]);
+        $mascota = new Mascotas();
+        $mascota->fill($request->all());
+        //Si encuentra una foto que elimine la anterior y asigne la nueva
+        if ($request->hasFile('image')) {
+            //Asignar nueva foto
+            $photo = $request['image']->store('mascotas');
+        } else {
+            //si no tiene foto que se quede con la actual
+            $photo = $mascota->image;
+        }
+        //Asignamos la foto
+        $mascota->image = $photo;
+
+        $peso = $request->input('peso');
+        $unidad_peso = $request->input('unidad_peso');
+        $mascota->peso = $peso . ' ' . $unidad_peso;
+
+        $mascota->save();
+
+        $user = Auth::user();
+        $logMessage = 'El usuario [' . $user->name . '] ha registrado la mascota [' . $mascota->nombre . ']';
+        Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+        ])->info($logMessage);
+
+        // Mostrar un mensaje de éxito
+        return redirect()->route('admin.profile')
+            ->with('success', 'Mascota actualizada con éxito');
+    }
+
+    public function editMascota($id)
+    {
+        //devolvemos a la vista admin.mascotas.edit
+        $mascota = Mascotas::findOrFail($id);
+        return view('admin.editMascota', compact('mascota'));
+    }
+
+    public function updateMascota(MascotaRequest $request, $id)
+    {
+        $mascota = Mascotas::findOrFail($id);
+    
+        // Si encuentra una foto, elimine la anterior y asigne la nueva
+        if ($request->hasFile('image')) {
+            // Eliminar foto anterior
+            File::delete(public_path('storage/' . $mascota->image));
+            // Asignar nueva foto
+            $photo = $request->file('image')->store('mascotas');
+            // Asignar la nueva foto a la mascota
+            $mascota->image = $photo;
+        }
+    
+        // Actualizar los campos individuales si han cambiado
+        if ($request->nombre != $mascota->nombre) {
+            $mascota->nombre = $request->nombre;
+        }
+        if ($request->raza != $mascota->raza) {
+            $mascota->raza = $request->raza;
+        }
+        if ($request->color != $mascota->color) {
+            $mascota->color = $request->color;
+        }
+        if ($request->fechaNacimiento != $mascota->fechaNacimiento) {
+            $mascota->fechaNacimiento = $request->fechaNacimiento;
+        }
+        if ($request->caracter != $mascota->caracter) {
+            $mascota->caracter = $request->caracter;
+        }
+        if ($request->sexo != $mascota->sexo) {
+            $mascota->sexo = $request->sexo;
+        }
+    
+        // Obtener el valor del campo de peso y eliminar cualquier caracter no numérico
+        $peso = preg_replace('/[^0-9]/', '', $request->peso);
+    
+        // Obtener el valor del campo de unidad de peso
+        $unidad_peso = $request->unidad_peso;
+    
+        // Unir el peso y la unidad de peso
+        $peso_completo = $peso . ' ' . $unidad_peso;
+    
+        $mascota->peso = $peso_completo;
+    
+        // Guardar la información actualizada
+        $mascota->save();
+    
+        // Mostrar un mensaje de éxito
+        return redirect()->route('admin.profile')
+            ->with('success', 'Mascota actualizada con éxito');
+    }
+
+    public function indexCLI()
+    {
+        return view('admin.indexCLI');
+    }
+
+    public function hasRole($roleName)
+    {
+    foreach ($this->roles as $role) {
+        if ($role->name === $roleName) {
+            return true;
+        }
+    }
+    return false;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_has_permissions');
+    }
     //
     public function index()
     {
@@ -107,7 +274,14 @@ class AdminController extends Controller
 
         // Pasar los datos a la vista
         //   return view('admin.index')->with(compact('labels', 'values', 'prediction', 'months', 'earnings', 'ventas', 'sumatoriaVentas', 'datosLineaRegresion'));
-        return view('admin.index')->with(compact('months', 'earnings', 'labels', 'data', 'regressionData'));
+        
+        //return view('admin.index')->with(compact('months', 'earnings', 'labels', 'data', 'regressionData'));
+
+        if (!Auth::user()->hasRole('Administrador')) {
+            return $this->indexCLI();
+        } else {
+            return view('admin.index')->with(compact('months', 'earnings', 'labels', 'data', 'regressionData'));
+        }
     }
     private function predictNextMonthSales($data)
     {

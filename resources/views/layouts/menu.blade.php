@@ -200,9 +200,10 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item"
                         href="{{route('profiles.edit', ['profile' =>Auth::user()->id])}}">Perfil</a></li>
-                @can('admin.index')
+                <!--arrobacan('admin.index')
                 <li><a class="dropdown-item" href="{{route('admin.index')}}">Ir al admin</a></li>
-                @endcan
+                arrobaendcan-->
+                <li><a class="dropdown-item" href="{{route('admin.index')}}">Ir al admin</a></li>
 
                 <li>
                     <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
