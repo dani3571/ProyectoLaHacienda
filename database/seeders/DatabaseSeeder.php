@@ -40,10 +40,14 @@ class DatabaseSeeder extends Seeder
         //
         $this->call(MascotasSeeder::class);
       
-      //  $this->call(ReservacionHotelSeeder::class);
         $this->call(VentasSeeder::class);
 
-        $this->call(HabitacionesSeeder::class);
+        $this->call(HabitacionSeeder::class);
 
+        $this->call(ReservacionHotelSeeder::class);
+
+        $this->call(DiagnosticosSeeder::class);
+
+        $this->call(VacunasSeeder::class);
     }
 }

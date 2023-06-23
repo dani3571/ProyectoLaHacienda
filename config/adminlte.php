@@ -326,6 +326,14 @@ return [
         ],
         ['header' => 'PANEL'],
         [
+            'text' => 'Inicio Cliente',
+
+            'id' => 'menuUsuarios',
+            'can' => 'users.index',
+            'icon' => 'fas fa-list-alt',
+                    'route'  => 'admin.indexCLI',
+        ],
+        [
             'text' => 'Usuarios',
             'can' => 'users.index',
             'id' => 'menuUsuarios',
@@ -731,7 +739,7 @@ return [
                 [
                     'text' => 'Diagnósticos',
                     'icon' => 'fas fa-fw fa-list',
-                    'can' => 'diagnostico.index',
+                    'can' => 'reservas_veterinaria.index',
                     'url'  => 'admin/diagnostico',
                     'data' => [
                         'can' => 'diagnostico.index' ? 'true' : 'false',
@@ -740,7 +748,7 @@ return [
                 [
                     'text' => 'Crear diagnóstico',
                     'icon' => 'fas fa-fw fa-plus',
-                    'can' => 'diagnostico.create',
+                    'can' => 'reservas_veterinaria.completadas',
                     'url'  => 'admin/diagnostico',
                     'data' => [
                         'can' => 'diagnostico.create' ? 'true' : 'false',
@@ -749,19 +757,19 @@ return [
                 [
                     'text' => 'Vacunas',
                     'icon' => 'fas fa-fw fa-list',
-                    'can' => 'vacunas.index',
-                    'url'  => 'admin/diagnostico',
+                    'can' => 'reservas_veterinaria.index',
+                    'url'  => 'admin/vacunas',
                     'data' => [
-                        'can' => 'diagnostico.create' ? 'true' : 'false',
+                        'can' => 'vacunas.create' ? 'true' : 'false',
                     ],
                 ],
                 [
                     'text' => 'Asignar Vacunas',
                     'icon' => 'fas fa-fw fa-plus',
-                    'can' => 'vacunas.create',
-                    'url'  => 'admin/diagnostico',
+                    'can' => 'reservas_veterinaria.index',
+                    'url'  => 'admin/vacunas',
                     'data' => [
-                        'can' => 'diagnostico.create' ? 'true' : 'false',
+                        'can' => 'vacunas.create' ? 'true' : 'false',
                     ],
                 ],
             ],

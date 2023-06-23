@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Panel de administración')
+@section('title', 'Modificar mascota')
 
 @section('content_header')
-    <h1>Registrar nueva mascota</h1>
+    <h1>Modificar Mascota</h1>
 @endsection
 
 @section('content')
@@ -30,12 +30,17 @@
 
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('mascotas.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.updateMascota', $mascota->id) }}" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <input type="hidden" name="id" value="{{ $mascota->id }}">
+                </div>
+
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name='nombre' placeholder="Nombre de la mascota"
-                        value="{{ old('nombre') }}">
+                    <input type="text" class="form-control" id="nombre" name='nombre'
+                        placeholder="Nombre de la mascota" value="{{ $mascota->nombre }}">
 
                     @error('nombre')
                         <span class="text-danger">
@@ -47,13 +52,12 @@
 
                 <label>Tipo</label>
                 <div class="form-group">
-                    <select class="form-control" name="tipo" id="tipo" {{ old('tipo') }}>
-                        <option value="">Seleccione el tipo</option>
-
-                        <option {{ old('tipo') == 'Perro' ? 'selected' : '' }} value="Perro">Perro</option>
-                        <option {{ old('tipo') == 'Gato' ? 'selected' : '' }} value="Gato">Gato</option>
-
+                    <select class="form-control" name="tipo" id="tipo">
+                        <option>Seleccione el tipo</option>
+                        <option value="Perro" {{ $mascota->tipo == 'Perro' ? 'selected' : '' }}>Perro</option>
+                        <option value="Gato" {{ $mascota->tipo == 'Gato' ? 'selected' : '' }}>Gato</option>
                     </select>
+    
                     @error('tipo')
                         <span class="text-danger">
                             <span>{{ $message }}</span>
@@ -61,13 +65,11 @@
                     @enderror
                 </div>
 
-
-
                 <div class="form-group">
 
                     <label>Raza</label>
                     <input type="text" class="form-control" id="raza" name='raza' placeholder="Raza"
-                        value="{{ old('raza') }}">
+                        value="{{ $mascota->raza }}">
 
                     @error('raza')
                         <span class="text-danger">
@@ -78,7 +80,7 @@
                 <div class="form-group">
                     <label>Color</label>
                     <input type="text" class="form-control" id="color" name='color' placeholder="Color"
-                        value="{{ old('color') }}">
+                        value="{{ $mascota->color }}">
 
                     @error('color')
                         <span class="text-danger">
@@ -89,10 +91,8 @@
 
                 <div class="form-group">
                     <label>Fecha Nacimiento</label>
-                    <!--<input type="date" class="form-control" id="fechaNacimiento" name='fechaNacimiento'
-                        placeholder="Fecha de Nacimiento" value="{{ old('fechaNacimiento') }}">-->
                     <input type="date" class="form-control" id="fechaNacimiento" name='fechaNacimiento'
-                    placeholder="Fecha de Nacimiento" value="{{ old('fechaNacimiento') }}"
+                    placeholder="Fecha de Nacimiento" value="{{ $mascota->fechaNacimiento }}"
                     max="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}">
                     @error('fechaNacimiento')
                         <span class="text-danger">
@@ -102,9 +102,10 @@
                 </div>
 
                 <div class="form-group">
+
                     <label>Caracter</label>
                     <input type="text" class="form-control" id="caracter" name='caracter'
-                        placeholder="Describa el Caracter" value="{{ old('caracter') }}">
+                        placeholder="Describa el Caracter" value="{{ $mascota->caracter }}">
 
                     @error('caracter')
                         <span class="text-danger">
@@ -118,11 +119,10 @@
                         <div class="form-group">
                             <label>Peso</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="peso" name="peso"
-                                    placeholder="Ingrese el peso" value="{{ old('peso') }}">
-                                <select class="form-control input-group-append custom-select-sm" name="unidad_peso">
-                                    <option value="kg">kg</option>
-                                    <option value="lb">lb</option>
+                                <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" value="{{ old('peso', preg_replace('/[^0-9]/', '', $mascota->peso)) }}">
+                                <select class="form-control input-group-append" name="unidad_peso">
+                                    <option value="kg" {{ old('unidad_peso', preg_replace('/[^a-zA-Z]/', '', $mascota->peso)) === 'kg' ? 'selected' : '' }}>kg</option>
+                                    <option value="lb" {{ old('unidad_peso', preg_replace('/[^a-zA-Z]/', '', $mascota->peso)) === 'lb' ? 'selected' : '' }}>lb</option>
                                 </select>
                             </div>
                             @error('peso')
@@ -132,14 +132,17 @@
                             @enderror
                         </div>
                     </div>
+
+
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Tamaño</label>
-                            <select class="form-control" name="tamaño" id="tamaño">
+                            <select class="form-control" name="tamaño" id="tamaño" value="{{ $mascota->tamaño }}">
                                 <option value="">Seleccione el tamaño de la mascota</option>
-                                <option {{ old('tamaño') == 'Pequeño' ? 'selected' : '' }} value="Pequeño">Pequeño</option>
-                                <option {{ old('tamaño') == 'Mediano' ? 'selected' : '' }} value="Mediano">Mediano</option>
-                                <option {{ old('tamaño') == 'Grande' ? 'selected' : '' }} value="Grande">Grande</option>
+                                <option value="Pequeño" {{ $mascota->tamaño == 'Pequeño' ? 'selected' : '' }}>Pequeño</option>
+                                <option value="Mediano" {{ $mascota->tamaño == 'Mediano' ? 'selected' : '' }}>Mediano</option>
+                                <option value="Grande" {{ $mascota->tamaño == 'Grande' ? 'selected' : '' }}>Grande</option>
                             </select>
                             @error('tipo')
                                 <span class="text-danger">
@@ -171,10 +174,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Cargar imagen</label>
-                    <input type="file" name="image">
 
+
+
+                <div class="form-group">
+                    <label>Cambiar imagen</label>
+                    <input type="file" class="form-control-file mb-2" id="image" name='image'>
+                    <!--
+                        <div class="rounded mx-auto d-block">
+                            <img src="{{ $mascota->image ? asset('storage/' . $mascota->image) : asset('images/user.png') }}" alt="Profile" class="img-profile" style="width:50px;height:50px">
+                        </div>
+                    -->
                     @error('image')
                         <span class="text-danger">
                             <span>*{{ $message }}</span>
@@ -182,14 +192,58 @@
                     @enderror
                 </div>
 
-
-                <input type="submit" value="Registrar mascota" class="btn btn-primary">
+                <input type="submit" value="Modificar mascota" class="btn btn-primary">
 
             </form>
         </div>
     </div>
 
+
 @endsection
+
+
+@section('js')
+    <!--Utilizando Jquery-Plugin-stringToSlug-->
+    <script src="{{ asset('vendor/jQuery-Plugin-stringToSlug-1.3/jquery.stringToSlug.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $("#title").stringToSlug({
+
+                setEvents: 'keyup keydown blur',
+
+                getPut: '#slug',
+
+                space: '-'
+            });
+        });
+    </script>
+
+    <!--Utilizando ckeditor5 para el textarea-->
+
+    <!--Utilizando ckeditor5 github este sera para que aparezca una barra de herramientas arriba del textarea-->
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor.create(document.querySelector('#body'))
+            .catch(error => {
+                console.error(error);
+            });
+
+            $(document).ready(function() {
+        // Ocultar el menú Veterinaria si no tiene submenús
+        var submenuVeterinaria = $('#menuVeterinaria .treeview-menu');
+        if (submenuVeterinaria.children().length === 0) {
+            $('#menuVeterinaria').hide();
+        }
+    });
+    </script>
+@endsection
+
+
+
 <link rel="icon" href="{{ asset('vendor/adminlte/dist/img/logo.png') }}">
 @section('css')
     <style>
@@ -199,13 +253,6 @@
 
         .menu-open {
             background-color: #4d5059 !important;
-        }
-
-        .custom-select-sm {
-            width: 60px;
-            height: 38px;
-            font-size: 15px;
-            padding: 0;
         }
     </style>
 @endsection

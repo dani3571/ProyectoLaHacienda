@@ -38,7 +38,7 @@
                 
                     
                     <td width="10px"><a href="{{ route('admin.categorias.edit', $categoria->id) }}"
-                     class="btn btn-primary btn-sm mb-2">Modificar</a></td>
+                     class="btn btn-primary btn-sm mb-2">Editar</a></td>
 
                     <td width="10px">
                         <form method="POST" action="{{ route('categorias.cambiarestado', $categoria->id) }}">

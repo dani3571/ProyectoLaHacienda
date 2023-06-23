@@ -91,9 +91,11 @@
 
                 <div class="form-group">
                     <label>Fecha Nacimiento</label>
+                    <!--<input type="date" class="form-control" id="fechaNacimiento" name='fechaNacimiento'
+                        placeholder="Fecha de Nacimiento" value="{{ $mascota->fechaNacimiento }}">-->
                     <input type="date" class="form-control" id="fechaNacimiento" name='fechaNacimiento'
-                        placeholder="Fecha de Nacimiento" value="{{ $mascota->fechaNacimiento }}">
-
+                    placeholder="Fecha de Nacimiento" value="{{ $mascota->fechaNacimiento }}"
+                    max="{{ \Carbon\Carbon::yesterday()->format('Y-m-d') }}">
                     @error('fechaNacimiento')
                         <span class="text-danger">
                             <span>*{{ $message }}</span>

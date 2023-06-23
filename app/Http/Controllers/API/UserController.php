@@ -32,6 +32,7 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'personaResponsable' => $request->input('personaResponsable'),
             'telefonoResponsable' => $request->input('telefonoResponsable'),
+            'estado' => $request->input('estado'),
             'password' => Hash::make($request->input('password'),),
         ]);
         if ($usuario) {
@@ -56,9 +57,16 @@ class UserController extends Controller
         $usuario->email = $request->input('email');
         $usuario->personaResponsable = $request->input('personaResponsable');
         $usuario->telefonoResponsable = $request->input('telefonoResponsable');
+        $usuario->estado = $request->input('estado');
         $usuario->save();
 
-        return response()->json(['usuario' => $usuario]);
+        $users = User::with('roles')->where('.id',$id)->get();
+        $usersWithFirstRole = $users->map(function ($user) {
+            $user['role_name'] = $user->roles->first()->name;
+            unset($user['roles']);
+            return $user;
+        });
+        return response()->json($usersWithFirstRole[0], 200);
     }
     public function login(Request $request)
     {

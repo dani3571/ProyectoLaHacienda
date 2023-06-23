@@ -70,7 +70,7 @@
         <td>{{ $producto->fecha_vencimiento }}</td>
         @can('productos.edit')
         <td>
-            <a href="{{ route('productos.edit', $producto) }}" class="btn btn-primary btn-sm mb-2">Modificar</a>
+            <a href="{{ route('productos.edit', $producto) }}" class="btn btn-primary btn-sm mb-2">Editar</a>
         </td>
         @endcan
       
