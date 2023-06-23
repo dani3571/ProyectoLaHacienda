@@ -430,7 +430,7 @@ body{
 
 			<div class="col-12 col-lg-4">
 				<h5 class="font-color-general text-center p-3" style="font-size:xx-large">Hoteleria</h5>
-                <img src="{{asset('images/hoteleria.jpg')}}" class="img-fluid" alt="imagen nutricion">	
+                <img style="height: 306px; width:510px" src="{{asset('images/hoteleria.jpg')}}" class="img-fluid" alt="imagen nutricion">	
            
                 <p class="p-3" style="text-align: justify; font-size:x-large" >
 					Nuestro servicio de hotelería canina ofrece un hogar lejos del hogar para su perro mientras está fuera. Contamos con instalaciones seguras y cómodas para mantener a su perro feliz y saludable durante su estadía.
@@ -494,7 +494,7 @@ body{
             </div>
       
             <div class="col-12 col-lg-5">
-              <div id="map" style="width: 100%; height: 450px;"></div>
+              <div id="map" style="width: 100%; height: 490px;"></div>
             </div>
           </div>
         </section>

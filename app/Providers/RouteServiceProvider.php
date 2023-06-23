@@ -10,14 +10,13 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * The path to the "home" route for your application.
-     *
-     * Typically, users are redirected here after authentication.
-     *
-     * @var string
-     */
+    
     public const HOME = '/admin';
+    public const Cliente = '/admin/mascotas';
+    public const Veterinario = '/admin/reservas_veterinaria';
+    public const Adiestrador = '/admin/reservas_peluqueria';
+    public const Recepcionista= '/admin/reservacionHotel';
+    public const AyudanteCirugias = '/admin/reservas_veterinaria';
   
 
     /**

@@ -102,7 +102,7 @@ class UserController extends Controller
   {
     //llenar tabla intermedia
     $user->roles()->sync($request->role);
-    return redirect()->route('users.edit', $user)
+    return redirect()->route('users.index', $user)
       ->with('success', 'Rol establecido con éxito');
   }
 
