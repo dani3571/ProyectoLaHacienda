@@ -52,8 +52,9 @@ Route::get('/servicios', function () {
 
 Auth::routes();
 
-Route::get('/products', [ProductosController::class, 'index', 'productos'])
+Route::get('/products', [ProductosController::class, 'indexx'])
     ->name('products.productos');
+
 
 
 //ADMINISTRADOR

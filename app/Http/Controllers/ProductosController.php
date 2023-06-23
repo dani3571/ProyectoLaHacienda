@@ -35,6 +35,19 @@ class ProductosController extends Controller
         
         return view('admin.productos.index', compact('productos', 'categoria'));
     }
+    public function indexx()
+    {
+        $productos = Productos::where('estado', 1)
+        ->orderBy('id', 'asc')
+        ->get();
+    
+        foreach ($productos as $producto) {
+            $producto->imagen = asset($producto->imagen);
+        }
+        
+        return view('products.productos', compact('productos'));
+    }
+
     public function inactivos()
     {
         $productos = Productos::where('estado', 0)
