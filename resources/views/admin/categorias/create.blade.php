@@ -3,7 +3,7 @@
 @section('title', 'Registrar Proveedor')
 
 @section('content_header')
-<h1>Registrar nuevo proveedor</h1>
+<h1>Registrar nueva Categoria</h1>
 @endsection
 
 @section('content')
