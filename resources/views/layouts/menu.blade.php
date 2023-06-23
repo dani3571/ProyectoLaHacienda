@@ -108,7 +108,7 @@
 
             <div class="col-12 col-lg-6 text-center text-lg-right my-3 pr-5">
                 Lunes a Viernes de 9 am a 7 pm. <span class="font-weigth-bolder"><i class="fi-xnsuxl-smartphone-solid"></i>
-                    5541554263</span>
+                    76257343</span>
             </div>
         </div>
     </div>
@@ -155,7 +155,7 @@
 
         <div class="col-12 col-lg-6 text-center text-lg-right my-3 pr-5">
             Lunes a Viernes de 9 am a 7 pm. <span class="font-weigth-bolder"><i class="fi-xnsuxl-smartphone-solid"></i>
-                5541554263</span>
+                76257343</span>
         </div>
     </div>
 </div>

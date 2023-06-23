@@ -462,24 +462,23 @@ body{
                 <div class="col-12 col-md-6 my-5">
                   <h3 class="text-center text-white"><i class="fi-onluxl-bus-side"></i> Dirección</h3>
                   <div class="text-white text-center my-3">
-                    <p class="text-lg">Av. Col. del Valle 732</p>
-                    <p class="text-lg mt-n3">Col. del Valle, CDMX</p>	
+                    <p class="text-lg">Localidad de Huajchilla</p>	
                   </div>
                 </div>
       
                 <div class="col-12 col-md-6 my-5">
                   <h3 class="text-center text-white"><i class="fi-xnsuxl-smartphone-solid"></i> Teléfono</h3>
                   <div class="text-white text-center my-3">
-                    <p class="text-lg">Tienda: 55 1234 5678</p>
-                    <p class="text-lg mt-n3">WhatsApp: 55 1234 5567</p>	
+                    <p class="text-lg">Telefono: 76257343</p>
+                    <p class="text-lg mt-n3">Telefono de emergencia: 77432765</p>	
                   </div>
                 </div>
       
                 <div class="col-12 col-md-6 my-5">
                   <h3 class="text-center text-white"><i class="fi-xnluxl-envelope"></i> Correo</h3>
                   <div class="text-white text-center my-3">
-                    <p class="text-lg">contacto@eldoctor.com</p>
-                    <p class="text-lg mt-n3">ventas@eldogtor.com</p>	
+                    <p class="text-lg">LaHacienda@gmail.com</p>
+                   	
                   </div>
                 </div>
       
