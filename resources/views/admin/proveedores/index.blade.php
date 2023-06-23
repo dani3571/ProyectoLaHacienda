@@ -48,7 +48,7 @@
                 
                     
                     <td width="10px"><a href="{{ route('proveedores.edit', $proveedor->id) }}"
-                     class="btn btn-primary btn-sm mb-2">Modificar</a></td>
+                     class="btn btn-primary btn-sm mb-2">Editar</a></td>
 
                     <td width="10px">
                        

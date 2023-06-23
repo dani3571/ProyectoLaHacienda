@@ -3,7 +3,7 @@
 @section('title', 'Proveedores Eliminados')
 
 @section('content_header')
-<h1>Proveedores Inactivos</h1>
+<h1>categorias Inactivas</h1>
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a class="btn btn-primary" href="{{route('categorias.index')}}">Proveedores registrados</a>
+        <a class="btn btn-primary" href="{{route('categorias.index')}}">categorias registradas</a>
     </div>
     <div class="card-body">
         <table class="table table-striped">
